@@ -50,4 +50,4 @@ More Information about [Gradle Wrapper](https://docs.gradle.org/current/userguid
 ## API Endpoint Testing
 ### Postman
 
-* We highly recommend to use [Postman](https://www.getpostman.com) in order to test your API Endpoints. 
+* We highly recommend to use [Postman](https://www.getpostman.com) in order to test your API Endpoints.
