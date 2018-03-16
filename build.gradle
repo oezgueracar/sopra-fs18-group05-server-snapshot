@@ -42,8 +42,8 @@ test {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "sopra-fs18-groupXX-service"
-        property "sonar.projectKey", "sopra-fs18-groupXX-service"
+        property "sonar.projectName", "sopra-fs18-group05-service"
+        property "sonar.projectKey", "sopra-fs18-group05-service"
     }
 }
 
