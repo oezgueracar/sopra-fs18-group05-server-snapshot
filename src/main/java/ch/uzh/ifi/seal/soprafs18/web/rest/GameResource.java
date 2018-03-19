@@ -48,7 +48,7 @@ public class GameResource
     }
 
     /*
-     * Context: /game/{game-id}
+     * Context: /games/{gameId}
      */
     @RequestMapping(value = CONTEXT + "/{gameId}")
     @ResponseStatus(HttpStatus.OK)
@@ -72,23 +72,23 @@ public class GameResource
     }
 
     /*
-     * Context: /game/{game-id}/move
+     * Context: /games/{gameId}/moves
      */
-    @RequestMapping(value = CONTEXT + "/{gameId}/move")
+    @RequestMapping(value = CONTEXT + "/{gameId}/moves")
     @ResponseStatus(HttpStatus.OK)
     public List<Move> listMoves(@PathVariable Long gameId) {
         logger.debug("listMoves");
         return this.gameService.listMoves(gameId);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/move", method = RequestMethod.POST)
+    @RequestMapping(value = CONTEXT + "/{gameId}/moves", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void addMove(@RequestBody Move move) {
         logger.debug("addMove: " + move);
         this.gameService.addMove(move);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/move/{moveId}")
+    @RequestMapping(value = CONTEXT + "/{gameId}/moves/{moveId}")
     @ResponseStatus(HttpStatus.OK)
     public Move getMove(@PathVariable Long gameId, @PathVariable Integer moveId) {
         logger.debug("getMove: " + gameId);
@@ -98,21 +98,21 @@ public class GameResource
     /*
      * Context: /game/{game-id}/player
      */
-    @RequestMapping(value = CONTEXT + "/{gameId}/player")
+    @RequestMapping(value = CONTEXT + "/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
     public List<User> listPlayers(@PathVariable Long gameId) {
         logger.debug("listPlayers");
         return this.gameService.listPlayers(gameId);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/player", method = RequestMethod.POST)
+    @RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String addPlayer(@PathVariable Long gameId, @RequestParam("token") String userToken) {
         logger.debug("addPlayer: " + userToken);
         return this.gameService.addPlayer(gameId, userToken);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/player/{playerId}")
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.OK)
     public User getPlayer(@PathVariable Long gameId, @PathVariable Integer playerId) {
         logger.debug("getPlayer: " + gameId);
