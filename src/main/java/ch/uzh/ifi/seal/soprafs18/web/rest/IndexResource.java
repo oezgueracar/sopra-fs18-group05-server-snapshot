@@ -10,6 +10,6 @@ public class IndexResource {
 	@RequestMapping(value="/")
 	@ResponseBody
 	public String index() {
-		return "SoPra - Group 05!";
+		return "SoPra El Dorado - Group 05!";
 	}
 }
