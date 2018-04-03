@@ -2,9 +2,9 @@ package ch.uzh.ifi.seal.soprafs18.web.rest;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Move;
-import ch.uzh.ifi.seal.soprafs18.entity.User;
+import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
-import ch.uzh.ifi.seal.soprafs18.repository.UserRepository;
+import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import ch.uzh.ifi.seal.soprafs18.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class GameResource
     Logger logger = LoggerFactory.getLogger(GameResource.class);
 
     @Autowired
-    private UserRepository userRepo;
+    private PlayerRepository playerRepo;
     @Autowired
     private GameRepository gameRepo;
 
@@ -42,9 +42,9 @@ public class GameResource
 
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String addGame(@RequestBody Game game, @RequestParam("token") String userToken) {
+    public String addGame(@RequestBody Game game, @RequestParam("token") String playerToken) {
         logger.debug("addGame: " + game);
-        return this.gameService.addGame(game, userToken);
+        return this.gameService.addGame(game, playerToken);
     }
 
     /*
@@ -59,16 +59,16 @@ public class GameResource
 
     @RequestMapping(value = CONTEXT + "/{gameId}/start", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void startGame(@PathVariable Long gameId, @RequestParam("token") String userToken) {
+    public void startGame(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
         logger.debug("startGame: " + gameId);
-        this.gameService.startGame(gameId, userToken);
+        this.gameService.startGame(gameId, playerToken);
     }
 
     @RequestMapping(value = CONTEXT + "/{gameId}/stop", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void stopGame(@PathVariable Long gameId, @RequestParam("token") String userToken) {
+    public void stopGame(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
         logger.debug("stopGame: " + gameId);
-        this.gameService.stopGame(gameId, userToken);
+        this.gameService.stopGame(gameId, playerToken);
     }
 
     /*
@@ -100,21 +100,21 @@ public class GameResource
      */
     @RequestMapping(value = CONTEXT + "/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
-    public List<User> listPlayers(@PathVariable Long gameId) {
+    public List<Player> listPlayers(@PathVariable Long gameId) {
         logger.debug("listPlayers");
         return this.gameService.listPlayers(gameId);
     }
 
     @RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String addPlayer(@PathVariable Long gameId, @RequestParam("token") String userToken) {
-        logger.debug("addPlayer: " + userToken);
-        return this.gameService.addPlayer(gameId, userToken);
+    public String addPlayer(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
+        logger.debug("addPlayer: " + playerToken);
+        return this.gameService.addPlayer(gameId, playerToken);
     }
 
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.OK)
-    public User getPlayer(@PathVariable Long gameId, @PathVariable Integer playerId) {
+    public Player getPlayer(@PathVariable Long gameId, @PathVariable Integer playerId) {
         logger.debug("getPlayer: " + gameId);
         return this.gameService.getPlayer(gameId, playerId);
     }

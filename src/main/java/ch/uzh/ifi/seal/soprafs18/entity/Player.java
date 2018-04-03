@@ -2,7 +2,6 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import ch.uzh.ifi.seal.soprafs18.constant.UserStatus;
+import ch.uzh.ifi.seal.soprafs18.constant.PlayerStatus;
 
 @Entity
-public class User implements Serializable {
+public class Player implements Serializable {
 	
 
 	private static final long serialVersionUID = 1L;
@@ -27,18 +26,18 @@ public class User implements Serializable {
 	private String name;
 	
 	@Column(nullable = false, unique = true) 
-	private String username;
+	private String playerName;
 	
 	@Column(nullable = false, unique = true) 
 	private String token;
 	
 	@Column(nullable = false) 
-	private UserStatus status;
+	private PlayerStatus status;
 
     @ManyToMany
     private List<Game> games;
 	
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="player")
     private List<Move> moves;
 
 	public Long getId() {
@@ -57,12 +56,12 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getPlayerName() {
+		return playerName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
 
 	public List<Game> getGames() {
@@ -89,21 +88,21 @@ public class User implements Serializable {
 		this.token = token;
 	}
 
-	public UserStatus getStatus() {
+	public PlayerStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(UserStatus status) {
+	public void setStatus(PlayerStatus status) {
 		this.status = status;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) return true;
-		if (!(o instanceof User)) {
+		if (!(o instanceof Player)) {
 			return false;
 		}
-		User user = (User) o;
-		return this.getId().equals(user.getId());
+		Player player = (Player) o;
+		return this.getId().equals(player.getId());
 	}
 }

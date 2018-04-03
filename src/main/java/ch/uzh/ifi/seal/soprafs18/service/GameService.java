@@ -3,9 +3,9 @@ package ch.uzh.ifi.seal.soprafs18.service;
 import ch.uzh.ifi.seal.soprafs18.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Move;
-import ch.uzh.ifi.seal.soprafs18.entity.User;
+import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
-import ch.uzh.ifi.seal.soprafs18.repository.UserRepository;
+import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import ch.uzh.ifi.seal.soprafs18.web.rest.GameResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,20 +25,20 @@ import java.util.Optional;
 @Transactional
 public class GameService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private final Logger log = LoggerFactory.getLogger(PlayerService.class);
 
     private final GameRepository gameRepository;
 
-    private final UserRepository userRepository;
+    private final PlayerRepository playerRepository;
 
     private final String CONTEXT = "/games";
 
     Logger logger = LoggerFactory.getLogger(GameResource.class);
 
     @Autowired
-    public GameService(GameRepository gameRepository, UserRepository userRepository) {
+    public GameService(GameRepository gameRepository, PlayerRepository playerRepository) {
         this.gameRepository = gameRepository;
-        this.userRepository = userRepository;
+        this.playerRepository = playerRepository;
     }
 
 
@@ -48,8 +48,8 @@ public class GameService {
         return result;
     }
 
-    public String addGame(Game game, String userToken) {
-        User owner = userRepository.findByToken(userToken);
+    public String addGame(Game game, String playerToken) {
+        Player owner = playerRepository.findByToken(playerToken);
         if (owner != null) {
             // TODO Mapping into Game
             game = gameRepository.save(game);
@@ -64,19 +64,19 @@ public class GameService {
         return game.orElse(null);
     }
 
-    public void startGame(Long gameId, String userToken) {
+    public void startGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
-        User owner = userRepository.findByToken(userToken);
+        Player owner = playerRepository.findByToken(playerToken);
 
-        if (owner != null && game.isPresent() && game.get().getOwner().equals(owner.getUsername())) {
+        if (owner != null && game.isPresent() && game.get().getOwner().equals(owner.getPlayerName())) {
             // TODO: implement the logic for starting the game
         }
     }
 
-    public void stopGame(Long gameId, String userToken) {
+    public void stopGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
-        User owner = userRepository.findByToken(userToken);
-        if (owner != null && game.isPresent() && game.get().getOwner().equals(owner.getUsername())) {
+        Player owner = playerRepository.findByToken(playerToken);
+        if (owner != null && game.isPresent() && game.get().getOwner().equals(owner.getPlayerName())) {
             // TODO: implement the logic for stopping the game
         }
     }
@@ -101,7 +101,7 @@ public class GameService {
         return null;
     }
 
-    public List<User> listPlayers(Long gameId) {
+    public List<Player> listPlayers(Long gameId) {
         Optional<Game> game = gameRepository.findById(gameId);
         if (game.isPresent()) {
             return game.get().getPlayers();
@@ -110,22 +110,22 @@ public class GameService {
         return null;
     }
 
-    public String addPlayer(Long gameId, String userToken) {
+    public String addPlayer(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
-        User player = userRepository.findByToken(userToken);
+        Player player = playerRepository.findByToken(playerToken);
 
         if (game.isPresent() && player != null
                 && game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
             game.get().getPlayers().add(player);
-            this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getUsername());
+            this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getPlayerName());
             return CONTEXT + "/" + gameId + "/player/" + (game.get().getPlayers().size() - 1);
         } else {
-            this.logger.error("Error adding player with token: " + userToken);
+            this.logger.error("Error adding player with token: " + playerToken);
         }
         return null;
     }
 
-    public User getPlayer(Long gameId, Integer playerId) {
+    public Player getPlayer(Long gameId, Integer playerId) {
         Optional<Game> game = gameRepository.findById(gameId);
         if (game.isPresent()) {
             return game.get().getPlayers().get(playerId);

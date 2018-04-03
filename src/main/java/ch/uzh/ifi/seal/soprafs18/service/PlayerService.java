@@ -1,9 +1,9 @@
 package ch.uzh.ifi.seal.soprafs18.service;
 
-import ch.uzh.ifi.seal.soprafs18.constant.UserStatus;
+import ch.uzh.ifi.seal.soprafs18.constant.PlayerStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
-import ch.uzh.ifi.seal.soprafs18.entity.User;
-import ch.uzh.ifi.seal.soprafs18.repository.UserRepository;
+import ch.uzh.ifi.seal.soprafs18.entity.Player;
+import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,76 +19,76 @@ import java.util.UUID;
 /**
  * /**
  * Created by LucasPelloni on 26.01.18.
- * Service class for managing users.
+ * Service class for managing players.
  */
 @Service
 @Transactional
-public class UserService {
+public class PlayerService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private final Logger log = LoggerFactory.getLogger(PlayerService.class);
 
 
-    private final UserRepository userRepository;
+    private final PlayerRepository playerRepository;
 
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public PlayerService(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
     }
 
 
-    public User createUser(String name, String username, String token, UserStatus status, List<Game> games) {
-        User newUser = new User();
-        newUser.setName(name);
-        newUser.setUsername(username);
-        newUser.setToken(token);
-        newUser.setStatus(status);
-        newUser.setGames(games);
-        userRepository.save(newUser);
-        log.debug("Created Information for User: {}", newUser);
-        return newUser;
+    public Player createPlayer(String name, String playerName, String token, PlayerStatus status, List<Game> games) {
+        Player newPlayer = new Player();
+        newPlayer.setName(name);
+        newPlayer.setPlayerName(playerName);
+        newPlayer.setToken(token);
+        newPlayer.setStatus(status);
+        newPlayer.setGames(games);
+        playerRepository.save(newPlayer);
+        log.debug("Created Information for Player: {}", newPlayer);
+        return newPlayer;
     }
 
-    public User login(Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            user.setToken(UUID.randomUUID().toString());
-            user.setStatus(UserStatus.ONLINE);
-            user = userRepository.save(user);
-            return user;
+    public Player login(Long playerID) {
+        Optional<Player> playerOptional = playerRepository.findById(playerID);
+        if (playerOptional.isPresent()) {
+            Player player = playerOptional.get();
+            player.setToken(UUID.randomUUID().toString());
+            player.setStatus(PlayerStatus.ONLINE);
+            player = playerRepository.save(player);
+            return player;
         }
         return null;
     }
 
-    public void logout(Long userId, String userToken) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent() && userOptional.get().getToken().equals(userToken)) {
-            User user = userOptional.get();
-            user.setStatus(UserStatus.OFFLINE);
-            userRepository.save(user);
+    public void logout(Long playerID, String playerToken) {
+        Optional<Player> playerOptional = playerRepository.findById(playerID);
+        if (playerOptional.isPresent() && playerOptional.get().getToken().equals(playerToken)) {
+            Player player = playerOptional.get();
+            player.setStatus(PlayerStatus.OFFLINE);
+            playerRepository.save(player);
         }
     }
 
-    public User addUser(User user) {
-        user.setStatus(UserStatus.OFFLINE);
-        user.setToken(UUID.randomUUID().toString());
-        return userRepository.save(user);
+    public Player addPlayer(Player player) {
+        player.setStatus(PlayerStatus.OFFLINE);
+        player.setToken(UUID.randomUUID().toString());
+        return playerRepository.save(player);
     }
 
-    public List<User> getAllUsers() {
-        List<User> result = new ArrayList<>();
-        userRepository.findAll().forEach(result::add);
+    public List<Player> getAllPlayers() {
+        List<Player> result = new ArrayList<>();
+        playerRepository.findAll().forEach(result::add);
         return result;
     }
 
 
-    public void deleteUser(Long id) {
-        Optional<User> userOptional = userRepository.findById(id); //TODO check if user exists
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            userRepository.delete(user);
-            log.debug("Deleted User: {}", user);
+    public void deletePlayer(Long id) {
+        Optional<Player> playerOptional = playerRepository.findById(id); //TODO check if player exists
+        if (playerOptional.isPresent()) {
+            Player player = playerOptional.get();
+            playerRepository.delete(player);
+            log.debug("Deleted Player: {}", player);
         }
     }
 }
