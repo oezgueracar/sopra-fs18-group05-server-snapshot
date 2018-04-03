@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public class PlayerResource extends GenericResource {
     @Autowired
     private PlayerService playerService;
 
+    // Retrieve list of players
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Player> listPlayers() {
@@ -32,6 +34,7 @@ public class PlayerResource extends GenericResource {
         return this.playerService.getAllPlayers();
     }
 
+    // Create player
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -40,7 +43,7 @@ public class PlayerResource extends GenericResource {
         return this.playerService.addPlayer(player);
     }
 
-
+    // Retrieve a player
     @RequestMapping(method = RequestMethod.GET, value = "{playerID}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Player> getPlayer(@PathVariable Long playerID) {
@@ -48,17 +51,44 @@ public class PlayerResource extends GenericResource {
         return playerRepo.findById(playerID);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "{playerID}/login")
+	// Update moveCounter, reachable and hand of player
+    @RequestMapping(method = RequestMethod.PUT, value = "{playerID}/card")
     @ResponseStatus(HttpStatus.OK)
-    public Player login(@PathVariable Long playerID) {
-        logger.debug("login: " + playerID);
-        return this.playerService.login(playerID);
+    public Optional<Player> playCard(@PathVariable Long playerID, @RequestBody Long cardID) {
+    	logger.debug("updatePlayer: " + playerID);
+    	return playerRepo.findById(playerID);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "{playerID}/logout")
-    @ResponseStatus(HttpStatus.OK)
-    public void logout(@PathVariable Long playerID, @RequestParam("token") String playerToken) {
-        logger.debug("getPlayer: " + playerID);
-        this.playerService.logout(playerID, playerToken);
-    }
+    // Update current position of player
+	@RequestMapping(method = RequestMethod.PUT, value = "{playerID}/move")
+	@ResponseStatus(HttpStatus.OK)
+	public Optional<Player> movePlayer(@PathVariable Long playerID, @RequestBody Long spaceID) {
+    	logger.debug("updateCurrentPosition: " + playerID);
+		return playerRepo.findById(playerID);
+	}
+
+	// Update coins and hand of player after card is traded for coins
+	@RequestMapping(method = RequestMethod.PUT, value = "{playerID}/sale")
+	@ResponseStatus(HttpStatus.OK)
+	public Optional<Player> saleCard(@PathVariable Long playerID, @RequestParam("cardID") Long cardID) {
+    	logger.debug("updateCoins: " + playerID);
+		return playerRepo.findById(playerID);
+	}
+
+	// TODO: Check if two parsed jsons can be returned together - otherwise create an additional request
+	// Update coins and discardPile of player after buy of a card
+	// Update market
+	@RequestMapping(method = RequestMethod.PUT, value = "{playerID}/buy")
+	@ResponseStatus(HttpStatus.OK)
+	public Optional<Player> buyCard(@PathVariable Long playerID, @RequestParam("cardID") Long cardID) {
+		return playerRepo.findById(playerID);
+	}
+
+	// Update discardPile and status of player after player ends his turn
+	@RequestMapping(method = RequestMethod.PUT, value = "{playerID}/turnEnd")
+	@ResponseStatus(HttpStatus.OK)
+	public Optional<Player> endTurn(@PathVariable Long playerID) {
+    	logger.debug("turnEnd:" + playerID);
+		return playerRepo.findById(playerID);
+	}
 }
