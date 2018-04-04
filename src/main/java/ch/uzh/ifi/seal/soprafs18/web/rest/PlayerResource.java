@@ -26,7 +26,7 @@ public class PlayerResource extends GenericResource {
     @Autowired
     private PlayerService playerService;
 
-    // Retrieve list of players
+    // Retrieve list of players TODO: probably not required -> list of players of a game in GameResource
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Player> listPlayers() {
