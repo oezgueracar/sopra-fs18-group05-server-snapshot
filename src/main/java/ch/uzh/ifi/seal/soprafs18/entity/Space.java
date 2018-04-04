@@ -1,6 +1,5 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
-import java.util.ArrayList;
 
 public class Space {
     private long id;
@@ -8,7 +7,7 @@ public class Space {
     private String color;
     private int value;
     private Boolean blockade;
-    private Boolean occupied;
+    private static Boolean occupied = false;
 
     public Space(long ID, String col, int val, Boolean block){
         id=ID;
@@ -17,12 +16,17 @@ public class Space {
         blockade=block;
     }
 
-    public void switchOccupied(){
+    public static void switchOccupied(){
         occupied = !occupied;
     }
 
     public void setNeighbours(Space n1, Space n2, Space n3, Space n4, Space n5, Space n6){
-        Space[] neighbours = {n1, n2, n3, n4, n5, n6};
+        neighbours[0] = n1;
+        neighbours[1] = n2;
+        neighbours[2] = n3;
+        neighbours[3] = n4;
+        neighbours[4] = n5;
+        neighbours[5] = n6;
     }
 
     public long getSpaceID(){
