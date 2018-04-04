@@ -60,7 +60,7 @@ public class Player implements Serializable {
     @OneToMany(mappedBy="player")
     private List<Move> moves;*/
 
-    // Contains the cards that ar in the hand
+    // Contains the cards that are in the hand
     @OneToMany(mappedBy = "player")
     protected ArrayList<Card> hand;
 
@@ -75,6 +75,8 @@ public class Player implements Serializable {
 
     // Depending on the position in the ArrayList the counter is referring to the color - only one entry can be different from 0
     protected ArrayList<Integer> moveCounter;
+
+	protected PlayingPiece assignedPiece;
 
 	/**
 	 * Constructor of the class Player
