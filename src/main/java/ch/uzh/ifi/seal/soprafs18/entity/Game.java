@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 
+import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.FINISHED;
+import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.PENDING;
+
 @Entity
 public class Game implements Serializable {
 	
@@ -24,15 +27,15 @@ public class Game implements Serializable {
 
 	//TODO: misses eventual setup?
     // should check that game is PENDING after it got created in postcondition and that all attributes are set correctly
-	public Game(Player leader, String gn){
+	public Game(Player leader, String gname){
         players.add(leader);
 	    setLeader (leader);
         setTurnTime (60);
-        setName (gn);
+        setName (gname);
         setMaxPlayers (4);
-        map = new HillsOfGoldMap();
         currentPlayer = 0;
-        setupCards();
+        setup();
+        setStatus(PENDING);
     }
 	
 	@Id
@@ -61,7 +64,13 @@ public class Game implements Serializable {
     private int turnTime;
 
 	@Column
-    private Map map;
+    private String mapName;
+
+	@Column
+    private Map assignedMap;
+
+	@Column
+    private Market assignedMarket;
 
 	//TODO: delete this after not needed for looking up on how a onetomany relationship works
     @OneToMany(mappedBy="game")
@@ -81,16 +90,15 @@ public class Game implements Serializable {
     }
 
     private void setStatus(GameStatus newStatus){
-        this.status = status;
+        this.status = newStatus;
     }
 
     private void setLeader(Player newLeader){
         this.leader = newLeader;
     }
 
-    //TODO: discuss if that is good practice to change reference
-    private void setMap(Map newMap){
-        map = newMap;
+    private void setMapName(String newMapName){
+        this.mapName = newMapName;
     }
 
     private void setTurnTime(Integer newTurnTime){
@@ -105,6 +113,22 @@ public class Game implements Serializable {
     //TODO: Do such checks for every setter
     private void setMaxPlayers(Integer newMaxPlayers){
         this.maxPlayers = newMaxPlayers;
+    }
+
+    //TODO: discuss if that is good practice to change reference
+    private void initializeMap() throws ClassNotFoundException, IllegalAccessException, InstantiationException{
+        try{
+            assignedMap = Map.forName(mapName).newInstance();
+        }
+        catch (ClassNotFoundException e1){
+            System.out.println("Class not Found Exception");
+        }
+        catch (IllegalAccessException e2){
+            System.out.println("Illegal Access Exception");
+        }
+        catch (InstantiationException e3){
+            System.out.println("Instantiation Exception");
+        }
     }
 
     //TODO: post and pre to check if in right boundary and if it has been changed like planned
@@ -122,6 +146,13 @@ public class Game implements Serializable {
 	private void setupCards(){
 
 	}
+
+	//Helper function for setting up all associated Objects with game.
+	private void setup(){
+        assignedMarket = new Market();
+        setMapName("HillsOfGoldMap");
+        setupCards();
+    }
 
     //TODO: not clear on how to do endGame()
     private void endGame(){
