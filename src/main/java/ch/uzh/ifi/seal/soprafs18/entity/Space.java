@@ -6,10 +6,10 @@ public class Space {
     private Space[] neighbours = new Space[6];
     private String color;
     private int value;
-    private Boolean blockade;
-    private static Boolean occupied = false;
+    private boolean blockade;
+    private static boolean occupied = false;
 
-    public Space(long ID, String col, int val, Boolean block){
+    public Space(long ID, String col, int val, boolean block){
         id=ID;
         color=col;
         value=val;
