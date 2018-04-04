@@ -107,7 +107,7 @@ public class GameResource
         return this.gameService.listPlayers(gameId);
     }
 
-    // Add player to a game
+    // Add a player to a game
     @RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String addPlayer(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
