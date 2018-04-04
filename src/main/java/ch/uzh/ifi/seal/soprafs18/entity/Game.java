@@ -32,6 +32,7 @@ public class Game implements Serializable {
         setMaxPlayers (4);
         map = new HillsOfGoldMap();
         currentPlayer = 0;
+        setupCards();
     }
 	
 	@Id
@@ -61,7 +62,6 @@ public class Game implements Serializable {
 
 	@Column
     private Map map;
-
 
 	//TODO: delete this after not needed for looking up on how a onetomany relationship works
     @OneToMany(mappedBy="game")
@@ -118,6 +118,11 @@ public class Game implements Serializable {
         }
     }
 
+	//TODO: Should be done after cards class is commited
+	private void setupCards(){
+
+	}
+
     //TODO: not clear on how to do endGame()
     private void endGame(){
         this.status = FINISHED;
@@ -164,4 +169,5 @@ public class Game implements Serializable {
 	public Integer getCurrentPlayer(){
 		return currentPlayer;
 	}
+
 }
