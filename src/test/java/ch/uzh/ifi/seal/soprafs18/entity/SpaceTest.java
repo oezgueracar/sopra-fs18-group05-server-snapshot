@@ -1,12 +1,10 @@
-package ch.uzh.ifi.seal.soprafs18.tests;
+package ch.uzh.ifi.seal.soprafs18.entity;
 
-import ch.uzh.ifi.seal.soprafs18.entity.Space;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.Test;
 
-public class TestSpace {
+import static org.junit.Assert.*;
+
+public class SpaceTest {
 
     Space s1 = new Space(1, "green", 1, false);
     Space s2 = new Space(2, "green", 1, false);
@@ -16,47 +14,54 @@ public class TestSpace {
     Space s6 = new Space(6, "green", 1, false);
     Space s7 = new Space(7, "green", 1, false);
 
-//    Space[] spaces = {s2, s3, s4, s5, s6, s7};
-
-
     @Test
-    void switchOccupied() {
+    public void switchOccupied() {
         s1.switchOccupied();
         assertEquals(true, s1.getOccupied());
     }
 
     @Test
-    void setNeighbours() {
-        Space[] spaces = {s2, s3, s4, s5, s6, s7};
-        s1.setNeighbours(s2, s3, s4, s5, s6, s7);
-        assertArrayEquals(spaces, s1.getNeighbours());
-
+    public void switchBlockade() {
+        s1.switchBlockade();
+        assertEquals(true, s1.getBlockade());
     }
 
     @Test
-    void getSpaceID() {
+    public void setNeighbours() {
+        Space[] spaces = {s2, s3, s4, s5, s6, s7};
+        s1.setNeighbours(s2, s3, s4, s5, s6, s7);
+        assertArrayEquals(spaces, s1.getNeighbours());
+    }
+
+    @Test
+    public void getSpaceID() {
         assertEquals(1, s1.getSpaceID());
     }
 
     @Test
-    void getNeighbours() {
+    public void getNeighbours() {
         Space[] spaces = {s2, s3, s4, s5, s6, s7};
         s1.setNeighbours(s2, s3, s4, s5, s6, s7);
         assertArrayEquals(spaces, s1.getNeighbours());
     }
 
     @Test
-    void getColor() {
+    public void getColor() {
         assertEquals("green", s1.getColor());
     }
 
     @Test
-    void getValue() {
+    public void getValue() {
         assertTrue(s1.getValue() == 1);
     }
 
     @Test
-    void getOccupied() {
+    public void getOccupied() {
         assertTrue(s1.getOccupied() == false);
+    }
+
+    @Test
+    public void getBlockade() {
+        assertTrue(s1.getBlockade() == false);
     }
 }
