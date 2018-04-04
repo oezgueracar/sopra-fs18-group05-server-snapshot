@@ -37,7 +37,7 @@ public class Game implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private long id;
 
 	//This is the same as game room name set by the leader of the room.
 	@Column(nullable = false)
@@ -51,14 +51,14 @@ public class Game implements Serializable {
 
 	//Shows the integer of the player whose current turn it is during a game. The integer of a player is determined according to their position in the List<Player> of the game instance.
 	@Column 
-	private Integer currentPlayer;
+	private int currentPlayer;
 
 	@Column
-    private Integer maxPlayers;
+    private int maxPlayers;
 
 	//Number of seconds that a player has to end his turn before the turn ends automatically.
 	@Column
-    private Integer turnTime;
+    private int turnTime;
 
 	@Column
     private Map map;
@@ -128,7 +128,7 @@ public class Game implements Serializable {
         this.status = FINISHED;
     }
     
-	public Long getId(){
+	public long getId(){
 		return id;
 	}
 
@@ -148,11 +148,11 @@ public class Game implements Serializable {
 		return name;
 	}
 
-	public Integer getMaxPlayers(){
+	public int getMaxPlayers(){
     	return maxPlayers;
 	}
 
-	public Integer getTurnTime(){
+	public int getTurnTime(){
     	return turnTime;
 	}
 
@@ -166,7 +166,7 @@ public class Game implements Serializable {
     	return players.get(index);
 	}
 
-	public Integer getCurrentPlayer(){
+	public int getCurrentPlayer(){
 		return currentPlayer;
 	}
 
