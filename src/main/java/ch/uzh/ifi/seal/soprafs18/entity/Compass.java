@@ -1,6 +1,15 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
 public class Compass extends ActionCard{
+
+	// TODO: documentation for constructor
+	/**
+	 * Constructor for class Compass
+	 * @param buyingCost
+	 * @param goldValue
+	 * @param cardName
+	 * @param cardDescription
+	 */
 	public Compass(float buyingCost, float goldValue, String cardName, String cardDescription) {
 		this.buyingCost = buyingCost;
 		this.goldValue = goldValue;
