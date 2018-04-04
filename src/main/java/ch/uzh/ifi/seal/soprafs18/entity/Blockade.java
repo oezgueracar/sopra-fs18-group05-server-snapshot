@@ -27,6 +27,7 @@ public class Blockade {
         return value;
     }
 
+    // This method changes the Boolean "blockade" of all Spaces which belong to a Blockade when the Blockade is removed
     public void removeBlockade(){
         for(int i = 0; i < blockadeLocation.length; i++){
             blockadeLocation[i].switchBlockade();
