@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ public class Player implements Serializable {
 	
 
 	private static final long serialVersionUID = 1L;
+	private Random randomGenerator;
 
 	@Id
 	@GeneratedValue
@@ -80,6 +82,7 @@ public class Player implements Serializable {
 
 	/**
 	 * Constructor of the class Player
+	 *
 	 * @param name	the name of the player
 	 * @param token	the unique token of the player
 	 */
@@ -136,7 +139,7 @@ public class Player implements Serializable {
 		this.name = name;
 	}
 
-	protected void playCard(String cardID){
+	protected void playCard(Card card){
 
 	}
 
@@ -144,64 +147,88 @@ public class Player implements Serializable {
 
 	}
 
-	protected void buyCard(String cardID){
+	protected void buyCard(Card card){
 
 	}
 
-	protected float sellCard(String cardID){
+	/**
+	 * @pre hand.contains(card)
+	 * @post (hand.size()@pre == hand.size()+1) && (playedCards.size()@pre = playedCards.size()-1) && (coins@pre == coins+card.getGoldValue())
+	 * @param card the card that is sold
+	 */
+	protected float sellCard(Card card){
+
+		setCoins(card.getGoldValue());
 
 	}
 
-	protected void addCardToHand(String cardID){
-
+	/**
+	 * @pre (deck.isEmpty()!=true) && (discardPile.isEmpty()!=true)
+	 * @post ((new)hand.size()==(old)hand.size()+1) && ((new)deck.size()==(old)deck.size()-1)
+	 */
+	protected void drawCard(){
+		if(deck.isEmpty()==true){
+			if (discardPile.isEmpty() == true){
+				return;
+			}else {
+				deck = new ArrayList<>(discardPile);
+				resetDiscardPile();
+			}
+		}
+		randomGenerator = new Random();
+		int index = randomGenerator.nextInt(deck.size());
+		Card card = deck.get(index);
+		hand.add(card);
+		deck.remove(card);
 	}
 
-	protected void addCardToDeck(String cardID){
-
+	// Adds a specific card to the deck
+	protected void addCardToDeck(Card card){
+		deck.add(card);
 	}
 
-	protected void addCardToDiscardPile(String cardID){
-
+	protected void addCardToDiscardPile(Card card){
+		discardPile.add(card);
 	}
 
-	protected void addCardToPlayingList(String cardID){
-
+	protected void addCardToPlayingList(Card card){
+		playedList.add(card);
 	}
 
-	protected void removeCardFromHand(String cardID){
-
+	protected void removeCardFromHand(Card card){
+		hand.remove(card);
 	}
 
-	protected void removeCardFromDiscardPile(String cardID){
-
+	protected void removeCardFromDiscardPile(Card card){
+		discardPile.remove(card);
 	}
 
-	protected void removeCardFromDeck(String cardID){
-
+	protected void removeCardFromDeck(Card card){
+		deck.remove(card);
 	}
 
-	protected void resetPlayingList(){
-
+	protected void resetPlayedList(){
+		playedList.clear();
 	}
 
 	protected void resetDiscardPile(){
-
+		discardPile.clear();
 	}
 
-	protected void changeMoveCounter(ArrayList<int> movesTaken){
+	protected void setMoveCounter(ArrayList<int> movesTaken){
 
 	}
 
 	protected void setCoins(float f){
-
+		coins += f;
 	}
 
 	protected void setPlayerLeft(Boolean b){
-
+		playerLeft = b;
 	}
 
 	protected void setIsInGoal(Boolean b){
-
+		isInGoal = b;
 	}
 
 	// ##############################################################################################################
