@@ -16,8 +16,13 @@ public class Space {
         blockade=block;
     }
 
-    public static void switchOccupied(){
+    public void switchOccupied(){
         occupied = !occupied;
+    }
+
+    public void switchBlockade(){
+
+        blockade = !blockade;
     }
 
     public void setNeighbours(Space n1, Space n2, Space n3, Space n4, Space n5, Space n6){
@@ -47,6 +52,10 @@ public class Space {
 
     public boolean getOccupied(){
         return occupied;
+    }
+
+    public boolean getBlockade(){
+        return blockade;
     }
 
 }
