@@ -18,7 +18,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 
 @Entity
 public class Player implements Serializable {
-	
+
 
 	private static final long serialVersionUID = 1L;
 
@@ -269,7 +269,7 @@ public class Player implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	*/
+
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) return true;
@@ -278,6 +278,6 @@ public class Player implements Serializable {
 		}
 		Player player = (Player) o;
 		return this.getId().equals(player.getId());
-	}
+	}*/
 
 }
