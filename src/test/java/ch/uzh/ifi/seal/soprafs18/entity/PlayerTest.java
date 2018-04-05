@@ -1,10 +1,21 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
+import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class PlayerTest {
+
+	private PlayerRepository playerRepo;
+
+	Player p1 = new Player("name1");
+	Player p2 = new Player("name2");
+	Player p3 = new Player("name3");
+	Player p4 = new Player("name4");
+	Player p5 = new Player("name5");
+	Player p6 = new Player("name6");
+
 	@Test
 	public void getId() throws Exception {
 	}

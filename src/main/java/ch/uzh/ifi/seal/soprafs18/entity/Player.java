@@ -6,12 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import ch.uzh.ifi.seal.soprafs18.constant.PlayerStatus;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -24,7 +19,7 @@ public class Player implements Serializable {
 
 	@Id
 	@GeneratedValue
-	protected long id;
+	protected Long id;
 
 	@Column(nullable = false) 
 	protected String name;
@@ -54,8 +49,9 @@ public class Player implements Serializable {
 	@Column(nullable = false)
 	protected Boolean isInGoal;
 
-    @ManyToMany
-    private List<Game> games;
+    @ManyToOne
+	@JoinColumn(name="game_id")
+    private Game game;
 	/*
     @OneToMany(mappedBy="player")
     private List<Move> moves;*/
@@ -74,19 +70,16 @@ public class Player implements Serializable {
     protected ArrayList<Card> playedList;
 
     // Depending on the position in the ArrayList the counter is referring to the color - only one entry can be different from 0
-    protected ArrayList<Integer> moveCounter;
+    protected int moveCounter;
 
 	protected PlayingPiece assignedPiece;
 
 	/**
 	 * Constructor of the class Player
-	 *
 	 * @param name	the name of the player
-	 * @param token	the unique token of the player
 	 */
-	public Player(String name, String token) {
+	public Player(String name) {
 		this.name = name;
-		this.token = token;
 	}
 
 	public Long getId() {
@@ -102,35 +95,35 @@ public class Player implements Serializable {
 	}
 
 	public String getColor(){
-
+		return color;
 	}
 
 	public ArrayList<Card> getDeck(){
-
+		return deck;
 	}
 
 	public ArrayList<Card> getHand() {
-
+		return hand;
 	}
 
-	public ArrayList<Integer> getMoveCounter() {
-
+	public int getMoveCounter() {
+		return moveCounter;
 	}
 
 	public Boolean getPlayerLeft() {
-
+		return playerLeft;
 	}
 
 	public Boolean getIsInGoal(){
-
+		return isInGoal;
 	}
 
 	public ArrayList<Card> getDiscardPile(){
-
+		return discardPile;
 	}
 
 	public ArrayList<Card> getPlayedList(){
-
+		return playedList;
 	}
 
 	protected void setName(String name){
@@ -157,8 +150,17 @@ public class Player implements Serializable {
 
 	}
 
+	// TODO: precondition not valid yet
+	/**
+	 * @pre market.openSlot.contains(card) || (market.openSlots.contains(null) && market.closedSlots.contains(card))
+	 * @post (coins@pre >= card.buyingCost())
+	 * @param card the card that is bought
+	 * (@throws NoSuchElementException If the market does not contain card)
+	 */
 	protected void buyCard(Card card){
+		if (!market.getOpenSlots().contains(card)){
 
+		}
 	}
 
 	/**
@@ -231,7 +233,7 @@ public class Player implements Serializable {
 		discardPile.clear();
 	}
 
-	protected void setMoveCounter(ArrayList<int> movesTaken){
+	protected void setMoveCounter(ArrayList<Integer> movesTaken){
 
 	}
 
