@@ -39,9 +39,7 @@ public class PlayerService {
 
     // Create information about a player
     public Player createPlayer(String name, String playerName, String token, PlayerStatus status, List<Game> games) {
-        Player newPlayer = new Player();
-        newPlayer.setName(name);
-        newPlayer.setPlayerName(playerName);
+        Player newPlayer = new Player(name);
         newPlayer.setToken(token);
         newPlayer.setStatus(status);
         newPlayer.setGames(games);
