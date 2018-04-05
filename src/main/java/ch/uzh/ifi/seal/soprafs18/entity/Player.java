@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 import javax.persistence.Column;
@@ -20,7 +21,6 @@ public class Player implements Serializable {
 	
 
 	private static final long serialVersionUID = 1L;
-	private Random randomGenerator;
 
 	@Id
 	@GeneratedValue
@@ -35,11 +35,9 @@ public class Player implements Serializable {
 	// A unique token for a player
 	@Column(nullable = false, unique = true) 
 	protected String token;
-	
-/*
+
 	@Column(nullable = false)
 	private PlayerStatus status;
-*/
 
 	// Is the amount of coins a player has in a turn
 	@Column(nullable = false)
@@ -139,8 +137,20 @@ public class Player implements Serializable {
 		this.name = name;
 	}
 
-	protected void playCard(Card card){
-
+	/**
+	 * @pre hand.contains(card)
+	 * @post (hand.size()@pre == hand.size()+1) && (playedCards.size()@pre = playedCards.size()-1)
+	 * @param card the card that is played
+	 * (@throws NoSuchElementException If the hand does not contain card)
+	 */
+	protected void playCard(Card card){ // throws NoSuchElementException
+		if (!hand.contains(card)){
+			return; // throw new NoSuchElementException("This card is not in the player's hand.");
+		}else{ // TODO: multiColorCard has to set its chosen color first in PlayerService before calling playCard!
+			card.play();
+			playedList.add(card);
+			hand.remove(card);
+		}
 	}
 
 	protected void move(PlayingPiece piece, Integer selectedSpaceID){
@@ -155,27 +165,33 @@ public class Player implements Serializable {
 	 * @pre hand.contains(card)
 	 * @post (hand.size()@pre == hand.size()+1) && (playedCards.size()@pre = playedCards.size()-1) && (coins@pre == coins+card.getGoldValue())
 	 * @param card the card that is sold
+	 * (@throws NoSuchElementException If the hand does not contain card)
 	 */
-	protected float sellCard(Card card){
-
-		setCoins(card.getGoldValue());
-
+	protected void sellCard(Card card) { // throws NoSuchElementException
+		if (!hand.contains(card)){
+			return; // throw new NoSuchElementException("This card is not in the player's hand.");
+		}else{
+			setCoins(card.getGoldValue());
+			playedList.add(card);
+			hand.remove(card);
+		}
 	}
 
 	/**
-	 * @pre (deck.isEmpty()!=true) && (discardPile.isEmpty()!=true)
-	 * @post ((new)hand.size()==(old)hand.size()+1) && ((new)deck.size()==(old)deck.size()-1)
+	 * @pre (!deck.isEmpty()) && (!discardPile.isEmpty())
+	 * @post (hand.size()@pre == hand.size()-1) && (deck.size()@pre==deck.size()+1)
+	 * (@throws NoSuchElementException If no further card is available to be drawn)
 	 */
-	protected void drawCard(){
-		if(deck.isEmpty()==true){
-			if (discardPile.isEmpty() == true){
-				return;
+	protected void drawCard() { // throws NoSuchElementException
+		if(deck.isEmpty()){
+			if (discardPile.isEmpty()){
+				return;	// throw new NoSuchElementException("No further card is available to be drawn.");
 			}else {
 				deck = new ArrayList<>(discardPile);
 				resetDiscardPile();
 			}
 		}
-		randomGenerator = new Random();
+		Random randomGenerator = new Random();
 		int index = randomGenerator.nextInt(deck.size());
 		Card card = deck.get(index);
 		hand.add(card);
@@ -253,7 +269,7 @@ public class Player implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
-
+	*/
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) return true;
@@ -263,5 +279,5 @@ public class Player implements Serializable {
 		Player player = (Player) o;
 		return this.getId().equals(player.getId());
 	}
-	*/
+
 }
