@@ -145,7 +145,16 @@ public class Game implements Serializable {
 
 	//TODO: Should be done after cards class is commited
 	private void setupCards(){
-
+        //Fill the deck of each player with the starting cards as stated in the game manual.
+        for(Player p : players){
+            for(int i = 0; i < 3; i++){
+                p.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"1\"", "green", 1));
+            }
+            p.addCardToDeck(new ExpeditionCard(1, 0.5f, "Sailor", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"1\"", "blue", 1));
+            for(int i = 0; i < 4; i++){
+                p.addCardToDeck(new ExpeditionCard(1, 1.0f, "Traveler", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"1\"", "yellow", 1));
+            }
+        }
 	}
 
 	//Helper function for setting up all associated Objects with game.
@@ -153,11 +162,6 @@ public class Game implements Serializable {
         assignedMarket = new Market();
         setMapName("HillsOfGoldMap");
         setupCards();
-    }
-
-    //TODO: not clear on how to do endGame()
-    private void endGame(){
-        this.status = FINISHED;
     }
     
 	public long getId(){
