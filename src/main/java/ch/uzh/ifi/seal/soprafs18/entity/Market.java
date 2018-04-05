@@ -86,10 +86,10 @@ public class Market {
             travelLog[i] = new TravelLog(3f, 0.5f, "Travel Log", "Draw 2 cards from your draw pile. Then choose up to 2 cards in your hand and remove them from the game");
         }
         for(int i = 0; i<3; i++){
-            scientist[i] = new Scientist(4f, 05.f, "Scientist", "Draw 1 card from your draw pile. Then choose up to 1 card in your hand and remove it from the game.");
+            scientist[i] = new Scientist(4f, 0.5f, "Scientist", "Draw 1 card from your draw pile. Then choose up to 1 card in your hand and remove it from the game.");
         }
         for(int i = 0; i<3; i++){
-           nativ[i] = new Native(5f, 0.5, "Native", "Move your playing piece onto an adjacent space");
+           nativ[i] = new Native(5f, 0.5f, "Native", "Move your playing piece onto an adjacent space");
         }
         for(int i = 0; i<3; i++){
             captain[i] = new ExpeditionCard(2, 0.5f, "Captain", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"3\"", "blue", 3, false);
@@ -134,7 +134,7 @@ public class Market {
 
     //move an array from closedSlots to openSlots
     private void moveCardSlot(int emptySlot, int chosenCards){
-        private Card[] helpArray;
+        Card[] helpArray;
         helpArray = openSlots.get(emptySlot);
         openSlots.set(emptySlot, closedSlots.get(chosenCards));
         closedSlots.set(chosenCards, helpArray);

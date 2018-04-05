@@ -15,6 +15,8 @@ import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.FINISHED;
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.PENDING;
+import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.RUNNING;
+
 
 @Entity
 public class Game implements Serializable {
@@ -40,14 +42,14 @@ public class Game implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	private long id;
+	private Long id;
 
 	//This is the same as game room name set by the leader of the room.
 	@Column(nullable = false)
 	private String name;
 
 	@Column(nullable = false)
-	private String leader;
+	private Player leader;
 	
 	@Column 
 	private GameStatus status;
@@ -116,10 +118,10 @@ public class Game implements Serializable {
         this.maxPlayers = newMaxPlayers;
     }
 
-    //TODO: discuss if that is good practice to change reference
+    //TODO: Definitely need to test if the tryblock enables overloading so that right map is used. Why does typecasting to abstract class work?
     private void initializeMap() throws ClassNotFoundException, IllegalAccessException, InstantiationException{
         try{
-            assignedMap = Map.forName(mapName).newInstance();
+            assignedMap = (Map) Class.forName(mapName).newInstance();
         }
         catch (ClassNotFoundException e1){
             System.out.println("Class not Found Exception");
@@ -148,11 +150,11 @@ public class Game implements Serializable {
         //Fill the deck of each player with the starting cards as stated in the game manual.
         for(Player p : players){
             for(int i = 0; i < 3; i++){
-                p.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"1\"", "green", 1));
+                p.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"1\"", "green", 1, false));
             }
-            p.addCardToDeck(new ExpeditionCard(1, 0.5f, "Sailor", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"1\"", "blue", 1));
+            p.addCardToDeck(new ExpeditionCard(1, 0.5f, "Sailor", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"1\"", "blue", 1, false));
             for(int i = 0; i < 4; i++){
-                p.addCardToDeck(new ExpeditionCard(1, 1.0f, "Traveler", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"1\"", "yellow", 1));
+                p.addCardToDeck(new ExpeditionCard(1, 1.0f, "Traveler", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"1\"", "yellow", 1, false));
             }
         }
 	}
@@ -164,11 +166,11 @@ public class Game implements Serializable {
         setupCards();
     }
     
-	public long getId(){
+	public Long getId(){
 		return id;
 	}
 
-	public String getLeader(){
+	public Player getLeader(){
 		return leader;
 	}
 
@@ -195,7 +197,7 @@ public class Game implements Serializable {
 
 	//TODO: Bad practice, do we need that.
 	public Map getMap(){
-    	return map;
+    	return assignedMap;
 	}
 
 	//TODO: Might not be needed
