@@ -13,6 +13,8 @@ public abstract class Card {
 	public void remove(){
 	}
 
+	public void play(){}
+
 	public long getId(){
 		return id;
 	}
