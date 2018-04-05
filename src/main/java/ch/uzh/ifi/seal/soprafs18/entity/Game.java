@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 
+import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.FINISHED;
+import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.PENDING;
+
 @Entity
 public class Game implements Serializable {
 	
@@ -24,19 +27,20 @@ public class Game implements Serializable {
 
 	//TODO: misses eventual setup?
     // should check that game is PENDING after it got created in postcondition and that all attributes are set correctly
-	public Game(Player leader, String gn){
+	public Game(Player leader, String gname){
         players.add(leader);
 	    setLeader (leader);
         setTurnTime (60);
-        setName (gn);
+        setName (gname);
         setMaxPlayers (4);
-        map = new HillsOfGoldMap();
         currentPlayer = 0;
+        setup();
+        setStatus(PENDING);
     }
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private long id;
 
 	//This is the same as game room name set by the leader of the room.
 	@Column(nullable = false)
@@ -50,18 +54,23 @@ public class Game implements Serializable {
 
 	//Shows the integer of the player whose current turn it is during a game. The integer of a player is determined according to their position in the List<Player> of the game instance.
 	@Column 
-	private Integer currentPlayer;
+	private int currentPlayer;
 
 	@Column
-    private Integer maxPlayers;
+    private int maxPlayers;
 
 	//Number of seconds that a player has to end his turn before the turn ends automatically.
 	@Column
-    private Integer turnTime;
+    private int turnTime;
 
 	@Column
-    private Map map;
+    private String mapName;
 
+	@Column
+    private Map assignedMap;
+
+	@Column
+    private Market assignedMarket;
 
 	//TODO: delete this after not needed for looking up on how a onetomany relationship works
     @OneToMany(mappedBy="game")
@@ -82,16 +91,15 @@ public class Game implements Serializable {
     }
 
     private void setStatus(GameStatus newStatus){
-        this.status = status;
+        this.status = newStatus;
     }
 
     private void setLeader(Player newLeader){
         this.leader = newLeader;
     }
 
-    //TODO: discuss if that is good practice to change reference
-    private void setMap(Map newMap){
-        map = newMap;
+    private void setMapName(String newMapName){
+        this.mapName = newMapName;
     }
 
     private void setTurnTime(Integer newTurnTime){
@@ -108,6 +116,22 @@ public class Game implements Serializable {
         this.maxPlayers = newMaxPlayers;
     }
 
+    //TODO: discuss if that is good practice to change reference
+    private void initializeMap() throws ClassNotFoundException, IllegalAccessException, InstantiationException{
+        try{
+            assignedMap = Map.forName(mapName).newInstance();
+        }
+        catch (ClassNotFoundException e1){
+            System.out.println("Class not Found Exception");
+        }
+        catch (IllegalAccessException e2){
+            System.out.println("Illegal Access Exception");
+        }
+        catch (InstantiationException e3){
+            System.out.println("Instantiation Exception");
+        }
+    }
+
     //TODO: post and pre to check if in right boundary and if it has been changed like planned
     //TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
     private void changeCurrentPlayer(){
@@ -119,12 +143,28 @@ public class Game implements Serializable {
         }
     }
 
-    //TODO: not clear on how to do endGame()
-    private void endGame(){
-        this.status = FINISHED;
+	//TODO: Should be done after cards class is commited
+	private void setupCards(){
+        //Fill the deck of each player with the starting cards as stated in the game manual.
+        for(Player p : players){
+            for(int i = 0; i < 3; i++){
+                p.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"1\"", "green", 1));
+            }
+            p.addCardToDeck(new ExpeditionCard(1, 0.5f, "Sailor", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"1\"", "blue", 1));
+            for(int i = 0; i < 4; i++){
+                p.addCardToDeck(new ExpeditionCard(1, 1.0f, "Traveler", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"1\"", "yellow", 1));
+            }
+        }
+	}
+
+	//Helper function for setting up all associated Objects with game.
+	private void setup(){
+        assignedMarket = new Market();
+        setMapName("HillsOfGoldMap");
+        setupCards();
     }
     
-	public Long getId(){
+	public long getId(){
 		return id;
 	}
 
@@ -144,11 +184,11 @@ public class Game implements Serializable {
 		return name;
 	}
 
-	public Integer getMaxPlayers(){
+	public int getMaxPlayers(){
     	return maxPlayers;
 	}
 
-	public Integer getTurnTime(){
+	public int getTurnTime(){
     	return turnTime;
 
 	}
@@ -163,7 +203,7 @@ public class Game implements Serializable {
     	return players.get(index);
 	}
 
-	public Integer getCurrentPlayer(){
+	public int getCurrentPlayer(){
 		return currentPlayer;
 	}
 
