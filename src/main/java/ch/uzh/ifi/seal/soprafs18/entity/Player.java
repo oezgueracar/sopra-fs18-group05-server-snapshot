@@ -77,10 +77,10 @@ public class Player implements Serializable {
 	/**
 	 * Constructor of the class Player
 	 * @param name	the name of the player
-	 */
+	 *//*
 	public Player(String name) {
 		this.name = name;
-	}
+	}NO CONSTRUCTOR NEEDED*/
 
 	public Long getId() {
 		return id;
@@ -90,8 +90,16 @@ public class Player implements Serializable {
 		return token;
 	}
 
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name){
+		this.name = name;
 	}
 
 	public String getColor(){
@@ -126,10 +134,6 @@ public class Player implements Serializable {
 		return playedList;
 	}
 
-	protected void setName(String name){
-		this.name = name;
-	}
-
 	/**
 	 * @pre hand.contains(card)
 	 * @post (hand.size()@pre == hand.size()+1) && (playedCards.size()@pre = playedCards.size()-1)
@@ -158,9 +162,9 @@ public class Player implements Serializable {
 	 * (@throws NoSuchElementException If the market does not contain card)
 	 */
 	protected void buyCard(Card card){
-		if (!market.getOpenSlots().contains(card)){
+		//if (!market.getOpenSlots().contains(card)){}
 
-		}
+
 	}
 
 	/**
@@ -266,10 +270,6 @@ public class Player implements Serializable {
 
 	public void setMoves(List<Move> moves) {
 		this.moves = moves;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
 	}
 
 	@Override

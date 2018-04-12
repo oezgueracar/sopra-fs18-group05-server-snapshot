@@ -37,7 +37,7 @@ public class PlayerService {
     }
 
 
-    // Create information about a player
+    /*// Create information about a player
     public Player createPlayer(String name, String playerName, String token, PlayerStatus status, List<Game> games) {
         Player newPlayer = new Player(name);
         newPlayer.setToken(token);
@@ -46,7 +46,7 @@ public class PlayerService {
         playerRepository.save(newPlayer);
         log.debug("Created Information for Player: {}", newPlayer);
         return newPlayer;
-    }
+    }*/
 
     /*public Player login(Long playerID) {
         Optional<Player> playerOptional = playerRepository.findById(playerID);
@@ -71,7 +71,7 @@ public class PlayerService {
 
     // add a player, init status, create token and save him to the player Repo
     public Player addPlayer(Player player) {
-        player.setStatus(PlayerStatus.OFFLINE);
+        //player.setStatus(PlayerStatus.OFFLINE);
         player.setToken(UUID.randomUUID().toString());
         return playerRepository.save(player);
     }
