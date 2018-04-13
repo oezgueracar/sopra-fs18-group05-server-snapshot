@@ -90,6 +90,57 @@ public class DemoMap extends Map {
         t584.setNeighbours(a29,t583,null,null,null,a28);
         t585.setNeighbours(a28,t584,null,null,null,a16);
 
+        //Filling spaces in arraylist "spaces"
+        spaces.add(	 a1	);
+        spaces.add(	 a2	);
+        spaces.add(	 a3	);
+        spaces.add(	 a4	);
+        spaces.add(	 a5	);
+        spaces.add(	 a6	);
+        spaces.add(	 a7	);
+        spaces.add(	 a8	);
+        spaces.add(	 a9	);
+        spaces.add(	 a10	);
+        spaces.add(	 a11	);
+        spaces.add(	 a12	);
+        spaces.add(	 a13	);
+        spaces.add(	 a14	);
+        spaces.add(	 a15	);
+        spaces.add(	 a16	);
+        spaces.add(	 a17	);
+        spaces.add(	 a18	);
+        spaces.add(	 a19	);
+        spaces.add(	 a20	);
+        spaces.add(	 a21	);
+        spaces.add(	 a22	);
+        spaces.add(	 a23	);
+        spaces.add(	 a24	);
+        spaces.add(	 a25	);
+        spaces.add(	 a26	);
+        spaces.add(	 a27	);
+        spaces.add(	 a28	);
+        spaces.add(	 a29	);
+        spaces.add(	 a30	);
+        spaces.add(	 a31	);
+        spaces.add(	 a32	);
+        spaces.add(	 a33	);
+        spaces.add(	 a34	);
+        spaces.add(	 a35	);
+        spaces.add(	 a36	);
+        spaces.add(	 a37	);
+
+        //setting StartingSpaces
+        startingSpaceP1 = a1;
+        startingSpaceP2 = a2;
+        startingSpaceP3 = a3;
+        startingSpaceP4 = a4;
+
+
+
+
+
+
+
 
     }
 }
