@@ -68,18 +68,18 @@ public class Game implements Serializable {
 	@Column
     private String mapName;
 
-	@Column
-    private Map assignedMap;
+	/*@Column
+    private Map assignedMap;*/
 
-	@Column
-    private Market assignedMarket;
+	/*@Column
+    private Market assignedMarket;*/
 
 	//TODO: delete this after not needed for looking up on how a onetomany relationship works
     @OneToMany(mappedBy="game")
     private List<Move> moves;
 
     //TODO: how does mapping exactly work? how does manytomany exactly work?
-    @ManyToMany(mappedBy="games")
+    //@ManyToMany(mappedBy="games")
 
     private ArrayList<Player> players;
 
@@ -119,7 +119,8 @@ public class Game implements Serializable {
     }
 
     //TODO: Definitely need to test if the tryblock enables overloading so that right map is used. Why does typecasting to abstract class work?
-    private void initializeMap() throws ClassNotFoundException, IllegalAccessException, InstantiationException{
+	//TODO: assignedMap is not accepted, cannot resolve what type it is...idky???
+    /*private void initializeMap() throws ClassNotFoundException, IllegalAccessException, InstantiationException{
         try{
             assignedMap = (Map) Class.forName(mapName).newInstance();
         }
@@ -132,7 +133,7 @@ public class Game implements Serializable {
         catch (InstantiationException e3){
             System.out.println("Instantiation Exception");
         }
-    }
+    }*/
 
     //TODO: post and pre to check if in right boundary and if it has been changed like planned
     //TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
@@ -160,8 +161,9 @@ public class Game implements Serializable {
 	}
 
 	//Helper function for setting up all associated Objects with game.
+	//TODO: assignedMarket type is not known by the compiler idky...
 	private void setup(){
-        assignedMarket = new Market();
+        //assignedMarket = new Market();
         setMapName("HillsOfGoldMap");
         setupCards();
     }
@@ -196,9 +198,9 @@ public class Game implements Serializable {
 	}
 
 	//TODO: Bad practice, do we need that.
-	public Map getMap(){
+	/*public Map getMap(){
     	return assignedMap;
-	}
+	}*/
 
 	//TODO: Might not be needed
 	public Player getPlayer(Integer index){
