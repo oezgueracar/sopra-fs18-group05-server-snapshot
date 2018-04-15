@@ -53,7 +53,7 @@ public class Player implements Serializable {
     private List<Move> moves;*/
 
     // Contains the cards that are in the hand
-    //@OneToMany(mappedBy = "player")
+    //@OneToMany(mappedBy = "player")  Not OneToMany because we don't copy paste card objects -
     protected ArrayList<Card> hand;
 
     // Contains the cards that are in the deck
@@ -73,10 +73,10 @@ public class Player implements Serializable {
 	/**
 	 * Constructor of the class Player
 	 * @param
-	 *//*
+	 *//*TODO: Do we need a Constructor for Player???
 	public Player(String playerName) {
 		this.playerName = playerName;
-	}NO CONSTRUCTOR NEEDED*/
+	}*/
 
 	public Long getId() {
 		return id;
@@ -169,6 +169,7 @@ public class Player implements Serializable {
 	 * @param card the card that is sold
 	 * (@throws NoSuchElementException If the hand does not contain card)
 	 */
+	// TODO: Exception throwing and handling
 	protected void sellCard(Card card) { // throws NoSuchElementException
 		if (!hand.contains(card)){
 			return; // throw new NoSuchElementException("This card is not in the player's hand.");
@@ -184,6 +185,7 @@ public class Player implements Serializable {
 	 * @post (hand.size()@pre == hand.size()-1) && (deck.size()@pre==deck.size()+1)
 	 * (@throws NoSuchElementException If no further card is available to be drawn)
 	 */
+	// TODO: Exception throwing and handling
 	protected void drawCard() { // throws NoSuchElementException
 		if(deck.isEmpty()){
 			if (discardPile.isEmpty()){
@@ -233,7 +235,7 @@ public class Player implements Serializable {
 		discardPile.clear();
 	}
 
-	protected void setMoveCounter(ArrayList<Integer> movesTaken){
+	protected void setMoveCounter(Card card){
 
 	}
 

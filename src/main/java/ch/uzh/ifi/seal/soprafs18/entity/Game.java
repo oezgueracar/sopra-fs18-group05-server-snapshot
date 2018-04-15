@@ -24,10 +24,10 @@ public class Game implements Serializable {
 	/**
 	 * 
 	 */
-	//TODO: What the frick is this? Delete?
+	//TODO: What the frick is this?
 	private static final long serialVersionUID = 1L;
 
-	//TODO: misses eventual setup?
+	//TODO: misses eventual setup? Where do we initialize all cards?
     // should check that game is PENDING after it got created in postcondition and that all attributes are set correctly
 	public Game(Player leader, String gname){
         players.add(leader);

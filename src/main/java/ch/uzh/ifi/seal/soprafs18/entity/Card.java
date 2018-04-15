@@ -10,6 +10,8 @@ public abstract class Card {
 	protected String cardDescription;
 
 	// TODO: remove a card instance from a game
+	// TODO: ...idea: we could just remove it from the playedPile and NOT move it to the discardPile (if itemCard)
+	// TODO: ...(no) idea: how do we handle red spaces???
 	public void remove(){
 	}
 
