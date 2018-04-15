@@ -2,7 +2,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 public class DemoMap extends Map {
 
-    public DemoMap{
+    public DemoMap(){
 
         //Tile A
         Space a1	=	new Space(	1	,"green",	0,	false);
@@ -54,7 +54,7 @@ public class DemoMap extends Map {
         a4	.setNeighbours(	a6	,	a5	,	null	,	null	,	null	,	null	);
         a5	.setNeighbours(	a6	,	a14	,	a15	,	null	,	null	,	null	);
         a6	.setNeighbours(	a7	,	a13	,	a14	,	a5	,	null	,	null	);
-        a7	.setNeighbours(	a8	,	a12	,	a13	,	a6	,	null	,	null	);
+        a7	.setNeighbours(	a8	,	a12	,	a13	,	a6	,	null	,	null    );
         a8	.setNeighbours(	a9	,	a11	,	a12	,	a7	,	null	,	null	);
         a9	.setNeighbours(	null	,	a10	,	a11	,	a8	,	null	,	null	);
         a10	.setNeighbours(	null	,	a22	,	a21	,	a11	,	a9	,	null	);
