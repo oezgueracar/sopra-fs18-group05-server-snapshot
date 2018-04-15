@@ -49,7 +49,7 @@ public class GameService {
     }
 
     public String addGame(Game game, String playerToken) {
-        Player owner = playerRepository.findByToken(playerToken);
+        Optional<Player> owner = playerRepository.findByToken(playerToken);
         if (owner != null) {
             // TODO Mapping into Game
             game = gameRepository.save(game);
@@ -66,40 +66,40 @@ public class GameService {
 
     public void startGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
-        Player owner = playerRepository.findByToken(playerToken);
+        Optional<Player> owner = playerRepository.findByToken(playerToken);
 
-        if (owner != null && game.isPresent() && game.get().getOwner().equals(owner.getPlayerName())) {
+        if (owner != null && game.isPresent()){ //&& game.get().getOwner().equals(owner.get().getName())) {
             // TODO: implement the logic for starting the game
         }
     }
 
     public void stopGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
-        Player owner = playerRepository.findByToken(playerToken);
-        if (owner != null && game.isPresent() && game.get().getOwner().equals(owner.getPlayerName())) {
+        Optional<Player> owner = playerRepository.findByToken(playerToken);
+        if (owner != null && game.isPresent()){ // && game.get().getOwner().equals(owner.get().getName())) {
             // TODO: implement the logic for stopping the game
         }
     }
 
-    public List<Move> listMoves(Long gameId) {
+    /*public List<Move> listMoves(Long gameId) {
         Optional<Game> game = gameRepository.findById(gameId);
         if (game.isPresent()) {
             return game.get().getMoves();
         }
         return null;
-    }
+    }*/
 
     public void addMove(Move move) {
         // TODO Mapping into Move + execution of move
     }
 
-    public Move getMove(Long gameId, Integer moveId) {
+    /*public Move getMove(Long gameId, Integer moveId) {
         Optional<Game> game = gameRepository.findById(gameId);
         if (game.isPresent()) {
             return game.get().getMoves().get(moveId);
         }
         return null;
-    }
+    }*/
 
     public List<Player> listPlayers(Long gameId) {
         Optional<Game> game = gameRepository.findById(gameId);
@@ -112,12 +112,12 @@ public class GameService {
 
     public String addPlayer(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
-        Player player = playerRepository.findByToken(playerToken);
+        Optional<Player> player = playerRepository.findByToken(playerToken);
 
         if (game.isPresent() && player != null
                 && game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
-            game.get().getPlayers().add(player);
-            this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getPlayerName());
+            //game.get().getPlayers().add(player);
+            this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.get().getName());
             return CONTEXT + "/" + gameId + "/player/" + (game.get().getPlayers().size() - 1);
         } else {
             this.logger.error("Error adding player with token: " + playerToken);

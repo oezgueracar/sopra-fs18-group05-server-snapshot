@@ -76,7 +76,7 @@ public class Player implements Serializable {
 
 	/**
 	 * Constructor of the class Player
-	 * @param name	the name of the player
+	 * @param
 	 *//*
 	public Player(String name) {
 		this.name = name;

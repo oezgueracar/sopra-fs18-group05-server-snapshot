@@ -11,6 +11,6 @@ public class PlayerMode2 {
 	}
 
 	private String getColorPieceTwo(){
-
+		return null;
 	}
 }
