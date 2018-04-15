@@ -18,10 +18,12 @@ public class PlayingPiece {
 	}
 
 	public String getColor(){
+		return color;
 
 	}
 
 	public int getPosition(){
+		return position;
 
 	}
 }
