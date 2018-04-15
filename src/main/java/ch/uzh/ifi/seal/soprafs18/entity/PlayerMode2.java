@@ -6,11 +6,12 @@ public class PlayerMode2 {
 
 	private PlayingPiece assignedPiece2;
 
-	public PlayerMode2(String color1, String color2, String name, String token){
+    public PlayerMode2(String color1, String color2, String name, String token){
 
 	}
 
 	private String getColorPieceTwo(){
+		return colorPieceTwo;
 
 	}
 }
