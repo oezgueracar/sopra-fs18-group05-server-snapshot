@@ -21,7 +21,7 @@ public class Player implements Serializable {
 	@GeneratedValue
 	protected Long id;
 
-	@Column(nullable = false) 
+	@Column(nullable = false)
 	protected String name;
 	
 	/*@Column(nullable = false, unique = true)
