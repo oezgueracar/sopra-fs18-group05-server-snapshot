@@ -5,47 +5,11 @@ public class DemoMap extends Map {
     public DemoMap(){
 
         //Tile A
-        Space a1	=	new Space(	1	,"green",	0,	false);
-        Space a2	=	new Space(	2	,"green",	0,	false);
-        Space a3	=	new Space(	3	,"green",	0,	false);
-        Space a4	=	new Space(	4	,"green",	0,	false);
-        Space a5	=	new Space(	5	,"green",	1,	false);
-        Space a6	=	new Space(	6	,"green",	1,	false);
-        Space a7	=	new Space(	7	,"green",	1,	false);
-        Space a8	=	new Space(	8	,"green",	1,	false);
-        Space a9	=	new Space(	9	,"green",	1,	false);
-        Space a10	=	new Space(	10	,"green",	1,	false);
-        Space a11	=	new Space(	11	,"green",	1,	false);
-        Space a12	=	new Space(	12	,"yellow",	1,	false);
-        Space a13	=	new Space(	13	,"green",	1,	false);
-        Space a14	=	new Space(	14	,"blue",	1,	false);
-        Space a15	=	new Space(	15	,"green",	1,	false);
-        Space a16	=	new Space(	16	,"green",	1,	false);
-        Space a17	=	new Space(	17	,"yellow",	1,	false);
-        Space a18	=	new Space(	18	,"green",	1,	false);
-        Space a19	=	new Space(	19	,"blue",	1,	false);
-        Space a20	=	new Space(	20	,"green",	1,	false);
-        Space a21	=	new Space(	21	,"yellow",	1,	false);
-        Space a22	=	new Space(	22	,"green",	1,	false);
-        Space a23	=	new Space(	23	,"green",	1,	false);
-        Space a24	=	new Space(	24	,"black",	0,	false);
-        Space a25	=	new Space(	25	,"yellow",	1,	false);
-        Space a26	=	new Space(	26	,"green",	1,	false);
-        Space a27	=	new Space(	27	,"green",	1,	false);
-        Space a28	=	new Space(	28	,"green",	1,	false);
-        Space a29	=	new Space(	29	,"yellow",	1,	false);
-        Space a30	=	new Space(	30	,"green",	1,	false);
-        Space a31	=	new Space(	31	,"green",	1,	false);
-        Space a32	=	new Space(	32	,"black",	0,	false);
-        Space a33	=	new Space(	33	,"blue",	1,	false);
-        Space a34	=	new Space(	34	,"green",	1,	false);
-        Space a35	=	new Space(	35	,"red",	    0,	false);
-        Space a36	=	new Space(	36	,"green",	1,	false);
-        Space a37	=	new Space(	37	,"green",	1,	false);
-        //Tile T
-        Space t584	=	new Space(	584	,"green",	1,	false);
-        Space t585	=	new Space(	585	,"green",	1,	false);
+        Tile tile1 = new Tile();
+        tile1.setNextTilePos(1);
+        tile1.setRotarion(-60);
 
+<<<<<<< HEAD
         //Setting neighbours
         a1	.setNeighbours(	a6	,	a8	,	null	,	null	,	null	,	null	);
         a2	.setNeighbours(	a8	,	a7	,	null	,	null	,	null	,	null	);
@@ -139,6 +103,164 @@ public class DemoMap extends Map {
 
 
 
+=======
+        Space	a1	=	new Space(	"	green	",	1	,	false);
+        Space	a2	=	new Space(	"	red	    ",	1	,	false);
+        Space	a3	=	new Space(	"	green	",	1	,	false);
+        Space	a4	=	new Space(	"	green	",	1	,	false);
+        Space	a5	=	new Space(	"	blue	",	1	,	false);
+        Space	a6	=	new Space(	"	black	",	0	,	false);
+        Space	a7	=	new Space(	"	green	",	1	,	false);
+        Space	a8	=	new Space(	"	green	",	1	,	false);
+        Space	a9	=	new Space(	"	yellow	",	1	,	false);
+        Space	a10	=	new Space(	"	green	",	1	,	false);
+        Space	a11	=	new Space(	"	black	",	0	,	false);
+        Space	a12	=	new Space(	"	yellow	",	1	,	false);
+        Space	a13	=	new Space(	"	green	",	1	,	false);
+        Space	a14	=	new Space(	"	green	",	1	,	false);
+        Space	a15	=	new Space(	"	green	",	1	,	false);
+        Space	a16	=	new Space(	"	green	",	1	,	false);
+        Space	a17	=	new Space(	"	yellow	",	1	,	false);
+        Space	a18	=	new Space(	"	green	",	1	,	false);
+        Space	a19	=	new Space(	"	blue	",	1	,	false);
+        Space	a20	=	new Space(	"	green	",	1	,	false);
+        Space	a21	=	new Space(	"	yellow	",	1	,	false);
+        Space	a22	=	new Space(	"	green	",	1	,	false);
+        Space	a23	=	new Space(	"	green	",	1	,	false);
+        Space	a24	=	new Space(	"	green	",	1	,	false);
+        Space	a25	=	new Space(	"	yellow	",	1	,	false);
+        Space	a26	=	new Space(	"	green	",	1	,	false);
+        Space	a27	=	new Space(	"	blue	",	1	,	false);
+        Space	a28	=	new Space(	"	green	",	1	,	false);
+        Space	a29	=	new Space(	"	green	",	1	,	false);
+        Space	a30	=	new Space(	"	green	",	1	,	false);
+        Space	a31	=	new Space(	"	green	",	1	,	false);
+        Space	a32	=	new Space(	"	green	",	1	,	false);
+        Space	a33	=	new Space(	"	green	",	1	,	false);
+        Space	a34	=	new Space(	"	green	",	0	,	false);
+        Space	a35	=	new Space(	"	green	",	0	,	false);
+        Space	a36	=	new Space(	"	green	",	0	,	false);
+        Space	a37	=	new Space(	"	green	",	0	,	false);
+        //fill rows
+        tile1	.addRow1(	a1	);
+        tile1	.addRow1(	a2	);
+        tile1	.addRow1(	a3	);
+        tile1	.addRow1(	a4	);
+        tile1	.addRow2(	a5	);
+        tile1	.addRow2(	a6	);
+        tile1	.addRow2(	a7	);
+        tile1	.addRow2(	a8	);
+        tile1	.addRow2(	a9	);
+        tile1	.addRow3(	a10	);
+        tile1	.addRow3(	a11	);
+        tile1	.addRow3(	a12	);
+        tile1	.addRow3(	a13	);
+        tile1	.addRow3(	a14	);
+        tile1	.addRow3(	a15	);
+        tile1	.addRow4(	a16	);
+        tile1	.addRow4(	a17	);
+        tile1	.addRow4(	a18	);
+        tile1	.addRow4(	a19	);
+        tile1	.addRow4(	a20	);
+        tile1	.addRow4(	a21	);
+        tile1	.addRow4(	a22	);
+        tile1	.addRow5(	a23	);
+        tile1	.addRow5(	a24	);
+        tile1	.addRow5(	a25	);
+        tile1	.addRow5(	a26	);
+        tile1	.addRow5(	a27	);
+        tile1	.addRow5(	a28	);
+        tile1	.addRow6(	a29	);
+        tile1	.addRow6(	a30	);
+        tile1	.addRow6(	a31	);
+        tile1	.addRow6(	a32	);
+        tile1	.addRow6(	a33	);
+        tile1	.addRow7(	a34	);
+        tile1	.addRow7(	a35	);
+        tile1	.addRow7(	a36	);
+        tile1	.addRow7(	a37	);
+
+        //Tile C
+        Tile tile2 = new Tile();
+        tile2.setNextTilePos(1);
+        tile2.setRotarion(-240);
+
+        Space 	c1	=	new Space(	"	green	",	1	,	false);
+        Space 	c2	=	new Space(	"	green	",	1	,	false);
+        Space 	c3	=	new Space(	"	grey	",	1	,	false);
+        Space 	c4	=	new Space(	"	grey	",	1	,	false);
+        Space 	c5	=	new Space(	"	green	",	1	,	false);
+        Space 	c6	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c7	=	new Space(	"	grey	",	1	,	false);
+        Space 	c8	=	new Space(	"	blue	",	1	,	false);
+        Space 	c9	=	new Space(	"	blue	",	1	,	false);
+        Space 	c10	=	new Space(	"	blue	",	1	,	false);
+        Space 	c11	=	new Space(	"	blue	",	1	,	false);
+        Space 	c12	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c13	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c14	=	new Space(	"	grey	",	1	,	false);
+        Space 	c15	=	new Space(	"	blue	",	1	,	false);
+        Space 	c16	=	new Space(	"	blue	",	1	,	false);
+        Space 	c17	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c18	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c19	=	new Space(	"	yellow	",	0	,	false);
+        Space 	c20	=	new Space(	"	blue	",	1	,	false);
+        Space 	c21	=	new Space(	"	grey	",	1	,	false);
+        Space 	c22	=	new Space(	"	grey	",	1	,	false);
+        Space 	c23	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c24	=	new Space(	"	grey	",	1	,	false);
+        Space 	c25	=	new Space(	"	blue	",	1	,	false);
+        Space 	c26	=	new Space(	"	blue	",	1	,	false);
+        Space 	c27	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c28	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c29	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c30	=	new Space(	"	grey	",	1	,	false);
+        Space 	c31	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c32	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c33	=	new Space(	"	blue	",	1	,	false);
+        Space 	c34	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c35	=	new Space(	"	yellow	",	1	,	false);
+        Space 	c36	=	new Space(	"	blue	",	1	,	false);
+        Space 	c37	=	new Space(	"	blue	",	1	,	false);
+        //fill rows
+        tile2	.addRow1(	c1	);
+        tile2	.addRow1(	c2	);
+        tile2	.addRow1(	c3	);
+        tile2	.addRow1(	c4	);
+        tile2	.addRow2(	c5	);
+        tile2	.addRow2(	c6	);
+        tile2	.addRow2(	c7	);
+        tile2	.addRow2(	c8	);
+        tile2	.addRow2(	c9	);
+        tile2	.addRow3(	c10	);
+        tile2	.addRow3(	c11	);
+        tile2	.addRow3(	c12	);
+        tile2	.addRow3(	c13	);
+        tile2	.addRow3(	c14	);
+        tile2	.addRow3(	c15	);
+        tile2	.addRow4(	c16	);
+        tile2	.addRow4(	c17	);
+        tile2	.addRow4(	c18	);
+        tile2	.addRow4(	c19	);
+        tile2	.addRow4(	c20	);
+        tile2	.addRow4(	c21	);
+        tile2	.addRow4(	c22	);
+        tile2	.addRow5(	c23	);
+        tile2	.addRow5(	c24	);
+        tile2	.addRow5(	c25	);
+        tile2	.addRow5(	c26	);
+        tile2	.addRow5(	c27	);
+        tile2	.addRow5(	c28	);
+        tile2	.addRow6(	c29	);
+        tile2	.addRow6(	c30	);
+        tile2	.addRow6(	c31	);
+        tile2	.addRow6(	c32	);
+        tile2	.addRow6(	c33	);
+        tile2	.addRow7(	c34	);
+        tile2	.addRow7(	c35	);
+        tile2	.addRow7(	c36	);
+        tile2	.addRow7(	c37	);
+>>>>>>> Map
 
     }
 }

@@ -1,16 +1,16 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
 
+import java.util.ArrayList;
+
 public class Space {
-    private long id;
     private Space[] neighbours = new Space[6];
     private String color;
     private int value;
     private boolean blockade;
     private static boolean occupied = false;
 
-    public Space(long ID, String col, int val, boolean block){
-        id=ID;
+    public Space(String col, int val, boolean block){
         color=col;
         value=val;
         blockade=block;
@@ -32,10 +32,6 @@ public class Space {
         neighbours[3] = n4;
         neighbours[4] = n5;
         neighbours[5] = n6;
-    }
-
-    public long getSpaceID(){
-        return id;
     }
 
     public Space[] getNeighbours(){
