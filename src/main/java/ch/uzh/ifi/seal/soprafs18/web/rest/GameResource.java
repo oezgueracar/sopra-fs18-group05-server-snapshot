@@ -42,7 +42,7 @@ public class GameResource
         return this.gameService.listGames();
     }
 
-    // Create a game
+    // Create a game  TODO: Callback for join game after game created
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String addGame(@RequestBody Game game, @RequestParam("token") String playerToken) {

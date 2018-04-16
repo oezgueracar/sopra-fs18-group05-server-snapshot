@@ -68,7 +68,7 @@ public class GameService {
         Optional<Game> game = gameRepository.findById(gameId);
         Optional<Player> owner = playerRepository.findByToken(playerToken);
 
-        if (owner != null && game.isPresent()){ //&& game.get().getOwner().equals(owner.get().getPlayerName())) {
+        if (owner != null && game.isPresent()){ //&& game.get().getOwner().equals(owner.get().getName())) {
             // TODO: implement the logic for starting the game
         }
     }
@@ -76,7 +76,7 @@ public class GameService {
     public void stopGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
         Optional<Player> owner = playerRepository.findByToken(playerToken);
-        if (owner != null && game.isPresent()){ // && game.get().getOwner().equals(owner.get().getPlayerName())) {
+        if (owner != null && game.isPresent()){ // && game.get().getOwner().equals(owner.get().getName())) {
             // TODO: implement the logic for stopping the game
         }
     }
@@ -117,7 +117,7 @@ public class GameService {
         if (game.isPresent() && player != null
                 && game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
             //game.get().getPlayers().add(player);
-            this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.get().getPlayerName());
+            this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.get().getName());
             return CONTEXT + "/" + gameId + "/player/" + (game.get().getPlayers().size() - 1);
         } else {
             this.logger.error("Error adding player with token: " + playerToken);
