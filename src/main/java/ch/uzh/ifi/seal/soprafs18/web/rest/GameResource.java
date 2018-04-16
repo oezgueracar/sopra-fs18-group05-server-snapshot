@@ -46,7 +46,7 @@ public class GameResource
     // TODO: Frontend --> callback for join game after game is created
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String addGame(@RequestBody Game game) {
+    public Game addGame(@RequestBody Game game) {
         logger.debug("addGame: " + game);
         return this.gameService.addGame(game);
     }

@@ -33,12 +33,12 @@ public class Game implements Serializable {
 	public Game(){
         //players.add(leader);
 	    //setLeader(leader);
-        setTurnTime(60);
+		///setTurnTime(60);
         //setName(gname);
-        setMaxPlayers(4);
-        currentPlayer = 0;
-        setup();
-        setStatus(PENDING);
+		///setMaxPlayers(4);
+		///currentPlayer = 0;
+		//setup();
+		///setStatus(PENDING);
     }
 	
 	@Id
@@ -147,7 +147,7 @@ public class Game implements Serializable {
         }
     }
 
-	//TODO: Should be done after cards class is commited
+	//TODO: Should be done after cards class is committed
 	public void setupCards(){
         //Fill the deck of each player with the starting cards as stated in the game manual.
         for(Player p : players){

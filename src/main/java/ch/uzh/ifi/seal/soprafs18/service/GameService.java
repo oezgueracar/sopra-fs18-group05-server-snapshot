@@ -52,10 +52,10 @@ public class GameService {
     }
 
     // TODO: create a new game
-    public String addGame(Game game) {
+    public Game addGame(Game game) {
     	game.setTurnTime(60);
-		game = gameRepository.save(game);
-        return CONTEXT + "/" + game.getId();
+		//game = gameRepository.save(game);
+        return gameRepository.save(game);//CONTEXT + "/" + game.getId();
     }
 
     public Game getGame(Long gameId) {
@@ -66,21 +66,24 @@ public class GameService {
 	// return a list of players in a game
 	public List<Player> listPlayers(Long gameId) {
 		Optional<Game> game = gameRepository.findById(gameId);
+		List<Player> result = new ArrayList<>();
 		if (game.isPresent()) {
 			return game.get().getPlayers();
 		}
-		return null;
+		return game.get().getPlayers();
 	}
 
-	// TODO: Addplayer and join game
+	// TODO: Add player and join game
 	public Player addPlayer(Long gameId, Player player) {
 		Optional<Game> game = gameRepository.findById(gameId);
 
 		player.setToken(UUID.randomUUID().toString());
+		player.setReady(false);
+		player.setPlayerLeft(false);
+		player.setIsInGoal(false);
 		playerRepository.save(player);
 
-		if (game.isPresent() && player != null
-				&& game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
+		if (game.isPresent() && game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
 			game.get().addPlayer(player);
 
 			// Set leader if this player is the first added player to this Game

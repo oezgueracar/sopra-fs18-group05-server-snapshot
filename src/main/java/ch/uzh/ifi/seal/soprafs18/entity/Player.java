@@ -261,7 +261,7 @@ public class Player implements Serializable {
 		playerLeft = b;
 	}
 
-	protected void setIsInGoal(Boolean b){
+	public void setIsInGoal(Boolean b){
 		isInGoal = b;
 	}
 
