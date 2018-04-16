@@ -48,7 +48,7 @@ public class Game implements Serializable {
 	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = false)
+	@Column()
 	private Player leader;
 	
 	@Column 

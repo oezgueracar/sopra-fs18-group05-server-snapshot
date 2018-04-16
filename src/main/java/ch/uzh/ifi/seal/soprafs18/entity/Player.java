@@ -17,10 +17,10 @@ public class Player implements Serializable {
 	protected Long id;
 
 	@Column(nullable = false) 
-	protected String playerName;
+	protected String name;
 	
 	/*@Column(nullable = false, unique = true)
-	private String playerName;*/
+	private String name;*/
 
 	// A unique token for a player - Is generated in Service
 	@Column(nullable = false, unique = true) 
@@ -37,17 +37,20 @@ public class Player implements Serializable {
 	@Column(nullable = false)
 	protected Boolean playerLeft;
 
+	@Column(nullable = false)
+	protected Boolean ready;
+
 	// Is the amount of coins a player has in a turn
 	@Column()
 	protected float coins;
 
 	// Is true if the playingPiece of the player is in an end space
-	@Column()
+	@Column(nullable = false)
 	protected Boolean isInGoal;
 
     @ManyToOne
 	@JoinColumn(name="game_id")
-    private Game game;
+    private Game game; // TODO: Check if Game or Long as type
 	/*
     @OneToMany(mappedBy="player")
     private List<Move> moves;*/
@@ -65,18 +68,20 @@ public class Player implements Serializable {
     // Contains the cards that were played in this turn
     protected ArrayList<Card> playedList;
 
-    // Depending on the position in the ArrayList the counter is referring to the color - only one entry can be different from 0
-    protected int moveCounter;
+    // Depending on the position in the ArrayList the counter is referring to the color - only one entry can be different from 0!
+	// [green, blue, yellow]
+    protected int[] moveCounter = new int[3];
 
 	//protected PlayingPiece assignedPiece;
 
 	/**
 	 * Constructor of the class Player
-	 * @param
-	 *//*TODO: Do we need a Constructor for Player???
-	public Player(String playerName) {
-		this.playerName = playerName;
-	}*/
+	 * The Array moveCounter is initialized
+	 */
+	public Player() {
+		ready = false;
+		isInGoal = false;
+	}
 
 	public Long getId() {
 		return id;
@@ -90,12 +95,20 @@ public class Player implements Serializable {
 		this.token = token;
 	}
 
-	public String getPlayerName() {
-		return playerName;
+	public String getName() {
+		return name;
 	}
 
-	public void setPlayerName(String playerName){
-		this.playerName = playerName;
+	public void setName(String name){
+		this.name = name;
+	}
+
+	public Boolean getReady() {
+		return ready;
+	}
+
+	public void setReady(Boolean b) {
+		this.ready = b;
 	}
 
 	public String getColor(){
@@ -110,7 +123,7 @@ public class Player implements Serializable {
 		return hand;
 	}
 
-	public int getMoveCounter() {
+	public int[] getMoveCounter() {
 		return moveCounter;
 	}
 
@@ -235,7 +248,7 @@ public class Player implements Serializable {
 		discardPile.clear();
 	}
 
-	protected void setMoveCounter(Card card){
+	protected void setMoveCounter(float f){
 
 	}
 
@@ -258,8 +271,8 @@ public class Player implements Serializable {
 		this.id = id;
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Move> getMoves() {

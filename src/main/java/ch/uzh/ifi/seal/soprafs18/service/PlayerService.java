@@ -43,7 +43,7 @@ public class PlayerService {
     */
 /*//*
 / Create information about a player
-    public Player createPlayer(String name, String playerName, String token, PlayerStatus status, List<Game> games) {
+    public Player createPlayer(String name, String name, String token, PlayerStatus status, List<Game> games) {
         Player newPlayer = new Player(name);
         newPlayer.setToken(token);
         newPlayer.setStatus(status);
