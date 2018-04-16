@@ -43,7 +43,6 @@ public class DemoMap extends Map {
         Space a36	=	new Space(	36	,"green",	1,	false);
         Space a37	=	new Space(	37	,"green",	1,	false);
         //Tile T
-        Space t583	=	new Space(	583	,"green",	1,	false);
         Space t584	=	new Space(	584	,"green",	1,	false);
         Space t585	=	new Space(	585	,"green",	1,	false);
 
@@ -76,7 +75,7 @@ public class DemoMap extends Map {
         a26	.setNeighbours(	a25	,	a31	,	a30	,	a27	,	a18	,	a19	);
         a27	.setNeighbours(	a26	,	a30	,	a29	,	a28	,	a17	,	a18	);
         a28	.setNeighbours(	a27	,	a29	,	t584	,	t585	,	a16	,	a17	);
-        a29	.setNeighbours(	a30	,	a37	,	t583	,	t584	,	a28	,	a27	);
+        a29	.setNeighbours(	a30	,	a37	,	null	,	t584	,	a28	,	a27	);
         a30	.setNeighbours(	a30	,	a36	,	a37	,	a29	,	a27	,	a26	);
         a31	.setNeighbours(	a32	,	a35	,	a36	,	a30	,	a26	,	a25	);
         a32	.setNeighbours(	a33	,	a34	,	a35	,	a31	,	a25	,	a24	);
@@ -84,10 +83,9 @@ public class DemoMap extends Map {
         a34	.setNeighbours(	null	,	null	,	null	,	a35	,	a32	,	a33	);
         a35	.setNeighbours(	a34	,	null	,	null	,	a36	,	a31	,	a32	);
         a36	.setNeighbours(	a35	,	null	,	null	,	a37	,	a30	,	a31	);
-        a37	.setNeighbours(	a36	,	null	,	null	,	t583	,	a29	,	a30	);
+        a37	.setNeighbours(	a36	,	null	,	null	,	null	,	a29	,	a30	);
         //Setting neighbours of T
-        t583.setNeighbours(a37,null,null,null,null,a29);
-        t584.setNeighbours(a29,t583,null,null,null,a28);
+        t584.setNeighbours(a29,null,null,null,null,a28);
         t585.setNeighbours(a28,t584,null,null,null,a16);
 
         //Filling spaces in arraylist "spaces"
