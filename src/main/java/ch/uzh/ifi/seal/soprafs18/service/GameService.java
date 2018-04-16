@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by Lucas Pelloni on 26.01.18.
@@ -41,22 +42,20 @@ public class GameService {
         this.playerRepository = playerRepository;
     }
 
-
+    /**
+     * @return
+     */
     public List<Game> listGames() {
         List<Game> result = new ArrayList<>();
         gameRepository.findAll().forEach(result::add);
         return result;
     }
 
-    public String addGame(Game game, String playerToken) {
-        Optional<Player> owner = playerRepository.findByToken(playerToken);
-        if (owner != null) {
-            // TODO Mapping into Game
-            game = gameRepository.save(game);
-
-            return CONTEXT + "/" + game.getId();
-        }
-        return null;
+    // TODO: create a new game
+    public String addGame(Game game) {
+    	game.setTurnTime(60);
+		game = gameRepository.save(game);
+        return CONTEXT + "/" + game.getId();
     }
 
     public Game getGame(Long gameId) {
@@ -64,6 +63,49 @@ public class GameService {
         return game.orElse(null);
     }
 
+	// return a list of players in a game
+	public List<Player> listPlayers(Long gameId) {
+		Optional<Game> game = gameRepository.findById(gameId);
+		if (game.isPresent()) {
+			return game.get().getPlayers();
+		}
+		return null;
+	}
+
+	// TODO: Addplayer and join game
+	public Player addPlayer(Long gameId, Player player) {
+		Optional<Game> game = gameRepository.findById(gameId);
+
+		player.setToken(UUID.randomUUID().toString());
+		playerRepository.save(player);
+
+		if (game.isPresent() && player != null
+				&& game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
+			game.get().addPlayer(player);
+
+			// Set leader if this player is the first added player to this Game
+			if (game.get().getPlayers().size() == 0) {
+				game.get().setLeader(player);
+			}
+
+			this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getName());
+			return player;
+		} else {
+			this.logger.error("Error adding player with token: " + player.getToken());
+		}
+		return null;
+	}
+
+	// TODO: Getplayer
+	public Player getPlayer(Long gameId, Integer playerId) {
+		Optional<Game> game = gameRepository.findById(gameId);
+		if (game.isPresent()) {
+			return game.get().getPlayers().get(playerId);
+		}
+		return null;
+	}
+
+	// TODO: startgame
     public void startGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
         Optional<Player> owner = playerRepository.findByToken(playerToken);
@@ -72,6 +114,19 @@ public class GameService {
             // TODO: implement the logic for starting the game
         }
     }
+
+    // TODO: changestate
+
+	// TODO: update moveCounter, reachable and hand of a player
+
+	// TODO: Update current position of a player
+
+	// TODO: Update coins and hand of a player
+
+	// TODO: market
+
+	// TODO: Update playedList, discardPile and status of players
+
 
     public void stopGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
@@ -89,47 +144,7 @@ public class GameService {
         return null;
     }*/
 
-    public void addMove(Move move) {
-        // TODO Mapping into Move + execution of move
-    }
-
-    /*public Move getMove(Long gameId, Integer moveId) {
-        Optional<Game> game = gameRepository.findById(gameId);
-        if (game.isPresent()) {
-            return game.get().getMoves().get(moveId);
-        }
-        return null;
+   /* public void addMove(Move move) {
+        // TODO: Mapping into Move + execution of move
     }*/
-
-    public List<Player> listPlayers(Long gameId) {
-        Optional<Game> game = gameRepository.findById(gameId);
-        if (game.isPresent()) {
-            return game.get().getPlayers();
-        }
-
-        return null;
-    }
-
-    public String addPlayer(Long gameId, String playerToken) {
-        Optional<Game> game = gameRepository.findById(gameId);
-        Optional<Player> player = playerRepository.findByToken(playerToken);
-
-        if (game.isPresent() && player != null
-                && game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
-            //game.get().getPlayers().add(player);
-            this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.get().getName());
-            return CONTEXT + "/" + gameId + "/player/" + (game.get().getPlayers().size() - 1);
-        } else {
-            this.logger.error("Error adding player with token: " + playerToken);
-        }
-        return null;
-    }
-
-    public Player getPlayer(Long gameId, Integer playerId) {
-        Optional<Game> game = gameRepository.findById(gameId);
-        if (game.isPresent()) {
-            return game.get().getPlayers().get(playerId);
-        }
-        return null;
-    }
 }

@@ -43,12 +43,12 @@ public class GameResource
     }
 
     // TODO: Create a game
-    // TODO: Callback for join game after game created
+    // TODO: Frontend --> callback for join game after game is created
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String addGame(@RequestBody Game game, @RequestParam("token") String playerToken) {
+    public String addGame(@RequestBody Game game) {
         logger.debug("addGame: " + game);
-        return this.gameService.addGame(game, playerToken);
+        return this.gameService.addGame(game);
     }
 
     // TODO: Retrieve information of a game
@@ -69,10 +69,10 @@ public class GameResource
 
     // TODO: Create player and join game
     @RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    public String addPlayer(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
-        logger.debug("addPlayerToGame: " + playerToken);
-        return this.gameService.addPlayer(gameId, playerToken);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Player addPlayer(@PathVariable Long gameId, @RequestBody Player player) {
+        logger.debug("addPlayerAndJoinGame: " + player);
+        return this.gameService.addPlayer(gameId, player);
     }
 
     // TODO: Retrieve information of a player

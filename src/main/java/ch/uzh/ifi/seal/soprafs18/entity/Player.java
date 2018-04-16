@@ -79,6 +79,7 @@ public class Player implements Serializable {
 	 * The Array moveCounter is initialized
 	 */
 	public Player() {
+		playerLeft = false;
 		ready = false;
 		isInGoal = false;
 	}
@@ -256,7 +257,7 @@ public class Player implements Serializable {
 		coins += f;
 	}
 
-	protected void setPlayerLeft(Boolean b){
+	public void setPlayerLeft(Boolean b){
 		playerLeft = b;
 	}
 

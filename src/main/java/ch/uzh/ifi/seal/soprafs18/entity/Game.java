@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,13 +29,13 @@ public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	//TODO: misses eventual setup? Where do we initialize all cards?
-    // should check that game is PENDING after it got created in postcondition and that all attributes are set correctly
-	public Game(Player leader, String gname){
-        players.add(leader);
-	    setLeader (leader);
-        setTurnTime (60);
-        setName (gname);
-        setMaxPlayers (4);
+    // should check that game is PENDING after it got created in post condition and that all attributes are set correctly
+	public Game(){
+        //players.add(leader);
+	    //setLeader(leader);
+        setTurnTime(60);
+        //setName(gname);
+        setMaxPlayers(4);
         currentPlayer = 0;
         setup();
         setStatus(PENDING);
@@ -44,8 +45,8 @@ public class Game implements Serializable {
 	@GeneratedValue
 	private Long id;
 
-	//This is the same as game room name set by the leader of the room.
-	@Column(nullable = false)
+	//This is the same as game room name.
+	@Column()
 	private String name;
 
 	@Column()
@@ -85,36 +86,36 @@ public class Game implements Serializable {
 
     /* Should check if players exist already in db as precondition; should check if players are assigned to correct game id in DB as post
        The added players index should not be able to be 0 or bigger than 4 while adding.
-       Postcondition should check if the player was added succesfully.
+       Post condition should check if the player was added successfully.
        Invariant should check that there is at least always 1 player (the leader) in "players".
     */
-    private void addPlayer(Player newPlayer){
+    public void addPlayer(Player newPlayer){
         this.players.add(newPlayer);
     }
 
-    private void setStatus(GameStatus newStatus){
+    public void setStatus(GameStatus newStatus){
         this.status = newStatus;
     }
 
-    private void setLeader(Player newLeader){
+    public void setLeader(Player newLeader){
         this.leader = newLeader;
     }
 
-    private void setMapName(String newMapName){
+    public void setMapName(String newMapName){
         this.mapName = newMapName;
     }
 
-    private void setTurnTime(Integer newTurnTime){
+    public void setTurnTime(Integer newTurnTime){
         this.turnTime = newTurnTime;
     }
 
-    private void setName(String newName){
+    public void setName(String newName){
         this.name = newName;
     }
 
     //TODO: pre and post check that its not over 4 or under 2 and that it has been set
     //TODO: Do such checks for every setter
-    private void setMaxPlayers(Integer newMaxPlayers){
+    public void setMaxPlayers(Integer newMaxPlayers){
         this.maxPlayers = newMaxPlayers;
     }
 
@@ -137,7 +138,7 @@ public class Game implements Serializable {
 
     //TODO: post and pre to check if in right boundary and if it has been changed like planned
     //TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
-    private void changeCurrentPlayer(){
+    public void changeCurrentPlayer(){
         if (this.currentPlayer + 1 == this.maxPlayers){
             this.currentPlayer = 0;
         }
@@ -147,7 +148,7 @@ public class Game implements Serializable {
     }
 
 	//TODO: Should be done after cards class is commited
-	private void setupCards(){
+	public void setupCards(){
         //Fill the deck of each player with the starting cards as stated in the game manual.
         for(Player p : players){
             for(int i = 0; i < 3; i++){
@@ -162,7 +163,7 @@ public class Game implements Serializable {
 
 	//Helper function for setting up all associated Objects with game.
 	//TODO: assignedMarket type is not known by the compiler idky...
-	private void setup(){
+	public void setup(){
         //assignedMarket = new Market();
         setMapName("HillsOfGoldMap");
         setupCards();
