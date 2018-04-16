@@ -1,3 +1,4 @@
+/*
 package ch.uzh.ifi.seal.soprafs18.service;
 
 import ch.uzh.ifi.seal.soprafs18.constant.PlayerStatus;
@@ -16,11 +17,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 
+*/
 /**
  * /**
  * Created by LucasPelloni on 26.01.18.
  * Service class for managing players.
- */
+ *//*
+
 @Service
 @Transactional
 public class PlayerService {
@@ -37,7 +40,9 @@ public class PlayerService {
     }
 
 
-    /*// Create information about a player
+    */
+/*//*
+/ Create information about a player
     public Player createPlayer(String name, String playerName, String token, PlayerStatus status, List<Game> games) {
         Player newPlayer = new Player(name);
         newPlayer.setToken(token);
@@ -46,9 +51,11 @@ public class PlayerService {
         playerRepository.save(newPlayer);
         log.debug("Created Information for Player: {}", newPlayer);
         return newPlayer;
-    }*/
+    }*//*
 
-    /*public Player login(Long playerID) {
+
+    */
+/*public Player login(Long playerID) {
         Optional<Player> playerOptional = playerRepository.findById(playerID);
         if (playerOptional.isPresent()) {
             Player player = playerOptional.get();
@@ -58,20 +65,24 @@ public class PlayerService {
             return player;
         }
         return null;
-    }*/
+    }*//*
 
-    /*public void logout(Long playerID, String playerToken) {
+
+    */
+/*public void logout(Long playerID, String playerToken) {
         Optional<Player> playerOptional = playerRepository.findById(playerID);
         if (playerOptional.isPresent() && playerOptional.get().getToken().equals(playerToken)) {
             Player player = playerOptional.get();
             player.setStatus(PlayerStatus.OFFLINE);
             playerRepository.save(player);
         }
-    }*/
+    }*//*
+
 
     // add a player, init status, create token and save him to the player Repo
     public Player addPlayer(Player player) {
         //player.setStatus(PlayerStatus.OFFLINE);
+        player.setPlayerLeft(false);
         player.setToken(UUID.randomUUID().toString());
         return playerRepository.save(player);
     }
@@ -93,3 +104,4 @@ public class PlayerService {
         }
     }
 }
+*/

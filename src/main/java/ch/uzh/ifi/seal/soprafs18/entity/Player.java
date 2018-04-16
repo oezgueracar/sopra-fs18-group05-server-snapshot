@@ -2,14 +2,9 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Random;
 
 import javax.persistence.*;
-
-import ch.uzh.ifi.seal.soprafs18.constant.PlayerStatus;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 @Entity
 public class Player implements Serializable {
@@ -23,30 +18,31 @@ public class Player implements Serializable {
 
 	@Column(nullable = false)
 	protected String name;
-	
+
 	/*@Column(nullable = false, unique = true)
 	private String playerName;*/
 
-	// A unique token for a player
-	@Column(nullable = false, unique = true) 
+	// A unique token for a player - Is generated in Service
+	@Column(nullable = false, unique = true)
 	protected String token;
 
-	@Column(nullable = false)
-	private PlayerStatus status;
+	/*@Column(nullable = false)
+	private PlayerStatus status;*/
 
-	// Is the amount of coins a player has in a turn
-	@Column(nullable = false)
-	protected float coins;
+	// TODO: check at point of setting status to "ready" if valid color
+	@Column()
+	protected String color;
 
+	// Is set to false in Service when creating player
 	@Column(nullable = false)
 	protected Boolean playerLeft;
 
-	//
-	@Column(nullable = false)
-	protected String color;
+	// Is the amount of coins a player has in a turn
+	@Column()
+	protected float coins;
 
 	// Is true if the playingPiece of the player is in an end space
-	@Column(nullable = false)
+	@Column()
 	protected Boolean isInGoal;
 
     @ManyToOne
@@ -78,8 +74,8 @@ public class Player implements Serializable {
 	 * Constructor of the class Player
 	 * @param
 	 *//*
-	public Player(String name) {
-		this.name = name;
+	public Player(String playerName) {
+		this.playerName = playerName;
 	}NO CONSTRUCTOR NEEDED*/
 
 	public Long getId() {
@@ -94,12 +90,12 @@ public class Player implements Serializable {
 		this.token = token;
 	}
 
-	public String getName() {
-		return name;
+	public String getPlayerName() {
+		return playerName;
 	}
 
-	public void setName(String name){
-		this.name = name;
+	public void setPlayerName(String playerName){
+		this.playerName = playerName;
 	}
 
 	public String getColor(){
@@ -260,8 +256,8 @@ public class Player implements Serializable {
 		this.id = id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
 
 	public List<Move> getMoves() {

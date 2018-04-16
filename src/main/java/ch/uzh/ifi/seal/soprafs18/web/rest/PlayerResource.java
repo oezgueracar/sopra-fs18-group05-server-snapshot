@@ -1,3 +1,4 @@
+/*
 package ch.uzh.ifi.seal.soprafs18.web.rest;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
@@ -92,3 +93,4 @@ public class PlayerResource extends GenericResource {
 		return playerRepo.findById(playerID);
 	}
 }
+*/
