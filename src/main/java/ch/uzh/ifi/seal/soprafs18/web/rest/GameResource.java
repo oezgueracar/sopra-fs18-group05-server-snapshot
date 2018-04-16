@@ -34,7 +34,7 @@ public class GameResource
     @Autowired
     private GameService gameService;
 
-    // Retrieve a list of games
+    // TODO: Retrieve a list of games
     @RequestMapping(value = CONTEXT)
     @ResponseStatus(HttpStatus.OK)
     public List<Game> listGames() {
@@ -42,7 +42,8 @@ public class GameResource
         return this.gameService.listGames();
     }
 
-    // Create a game  TODO: Callback for join game after game created
+    // TODO: Create a game
+    // TODO: Callback for join game after game created
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String addGame(@RequestBody Game game, @RequestParam("token") String playerToken) {
@@ -50,7 +51,7 @@ public class GameResource
         return this.gameService.addGame(game, playerToken);
     }
 
-    // Retrieve information of a game
+    // TODO: Retrieve information of a game
     @RequestMapping(value = CONTEXT + "/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public Game getGame(@PathVariable Long gameId) {
@@ -58,48 +59,7 @@ public class GameResource
         return this.gameService.getGame(gameId);
     }
 
-    // Initialize a game
-    @RequestMapping(value = CONTEXT + "/{gameId}/start", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    public void startGame(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
-        logger.debug("startGame: " + gameId);
-        this.gameService.startGame(gameId, playerToken);
-    }
-
-    /*
-    @RequestMapping(value = CONTEXT + "/{gameId}/stop", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    public void stopGame(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
-        logger.debug("stopGame: " + gameId);
-        this.gameService.stopGame(gameId, playerToken);
-    }
-*/
-
-    /*
-    @RequestMapping(value = CONTEXT + "/{gameId}/moves")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Move> listMoves(@PathVariable Long gameId) {
-        logger.debug("listMoves");
-        return this.gameService.listMoves(gameId);
-    }*/
-/*
-    @RequestMapping(value = CONTEXT + "/{gameId}/moves", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    public void addMove(@RequestBody Move move) {
-        logger.debug("addMove: " + move);
-        this.gameService.addMove(move);
-    }*/
-
-/*
-    @RequestMapping(value = CONTEXT + "/{gameId}/moves/{moveId}")
-    @ResponseStatus(HttpStatus.OK)
-    public Move getMove(@PathVariable Long gameId, @PathVariable Integer moveId) {
-        logger.debug("getMove: " + gameId);
-        return this.gameService.getMove(gameId, moveId);
-    }*/
-
-
-    // Retrieve a list of players in a game
+    // TODO: Retrieve list of players in a game
     @RequestMapping(value = CONTEXT + "/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
     public List<Player> listPlayers(@PathVariable Long gameId) {
@@ -107,7 +67,7 @@ public class GameResource
         return this.gameService.listPlayers(gameId);
     }
 
-    // Add a player to a game
+    // TODO: Create player and join game
     @RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String addPlayer(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
@@ -115,7 +75,7 @@ public class GameResource
         return this.gameService.addPlayer(gameId, playerToken);
     }
 
-    // Retrieve information of a player in a game
+    // TODO: Retrieve information of a player
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.OK)
     public Player getPlayer(@PathVariable Long gameId, @PathVariable Integer playerId) {
@@ -123,12 +83,30 @@ public class GameResource
         return this.gameService.getPlayer(gameId, playerId);
     }
 
-    // Change state of a player (ready)
+    // TODO: Start a game, initialize cards
+    @RequestMapping(value = CONTEXT + "/{gameId}/start", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public void startGame(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
+        logger.debug("startGame: " + gameId);
+        this.gameService.startGame(gameId, playerToken);
+    }
+
+    // TODO: Change ready state of a player
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerID}/state", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public String changeState(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
         logger.debug("changeState: " + playerToken);
         return this.gameService.addPlayer(gameId, playerToken);
     }
+
+    // TODO: Update moveCounter, reachable and hand of a player
+
+    // TODO: Update current position of a player
+
+    // TODO: Update coins and hand of a player
+
+    // TODO: market
+
+    // TODO: Update playedList, discardPile and status of players
 
 }
