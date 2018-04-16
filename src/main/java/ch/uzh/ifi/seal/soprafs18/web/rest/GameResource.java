@@ -92,12 +92,12 @@ public class GameResource
     }
 
     // TODO: Change ready state of a player
-    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerID}/state", method = RequestMethod.PUT)
+    /*@RequestMapping(value = CONTEXT + "/{gameId}/players/{playerID}/state", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public String changeState(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
         logger.debug("changeState: " + playerToken);
         return this.gameService.addPlayer(gameId, playerToken);
-    }
+    }*/
 
     // TODO: Update moveCounter, reachable and hand of a player
 
