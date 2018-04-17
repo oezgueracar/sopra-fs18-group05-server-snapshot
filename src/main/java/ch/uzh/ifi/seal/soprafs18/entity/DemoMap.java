@@ -100,6 +100,10 @@ public class DemoMap extends Map {
             mapTiles.add(tile1);
             mapTiles.add(tile2);
 
-
     }
+
+        //Getter
+        public ArrayList getMapTiles(){
+            return mapTiles;
+        }
 }
