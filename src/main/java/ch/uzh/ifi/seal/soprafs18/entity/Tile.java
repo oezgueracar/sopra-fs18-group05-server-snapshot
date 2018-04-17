@@ -18,13 +18,13 @@ public class Tile {
     private int rotation;
 
     public Tile(){
-        private ArrayList<Space> row1 = new ArrayList<Space>();
-        private ArrayList<Space> row2 = new ArrayList<Space>();
-        private ArrayList<Space> row3 = new ArrayList<Space>();
-        private ArrayList<Space> row4 = new ArrayList<Space>();
-        private ArrayList<Space> row5 = new ArrayList<Space>();
-        private ArrayList<Space> row6 = new ArrayList<Space>();
-        private ArrayList<Space> row7 = new ArrayList<Space>();
+        ArrayList<Space> row1 = new ArrayList<Space>();
+        ArrayList<Space> row2 = new ArrayList<Space>();
+        ArrayList<Space> row3 = new ArrayList<Space>();
+        ArrayList<Space> row4 = new ArrayList<Space>();
+        ArrayList<Space> row5 = new ArrayList<Space>();
+        ArrayList<Space> row6 = new ArrayList<Space>();
+        ArrayList<Space> row7 = new ArrayList<Space>();
     }
 
     //Fill Rows
