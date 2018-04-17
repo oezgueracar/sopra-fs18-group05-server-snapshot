@@ -63,7 +63,7 @@ public class GameResource
 	@RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public Player addPlayer(@PathVariable Long gameId, @RequestBody Player player) {
+	public String addPlayer(@PathVariable Long gameId, @RequestBody Player player) {
 		logger.debug("addPlayer: " + player);
 		return this.gameService.addPlayer(gameId, player);
 	}
@@ -79,8 +79,8 @@ public class GameResource
     // TODO: Retrieve information of a player
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.OK)
-    public Player getPlayer(@PathVariable Long gameId, @PathVariable Integer playerId) {
-        logger.debug("getPlayer: " + gameId);
+    public Player getPlayer(@PathVariable Long gameId, @PathVariable Long playerId) {
+        logger.debug("getPlayer: " + playerId + "from game:" + gameId);
         return this.gameService.getPlayer(gameId, playerId);
     }
 

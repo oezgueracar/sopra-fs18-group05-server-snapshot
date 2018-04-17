@@ -145,6 +145,7 @@ public class Player implements Serializable {
 	}
 
 	/**
+	 * Plays
 	 * @pre hand.contains(card)
 	 * @post (hand.size()@pre == hand.size()+1) && (playedCards.size()@pre = playedCards.size()-1)
 	 * @param card the card that is played
@@ -165,7 +166,10 @@ public class Player implements Serializable {
 	}
 
 	// TODO: precondition not valid yet
+	// TODO: A player can only buy one card a turn!
 	/**
+	 * Buys a card - moves a card from the market to the discardPile and resets coins
+	 *
 	 * @pre market.openSlot.contains(card) || (market.openSlots.contains(null) && market.closedSlots.contains(card))
 	 * @post (coins@pre >= card.buyingCost())
 	 * @param card the card that is bought
@@ -178,6 +182,8 @@ public class Player implements Serializable {
 	}
 
 	/**
+	 * Moves a card from the hand to the playedList and adjusts coins
+	 *
 	 * @pre hand.contains(card)
 	 * @post (hand.size()@pre == hand.size()+1) && (playedCards.size()@pre = playedCards.size()-1) && (coins@pre == coins+card.getGoldValue())
 	 * @param card the card that is sold
@@ -186,7 +192,7 @@ public class Player implements Serializable {
 	// TODO: Exception throwing and handling
 	protected void sellCard(Card card) { // throws NoSuchElementException
 		if (!hand.contains(card)){
-			return; // throw new NoSuchElementException("This card is not in the player's hand.");
+			// throw new NoSuchElementException("This card is not in the player's hand.");
 		}else{
 			setCoins(card.getGoldValue());
 			playedList.add(card);
@@ -195,6 +201,8 @@ public class Player implements Serializable {
 	}
 
 	/**
+	 * Draws a card from the deck and moves it to the hand
+	 *
 	 * @pre (!deck.isEmpty()) && (!discardPile.isEmpty())
 	 * @post (hand.size()@pre == hand.size()-1) && (deck.size()@pre==deck.size()+1)
 	 * (@throws NoSuchElementException If no further card is available to be drawn)
@@ -216,7 +224,6 @@ public class Player implements Serializable {
 		deck.remove(card);
 	}
 
-	// Adds a specific card to the deck
 	protected void addCardToDeck(Card card){
 		deck.add(card);
 	}
@@ -225,7 +232,7 @@ public class Player implements Serializable {
 		discardPile.add(card);
 	}
 
-	protected void addCardToPlayingList(Card card){
+	public void addCardToPlayingList(Card card){
 		playedList.add(card);
 	}
 
@@ -245,17 +252,46 @@ public class Player implements Serializable {
 		playedList.clear();
 	}
 
-	protected void resetDiscardPile(){
+	/**
+	 * Resets the discardPile (Empties the ArrayList)
+	 */
+	private void resetDiscardPile(){
 		discardPile.clear();
 	}
 
-	protected void setMoveCounter(float f){
+	/**
+	 * Sets an entry (depending on the color) in moveCounter to the according value
+	 * @param i the value of the counter
+	 * @param color the color of the counter
+	 */
+	protected void setMoveCounter(int i, String color){
+		switch (color.toLowerCase()){
+			case "green":
+				moveCounter[0] = i;
+				break;
+			case "blue":
+				moveCounter[1] = i;
+				break;
+			case "yellow":
+				moveCounter[2] = i;
+				break;
+		}
+	}
 
+	/**
+	 * Resets the moveCounter (Empties all entries in the Array)
+	 */
+	protected void resetMoveCounter(){
+		moveCounter[0]=0;
+		moveCounter[1]=0;
+		moveCounter[2]=0;
 	}
 
 	protected void setCoins(float f){
 		coins += f;
 	}
+
+	protected void resetCoins(){coins=0f;}
 
 	public void setPlayerLeft(Boolean b){
 		playerLeft = b;

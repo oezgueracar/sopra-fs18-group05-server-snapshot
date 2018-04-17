@@ -113,12 +113,12 @@ public class Game implements Serializable {
         this.name = newName;
     }
 
-    //TODO: pre and post check that its not over 4 or under 2 and that it has been set
+    /*//TODO: pre and post check that its not over 4 or under 2 and that it has been set
     //TODO: Do such checks for every setter
     public void setMaxPlayers(Integer newMaxPlayers){
         this.maxPlayers = newMaxPlayers;
-    }
-
+    } -> not necessary min and max players in a game is defined in GameConstants and we start the game with the amount of players that are in game at start of the game
+*/
     //TODO: Definitely need to test if the tryblock enables overloading so that right map is used. Why does typecasting to abstract class work?
 	//TODO: assignedMap is not accepted, cannot resolve what type it is...idky???
     /*private void initializeMap() throws ClassNotFoundException, IllegalAccessException, InstantiationException{

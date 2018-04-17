@@ -42,9 +42,6 @@ public class GameService {
         this.playerRepository = playerRepository;
     }
 
-    /**
-     * @return
-     */
     public List<Game> listGames() {
         List<Game> result = new ArrayList<>();
         gameRepository.findAll().forEach(result::add);
@@ -74,35 +71,43 @@ public class GameService {
 	}
 
 	// TODO: Add player and join game
-	public Player addPlayer(Long gameId, Player player) {
+	public String addPlayer(Long gameId, Player player) {
 		Optional<Game> game = gameRepository.findById(gameId);
 
-		player.setToken(UUID.randomUUID().toString());
-		player.setReady(false);
-		player.setPlayerLeft(false);
-		player.setIsInGoal(false);
+		if (game.isPresent()) {
+			int numberOfPlayers = game.get().getPlayers().size();
 
-		/*if (game.isPresent() && game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
-			game.get().addPlayer(player);
+			// Add player to playerRepository
+			if (numberOfPlayers < GameConstants.MAX_PLAYERS){
+				player.setToken(UUID.randomUUID().toString());
+				player.setReady(false);
+				player.setPlayerLeft(false);
+				player.setIsInGoal(false);
+				playerRepository.save(player);
 
-			// Set leader if this player is the first added player to this Game
-			if (game.get().getPlayers().size() == 0) {
-				game.get().setLeader(player);
+				// Set leader if this player is the first added player to this Game
+				if (numberOfPlayers == 0) {
+					game.get().setLeader(player);
+				}
+
+				game.get().addPlayer(player);
+
+				this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getName());
+				return CONTEXT + "/" + gameId + "/players/" + player.getId();
 			}
 
-			this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getName());
-			return player;
 		} else {
-			this.logger.error("Error adding player with token: " + player.getToken());
-		}*/
-		return playerRepository.save(player);
+			this.logger.error("Error adding player with id: " + player.getId());
+		}
+		return null;
 	}
 
 	// TODO: Getplayer
-	public Player getPlayer(Long gameId, Integer playerId) {
+	public Player getPlayer(Long gameId, Long playerId) {
 		Optional<Game> game = gameRepository.findById(gameId);
-		if (game.isPresent()) {
-			return game.get().getPlayers().get(playerId);
+		Optional<Player> player = playerRepository.findById(playerId);
+		if (game.isPresent() && player.isPresent()) {
+			return player.get();
 		}
 		return null;
 	}
