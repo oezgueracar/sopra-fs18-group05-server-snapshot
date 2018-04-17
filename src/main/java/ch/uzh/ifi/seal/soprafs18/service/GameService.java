@@ -81,9 +81,8 @@ public class GameService {
 		player.setReady(false);
 		player.setPlayerLeft(false);
 		player.setIsInGoal(false);
-		playerRepository.save(player);
 
-		if (game.isPresent() && game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
+		/*if (game.isPresent() && game.get().getPlayers().size() < GameConstants.MAX_PLAYERS) {
 			game.get().addPlayer(player);
 
 			// Set leader if this player is the first added player to this Game
@@ -95,8 +94,8 @@ public class GameService {
 			return player;
 		} else {
 			this.logger.error("Error adding player with token: " + player.getToken());
-		}
-		return null;
+		}*/
+		return playerRepository.save(player);
 	}
 
 	// TODO: Getplayer
@@ -111,9 +110,9 @@ public class GameService {
 	// TODO: startgame
     public void startGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
-        Optional<Player> owner = playerRepository.findByToken(playerToken);
+        Optional<Player> leader = playerRepository.findByToken(playerToken);
 
-        if (owner != null && game.isPresent()){ //&& game.get().getOwner().equals(owner.get().getName())) {
+        if (leader != null && game.isPresent()){ //&& game.get().getOwner().equals(owner.get().getName())) {
             // TODO: implement the logic for starting the game
         }
     }
