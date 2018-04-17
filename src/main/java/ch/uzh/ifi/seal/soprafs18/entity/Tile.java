@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Tile {
 
-    private ArrayList<Space> row1 = new ArrayList<>();
+    private ArrayList<Space> row1;
     private ArrayList<Space> row2;
     private ArrayList<Space> row3;
     private ArrayList<Space> row4;
@@ -12,8 +12,20 @@ public class Tile {
     private ArrayList<Space> row6;
     private ArrayList<Space> row7;
 
+
+
     private int nextTilePos;
     private int rotation;
+
+    public Tile(){
+        private ArrayList<Space> row1 = new ArrayList<Space>();
+        private ArrayList<Space> row2 = new ArrayList<Space>();
+        private ArrayList<Space> row3 = new ArrayList<Space>();
+        private ArrayList<Space> row4 = new ArrayList<Space>();
+        private ArrayList<Space> row5 = new ArrayList<Space>();
+        private ArrayList<Space> row6 = new ArrayList<Space>();
+        private ArrayList<Space> row7 = new ArrayList<Space>();
+    }
 
     //Fill Rows
     public void addRow1(Space s){row1.add(s);}
@@ -38,7 +50,6 @@ public class Tile {
     public void setRotarion(int r){
         this.rotation = r;
     }
-
 
 
 }
