@@ -1,12 +1,16 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class HillsOfGoldMap extends Map{
 
-    ArrayList<MapElement> mapTiles;
-
     public HillsOfGoldMap(){
+
+        ArrayList<MapElement> mapTiles = new ArrayList<MapElement>();
+        ArrayList<Blockade> blockades = new ArrayList<Blockade>();
+        Random random;
+        Long id;
 
         //Tile B
         MapElement tile1 = new Tile();
@@ -276,14 +280,27 @@ public class HillsOfGoldMap extends Map{
         tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
         tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
 
+        // Initializing Blockades
+        blockades.add(new Blockade("green", 1));
+        blockades.add(new Blockade("yellow", 1));
+        blockades.add(new Blockade("grey", 1));
+        blockades.add(new Blockade("blue", 1));
+        blockades.add(new Blockade("green", 2));
+        blockades.add(new Blockade("grey", 2));
+
+        //Filling element of the map in the ArrayList
         mapTiles.add(tile1);
+        mapTiles.add(getRandomBlockade());
+        mapTiles.add(tile2);
+        mapTiles.add(getRandomBlockade());
         mapTiles.add(tile3);
-        mapTiles.add(tile3);
-        mapTiles.add(tile3);
-
-
-
+        mapTiles.add(getRandomBlockade());
+        mapTiles.add(tile4);
+        mapTiles.add(getRandomBlockade());
+        mapTiles.add(tile5);
+        mapTiles.add(getRandomBlockade());
+        mapTiles.add(tile6);
+        mapTiles.add(tile7);
     }
-
 
 }
