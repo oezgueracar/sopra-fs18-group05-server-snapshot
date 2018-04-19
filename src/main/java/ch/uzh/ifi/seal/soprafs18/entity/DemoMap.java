@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public class DemoMap extends Map {
 
-        ArrayList<Tile> mapTiles;
+    ArrayList<MapElement> mapTiles;
 
     public DemoMap(){
 
         //Tile A
-        Tile tile1 = new Tile();
+        MapElement tile1 = new Tile();
         tile1.setNextTilePos(1);
-        tile1.setRotarion(-60);
-            tile1	.addRow1(	new Space(	"	green	",	1	,	false)	);
+        tile1.setRotation(-60);
+        mapTiles.add(tile1);
+
+        tile1	.addRow1(	new Space(	"	green	",	1	,	false)	);
             tile1	.addRow1(	new Space(	"	red	    ",	1	,	false)	);
             tile1	.addRow1(	new Space(	"	green	",	1	,	false)	);
             tile1	.addRow1(	new Space(	"	green	",	1	,	false)	);
@@ -51,13 +53,13 @@ public class DemoMap extends Map {
             tile1	.addRow7(	new Space(	"	green	",	0	,	false)	);
 
 
-
             //Tile C
-        Tile tile2 = new Tile();
+        MapElement tile2 = new Tile();
         tile2.setNextTilePos(1);
-        tile2.setRotarion(-240);
+        tile2.setRotation(-240);
+        mapTiles.add(tile2);
 
-            tile2	.addRow1(	new Space(	"	green	",	1	,	false)	);
+        tile2	.addRow1(	new Space(	"	green	",	1	,	false)	);
             tile2	.addRow1(	new Space(	"	green	",	1	,	false)	);
             tile2	.addRow1(	new Space(	"	grey	",	1	,	false)	);
             tile2	.addRow1(	new Space(	"	grey	",	1	,	false)	);
@@ -94,11 +96,6 @@ public class DemoMap extends Map {
             tile2	.addRow7(	new Space(	"	yellow	",	1	,	false)	);
             tile2	.addRow7(	new Space(	"	blue	",	1	,	false)	);
             tile2	.addRow7(	new Space(	"	blue	",	1	,	false)	);
-
-
-            //Adding tiles to ArrayList tiles
-            mapTiles.add(tile1);
-            mapTiles.add(tile2);
 
     }
 

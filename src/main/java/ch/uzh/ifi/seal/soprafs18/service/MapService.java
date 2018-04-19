@@ -8,20 +8,23 @@ import ch.uzh.ifi.seal.soprafs18.repository.MapRepository;
 import ch.uzh.ifi.seal.soprafs18.web.rest.MapResource;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 
-@Service("mapService")
+@Service
+@Transactional
 public class MapService {
 
     private final MapRepository mapRepository;
-    private final String CONTEXT = "/map"; // TODO is it necesary ??
     Logger logger = LoggerFactory.getLogger(MapResource.class);
 
     // Constructor
-    public MapService(MapRepository mapReository){
-        this.mapRepository = mapReository;
+    @Autowired
+    public MapService(MapRepository mapRepository){
+        this.mapRepository = mapRepository;
     }
 
     //Creating Map

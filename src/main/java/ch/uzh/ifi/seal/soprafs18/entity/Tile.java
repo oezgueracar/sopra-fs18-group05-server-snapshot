@@ -2,7 +2,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import java.util.ArrayList;
 
-public class Tile {
+public class Tile extends MapElement{
 
     private ArrayList<Space> row1;
     private ArrayList<Space> row2;
@@ -47,7 +47,7 @@ public class Tile {
     public void setNextTilePos(int p){
         this.nextTilePos = p;
     }
-    public void setRotarion(int r){
+    public void setRotation(int r){
         this.rotation = r;
     }
 
