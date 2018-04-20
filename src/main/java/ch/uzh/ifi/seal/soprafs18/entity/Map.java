@@ -12,10 +12,10 @@ import java.util.Random;
 public abstract class Map implements Serializable{
 
     @Column
-    protected ArrayList<MapElement> mapTiles;
-
-    protected ArrayList<Blockade> blockades;
+    protected ArrayList<MapElement> mapTiles = new ArrayList<MapElement>();
+    protected ArrayList<Blockade> blockades = new ArrayList<Blockade>();
     protected Random random;
+
 
     @Id
     @GeneratedValue

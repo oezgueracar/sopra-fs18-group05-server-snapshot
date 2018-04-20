@@ -7,11 +7,6 @@ public class HillsOfGoldMap extends Map{
 
     public HillsOfGoldMap(){
 
-        ArrayList<MapElement> mapTiles = new ArrayList<MapElement>();
-        ArrayList<Blockade> blockades = new ArrayList<Blockade>();
-        Random random;
-        Long id;
-
         //Tile B
         MapElement tile1 = new Tile();
         tile1.setRotation(-60);
@@ -273,12 +268,14 @@ public class HillsOfGoldMap extends Map{
         tile6	.addRow7(	new Space(	"	green	",	1	,	false));
         tile6	.addRow7(	new Space(	"	green	",	1	,	false));
 
+        // Tile U
         MapElement tile7 = new EndTile();
         tile7.setRotation(-90);
 
-        tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
-        tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
-        tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
+        tile7	.addRow1(	new Space(	"	green	",	1	,	false));
+        tile7	.addRow1(	new Space(	"	green	",	1	,	false));
+        tile7	.addRow1(	new Space(	"	green	",	1	,	false));
+
 
         // Initializing Blockades
         blockades.add(new Blockade("green", 1));

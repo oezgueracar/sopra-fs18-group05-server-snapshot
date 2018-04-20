@@ -7,11 +7,6 @@ public class HomeStretch extends Map {
 
     public HomeStretch(){
 
-        ArrayList<MapElement> mapTiles = new ArrayList<MapElement>();
-        ArrayList<Blockade> blockades = new ArrayList<Blockade>();
-        Random random;
-        Long id;
-
         // TileB
         MapElement tile1 = new Tile();
         tile1.setRotation(-90);
@@ -254,14 +249,13 @@ public class HomeStretch extends Map {
         tile6	.addRow7(	new Space(	"	blue	",	1	,	false));
         tile6	.addRow7(	new Space(	"	blue	",	1	,	false));
 
-        // Tile T
+        // Tile U
         MapElement tile7 = new EndTile();
         tile7.setRotation(-45);
-        mapTiles.add(tile7);
 
-        tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
-        tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
-        tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
+        tile7	.addRow1(	new Space(	"	green	",	1	,	false));
+        tile7	.addRow1(	new Space(	"	green	",	1	,	false));
+        tile7	.addRow1(	new Space(	"	green	",	1	,	false));
 
         // Initializing Blockades
         blockades.add(new Blockade("green", 1));
@@ -277,7 +271,6 @@ public class HomeStretch extends Map {
         mapTiles.add(tile2);
         mapTiles.add(getRandomBlockade());
         mapTiles.add(tile3);
-        mapTiles.add(getRandomBlockade());
         mapTiles.add(tile4);
         mapTiles.add(getRandomBlockade());
         mapTiles.add(tile5);
