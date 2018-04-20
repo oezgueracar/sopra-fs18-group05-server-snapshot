@@ -1,29 +1,33 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
-public abstract class Map {
+@Entity
+public abstract class Map implements Serializable{
 
-    protected ArrayList<Space> spaces = new ArrayList<Space>();
-    protected Space startingSpaceP1;
-    protected Space startingSpaceP2;
-    protected Space startingSpaceP3;
-    protected Space startingSpaceP4;
+    @Column
+    protected ArrayList<MapElement> mapTiles = new ArrayList<MapElement>();
+    protected ArrayList<Blockade> blockades = new ArrayList<Blockade>();
+    protected Random random;
 
-    public Space getStartingSpaceP1(){
-        return startingSpaceP1;
-    }
 
-    public Space getStartingSpaceP2(){
-        return startingSpaceP2;
-    }
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    public Space getStartingSpaceP3(){
-        return startingSpaceP3;
-    }
+    protected Blockade getRandomBlockade(){
+        random = new Random();
+        int index = random.nextInt(blockades.size());
+        Blockade blockade = blockades.get(index);
+        blockades.remove(index);
 
-    public Space getStartingSpaceP4(){
-        return startingSpaceP4;
+        return blockade;
     }
 
 }
