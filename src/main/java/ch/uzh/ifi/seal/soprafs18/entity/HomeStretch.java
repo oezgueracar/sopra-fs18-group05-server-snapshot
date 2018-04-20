@@ -9,7 +9,7 @@ public class HomeStretch extends Map {
 
         // TileB
         MapElement tile1 = new Tile();
-        tile1.setRotation(-90);
+        tile1.setRotation(270);
         tile1.setNextTilePos(5);
         mapTiles.add(tile1);
 
@@ -119,7 +119,7 @@ public class HomeStretch extends Map {
 
         // Tile K
         MapElement tile4 = new Tile();
-        tile4.setRotation(-30);
+        tile4.setRotation(330);
         tile4.setNextTilePos(1);
         mapTiles.add(tile4);
 
@@ -207,7 +207,7 @@ public class HomeStretch extends Map {
 
         //Tile C
         MapElement tile6 = new Tile();
-        tile6.setRotation(-30);
+        tile6.setRotation(330);
         tile6.setNextTilePos(1);
         mapTiles.add(tile6);
 
@@ -251,7 +251,7 @@ public class HomeStretch extends Map {
 
         // Tile U
         MapElement tile7 = new EndTile();
-        tile7.setRotation(-45);
+        tile7.setRotation(315);
 
         tile7	.addRow1(	new Space(	"	green	",	1	,	false));
         tile7	.addRow1(	new Space(	"	green	",	1	,	false));

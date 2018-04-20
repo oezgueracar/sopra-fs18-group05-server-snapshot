@@ -6,8 +6,8 @@ public class Swanplands extends Map {
 
         // Tile A
         MapElement tile1 = new Tile();
-        tile1.setNextTilePos();
-        tile1.setNextTilePos();
+        tile1.setNextTilePos(1);
+        tile1.setNextTilePos(330);
 
         tile1	.addRow1(	new Space(	"	green	",	1	,	false)	);
         tile1	.addRow1(	new Space(	"	red	",	1	,	false)	);
@@ -50,8 +50,8 @@ public class Swanplands extends Map {
 
         // Tile R
         MapElement tile2 = new TerrainStrip();
-        tile2.setNextTilePos();
-        tile2.setRotation();
+        tile2.setNextTilePos(6);
+        tile2.setRotation(270);
 
         tile2	.addRow1(	new Space(	"	green	",	1	,	false));
         tile2	.addRow1(	new Space(	"	green	",	1	,	false));
@@ -72,8 +72,8 @@ public class Swanplands extends Map {
 
         // Tile D
         MapElement tile3 = new Tile();
-        tile3.setRotation();
-        tile3.setNextTilePos();
+        tile3.setRotation(210);
+        tile3.setNextTilePos(6);
 
         tile3	.addRow1(	new Space(	"	green	",	1	,	false));
         tile3	.addRow1(	new Space(	"	green	",	1	,	false));
@@ -115,8 +115,8 @@ public class Swanplands extends Map {
 
         // Tile H
         MapElement tile4 = new Tile();
-        tile4.setNextTilePos();
-        tile4.setRotation();
+        tile4.setNextTilePos(6);
+        tile4.setRotation(210);
 
         tile4	.addRow1(	new Space(	"	blue	",	1	,	false));
         tile4	.addRow1(	new Space(	"	blue	",	2	,	false));
@@ -158,8 +158,8 @@ public class Swanplands extends Map {
 
         // Tile E
         MapElement tile5 = new Tile();
-        tile5.setRotation();
-        tile5.setNextTilePos();
+        tile5.setRotation(270);
+        tile5.setNextTilePos(3);
 
         tile5	.addRow1(	new Space(	"	red	",	1	,	false));
         tile5	.addRow1(	new Space(	"	yellow	",	1	,	false));
@@ -201,8 +201,8 @@ public class Swanplands extends Map {
 
         // Tile O
         MapElement tile6 = new TerrainStrip();
-        tile6.setNextTilePos();
-        tile6.setRotation();
+        tile6.setNextTilePos(6);
+        tile6.setRotation(90);
 
         tile6	.addRow1(	new Space(	"	yellow	",	2	,	false));
         tile6	.addRow1(	new Space(	"	yellow	",	1	,	false));
@@ -223,8 +223,8 @@ public class Swanplands extends Map {
 
         // Tile K
         MapElement tile7 = new Tile();
-        tile7.setRotation();
-        tile7.setNextTilePos();
+        tile7.setRotation(330);
+        tile7.setNextTilePos(4);
 
         tile7	.addRow1(	new Space(	"	red 	",	1	,	false));
         tile7	.addRow1(	new Space(	"	green	",	2	,	false));
@@ -266,7 +266,7 @@ public class Swanplands extends Map {
 
         //Tile T
         MapElement tile8 = new EndTile();
-        tile7.setRotation();
+        tile7.setRotation(135);
 
         tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
         tile7	.addRow1(	new Space(	"	blue	",	1	,	false));

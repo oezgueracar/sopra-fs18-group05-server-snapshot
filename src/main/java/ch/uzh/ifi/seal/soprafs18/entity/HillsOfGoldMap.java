@@ -9,7 +9,7 @@ public class HillsOfGoldMap extends Map{
 
         //Tile B
         MapElement tile1 = new Tile();
-        tile1.setRotation(-60);
+        tile1.setRotation(300);
         tile1.setNextTilePos(5);
         mapTiles.add(tile1);
 
@@ -142,7 +142,7 @@ public class HillsOfGoldMap extends Map{
         //Tile K
         MapElement tile4 = new Tile();
         tile4.setNextTilePos(1);
-        tile4.setRotation(-60);
+        tile4.setRotation(300);
 
         tile4	.addRow1(	new Space(	"	red 	",	1	,	false));
         tile4	.addRow1(	new Space(	"	green	",	2	,	false));
@@ -184,7 +184,7 @@ public class HillsOfGoldMap extends Map{
 
         // Tile J
         MapElement tile5 = new Tile();
-        tile5.setRotation(-60);
+        tile5.setRotation(300);
         tile5.setNextTilePos(6);
 
         tile5	.addRow1(	new Space(	"	blue	",	1	,	false));
@@ -270,7 +270,7 @@ public class HillsOfGoldMap extends Map{
 
         // Tile U
         MapElement tile7 = new EndTile();
-        tile7.setRotation(-90);
+        tile7.setRotation(270);
 
         tile7	.addRow1(	new Space(	"	green	",	1	,	false));
         tile7	.addRow1(	new Space(	"	green	",	1	,	false));

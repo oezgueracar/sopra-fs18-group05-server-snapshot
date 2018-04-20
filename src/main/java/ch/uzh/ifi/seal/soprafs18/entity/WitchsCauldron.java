@@ -6,8 +6,8 @@ public class WitchsCauldron extends Map {
 
         //Tile A
         MapElement tile1 = new Tile();
-        tile1.setRotation();
-        tile1.setNextTilePos();
+        tile1.setRotation(330);
+        tile1.setNextTilePos(1);
 
         tile1	.addRow1(	new Space(	"	green	",	1	,	false));
         tile1	.addRow1(	new Space(	"	red	    ",	1	,	false));
@@ -49,8 +49,8 @@ public class WitchsCauldron extends Map {
 
         // TIle L
         MapElement tile2 = new Tile();
-        tile2.setNextTilePos();
-        tile2.setRotation();
+        tile2.setNextTilePos(2);
+        tile2.setRotation(30);
 
         tile2	.addRow1(	new Space(	"	blue	",	1	,	false));
         tile2	.addRow1(	new Space(	"	red	",	1	,	false));
@@ -86,14 +86,14 @@ public class WitchsCauldron extends Map {
         tile2	.addRow6(	new Space(	"	green	",	1	,	false));
         tile2	.addRow6(	new Space(	"	green	",	1	,	false));
         tile2	.addRow7(	new Space(	"	yellow	",	2	,	false));
-        tile2	.addRow7(	new Space(	"	red	",	2	,	false));
+        tile2	.addRow7(	new Space(	"	red 	",	2	,	false));
         tile2	.addRow7(	new Space(	"	yellow	",	1	,	false));
         tile2	.addRow7(	new Space(	"	black	",	0	,	false));
 
         // Tile G
         MapElement tile3 = new Tile();
-        tile3.setRotation();;
-        tile3.setNextTilePos();
+        tile3.setRotation(90);;
+        tile3.setNextTilePos(4);
 
         tile3	.addRow1(	new Space(	"	green	",	1	,	false));
         tile3	.addRow1(	new Space(	"	green	",	1	,	false));
@@ -135,8 +135,8 @@ public class WitchsCauldron extends Map {
 
         // Tile D
         MapElement tile4 = new Tile();
-        tile4.setNextTilePos();
-        tile4.setRotation();
+        tile4.setNextTilePos(5);
+        tile4.setRotation(90);
 
         tile4	.addRow1(	new Space(	"	green	",	1	,	false));
         tile4	.addRow1(	new Space(	"	green	",	1	,	false));
@@ -178,8 +178,8 @@ public class WitchsCauldron extends Map {
 
         // Tile M
         MapElement tile5 = new Tile();
-        tile5.setRotation();
-        tile5.setNextTilePos();
+        tile5.setRotation(330);
+        tile5.setNextTilePos(4);
 
         tile5	.addRow1(	new Space(	"	green	",	1	,	false));
         tile5	.addRow1(	new Space(	"	green	",	1	,	false));
@@ -221,8 +221,8 @@ public class WitchsCauldron extends Map {
 
         // Tile I
         MapElement tile6 = new Tile();
-        tile6.setNextTilePos();
-        tile6.setRotation();
+        tile6.setNextTilePos(6);
+        tile6.setRotation(30);
 
         tile6	.addRow1(	new Space(	"	green	",	1	,	false));
         tile6	.addRow1(	new Space(	"	green	",	1	,	false));
@@ -264,7 +264,7 @@ public class WitchsCauldron extends Map {
 
         //Tile T
         MapElement tile7 = new EndTile();
-        tile7.setRotation();
+        tile7.setRotation(45);
 
         tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
         tile7	.addRow1(	new Space(	"	blue	",	1	,	false));
