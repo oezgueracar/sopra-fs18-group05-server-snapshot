@@ -1,6 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.service;
 
 import ch.uzh.ifi.seal.soprafs18.entity.DemoMap;
+import ch.uzh.ifi.seal.soprafs18.entity.HillsOfGoldMap;
 import ch.uzh.ifi.seal.soprafs18.entity.Map;
 import ch.uzh.ifi.seal.soprafs18.repository.MapRepository;
 import ch.uzh.ifi.seal.soprafs18.web.rest.MapResource;
@@ -27,7 +28,7 @@ public class MapService {
 
     //Creating Map
     public Map createMap(){
-        Map result = new DemoMap();
+        Map result = new HillsOfGoldMap();
         return result;
     }
 
