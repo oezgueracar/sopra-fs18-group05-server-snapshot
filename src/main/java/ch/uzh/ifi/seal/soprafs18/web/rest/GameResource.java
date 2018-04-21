@@ -84,12 +84,19 @@ public class GameResource
         return this.gameService.getPlayer(gameId, playerId);
     }
 
-    // TODO: Start a game, initialize cards
+    /*// TODO: Start a game, initialize cards
     @RequestMapping(value = CONTEXT + "/{gameId}/start", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void startGame(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
+    public void startGame(@PathVariable Long gameId) {
         logger.debug("startGame: " + gameId);
-        this.gameService.startGame(gameId, playerToken);
+        this.gameService.startGame(gameId);
+    }*/
+
+    @RequestMapping(value = CONTEXT + "/{gameId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public Game updateGame(@RequestBody Game game) {
+        logger.debug("startGame: " + game.getId());
+        return this.gameService.updateGame(game);
     }
 
     // TODO: Change ready state of a player

@@ -1,8 +1,8 @@
 package ch.uzh.ifi.seal.soprafs18.service;
 
 import ch.uzh.ifi.seal.soprafs18.GameConstants;
+import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
-import ch.uzh.ifi.seal.soprafs18.entity.Move;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
@@ -50,7 +50,6 @@ public class GameService {
 
     // TODO: create a new game
     public Game addGame(Game game) {
-    	game.setTurnTime(60);
 		//game = gameRepository.save(game);
         return gameRepository.save(game);//CONTEXT + "/" + game.getId();
     }
@@ -113,15 +112,37 @@ public class GameService {
 		return null;
 	}
 
-	// TODO: startgame
+	/*// TODO: startgame
     public void startGame(Long gameId, String playerToken) {
-        Optional<Game> game = gameRepository.findById(gameId);
-        Optional<Player> leader = playerRepository.findByToken(playerToken);
+        //Optional<Game> game = gameRepository.findById(gameId);
+        //Optional<Player> leader = playerRepository.findByToken(playerToken);
 
         if (leader != null && game.isPresent()){ //&& game.get().getOwner().equals(owner.get().getName())) {
             // TODO: implement the logic for starting the game
+			game.get().initializeMap();
         }
-    }
+    }*/
+
+    public Game updateGame(Game game){
+		Optional<Game> serverSideGame = gameRepository.findById(game.getId());
+
+		if (serverSideGame.isPresent()){
+			switch(serverSideGame.get().getStatus()){
+				case ROOM:
+					serverSideGame.get().setName(game.getName());
+					serverSideGame.get().setMapName(game.getMapName());
+					serverSideGame.get().setTurnTime(game.getTurnTime());
+					serverSideGame.get().setStatus(game.getStatus());
+					return gameRepository.save(serverSideGame.get());
+				case PENDING:
+					serverSideGame.get().startGame();
+					serverSideGame.get().setStatus(GameStatus.RUNNING);
+					return gameRepository.save(serverSideGame.get());
+				case RUNNING:
+			}
+		}
+		return null;
+	}
 
     // TODO: changestate
 

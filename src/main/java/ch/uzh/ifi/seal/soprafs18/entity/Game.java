@@ -9,9 +9,7 @@ import javax.persistence.*;
 
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 
-import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.FINISHED;
-import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.PENDING;
-import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.RUNNING;
+import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.*;
 
 
 @Entity
@@ -28,12 +26,11 @@ public class Game implements Serializable {
 	public Game(){
         //players.add(leader);
 	    //setLeader(leader);
-		///setTurnTime(60);
+		setTurnTime(60);
         //setName(gname);
 		///setMaxPlayers(4);
 		///currentPlayer = 0;
-		//setup();
-		///setStatus(PENDING);
+		setup();
     }
 	
 	@Id
@@ -65,8 +62,7 @@ public class Game implements Serializable {
 	@Column
     private String mapName;
 
-	/*@Column
-    private Map assignedMap;*/
+    private Map assignedMap;
 
 	/*@Column
     private Market assignedMarket;*/
@@ -119,9 +115,9 @@ public class Game implements Serializable {
 */
     //TODO: Definitely need to test if the tryblock enables overloading so that right map is used. Why does typecasting to abstract class work?
 	//TODO: assignedMap is not accepted, cannot resolve what type it is...idky???
-    /*private void initializeMap() throws ClassNotFoundException, IllegalAccessException, InstantiationException{
+    private void initializeMap() {
         try{
-            assignedMap = (Map) Class.forName(mapName).newInstance();
+            assignedMap = (Map) Class.forName("ch.uzh.ifi.seal.soprafs18.entity." + mapName).newInstance();
         }
         catch (ClassNotFoundException e1){
             System.out.println("Class not Found Exception");
@@ -132,7 +128,7 @@ public class Game implements Serializable {
         catch (InstantiationException e3){
             System.out.println("Instantiation Exception");
         }
-    }*/
+    }
 
     //TODO: post and pre to check if in right boundary and if it has been changed like planned
     //TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
@@ -146,7 +142,7 @@ public class Game implements Serializable {
     }
 
 	//TODO: Should be done after cards class is committed
-	public void setupCards(){
+	private void setupCards(){
         //Fill the deck of each player with the starting cards as stated in the game manual.
         for(Player p : players){
             for(int i = 0; i < 3; i++){
@@ -164,8 +160,14 @@ public class Game implements Serializable {
 	public void setup(){
         //assignedMarket = new Market();
         setMapName("HillsOfGoldMap");
-        setupCards();
-    }
+		setStatus(ROOM);
+	}
+
+	public void startGame(){
+    	this.initializeMap();
+    	//this.setupCards();
+    	//this.assignedMarket = new Market();
+	}
     
 	public Long getId(){
 		return id;
@@ -194,6 +196,10 @@ public class Game implements Serializable {
 	public int getTurnTime(){
     	return turnTime;
 
+	}
+
+	public String getMapName(){
+    	return mapName;
 	}
 
 	//TODO: Bad practice, do we need that.
