@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 @Entity
-public class Map implements Serializable{
+public abstract class Map implements Serializable{
 
     @Id
     @GeneratedValue
@@ -25,7 +25,7 @@ public class Map implements Serializable{
 
 
 
-    public Map(){
+  /*  public Map(){
 
 
 
@@ -319,7 +319,7 @@ public class Map implements Serializable{
         mapTiles.add(getRandomBlockade());
         mapTiles.add(tile6);
         mapTiles.add(tile7);
-    }
+    }*/
 
     protected Blockade getRandomBlockade(){
         random = new Random();

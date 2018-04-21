@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.web.rest;
 
+import ch.uzh.ifi.seal.soprafs18.entity.HillsOfGoldMap;
 import ch.uzh.ifi.seal.soprafs18.entity.Map;
 import ch.uzh.ifi.seal.soprafs18.entity.MapElement;
 import ch.uzh.ifi.seal.soprafs18.entity.Tile;
@@ -29,7 +30,7 @@ public class MapResource extends GenericResource{
     //Create a Map
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus (HttpStatus.CREATED)
-    public Map createMap(@RequestBody Map map){
+    public Map createMap(@RequestBody HillsOfGoldMap map){
         logger.debug("Creating DemoMap");
         return this.mapService.createMap(map);
     }

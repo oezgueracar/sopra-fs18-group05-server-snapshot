@@ -1,9 +1,13 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
+import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class HillsOfGoldMap extends Map{
+
+    @Column
+    private String name;
 
     public HillsOfGoldMap(){
 
