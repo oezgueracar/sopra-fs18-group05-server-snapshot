@@ -1,9 +1,12 @@
 package ch.uzh.ifi.seal.soprafs18.web.rest;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Map;
+import ch.uzh.ifi.seal.soprafs18.entity.MapElement;
 import ch.uzh.ifi.seal.soprafs18.entity.Tile;
 import ch.uzh.ifi.seal.soprafs18.repository.MapRepository;
 import ch.uzh.ifi.seal.soprafs18.service.MapService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 public class MapResource extends GenericResource{
 
     private final String CONTEXT = "/Map";
+    Logger logger = LoggerFactory.getLogger(GameResource.class);
 
     @Autowired
     private MapRepository mapRepo;
@@ -24,21 +28,19 @@ public class MapResource extends GenericResource{
 
     //Create a Map
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
-    @ResponseStatus (HttpStatus.OK)
-    public Map createMap(){
+    @ResponseStatus (HttpStatus.CREATED)
+    public Map createMap(@RequestBody Map map){
         logger.debug("Creating DemoMap");
-        return mapService.createMap();
+        return this.mapService.createMap(map);
     }
 
 
-/*
     // Retrieve the Map in form of an ArrayList of Tiles
     @RequestMapping(value = CONTEXT + "/{mapId}", method = RequestMethod.GET)
     @ResponseStatus (HttpStatus.OK)
-    public ArrayList<Tile> getMap(@PathVariable Long mapId){
+    public Map getMap(@PathVariable Long mapId){
         logger.debug("Map as List of Tiles");
         return mapService.getMap(mapId);
     }
-*/
 
 }

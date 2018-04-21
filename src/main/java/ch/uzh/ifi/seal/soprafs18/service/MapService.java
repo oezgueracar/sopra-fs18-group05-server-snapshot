@@ -1,7 +1,5 @@
 package ch.uzh.ifi.seal.soprafs18.service;
 
-import ch.uzh.ifi.seal.soprafs18.entity.DemoMap;
-import ch.uzh.ifi.seal.soprafs18.entity.HillsOfGoldMap;
 import ch.uzh.ifi.seal.soprafs18.entity.Map;
 import ch.uzh.ifi.seal.soprafs18.repository.MapRepository;
 import ch.uzh.ifi.seal.soprafs18.web.rest.MapResource;
@@ -9,15 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class MapService {
 
     private final MapRepository mapRepository;
+
     Logger logger = LoggerFactory.getLogger(MapResource.class);
 
     // Constructor
@@ -27,15 +26,14 @@ public class MapService {
     }
 
     //Creating Map
-    public Map createMap(){
-        Map result = new HillsOfGoldMap();
-        return result;
+    public Map createMap(Map map){
+        return mapRepository.save(map);
     }
 
-  /*  //Returning Map
-    public ArrayList<Tile> getMap(Long mapID){
-        ArrayList<Tile> result = mapRepository.findById(mapID);
-        return result;
-    }*/
+    //Returning Map
+    public Map getMap(Long mapID){
+        Optional<Map> map = mapRepository.findById(mapID);
+        return map.orElse(null);
+    }
 
 }
