@@ -13,6 +13,7 @@ public abstract class Map implements Serializable{
 
     @Column
     protected ArrayList<MapElement> mapTiles = new ArrayList<MapElement>();
+
     protected ArrayList<Blockade> blockades = new ArrayList<Blockade>();
     protected Random random;
 

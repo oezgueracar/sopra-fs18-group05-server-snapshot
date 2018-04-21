@@ -11,7 +11,6 @@ public class HillsOfGoldMap extends Map{
         MapElement tile1 = new Tile();
         tile1.setRotation(300);
         tile1.setNextTilePos(5);
-        mapTiles.add(tile1);
 
         tile1	.addRow1(	new Space(	"	green	",	1	,	false)	);
         tile1	.addRow1(	new Space(	"	blue	",	1	,	false)	);
