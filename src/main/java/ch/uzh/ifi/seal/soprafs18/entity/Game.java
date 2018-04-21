@@ -5,12 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 
@@ -82,7 +77,8 @@ public class Game implements Serializable {
     //TODO: how does mapping exactly work? how does manytomany exactly work?
     //@ManyToMany(mappedBy="games")
 
-    private ArrayList<Player> players;
+	@OneToMany(mappedBy="game", cascade = CascadeType.ALL)
+	private List<Player> players;
 
     /* Should check if players exist already in db as precondition; should check if players are assigned to correct game id in DB as post
        The added players index should not be able to be 0 or bigger than 4 while adding.
@@ -177,7 +173,7 @@ public class Game implements Serializable {
 		return leader;
 	}
 
-	public ArrayList<Player> getPlayers(){
+	public List<Player> getPlayers(){
 		return players;
 	}
 

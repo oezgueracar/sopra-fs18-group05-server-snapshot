@@ -63,7 +63,7 @@ public class GameResource
 	@RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public String addPlayer(@PathVariable Long gameId, @RequestBody Player player) {
+	public Player addPlayer(@PathVariable Long gameId, @RequestBody Player player) {
 		logger.debug("addPlayer: " + player);
 		return this.gameService.addPlayer(gameId, player);
 	}

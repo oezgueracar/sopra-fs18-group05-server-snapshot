@@ -71,13 +71,14 @@ public class GameService {
 	}
 
 	// TODO: Add player and join game
-	public String addPlayer(Long gameId, Player player) {
+	public Player addPlayer(Long gameId, Player player) {
 		Optional<Game> game = gameRepository.findById(gameId);
 
 		if (game.isPresent()) {
 			int numberOfPlayers = game.get().getPlayers().size();
 
 			// Add player to playerRepository
+			//TODO: Change MAX_PLAYERS to the attribute of the game itself later on...
 			if (numberOfPlayers < GameConstants.MAX_PLAYERS){
 				player.setToken(UUID.randomUUID().toString());
 				player.setReady(false);
@@ -93,7 +94,7 @@ public class GameService {
 				game.get().addPlayer(player);
 
 				this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getName());
-				return CONTEXT + "/" + gameId + "/players/" + player.getId();
+				return playerRepository.save(player);//CONTEXT + "/" + gameId + "/players/" + player.getId();
 			}
 
 		} else {
