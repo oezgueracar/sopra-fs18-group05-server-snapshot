@@ -38,6 +38,7 @@ public class Game implements Serializable {
 	
 	@Id
 	@GeneratedValue
+	@Column(name = "gameId")
 	private Long id;
 
 	//This is the same as game room name.
@@ -77,7 +78,8 @@ public class Game implements Serializable {
     //TODO: how does mapping exactly work? how does manytomany exactly work?
     //@ManyToMany(mappedBy="games")
 
-	@OneToMany(mappedBy="game", cascade = CascadeType.ALL)
+	@OneToMany
+	@JoinColumn(name="playersGameId", referencedColumnName="gameId")
 	private List<Player> players;
 
     /* Should check if players exist already in db as precondition; should check if players are assigned to correct game id in DB as post

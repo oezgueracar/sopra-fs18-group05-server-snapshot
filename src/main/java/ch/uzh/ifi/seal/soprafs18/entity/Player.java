@@ -48,9 +48,9 @@ public class Player implements Serializable {
 	@Column(nullable = false)
 	protected Boolean isInGoal;
 
-    @ManyToOne
-	@JoinColumn(name="game_id")
-    private Game game; // TODO: Check if Game or Long as type
+    //@ManyToOne
+	@Column(name="playersGameId", nullable = false)
+    private Long gameId; // TODO: Check if Game or Long as type
 	/*
     @OneToMany(mappedBy="player")
     private List<Move> moves;*/
@@ -112,6 +112,10 @@ public class Player implements Serializable {
 		this.ready = b;
 	}
 
+	public void setGameId(Long gameId){
+		this.gameId = gameId;
+	}
+
 	public String getColor(){
 		return color;
 	}
@@ -142,6 +146,10 @@ public class Player implements Serializable {
 
 	public ArrayList<Card> getPlayedList(){
 		return playedList;
+	}
+
+	public Long getGameId(){
+		return gameId;
 	}
 
 	/**

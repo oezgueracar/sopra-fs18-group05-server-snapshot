@@ -63,7 +63,6 @@ public class GameService {
 	// return a list of players in a game
 	public List<Player> listPlayers(Long gameId) {
 		Optional<Game> game = gameRepository.findById(gameId);
-		List<Player> result = new ArrayList<>();
 		if (game.isPresent()) {
 			return game.get().getPlayers();
 		}
@@ -84,12 +83,13 @@ public class GameService {
 				player.setReady(false);
 				player.setPlayerLeft(false);
 				player.setIsInGoal(false);
+				player.setGameId(gameId);
 				playerRepository.save(player);
 
 				// Set leader if this player is the first added player to this Game
-				if (numberOfPlayers == 0) {
+				/*if (numberOfPlayers == 0) {
 					game.get().setLeader(player);
-				}
+				}*/
 
 				game.get().addPlayer(player);
 
