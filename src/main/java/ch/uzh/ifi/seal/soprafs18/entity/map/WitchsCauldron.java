@@ -1,7 +1,10 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 public class WitchsCauldron extends Map {
 
+    @JsonIgnore
     public WitchsCauldron(){
 
         //Tile A
