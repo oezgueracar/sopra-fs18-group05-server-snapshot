@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class EndTile extends MapElement {
 
-    ArrayList<Space> row1 = new ArrayList<Space>();
+    ArrayList<Space> row1;
 
     public EndTile(){
-        ArrayList<Space> row1 = new ArrayList<Space>();
+        row1 = new ArrayList<>();
     }
 
     //Fill Rows

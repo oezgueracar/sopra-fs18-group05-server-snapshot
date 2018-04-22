@@ -18,13 +18,13 @@ public class Tile extends MapElement{
     private int rotation;
 
     public Tile(){
-        ArrayList<Space> row1 = new ArrayList<Space>();
-        ArrayList<Space> row2 = new ArrayList<Space>();
-        ArrayList<Space> row3 = new ArrayList<Space>();
-        ArrayList<Space> row4 = new ArrayList<Space>();
-        ArrayList<Space> row5 = new ArrayList<Space>();
-        ArrayList<Space> row6 = new ArrayList<Space>();
-        ArrayList<Space> row7 = new ArrayList<Space>();
+        row1 = new ArrayList<>();
+        row2 = new ArrayList<>();
+        row3 = new ArrayList<>();
+        row4 = new ArrayList<>();
+        row5 = new ArrayList<>();
+        row6 = new ArrayList<>();
+        row7 = new ArrayList<>();
     }
 
     //Fill Rows

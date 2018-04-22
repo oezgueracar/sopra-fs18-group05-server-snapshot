@@ -3,14 +3,14 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 import java.util.ArrayList;
 
 public class TerrainStrip extends MapElement {
-    ArrayList<Space> row1 = new ArrayList<Space>();
-    ArrayList<Space> row2 = new ArrayList<Space>();
-    ArrayList<Space> row3 = new ArrayList<Space>();
+    ArrayList<Space> row1;
+    ArrayList<Space> row2;
+    ArrayList<Space> row3;
 
     public TerrainStrip(){
-        ArrayList<Space> row1 = new ArrayList<Space>();
-        ArrayList<Space> row2 = new ArrayList<Space>();
-        ArrayList<Space> row3 = new ArrayList<Space>();
+        row1 = new ArrayList<>();
+        row2 = new ArrayList<>();
+        row3 = new ArrayList<>();
     }
 
     //Fill Rows
