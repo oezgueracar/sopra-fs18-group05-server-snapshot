@@ -1,6 +1,8 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.card;
 
-public class ExpeditionCard extends Card{
+import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
+
+public class ExpeditionCard extends Card {
 
 	private int value;
 	private String color;

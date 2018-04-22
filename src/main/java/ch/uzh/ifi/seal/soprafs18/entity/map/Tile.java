@@ -1,8 +1,8 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 import java.util.ArrayList;
 
-public class Tile extends MapElement{
+public class Tile extends MapElement {
 
     private ArrayList<Space> row1;
     private ArrayList<Space> row2;

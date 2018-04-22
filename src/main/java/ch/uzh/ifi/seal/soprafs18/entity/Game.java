@@ -2,12 +2,12 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
 
 import javax.persistence.*;
 
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
+import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
+import ch.uzh.ifi.seal.soprafs18.entity.map.Map;
 
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.*;
 

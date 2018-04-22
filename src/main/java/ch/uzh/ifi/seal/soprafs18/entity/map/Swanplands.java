@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 public class Swanplands extends Map {
 

@@ -1,7 +1,4 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
-
-import java.util.ArrayList;
-import java.util.Random;
+package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 public class HomeStretch extends Map {
 

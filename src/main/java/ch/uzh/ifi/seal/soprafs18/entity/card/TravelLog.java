@@ -1,6 +1,8 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.card;
 
-public class TravelLog extends ActionCard{
+import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
+
+public class TravelLog extends ActionCard {
 
 	// TODO: documentation for constructor
 	/**

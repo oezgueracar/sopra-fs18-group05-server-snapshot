@@ -1,5 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
+import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;

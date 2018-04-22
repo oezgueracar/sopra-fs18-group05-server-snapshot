@@ -1,7 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.service;
 
-import ch.uzh.ifi.seal.soprafs18.entity.HillsOfGoldMap;
-import ch.uzh.ifi.seal.soprafs18.entity.Map;
+import ch.uzh.ifi.seal.soprafs18.entity.map.HillsOfGoldMap;
+import ch.uzh.ifi.seal.soprafs18.entity.map.Map;
 import ch.uzh.ifi.seal.soprafs18.repository.MapRepository;
 import ch.uzh.ifi.seal.soprafs18.web.rest.MapResource;
 import org.slf4j.Logger;

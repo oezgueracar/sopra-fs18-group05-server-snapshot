@@ -1,16 +1,18 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.card;
 
-public class Transmitter extends ActionCard{
+import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
+
+public class Native extends ActionCard {
 
 	// TODO: documentation for constructor
 	/**
-	 * Constructor for class Transmitter
+	 * Constructor for class Native
 	 * @param buyingCost
 	 * @param goldValue
 	 * @param cardName
 	 * @param cardDescription
 	 */
-	public Transmitter(float buyingCost, float goldValue, String cardName, String cardDescription) {
+	public Native(float buyingCost, float goldValue, String cardName, String cardDescription) {
 		this.buyingCost = buyingCost;
 		this.goldValue = goldValue;
 		this.cardName = cardName;

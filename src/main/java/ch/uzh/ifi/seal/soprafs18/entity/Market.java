@@ -1,6 +1,8 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
 
+import ch.uzh.ifi.seal.soprafs18.entity.card.*;
+
 import java.util.ArrayList;
 
 public class Market {

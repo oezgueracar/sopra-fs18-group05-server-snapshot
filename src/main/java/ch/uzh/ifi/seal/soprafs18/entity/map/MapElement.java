@@ -1,6 +1,4 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
-
-import java.util.ArrayList;
+package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 public abstract class MapElement {
 

@@ -1,33 +1,13 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Random;
 
-@Entity
-public abstract class Map implements Serializable{
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class HillsOfGoldMap extends Map {
 
     @Column
-    protected ArrayList<MapElement> mapTiles = new ArrayList<MapElement>();
-    @Column
-    protected String name;
+    private String name;
 
-    protected ArrayList<Blockade> blockades = new ArrayList<Blockade>();
-    protected Random random;
-
-
-
-  /*  public Map(){
-
-
+    public HillsOfGoldMap(){
 
         //Tile B
         MapElement tile1 = new Tile();
@@ -319,15 +299,6 @@ public abstract class Map implements Serializable{
         mapTiles.add(getRandomBlockade());
         mapTiles.add(tile6);
         mapTiles.add(tile7);
-    }*/
-
-    protected Blockade getRandomBlockade(){
-        random = new Random();
-        int index = random.nextInt(blockades.size());
-        Blockade blockade = blockades.get(index);
-        blockades.remove(index);
-
-        return blockade;
     }
 
 }

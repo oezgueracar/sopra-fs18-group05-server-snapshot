@@ -1,6 +1,6 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-public class Blockade extends MapElement{
+public class Blockade extends MapElement {
 
     private String color;
     private int value;

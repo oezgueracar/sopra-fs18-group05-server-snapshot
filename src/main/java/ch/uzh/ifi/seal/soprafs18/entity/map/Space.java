@@ -1,7 +1,5 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-
-import java.util.ArrayList;
 
 public class Space {
     private Space[] neighbours = new Space[6];

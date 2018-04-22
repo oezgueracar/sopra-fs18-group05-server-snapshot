@@ -1,6 +1,8 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.card;
 
-public class Scientist extends ActionCard{
+import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
+
+public class Scientist extends ActionCard {
 
 	// TODO: documentation for constructor
 	/**

@@ -1,9 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.web.rest;
 
-import ch.uzh.ifi.seal.soprafs18.entity.HillsOfGoldMap;
-import ch.uzh.ifi.seal.soprafs18.entity.Map;
-import ch.uzh.ifi.seal.soprafs18.entity.MapElement;
-import ch.uzh.ifi.seal.soprafs18.entity.Tile;
+import ch.uzh.ifi.seal.soprafs18.entity.map.HillsOfGoldMap;
+import ch.uzh.ifi.seal.soprafs18.entity.map.Map;
 import ch.uzh.ifi.seal.soprafs18.repository.MapRepository;
 import ch.uzh.ifi.seal.soprafs18.service.MapService;
 import org.slf4j.Logger;
@@ -11,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 public class MapResource extends GenericResource{

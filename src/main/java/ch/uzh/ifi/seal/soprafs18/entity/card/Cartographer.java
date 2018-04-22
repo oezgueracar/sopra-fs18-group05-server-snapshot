@@ -1,6 +1,8 @@
-package ch.uzh.ifi.seal.soprafs18.entity;
+package ch.uzh.ifi.seal.soprafs18.entity.card;
 
-public class Cartographer extends ActionCard{
+import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
+
+public class Cartographer extends ActionCard {
 
 	// TODO: documentation for constructor
 	/**
