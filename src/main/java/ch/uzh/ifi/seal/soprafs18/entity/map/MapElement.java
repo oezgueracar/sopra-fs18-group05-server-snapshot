@@ -1,6 +1,8 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-public abstract class MapElement {
+import java.io.Serializable;
+
+public abstract class MapElement implements Serializable {
 
     public void addRow1(Space s){}
     public void addRow2(Space s){}

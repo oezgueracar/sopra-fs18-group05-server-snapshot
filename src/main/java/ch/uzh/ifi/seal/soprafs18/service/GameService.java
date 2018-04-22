@@ -123,8 +123,8 @@ public class GameService {
         }
     }*/
 
-    public Game updateGame(Game game){
-		Optional<Game> serverSideGame = gameRepository.findById(game.getId());
+    public Game updateGame(Long gameId, Game game){
+		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
 		if (serverSideGame.isPresent()){
 			switch(serverSideGame.get().getStatus()){

@@ -1,7 +1,9 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 
-public class Space {
+import java.io.Serializable;
+
+public class Space implements Serializable {
     private Space[] neighbours = new Space[6];
     private String color;
     private int value;

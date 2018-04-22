@@ -94,9 +94,9 @@ public class GameResource
 
     @RequestMapping(value = CONTEXT + "/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public Game updateGame(@RequestBody Game game) {
-        logger.debug("startGame: " + game.getId());
-        return this.gameService.updateGame(game);
+    public Game updateGame(@PathVariable Long gameId, @RequestBody Game game) {
+        logger.debug("startGame: " + gameId);
+        return this.gameService.updateGame(gameId, game);
     }
 
     // TODO: Change ready state of a player

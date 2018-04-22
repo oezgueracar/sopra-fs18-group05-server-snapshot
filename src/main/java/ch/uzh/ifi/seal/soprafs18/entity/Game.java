@@ -62,6 +62,8 @@ public class Game implements Serializable {
 	@Column
     private String mapName;
 
+	@Column(name="map")
+	@Lob
     private Map assignedMap;
 
 	/*@Column
@@ -117,7 +119,7 @@ public class Game implements Serializable {
 	//TODO: assignedMap is not accepted, cannot resolve what type it is...idky???
     private void initializeMap() {
         try{
-            assignedMap = (Map) Class.forName("ch.uzh.ifi.seal.soprafs18.entity." + mapName).newInstance();
+            assignedMap = (Map) Class.forName("ch.uzh.ifi.seal.soprafs18.entity.map." + mapName).newInstance();
         }
         catch (ClassNotFoundException e1){
             System.out.println("Class not Found Exception");
