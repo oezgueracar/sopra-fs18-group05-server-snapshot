@@ -44,9 +44,11 @@ public class Tile extends MapElement{
     public ArrayList getRow6(){return row6;}
     public ArrayList getRow7(){return row7;}
     //Setter
+    @Override
     public void setNextTilePos(int p){
         this.nextTilePos = p;
     }
+    @Override
     public void setRotation(int r){
         this.rotation = r;
     }
