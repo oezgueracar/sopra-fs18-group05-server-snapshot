@@ -14,8 +14,11 @@ public class TerrainStrip extends MapElement {
     }
 
     //Fill Rows
+    @Override
     public void addRow1(Space s){row1.add(s);}
+    @Override
     public void addRow2(Space s){row2.add(s);}
+    @Override
     public void addRow3(Space s){row3.add(s);}
     //Getter
     public ArrayList getRow1(){return row1;}

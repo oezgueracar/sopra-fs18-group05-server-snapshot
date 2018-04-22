@@ -11,5 +11,6 @@ public class EndTile extends MapElement {
     }
 
     //Fill Rows
+    @Override
     public void addRow1(Space s){row1.add(s);}
 }

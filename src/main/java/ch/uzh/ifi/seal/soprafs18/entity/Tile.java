@@ -28,12 +28,19 @@ public class Tile extends MapElement{
     }
 
     //Fill Rows
+    @Override
     public void addRow1(Space s){row1.add(s);}
+    @Override
     public void addRow2(Space s){row2.add(s);}
+    @Override
     public void addRow3(Space s){row3.add(s);}
+    @Override
     public void addRow4(Space s){row4.add(s);}
+    @Override
     public void addRow5(Space s){row5.add(s);}
+    @Override
     public void addRow6(Space s){row6.add(s);}
+    @Override
     public void addRow7(Space s){row7.add(s);}
     //Getter
     public ArrayList getRow1(){return row1;}
