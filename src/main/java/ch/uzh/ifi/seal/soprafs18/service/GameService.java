@@ -109,17 +109,6 @@ public class GameService {
 		return null;
 	}
 
-	/*// TODO: startgame
-    public void startGame(Long gameId, String playerToken) {
-        //Optional<Game> game = gameRepository.findById(gameId);
-        //Optional<Player> leader = playerRepository.findByToken(playerToken);
-
-        if (leader != null && game.isPresent()){ //&& game.get().getOwner().equals(owner.get().getName())) {
-            // TODO: implement the logic for starting the game
-			game.get().initializeMap();
-        }
-    }*/
-
     public Game updateGame(Long gameId, Game game){
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
@@ -141,6 +130,21 @@ public class GameService {
 		return null;
 	}
 
+	public Player updatePlayer(Long gameId, Long playerId, Player player){
+		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
+		Optional<Game> serverSideGame = gameRepository.findById(gameId);
+
+		if(serverSidePlayer.isPresent() && serverSideGame.isPresent()){
+			switch(serverSideGame.get().getStatus()){
+				case ROOM:
+					serverSidePlayer.get().setReady(player.getReady());
+
+					return playerRepository.save(serverSidePlayer.get());
+			}
+		}
+		return null;
+	}
+
     // TODO: changestate
 
 	// TODO: update moveCounter, reachable and hand of a player
@@ -154,13 +158,13 @@ public class GameService {
 	// TODO: Update playedList, discardPile and status of players
 
 
-    public void stopGame(Long gameId, String playerToken) {
+    /*public void stopGame(Long gameId, String playerToken) {
         Optional<Game> game = gameRepository.findById(gameId);
         Optional<Player> owner = playerRepository.findByToken(playerToken);
         if (owner != null && game.isPresent()){ // && game.get().getOwner().equals(owner.get().getName())) {
             // TODO: implement the logic for stopping the game
         }
-    }
+    }*/
 
     /*public List<Move> listMoves(Long gameId) {
         Optional<Game> game = gameRepository.findById(gameId);

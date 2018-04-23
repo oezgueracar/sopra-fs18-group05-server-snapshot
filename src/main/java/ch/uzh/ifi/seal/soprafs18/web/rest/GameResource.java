@@ -104,6 +104,13 @@ public class GameResource
         return this.gameService.updateGame(gameId, game);
     }
 
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public Player updatePlayer(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
+        logger.debug("updatePlayer: " + playerId);
+        return this.gameService.updatePlayer(gameId, playerId, player);
+    }
+
     // TODO: Change ready state of a player
     /*@RequestMapping(value = CONTEXT + "/{gameId}/players/{playerID}/state", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
