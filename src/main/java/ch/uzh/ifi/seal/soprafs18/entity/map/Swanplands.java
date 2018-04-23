@@ -1,10 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-import net.minidev.json.annotate.JsonIgnore;
-
 public class Swanplands extends Map {
 
-    @JsonIgnore
     public Swanplands(){
 
         // Tile A

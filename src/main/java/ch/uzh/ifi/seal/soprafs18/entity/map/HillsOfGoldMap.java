@@ -1,15 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-import net.minidev.json.annotate.JsonIgnore;
-
-import javax.persistence.Column;
-
 public class HillsOfGoldMap extends Map {
 
-    @Column
-    private String name;
-
-    @JsonIgnore
     public HillsOfGoldMap(){
 
         //Tile B

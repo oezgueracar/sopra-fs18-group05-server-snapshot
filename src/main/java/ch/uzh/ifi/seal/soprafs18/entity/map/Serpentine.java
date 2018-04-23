@@ -1,11 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-
-import net.minidev.json.annotate.JsonIgnore;
-
 public class Serpentine extends Map {
 
-    @JsonIgnore
     public Serpentine(){
 
         // Tile A

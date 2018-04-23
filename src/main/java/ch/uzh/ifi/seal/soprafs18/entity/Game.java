@@ -8,9 +8,9 @@ import javax.persistence.*;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.*;
-
 
 @Entity
 public class Game implements Serializable {
@@ -62,8 +62,8 @@ public class Game implements Serializable {
 	@Column
     private String mapName;
 
-	@Column(name="map")
-	@Lob
+	@Transient
+	@JsonProperty
     private Map assignedMap;
 
 	/*@Column
