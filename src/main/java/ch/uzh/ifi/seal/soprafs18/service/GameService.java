@@ -48,6 +48,7 @@ public class GameService {
     }
 
     public Game addGame(Game game) {
+    	game.getPlayer(0).setColor("red");
     	return gameRepository.save(game);
     }
 
@@ -81,6 +82,33 @@ public class GameService {
 				player.setPlayerLeft(false);
 				player.setIsInGoal(false);
 				player.setGameId(gameId);
+
+				//color upon entering a room
+				String colorToSet = "red";
+				for(Player p: game.get().getPlayers()){
+					if (p.getColor().equals("red")){
+						colorToSet = "blue";
+
+						for(Player p2: game.get().getPlayers()){
+							if (p2.getColor().equals("blue")){
+								colorToSet = "yellow";
+
+								for(Player p3: game.get().getPlayers()){
+									if (p3.getColor().equals("yellow")){
+										colorToSet = "white";
+										break;
+									}
+								}
+
+								break;
+							}
+						}
+
+						break;
+					}
+				}
+				player.setColor(colorToSet);
+
 				playerRepository.save(player);
 
 				game.get().addPlayer(player);
@@ -138,6 +166,16 @@ public class GameService {
 			switch(serverSideGame.get().getStatus()){
 				case ROOM:
 					serverSidePlayer.get().setReady(player.getReady());
+
+					Boolean colorAlreadyTaken = false;
+					for(Player p: serverSideGame.get().getPlayers()){
+						if (p.getColor().equals(player.getColor())){
+							colorAlreadyTaken = true;
+						}
+					}
+					if (!colorAlreadyTaken){
+						serverSidePlayer.get().setColor(player.getColor());
+					}
 
 					return playerRepository.save(serverSidePlayer.get());
 			}

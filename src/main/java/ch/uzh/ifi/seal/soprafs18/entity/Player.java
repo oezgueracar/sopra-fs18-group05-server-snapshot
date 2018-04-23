@@ -32,7 +32,7 @@ public class Player implements Serializable {
 	private PlayerStatus status;*/
 
 	// TODO: check at point of setting status to "ready" if valid color
-	@Column()
+	@Column(nullable = false)
 	protected String color;
 
 	// Is set to false in Service when creating player
@@ -309,6 +309,10 @@ public class Player implements Serializable {
 
 	public void setIsInGoal(Boolean b){
 		isInGoal = b;
+	}
+
+	public void setColor(String newColor){
+		this.color = newColor;
 	}
 
 	// ##############################################################################################################
