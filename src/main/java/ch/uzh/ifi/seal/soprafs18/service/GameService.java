@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.service;
 
-import ch.uzh.ifi.seal.soprafs18.GameConstants;
+import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
@@ -13,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
+import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.ROOM;
 
 /**
  * Created by Lucas Pelloni on 26.01.18.
@@ -48,10 +47,8 @@ public class GameService {
         return result;
     }
 
-    // TODO: create a new game
     public Game addGame(Game game) {
-		//game = gameRepository.save(game);
-        return gameRepository.save(game);//CONTEXT + "/" + game.getId();
+    	return gameRepository.save(game);
     }
 
     public Game getGame(Long gameId) {
@@ -68,16 +65,17 @@ public class GameService {
 		return game.get().getPlayers();
 	}
 
-	// TODO: Add player and join game
 	public Player addPlayer(Long gameId, Player player) {
 		Optional<Game> game = gameRepository.findById(gameId);
 
 		if (game.isPresent()) {
+			game.get().getPlayers().removeAll(Collections.singleton(null));
 			int numberOfPlayers = game.get().getPlayers().size();
 
 			// Add player to playerRepository
-			//TODO: Change MAX_PLAYERS to the attribute of the game itself later on...
-			if (numberOfPlayers < GameConstants.MAX_PLAYERS){
+			//TODO: How to display to frontend that a new player couldn't be added?
+			//TODO: Color setting needs to be handled here. Also leader should always have same color upon hosting a game.
+			if (game.get().getStatus() == ROOM && numberOfPlayers < GameConstants.MAX_PLAYERS){
 				player.setToken(UUID.randomUUID().toString());
 				player.setReady(false);
 				player.setPlayerLeft(false);
@@ -85,18 +83,17 @@ public class GameService {
 				player.setGameId(gameId);
 				playerRepository.save(player);
 
-				// Set leader if this player is the first added player to this Game
-				/*if (numberOfPlayers == 0) {
-					game.get().setLeader(player);
-				}*/
-
 				game.get().addPlayer(player);
 
 				this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getName());
-				return playerRepository.save(player);//CONTEXT + "/" + gameId + "/players/" + player.getId();
+				return playerRepository.save(player);
+			}
+			else {
+				System.out.println("Could not join game. Game room is full or game is already running.");
 			}
 
-		} else {
+		}
+		else {
 			this.logger.error("Error adding player with id: " + player.getId());
 		}
 		return null;

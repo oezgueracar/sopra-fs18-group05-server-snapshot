@@ -1,6 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.*;
@@ -24,13 +25,10 @@ public class Game implements Serializable {
 	//TODO: misses eventual setup? Where do we initialize all cards?
     // should check that game is PENDING after it got created in post condition and that all attributes are set correctly
 	public Game(){
-        //players.add(leader);
-	    //setLeader(leader);
 		setTurnTime(60);
-        //setName(gname);
-		///setMaxPlayers(4);
-		///currentPlayer = 0;
 		setup();
+
+		//assert((name != null) && (status == ROOM) && (turnTime == 60) && (mapName.equals("HillsOfGoldMap")));
     }
 	
 	@Id
@@ -39,11 +37,8 @@ public class Game implements Serializable {
 	private Long id;
 
 	//This is the same as game room name.
-	@Column()
+	@Column(nullable = false)
 	private String name;
-
-	@Column()
-	private Player leader;
 	
 	@Column 
 	private GameStatus status;
@@ -51,9 +46,6 @@ public class Game implements Serializable {
 	//Shows the integer of the player whose current turn it is during a game. The integer of a player is determined according to their position in the List<Player> of the game instance.
 	@Column 
 	private int currentPlayer;
-
-	@Column
-    private int maxPlayers;
 
 	//Number of seconds that a player has to end his turn before the turn ends automatically.
 	@Column
@@ -73,10 +65,7 @@ public class Game implements Serializable {
     @OneToMany(mappedBy="game")
     private List<Move> moves;
 
-    //TODO: how does mapping exactly work? how does manytomany exactly work?
-    //@ManyToMany(mappedBy="games")
-
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="playersGameId", referencedColumnName="gameId")
 	private List<Player> players;
 
@@ -85,16 +74,14 @@ public class Game implements Serializable {
        Post condition should check if the player was added successfully.
        Invariant should check that there is at least always 1 player (the leader) in "players".
     */
+
+    //TODO: How to display to frontend that a new player couldn't be added?
     public void addPlayer(Player newPlayer){
-        this.players.add(newPlayer);
+    	this.players.add(newPlayer);
     }
 
     public void setStatus(GameStatus newStatus){
         this.status = newStatus;
-    }
-
-    public void setLeader(Player newLeader){
-        this.leader = newLeader;
     }
 
     public void setMapName(String newMapName){
@@ -109,12 +96,6 @@ public class Game implements Serializable {
         this.name = newName;
     }
 
-    /*//TODO: pre and post check that its not over 4 or under 2 and that it has been set
-    //TODO: Do such checks for every setter
-    public void setMaxPlayers(Integer newMaxPlayers){
-        this.maxPlayers = newMaxPlayers;
-    } -> not necessary min and max players in a game is defined in GameConstants and we start the game with the amount of players that are in game at start of the game
-*/
     //TODO: Definitely need to test if the tryblock enables overloading so that right map is used. Why does typecasting to abstract class work?
 	//TODO: assignedMap is not accepted, cannot resolve what type it is...idky???
     private void initializeMap() {
@@ -135,7 +116,8 @@ public class Game implements Serializable {
     //TODO: post and pre to check if in right boundary and if it has been changed like planned
     //TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
     public void changeCurrentPlayer(){
-        if (this.currentPlayer + 1 == this.maxPlayers){
+    	this.getPlayers().removeAll(Collections.singleton(null));
+        if (this.currentPlayer + 1 == this.getPlayers().size()){
             this.currentPlayer = 0;
         }
         else {
@@ -175,10 +157,6 @@ public class Game implements Serializable {
 		return id;
 	}
 
-	public Player getLeader(){
-		return leader;
-	}
-
 	public List<Player> getPlayers(){
 		return players;
 	}
@@ -189,10 +167,6 @@ public class Game implements Serializable {
 
 	public String getName(){
 		return name;
-	}
-
-	public int getMaxPlayers(){
-    	return maxPlayers;
 	}
 
 	public int getTurnTime(){

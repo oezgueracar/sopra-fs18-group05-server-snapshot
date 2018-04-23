@@ -47,8 +47,13 @@ public class GameResource
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Game addGame(@RequestBody Game game) {
-        logger.debug("addGame: " + game);
-        return this.gameService.addGame(game);
+        if(game != null && game.getPlayers() != null) {
+            logger.debug("addGame: " + game);
+            return this.gameService.addGame(game);
+        }
+        else {
+            return null;
+        }
     }
 
     // TODO: Retrieve information of a game
