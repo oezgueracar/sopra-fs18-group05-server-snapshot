@@ -1,6 +1,8 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
-public abstract class Card {
+import java.io.Serializable;
+
+public abstract class Card implements Serializable {
 
 	protected long id;
 	protected float buyingCost;

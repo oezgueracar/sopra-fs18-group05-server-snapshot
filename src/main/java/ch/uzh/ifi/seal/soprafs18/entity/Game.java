@@ -58,8 +58,9 @@ public class Game implements Serializable {
 	@JsonProperty
     private Map assignedMap;
 
-	/*@Column
-    private Market assignedMarket;*/
+	@Transient
+	@JsonProperty
+    private Market assignedMarket;
 
 	//TODO: delete this after not needed for looking up on how a onetomany relationship works
     @OneToMany(mappedBy="game")
@@ -142,7 +143,6 @@ public class Game implements Serializable {
 	//Helper function for setting up all associated Objects with game.
 	//TODO: assignedMarket type is not known by the compiler idky...
 	public void setup(){
-        //assignedMarket = new Market();
         setMapName("HillsOfGoldMap");
 		setStatus(ROOM);
 	}
@@ -150,7 +150,7 @@ public class Game implements Serializable {
 	public void startGame(){
     	this.initializeMap();
     	//this.setupCards();
-    	//this.assignedMarket = new Market();
+		assignedMarket = new Market();
 	}
     
 	public Long getId(){

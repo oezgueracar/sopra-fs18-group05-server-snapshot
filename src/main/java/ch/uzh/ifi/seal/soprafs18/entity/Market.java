@@ -3,11 +3,13 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Market {
+public class Market implements Serializable {
 
-    private ArrayList<Card[]> openSlots;
+    private List<Card[]> openSlots;
     private Card[] scout;
     private Card[] trailblazer;
     private Card[] JackOfAllTrades;
@@ -15,7 +17,7 @@ public class Market {
     private Card[] treasureChest;
     private Card[] transmitter;
 
-    private ArrayList<Card[]> closedSlots;
+    private List<Card[]> closedSlots;
     private Card[] propPlane;
     private Card[] adventurer;
     private Card[] pioneer;
@@ -31,7 +33,29 @@ public class Market {
 
 
     public Market(){
-        //Initialize openSlots
+        openSlots = new ArrayList<>();
+        scout = new Card[3];
+        trailblazer = new Card[3];
+        JackOfAllTrades = new Card[3];
+        photographer = new Card[3];
+        treasureChest = new Card[3];
+        transmitter = new Card[3];
+
+        closedSlots = new ArrayList<>();
+        propPlane = new Card[3];
+        adventurer = new Card[3];
+        pioneer = new Card[3];
+        giantMachete = new Card[3];
+        journalist = new Card[3];
+        millionaire = new Card[3];
+        cartographer = new Card[3];
+        compass = new Card[3];
+        travelLog = new Card[3];
+        scientist = new Card[3];
+        nativ = new Card[3];
+        captain = new Card[3];
+
+        //setup openSlots
         for(int i = 0; i<3; i++){
             scout[i] = new ExpeditionCard(1, 0.5f, "Scout", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"2\"", "green", 2, false);
         }
@@ -51,7 +75,7 @@ public class Market {
             transmitter[i] = new Transmitter(4f, 0.5f, "Transmitter,", "Choose any one card from the market (off board cards are allowed) and place it on your discard pile");
             };
 
-        //Puting arrays in openSlots
+        //Putting arrays in openSlots
         openSlots.add(0, scout);
         openSlots.add(1, trailblazer);
         openSlots.add(2, JackOfAllTrades);
@@ -59,7 +83,7 @@ public class Market {
         openSlots.add(4, treasureChest);
         openSlots.add(5, transmitter);
 
-        //Initialize closedSlots
+        //setup closedSlots
         for(int i = 0; i<3; i++){
             propPlane[i] = new MulticolorCard(4, 0.5f, "Prop Plane", "Allows you to move your Playing Piece to a green, yellow or blue Space by increasing your Move Counter to \"4\"", "multicolor", 4, true);
         }
@@ -97,7 +121,7 @@ public class Market {
             captain[i] = new ExpeditionCard(2, 0.5f, "Captain", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"3\"", "blue", 3, false);
         }
 
-        //Puting arrays in closedSlots
+        //Putting arrays in closedSlots
         closedSlots.add(0, propPlane);
         closedSlots.add(1, adventurer);
         closedSlots.add(2, pioneer);
@@ -115,11 +139,11 @@ public class Market {
 
 
     //Getter and Setter
-    public ArrayList<Card[]> getOpenSlots(){
+    public List<Card[]> getOpenSlots(){
         return openSlots;
     }
 
-    public ArrayList<Card[]> getClosedSlots(){
+    public List<Card[]> getClosedSlots(){
         return closedSlots;
     }
 
