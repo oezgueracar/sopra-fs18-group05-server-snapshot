@@ -146,10 +146,15 @@ public class GameService {
 					serverSideGame.get().setName(game.getName());
 					serverSideGame.get().setMapName(game.getMapName());
 					serverSideGame.get().setTurnTime(game.getTurnTime());
-					serverSideGame.get().setStatus(game.getStatus());
+					if (serverSideGame.get().getPlayers().size() >= GameConstants.MIN_PLAYERS) {
+						serverSideGame.get().setStatus(game.getStatus());
+					}
 					return gameRepository.save(serverSideGame.get());
 				case PENDING:
 					serverSideGame.get().startGame();
+					for(Player p: serverSideGame.get().getPlayers()){
+						p.prepareForStart();
+					}
 					serverSideGame.get().setStatus(GameStatus.RUNNING);
 					return gameRepository.save(serverSideGame.get());
 				case RUNNING:

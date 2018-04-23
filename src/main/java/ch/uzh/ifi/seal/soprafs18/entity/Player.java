@@ -74,7 +74,7 @@ public class Player implements Serializable {
 	// [green, blue, yellow]
     protected int[] moveCounter = new int[3];
 
-	//protected PlayingPiece assignedPiece;
+	protected PlayingPiece assignedPiece;
 
 	/**
 	 * Constructor of the class Player
@@ -152,6 +152,14 @@ public class Player implements Serializable {
 
 	public Long getGameId(){
 		return gameId;
+	}
+
+	public PlayingPiece getPlayingPiece(){
+		return assignedPiece;
+	}
+
+	public void prepareForStart(){
+		this.assignedPiece = new PlayingPiece(this.color);
 	}
 
 	/**

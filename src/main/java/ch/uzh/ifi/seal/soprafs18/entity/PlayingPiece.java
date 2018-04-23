@@ -1,6 +1,8 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
-public class PlayingPiece {
+import java.io.Serializable;
+
+public class PlayingPiece implements Serializable {
 
 	private String color;
 	private int position;
@@ -9,21 +11,15 @@ public class PlayingPiece {
 		this.color = color;
 	}
 
-	private void setColor(){
-
-	}
-
-	private void setPosition(){
-
+	private void setPosition(int position){
+		this.position = position;
 	}
 
 	public String getColor(){
 		return color;
-
 	}
 
 	public int getPosition(){
 		return position;
-
 	}
 }
