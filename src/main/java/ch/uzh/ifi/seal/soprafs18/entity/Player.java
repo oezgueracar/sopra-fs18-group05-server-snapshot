@@ -1,9 +1,12 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
+import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.persistence.*;
@@ -20,9 +23,6 @@ public class Player implements Serializable {
 
 	@Column(nullable = false)
 	protected String name;
-
-	/*@Column(nullable = false, unique = true)
-	private String name;*/
 
 	// A unique token for a player - Is generated in Service
 	@Column(nullable = false, unique = true)
@@ -58,17 +58,24 @@ public class Player implements Serializable {
     private List<Move> moves;*/
 
     // Contains the cards that are in the hand
-    //@OneToMany(mappedBy = "player")  Not OneToMany because we don't copy paste card objects -
-    protected ArrayList<Card> hand;
+	@Transient
+	@JsonProperty
+    protected List<Card> hand;
 
     // Contains the cards that are in the deck
-    protected ArrayList<Card> deck;
+	@Transient
+	@JsonProperty
+    protected List<Card> deck;
 
     // Contains the cards in the discardPile
-    protected ArrayList<Card> discardPile;
+	@Transient
+	@JsonProperty
+    protected List<Card> discardPile;
 
     // Contains the cards that were played in this turn
-    protected ArrayList<Card> playedList;
+	@Transient
+	@JsonProperty
+    protected List<Card> playedList;
 
     // Depending on the position in the ArrayList the counter is referring to the color - only one entry can be different from 0!
 	// [green, blue, yellow]
@@ -122,11 +129,11 @@ public class Player implements Serializable {
 		return color;
 	}
 
-	public ArrayList<Card> getDeck(){
+	public List<Card> getDeck(){
 		return deck;
 	}
 
-	public ArrayList<Card> getHand() {
+	public List<Card> getHand() {
 		return hand;
 	}
 
@@ -142,11 +149,11 @@ public class Player implements Serializable {
 		return isInGoal;
 	}
 
-	public ArrayList<Card> getDiscardPile(){
+	public List<Card> getDiscardPile(){
 		return discardPile;
 	}
 
-	public ArrayList<Card> getPlayedList(){
+	public List<Card> getPlayedList(){
 		return playedList;
 	}
 
@@ -321,6 +328,36 @@ public class Player implements Serializable {
 
 	public void setColor(String newColor){
 		this.color = newColor;
+	}
+
+	//Fill the deck of the player with the starting cards as stated in the game manual.
+	private void setupCards(){
+		for(int i = 0; i < 3; i++){
+			this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"1\"", "green", 1, false));
+		}
+
+		this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Sailor", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"1\"", "blue", 1, false));
+
+		for(int i = 0; i < 4; i++){
+			this.addCardToDeck(new ExpeditionCard(1, 1.0f, "Traveler", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"1\"", "yellow", 1, false));
+		}
+	}
+
+	//Sets up the player so he's ready before entering the game.
+	public void setup(){
+		// Contains the cards that are in the hand
+		hand = new ArrayList<>();
+
+		// Contains the cards that are in the deck
+		deck = new ArrayList<>();
+
+		// Contains the cards in the discardPile
+		discardPile = new ArrayList<>();
+
+		// Contains the cards that were played in this turn
+		playedList = new ArrayList<>();
+
+		this.setupCards();
 	}
 
 	// ##############################################################################################################

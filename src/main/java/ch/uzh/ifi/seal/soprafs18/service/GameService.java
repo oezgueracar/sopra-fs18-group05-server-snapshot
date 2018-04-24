@@ -151,10 +151,11 @@ public class GameService {
 					}
 					return gameRepository.save(serverSideGame.get());
 				case PENDING:
-					serverSideGame.get().startGame();
 					for(Player p: serverSideGame.get().getPlayers()){
 						p.prepareForStart();
+						p.setup();
 					}
+					serverSideGame.get().startGame();
 					serverSideGame.get().setStatus(GameStatus.RUNNING);
 					return gameRepository.save(serverSideGame.get());
 				case RUNNING:
