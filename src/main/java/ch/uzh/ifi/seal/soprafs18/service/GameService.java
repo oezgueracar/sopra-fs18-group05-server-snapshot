@@ -49,6 +49,7 @@ public class GameService {
 
     public Game addGame(Game game) {
     	game.getPlayer(0).setColor("red");
+		game.getPlayer(0).setReady(true);
 		game.getPlayer(0).setToken(UUID.randomUUID().toString());
 		Game serverSideGame = gameRepository.save(game);
 		serverSideGame.getPlayer(0).setGameId(serverSideGame.getId());
@@ -150,17 +151,31 @@ public class GameService {
 					serverSideGame.get().setName(game.getName());
 					serverSideGame.get().setMapName(game.getMapName());
 					serverSideGame.get().setTurnTime(game.getTurnTime());
+
+					//TODO: The leaders ready status should always be true. Meaning when a new leader is set, his ready attribute should be automatically set to true.
+					//Checks first if there are at least 2 players in the room. Checks then if all players are ready. If all of them are ready and the leader pressed the Start Game button, the game will start.
 					if (serverSideGame.get().getPlayers().size() >= GameConstants.MIN_PLAYERS) {
-						serverSideGame.get().setStatus(game.getStatus());
+						Boolean allPlayersReady = true;
+						for(Player p: serverSideGame.get().getPlayers()){
+							if (p.getReady() == false){
+								allPlayersReady = false;
+							}
+						}
+
+						//If all players are ready, the leaders request to set the game status to PENDING is accepted.
+						if(allPlayersReady) {
+							serverSideGame.get().setStatus(game.getStatus());
+						}
+
+						//If the leaders request to set the game status to PENDING was accepted, the game will setup before the game status changes to RUNNING.
+						if(serverSideGame.get().getStatus() == GameStatus.PENDING){
+							for (Player p : serverSideGame.get().getPlayers()) {
+								p.setup();
+							}
+							serverSideGame.get().startGame();
+							serverSideGame.get().setStatus(GameStatus.RUNNING);
+						}
 					}
-					return gameRepository.save(serverSideGame.get());
-				case PENDING:
-					for(Player p: serverSideGame.get().getPlayers()){
-						p.prepareForStart();
-						p.setup();
-					}
-					serverSideGame.get().startGame();
-					serverSideGame.get().setStatus(GameStatus.RUNNING);
 					return gameRepository.save(serverSideGame.get());
 				case RUNNING:
 			}

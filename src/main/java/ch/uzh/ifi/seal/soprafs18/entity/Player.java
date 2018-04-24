@@ -163,10 +163,6 @@ public class Player implements Serializable {
 		return assignedPiece;
 	}
 
-	public void prepareForStart(){
-		this.assignedPiece = new PlayingPiece(this.color);
-	}
-
 	/**
 	 * Plays
 	 * @pre hand.contains(card)
@@ -343,6 +339,8 @@ public class Player implements Serializable {
 
 	//Sets up the player so he's ready before entering the game.
 	public void setup(){
+		this.assignedPiece = new PlayingPiece(this.color);
+
 		// Contains the cards that are in the hand
 		hand = new ArrayList<>();
 
