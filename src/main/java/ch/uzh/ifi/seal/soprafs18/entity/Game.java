@@ -37,7 +37,7 @@ public class Game implements Serializable {
 	private Long id;
 
 	//This is the same as game room name.
-	@Column(nullable = false)
+	@Column
 	private String name;
 	
 	@Column 

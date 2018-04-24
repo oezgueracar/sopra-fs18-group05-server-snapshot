@@ -49,7 +49,11 @@ public class GameService {
 
     public Game addGame(Game game) {
     	game.getPlayer(0).setColor("red");
-    	return gameRepository.save(game);
+		game.getPlayer(0).setToken(UUID.randomUUID().toString());
+		Game serverSideGame = gameRepository.save(game);
+		serverSideGame.getPlayer(0).setGameId(serverSideGame.getId());
+		serverSideGame.setName(serverSideGame.getPlayer(0).getName() + "'s Game");
+		return gameRepository.save(serverSideGame);
     }
 
     public Game getGame(Long gameId) {

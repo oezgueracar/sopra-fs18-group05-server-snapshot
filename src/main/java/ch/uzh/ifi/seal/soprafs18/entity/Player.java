@@ -19,6 +19,7 @@ public class Player implements Serializable {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "playerId")
 	protected Long id;
 
 	@Column(nullable = false)
@@ -51,7 +52,7 @@ public class Player implements Serializable {
 	protected Boolean isInGoal;
 
     //@ManyToOne
-	@Column(name="playersGameId", nullable = false)
+	//@Column(name="playersGameId", nullable = false)
     private Long gameId; // TODO: Check if Game or Long as type
 
     // Contains the cards that are in the hand
