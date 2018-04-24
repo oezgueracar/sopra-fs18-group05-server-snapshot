@@ -53,9 +53,6 @@ public class Player implements Serializable {
     //@ManyToOne
 	@Column(name="playersGameId", nullable = false)
     private Long gameId; // TODO: Check if Game or Long as type
-	/*
-    @OneToMany(mappedBy="player")
-    private List<Move> moves;*/
 
     // Contains the cards that are in the hand
 	@Transient
@@ -369,14 +366,6 @@ public class Player implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Move> getMoves() {
-		return moves;
-	}
-
-	public void setMoves(List<Move> moves) {
-		this.moves = moves;
 	}
 
 	@Override

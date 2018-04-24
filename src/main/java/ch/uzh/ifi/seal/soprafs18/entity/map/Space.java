@@ -3,7 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity.map;
 import java.io.Serializable;
 
 public class Space implements Serializable {
-    private Space[] neighbours = new Space[6];
+    //private Space[] neighbours = new Space[6];
     private String color;
     private int value;
     private boolean blockade;
@@ -24,7 +24,7 @@ public class Space implements Serializable {
         blockade = !blockade;
     }
 
-    public void setNeighbours(Space n1, Space n2, Space n3, Space n4, Space n5, Space n6){
+    /*public void setNeighbours(Space n1, Space n2, Space n3, Space n4, Space n5, Space n6){
         neighbours[0] = n1;
         neighbours[1] = n2;
         neighbours[2] = n3;
@@ -35,7 +35,7 @@ public class Space implements Serializable {
 
     public Space[] getNeighbours(){
         return neighbours;
-    }
+    }*/
 
     public String getColor(){
         return color;

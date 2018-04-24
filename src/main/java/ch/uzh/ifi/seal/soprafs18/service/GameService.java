@@ -209,16 +209,4 @@ public class GameService {
             // TODO: implement the logic for stopping the game
         }
     }*/
-
-    /*public List<Move> listMoves(Long gameId) {
-        Optional<Game> game = gameRepository.findById(gameId);
-        if (game.isPresent()) {
-            return game.get().getMoves();
-        }
-        return null;
-    }*/
-
-   /* public void addMove(Move move) {
-        // TODO: Mapping into Move + execution of move
-    }*/
 }

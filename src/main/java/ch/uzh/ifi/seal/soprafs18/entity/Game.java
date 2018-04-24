@@ -62,10 +62,6 @@ public class Game implements Serializable {
 	@JsonProperty
     private Market assignedMarket;
 
-	//TODO: delete this after not needed for looking up on how a onetomany relationship works
-    @OneToMany(mappedBy="game")
-    private List<Move> moves;
-
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="playersGameId", referencedColumnName="gameId")
 	private List<Player> players;
