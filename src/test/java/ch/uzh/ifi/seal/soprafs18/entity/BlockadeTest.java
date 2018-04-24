@@ -1,3 +1,4 @@
+/*
 package ch.uzh.ifi.seal.soprafs18.entity;
 
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
@@ -41,4 +42,4 @@ public class BlockadeTest {
 
 
     }
-}
+}*/
