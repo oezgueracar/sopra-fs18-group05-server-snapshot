@@ -10,9 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -52,7 +55,7 @@ public class GameResource
             return this.gameService.addGame(game);
         }
         else {
-            return null;
+            throw new IllegalArgumentException("Bad JSON Request. You need to put the leader into the game.");
         }
     }
 
@@ -128,5 +131,10 @@ public class GameResource
     // TODO: market
 
     // TODO: Update playedList, discardPile and status of players
+
+    @ExceptionHandler
+    private void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value());
+    }
 
 }
