@@ -1,11 +1,13 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.*;
 
+import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Map;
@@ -26,6 +28,7 @@ public class Game implements Serializable {
     // should check that game is PENDING after it got created in post condition and that all attributes are set correctly
 	public Game(){
 		setTurnTime(60);
+		players = new ArrayList<>();
 		setup();
 
 		//assert((name != null) && (status == ROOM) && (turnTime == 60) && (mapName.equals("HillsOfGoldMap")));
@@ -73,8 +76,25 @@ public class Game implements Serializable {
     */
 
     //TODO: How to display to frontend that a new player couldn't be added?
+	// Precondition: players is not null. Player does not exist in players already.
+	// Postcondition: Player is added to players.
     public void addPlayer(Player newPlayer){
-    	this.players.add(newPlayer);
+    	Boolean playerAlreadyInRoom = false;
+    	if(this.getPlayers() != null) {
+			for (Player p : this.getPlayers()) {
+				if (p.getToken().equals(newPlayer.getToken())) {
+					playerAlreadyInRoom = true;
+				}
+			}
+		}
+		if(!playerAlreadyInRoom && this.getPlayers().size() < GameConstants.MAX_PLAYERS) {
+			this.players.add(newPlayer);
+
+			assert(this.getPlayers().contains(newPlayer));
+		}
+		else {
+    		System.out.println("Bad Request. Player is already in room or Max Number of Players reached.");
+		}
     }
 
     public void setStatus(GameStatus newStatus){

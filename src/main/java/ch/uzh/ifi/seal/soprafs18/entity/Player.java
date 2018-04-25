@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -90,6 +91,7 @@ public class Player implements Serializable {
 		playerLeft = false;
 		ready = false;
 		isInGoal = false;
+		setToken(UUID.randomUUID().toString());
 	}
 
 	public Long getId() {

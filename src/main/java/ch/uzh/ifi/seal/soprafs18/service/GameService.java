@@ -82,44 +82,42 @@ public class GameService {
 			//TODO: How to display to frontend that a new player couldn't be added?
 			//TODO: Color setting needs to be handled here. Also leader should always have same color upon hosting a game.
 			if (game.get().getStatus() == ROOM && numberOfPlayers < GameConstants.MAX_PLAYERS){
-				player.setToken(UUID.randomUUID().toString());
-				player.setReady(false);
-				player.setPlayerLeft(false);
-				player.setIsInGoal(false);
-				player.setGameId(gameId);
+				if (player.getId() == null) {
+					player.setGameId(gameId);
 
-				//color upon entering a room
-				String colorToSet = "red";
-				for(Player p: game.get().getPlayers()){
-					if (p.getColor().equals("red")){
-						colorToSet = "blue";
+					//color upon entering a room
+					String colorToSet = "red";
+					for (Player p : game.get().getPlayers()) {
+						if (p.getColor().equals("red")) {
+							colorToSet = "blue";
 
-						for(Player p2: game.get().getPlayers()){
-							if (p2.getColor().equals("blue")){
-								colorToSet = "yellow";
+							for (Player p2 : game.get().getPlayers()) {
+								if (p2.getColor().equals("blue")) {
+									colorToSet = "yellow";
 
-								for(Player p3: game.get().getPlayers()){
-									if (p3.getColor().equals("yellow")){
-										colorToSet = "white";
-										break;
+									for (Player p3 : game.get().getPlayers()) {
+										if (p3.getColor().equals("yellow")) {
+											colorToSet = "white";
+											break;
+										}
 									}
+
+									break;
 								}
-
-								break;
 							}
+
+							break;
 						}
-
-						break;
 					}
+					player.setColor(colorToSet);
+
+					playerRepository.save(player);
+
+					game.get().addPlayer(player);
+
+					this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getName());
+					return playerRepository.save(player);
 				}
-				player.setColor(colorToSet);
-
-				playerRepository.save(player);
-
-				game.get().addPlayer(player);
-
-				this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getName());
-				return playerRepository.save(player);
 			}
 			else {
 				System.out.println("Could not join game. Game room is full or game is already running.");
