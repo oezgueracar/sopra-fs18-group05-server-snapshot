@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
+import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class Compass extends ActionCard {
@@ -17,5 +18,13 @@ public class Compass extends ActionCard {
 		this.goldValue = goldValue;
 		this.cardName = cardName;
 		this.cardDescription = cardDescription;
+	}
+
+	@Override
+	public void play(Player player){
+		player.drawCard();
+		player.drawCard();
+		player.drawCard();
+		player.getHand().remove(this);
 	}
 }

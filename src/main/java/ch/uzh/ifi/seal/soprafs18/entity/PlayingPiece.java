@@ -1,17 +1,19 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
+import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
+
 import java.io.Serializable;
 
 public class PlayingPiece implements Serializable {
 
 	private String color;
-	private int position;
+	private Space position;
 
 	public PlayingPiece(String color){
 		this.color = color;
 	}
 
-	private void setPosition(int position){
+	public void setPosition(Space position){
 		this.position = position;
 	}
 
@@ -19,7 +21,7 @@ public class PlayingPiece implements Serializable {
 		return color;
 	}
 
-	public int getPosition(){
+	public Space getPosition(){
 		return position;
 	}
 }

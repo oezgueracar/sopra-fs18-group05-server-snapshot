@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
+import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class Cartographer extends ActionCard {
@@ -12,10 +13,19 @@ public class Cartographer extends ActionCard {
 	 * @param cardName
 	 * @param cardDescription
 	 */
+
 	public Cartographer(float buyingCost, float goldValue, String cardName, String cardDescription) {
 		this.buyingCost = buyingCost;
 		this.goldValue = goldValue;
 		this.cardName = cardName;
 		this.cardDescription = cardDescription;
+	}
+
+	@Override
+	public void play(Player player){
+		player.drawCard();
+		player.drawCard();
+		player.getHand().remove(this);
+		player.getPlayedList().add(this);
 	}
 }

@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
+import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class Transmitter extends ActionCard {
@@ -17,5 +18,11 @@ public class Transmitter extends ActionCard {
 		this.goldValue = goldValue;
 		this.cardName = cardName;
 		this.cardDescription = cardDescription;
+	}
+
+	public void play(Player player, Card card){
+		//TODO service has to delete the card from the market
+		player.getPlayedList().add(card);
+		player.getHand().remove(this);
 	}
 }

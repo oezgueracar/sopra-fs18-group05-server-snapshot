@@ -1,10 +1,11 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
+import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 
 public class ExpeditionCard extends Card {
 
-	private int value;
+	protected int value;
 	private String color;
 	protected boolean itemCard;
 
@@ -27,6 +28,17 @@ public class ExpeditionCard extends Card {
 		this.color = color;
 		this.value = value;
 		this.itemCard = itemCard;
+	}
+
+	@Override
+	public void play(Player player){
+			player.setMoveCounter(value, color);
+			if(itemCard){
+				return;
+			}else{
+				player.getPlayedList().add(this);
+			}
+			player.getHand().remove(this);
 	}
 
 	protected int getValue(){
