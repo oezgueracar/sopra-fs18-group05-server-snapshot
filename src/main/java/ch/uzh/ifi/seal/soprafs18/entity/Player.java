@@ -91,6 +91,7 @@ public class Player implements Serializable {
 		playerLeft = false;
 		ready = false;
 		isInGoal = false;
+		setToken(UUID.randomUUID().toString());
 	}
 
 	public Long getId() {
