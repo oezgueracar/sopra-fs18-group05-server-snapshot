@@ -2,6 +2,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
+import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -174,10 +175,8 @@ public class Player implements Serializable {
 	protected void playCard(Card card){ // throws NoSuchElementException
 		if (!hand.contains(card)){
 			return; // throw new NoSuchElementException("This card is not in the player's hand.");
-		}else{ // TODO: multiColorCard has to set its chosen color first in PlayerService before calling playCard!
-			card.play();
-			playedList.add(card);
-			hand.remove(card);
+		}else{
+			card.play(this);
 		}
 	}
 
@@ -228,7 +227,7 @@ public class Player implements Serializable {
 	 * (@throws NoSuchElementException If no further card is available to be drawn)
 	 */
 	// TODO: Exception throwing and handling
-	protected void drawCard() { // throws NoSuchElementException
+	public void drawCard() { // throws NoSuchElementException
 		if(deck.isEmpty()){
 			if (discardPile.isEmpty()){
 				return;	// throw new NoSuchElementException("No further card is available to be drawn.");
@@ -284,16 +283,16 @@ public class Player implements Serializable {
 	 * @param i the value of the counter
 	 * @param color the color of the counter
 	 */
-	protected void setMoveCounter(int i, String color){
+	public void setMoveCounter(int i, String color){
 		switch (color.toLowerCase()){
 			case "green":
-				moveCounter[0] = i;
+				moveCounter[0] = moveCounter[0]+i;
 				break;
 			case "blue":
-				moveCounter[1] = i;
+				moveCounter[1] = moveCounter[1]+i;
 				break;
 			case "yellow":
-				moveCounter[2] = i;
+				moveCounter[2] = moveCounter[2]+i;
 				break;
 		}
 	}

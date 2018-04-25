@@ -1,5 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
+import ch.uzh.ifi.seal.soprafs18.entity.Player;
+
 import java.io.Serializable;
 
 public abstract class Card implements Serializable {
@@ -7,7 +9,7 @@ public abstract class Card implements Serializable {
 	protected long id;
 	protected float buyingCost;
 	protected float goldValue;
-	protected boolean isRemoved;
+	protected boolean itemCard;
 	protected String cardName;
 	protected String cardDescription;
 
@@ -17,7 +19,7 @@ public abstract class Card implements Serializable {
 	public void remove(){
 	}
 
-	public void play(){}
+	public void play(Player player){}
 
 	public long getId(){
 		return id;
@@ -32,7 +34,7 @@ public abstract class Card implements Serializable {
 	}
 
 	public boolean getRemoved() {
-		return isRemoved;
+		return itemCard;
 	}
 
 	public String getCardName() {
