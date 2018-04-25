@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public abstract class MapElement implements Serializable {
 
+    protected int nextTilePos;
+    protected int rotation;
+
     public void addRow1(Space s){}
     public void addRow2(Space s){}
     public void addRow3(Space s){}
