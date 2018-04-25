@@ -153,7 +153,6 @@ public class Game implements Serializable {
 
 	public void startGame(){
     	this.initializeMap();
-    	//this.setupCards();
 		assignedMarket = new Market();
 	}
     
