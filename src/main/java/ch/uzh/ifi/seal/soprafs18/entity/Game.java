@@ -73,8 +73,25 @@ public class Game implements Serializable {
     */
 
     //TODO: How to display to frontend that a new player couldn't be added?
+	// Precondition: players is not null. Player does not exist in players already.
+	// Postcondition: Player is added to players.
     public void addPlayer(Player newPlayer){
-    	this.players.add(newPlayer);
+    	Boolean playerAlreadyInRoom = false;
+    	if(this.getPlayers() != null) {
+			for (Player p : this.getPlayers()) {
+				if (p.getId() == newPlayer.getId()) {
+					playerAlreadyInRoom = true;
+				}
+			}
+		}
+		if(!playerAlreadyInRoom) {
+			this.players.add(newPlayer);
+
+			assert(this.getPlayers().contains(newPlayer));
+		}
+		else {
+    		System.out.println("Bad Request. Player is already in room");
+		}
     }
 
     public void setStatus(GameStatus newStatus){
