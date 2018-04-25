@@ -169,6 +169,7 @@ public class GameService {
 						if(serverSideGame.get().getStatus() == GameStatus.PENDING){
 							for (Player p : serverSideGame.get().getPlayers()) {
 								p.setup();
+								playerRepository.save(p);
 							}
 							serverSideGame.get().startGame();
 							serverSideGame.get().setStatus(GameStatus.RUNNING);
