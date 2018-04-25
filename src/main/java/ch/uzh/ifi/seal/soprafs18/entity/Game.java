@@ -57,11 +57,13 @@ public class Game implements Serializable {
 	@Column
     private String mapName;
 
-	@Transient
+	@Lob
+	@Column(name = "assignedMap", length = Integer.MAX_VALUE - 1)
 	@JsonProperty
     private Map assignedMap;
 
-	@Transient
+	@Lob
+	@Column(name = "assignedMarket", length = Integer.MAX_VALUE - 1)
 	@JsonProperty
     private Market assignedMarket;
 
@@ -181,7 +183,9 @@ public class Game implements Serializable {
 	}
 
 	//TODO: Bad practice, do we need that.
-	/*public Map getMap(){
+	/*@Lob
+	@Column(name = "assignedMap", length = Integer.MAX_VALUE - 1)
+	private byte[] getMap(){
     	return assignedMap;
 	}*/
 
