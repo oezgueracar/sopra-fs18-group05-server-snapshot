@@ -82,7 +82,7 @@ public class GameService {
 			//TODO: How to display to frontend that a new player couldn't be added?
 			//TODO: Color setting needs to be handled here. Also leader should always have same color upon hosting a game.
 			if (game.get().getStatus() == ROOM && numberOfPlayers < GameConstants.MAX_PLAYERS){
-				if (player.getId() == null && player.getToken() == null) {
+				if (player.getId() == null) {
 					player.setGameId(gameId);
 
 					//color upon entering a room

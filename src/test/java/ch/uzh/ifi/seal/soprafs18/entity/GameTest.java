@@ -48,6 +48,7 @@ public class GameTest {
         assertEquals("TestPlayer1", game.getPlayer(0).getName());
     }
 
+    //Tests if adding more players to a game than the amount of MAX_PLAYERS is possible. It should not be possible.
     @Test
     public void addTooManyPlayer() {
         p1.setName("TestPlayer1");
@@ -60,33 +61,76 @@ public class GameTest {
         game.addPlayer(p3);
         game.addPlayer(p4);
         game.addPlayer(p5);
-        System.out.println(game.getPlayers().size());
 
         assertTrue(game.getPlayers().size() == GameConstants.MAX_PLAYERS);
     }
 
     @Test
     public void setStatus() {
+        game.setStatus(GameStatus.FINISHED);
+
+        assertTrue(game.getStatus() == GameStatus.FINISHED);
     }
 
     @Test
     public void setMapName() {
+        game.setMapName("Swanplands");
+
+        assertEquals("Swanplands", game.getMapName());
     }
 
     @Test
     public void setTurnTime() {
+        game.setTurnTime(120);
+
+        assertTrue(game.getTurnTime() == 120);
     }
 
     @Test
     public void setName() {
+        game.setName("Best Game");
+
+        assertEquals("Best Game",game.getName());
     }
 
     @Test
     public void changeCurrentPlayer() {
+        p1.setName("TestPlayer1");
+        p2.setName("TestPlayer2");
+        game.addPlayer(p1);
+        game.addPlayer(p2);
+
+        game.changeCurrentPlayer();
+
+        assertTrue(game.getCurrentPlayer() == 1);
+
+        game.changeCurrentPlayer();
+
+        assertTrue(game.getCurrentPlayer() == 0);
+
+        p3.setName("TestPlayer3");
+        p4.setName("TestPlayer4");
+
+        game.addPlayer(p3);
+        game.addPlayer(p4);
+
+        game.changeCurrentPlayer();
+        game.changeCurrentPlayer();
+        game.changeCurrentPlayer();
+
+        assertTrue(game.getCurrentPlayer() == 3);
+
+        game.changeCurrentPlayer();
+
+        assertTrue(game.getCurrentPlayer() == 0);
     }
 
     @Test
     public void setup() {
+        game.setup();
+
+        assertEquals("HillsOfGoldMap", game.getMapName());
+        assertTrue(game.getStatus() == GameStatus.ROOM);
     }
 
     @Test
