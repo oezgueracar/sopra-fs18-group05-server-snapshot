@@ -4,6 +4,7 @@ import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,22 +59,26 @@ public class Player implements Serializable {
     private Long gameId; // TODO: Check if Game or Long as type
 
     // Contains the cards that are in the hand
-	@Transient
+	@Type(type = "serializable")
+	@Column(name = "hand", length = Integer.MAX_VALUE - 1)
 	@JsonProperty
     protected List<Card> hand;
 
     // Contains the cards that are in the deck
-	@Transient
+	@Type(type = "serializable")
+	@Column(name = "deck", length = Integer.MAX_VALUE - 1)
 	@JsonProperty
     protected List<Card> deck;
 
     // Contains the cards in the discardPile
-	@Transient
+	@Type(type = "serializable")
+	@Column(name = "discardPile", length = Integer.MAX_VALUE - 1)
 	@JsonProperty
     protected List<Card> discardPile;
 
     // Contains the cards that were played in this turn
-	@Transient
+	@Type(type = "serializable")
+	@Column(name = "playedList", length = Integer.MAX_VALUE - 1)
 	@JsonProperty
     protected List<Card> playedList;
 
