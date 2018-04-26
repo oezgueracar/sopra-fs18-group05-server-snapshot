@@ -312,6 +312,7 @@ public class Swanplands extends Map {
 
     }
 
+    @Override
     public long[] getEndTile(){
         return endTile;
     }

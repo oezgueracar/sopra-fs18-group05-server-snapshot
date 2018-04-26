@@ -311,6 +311,7 @@ public class WitchsCauldron extends Map {
 
     }
 
+    @Override
     public long[] getEndTile(){
         return endTile;
     }

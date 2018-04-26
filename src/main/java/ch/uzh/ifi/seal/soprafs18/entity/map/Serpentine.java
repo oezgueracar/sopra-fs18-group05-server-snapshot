@@ -311,6 +311,7 @@ public class Serpentine extends Map {
 
     }
 
+    @Override
     public long[] getEndTile(){
         return endTile;
     }

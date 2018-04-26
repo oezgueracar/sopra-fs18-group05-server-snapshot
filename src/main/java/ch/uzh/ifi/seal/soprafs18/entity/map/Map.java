@@ -29,4 +29,5 @@ public abstract class Map implements Serializable{
         return blockades;
     }
 
+    public abstract long[] getEndTile();
 }

@@ -198,7 +198,7 @@ public class Game implements Serializable {
 	}
 
 	private long[] getMapEndTileIdArray (){
-		return this.assignedMap.getEntTile();
+		return this.assignedMap.getEndTile();
 	}
 
 	public Boolean endTileIdArrayCheck(long idToBeChecked){

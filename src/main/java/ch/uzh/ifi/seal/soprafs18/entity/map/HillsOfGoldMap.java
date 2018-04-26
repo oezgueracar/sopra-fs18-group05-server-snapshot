@@ -308,6 +308,7 @@ public class HillsOfGoldMap extends Map {
         mapTiles.add(tile7);
     }
 
+    @Override
     public long[] getEndTile(){
         return endTile;
     }
