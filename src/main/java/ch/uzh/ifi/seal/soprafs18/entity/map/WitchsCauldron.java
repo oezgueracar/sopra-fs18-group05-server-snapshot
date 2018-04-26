@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity.map;
 public class WitchsCauldron extends Map {
 
     private long[] endTile;
+    private long[] startSpaces;
 
     public WitchsCauldron(){
 
@@ -287,6 +288,12 @@ public class WitchsCauldron extends Map {
         endTile[1]= tile7.getRow1().get(1).getId();
         endTile[2]= tile7.getRow1().get(2).getId();
 
+        // StartPosition
+        startSpaces = new long[4];
+        startSpaces[0] = tile1.getRow1().get(0).getId();
+        startSpaces[1] = tile1.getRow1().get(1).getId();
+        startSpaces[2] = tile1.getRow1().get(2).getId();
+        startSpaces[3] = tile1.getRow1().get(3).getId();
 
         // Initializing Blockades
         blockades.add(new Blockade("green", 1));
