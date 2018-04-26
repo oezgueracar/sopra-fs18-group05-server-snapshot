@@ -123,11 +123,13 @@ public class PlayerTest {
 
     @Test
     public void getPlayingPiece() {
+        p.setColor("green");
+        p.setup();
+        assertEquals("green",p.getPlayingPiece().getColor());
     }
 
     @Test
     public void playCard() {
-
     }
 
     @Test
@@ -140,42 +142,83 @@ public class PlayerTest {
 
     @Test
     public void sellCard() {
+        p.setup();
+        p.getHand().add(c);
+        p.sellCard(c);
+        assertEquals(c.getGoldValue(),p.getCoins(),0f);
     }
 
     @Test
     public void drawCard() {
+        p.setup();
+        int testInt = p.getHand().size();
+        p.drawCard();
+        int testInt2 = p.getHand().size();
+        assertEquals(testInt+1, testInt2);
     }
 
     @Test
     public void addCardToDeck() {
+        p.setup();
+        int testInt = p.getDeck().size();
+        p.addCardToDeck(c);
+        assertEquals(testInt, p.getDeck().size()-1);
     }
 
     @Test
     public void addCardToDiscardPile() {
+        p.setup();
+        int testInt = p.getDiscardPile().size();
+        p.addCardToDiscardPile(c);
+        assertEquals(testInt, p.getDiscardPile().size()-1);
     }
 
     @Test
     public void addCardToPlayingList() {
+        p.setup();
+        int testInt = p.getPlayedList().size();
+        p.addCardToPlayingList(c);
+        assertEquals(testInt, p.getPlayedList().size()-1);
     }
 
     @Test
     public void removeCardFromHand() {
+        p.setup();
+        p.getHand().add(c);
+        int testInt = p.getHand().size();
+        p.removeCardFromHand(c);
+        assertEquals(testInt-1,p.getHand().size());
     }
 
     @Test
     public void removeCardFromDiscardPile() {
+        p.setup();
+        p.getDiscardPile().add(c);
+        int testInt = p.getDiscardPile().size();
+        p.removeCardFromDiscardPile(c);
+        assertEquals(testInt-1,p.getDiscardPile().size());
     }
 
     @Test
     public void removeCardFromDeck() {
+        p.setup();
+        p.getDeck().add(c);
+        int testInt = p.getDeck().size();
+        p.removeCardFromDeck(c);
+        assertEquals(testInt-1,p.getDeck().size());
     }
 
     @Test
     public void resetPlayedList() {
+        p.setup();
+        p.getPlayedList().add(c);
+        p.resetPlayedList();
+        assertEquals(0, p.getPlayedList().size());
     }
 
     @Test
     public void setMoveCounter() {
+
     }
 
     @Test

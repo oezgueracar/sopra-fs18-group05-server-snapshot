@@ -135,6 +135,8 @@ public class Player implements Serializable {
 		return color;
 	}
 
+	public float getCoins(){return coins;}
+
 	public List<Card> getDeck(){
 		return deck;
 	}
@@ -181,7 +183,7 @@ public class Player implements Serializable {
 	protected void playCard(Card card){ // throws NoSuchElementException
 		if (!hand.contains(card)){
 			return; // throw new NoSuchElementException("This card is not in the player's hand.");
-		}else{
+		}else{ // TODO: multiColorCard has to set its chosen color first in PlayerService before calling playCard!
 			card.play(this);
 		}
 	}
