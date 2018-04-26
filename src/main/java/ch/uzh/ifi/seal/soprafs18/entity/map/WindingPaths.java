@@ -290,10 +290,10 @@ public class WindingPaths extends Map {
 
         // StartPosition
         startSpaces = new long[4];
-        startSpaces[0] = tile1.getRow7().get(0).getId();
-        startSpaces[1] = tile1.getRow7().get(1).getId();
-        startSpaces[2] = tile1.getRow7().get(2).getId();
-        startSpaces[3] = tile1.getRow7().get(3).getId();
+        startSpaces[0] = tile1.getRow7().get(3).getId();
+        startSpaces[1] = tile1.getRow7().get(2).getId();
+        startSpaces[2] = tile1.getRow7().get(1).getId();
+        startSpaces[3] = tile1.getRow7().get(0).getId();
 
         // Initializing Blockades
         blockades.add(new Blockade("green", 1));
