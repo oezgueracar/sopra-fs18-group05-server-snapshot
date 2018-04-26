@@ -14,10 +14,6 @@ public class Tile extends MapElement {
     private List<Space> row7;
 
 
-
-    private int nextTilePos;
-    private int rotation;
-
     public Tile(){
         row1 = new ArrayList<>();
         row2 = new ArrayList<>();
@@ -51,6 +47,11 @@ public class Tile extends MapElement {
     public List getRow5(){return row5;}
     public List getRow6(){return row6;}
     public List getRow7(){return row7;}
+
+    public int getNextTilePos(){return nextTilePos;}
+    public int getRotation(){return rotation;}
+
+
     //Setter
     @Override
     public void setNextTilePos(int p){
@@ -61,7 +62,6 @@ public class Tile extends MapElement {
         this.rotation = r;
     }
 
-    public int getNextTilePos(){return nextTilePos;}
-    public int getRotation(){return rotation;}
+
 
 }

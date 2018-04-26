@@ -25,4 +25,16 @@ public class TerrainStrip extends MapElement {
     public List getRow1(){return row1;}
     public List getRow2(){return row2;}
     public List getRow3(){return row3;}
+    public int getNextTilePos(){return nextTilePos;}
+    public int getRotation(){return rotation;}
+
+    //Setter
+    @Override
+    public void setNextTilePos(int p){
+        this.nextTilePos = p;
+    }
+    @Override
+    public void setRotation(int r){
+        this.rotation = r;
+    }
 }
