@@ -2,10 +2,14 @@ package ch.uzh.ifi.seal.soprafs18.entity.card;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 public abstract class Card implements Serializable {
 
+	private static long count = 0;
 	protected long id;
 	protected float buyingCost;
 	protected float goldValue;
@@ -20,6 +24,11 @@ public abstract class Card implements Serializable {
 	}
 
 	public void play(Player player){}
+
+	protected long getNewId(){
+		count++;
+		return count;
+	}
 
 	public long getId(){
 		return id;

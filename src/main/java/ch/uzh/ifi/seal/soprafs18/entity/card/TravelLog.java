@@ -18,6 +18,7 @@ public class TravelLog extends ActionCard {
 		this.goldValue = goldValue;
 		this.cardName = cardName;
 		this.cardDescription = cardDescription;
+		this.id = getNewId();
 	}
 	public void play(Player player){
 		player.drawCard();

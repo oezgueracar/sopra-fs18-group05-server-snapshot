@@ -19,6 +19,7 @@ public class Cartographer extends ActionCard {
 		this.goldValue = goldValue;
 		this.cardName = cardName;
 		this.cardDescription = cardDescription;
+		this.id = getNewId();
 	}
 
 	@Override

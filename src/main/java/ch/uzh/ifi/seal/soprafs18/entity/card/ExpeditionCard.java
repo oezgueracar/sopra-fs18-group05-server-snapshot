@@ -28,6 +28,7 @@ public class ExpeditionCard extends Card {
 		this.color = color;
 		this.value = value;
 		this.itemCard = itemCard;
+		this.id = getNewId();
 	}
 
 	@Override

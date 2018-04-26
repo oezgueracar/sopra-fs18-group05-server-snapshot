@@ -19,6 +19,7 @@ public class MulticolorCard extends ExpeditionCard {
 
     public MulticolorCard(float buyingCost, float goldValue, String cardName, String cardDescription, String color, int value, boolean itemCard){
         super(buyingCost, goldValue, cardName, cardDescription, color, value, itemCard);
+        this.id = getNewId();
     }
 
     @Override

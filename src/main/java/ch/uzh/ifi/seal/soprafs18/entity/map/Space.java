@@ -4,13 +4,15 @@ import java.io.Serializable;
 
 public class Space implements Serializable {
     //private Space[] neighbours = new Space[6];
+    private long id;
     private String color;
     private int value;
     private boolean blockade;
     private static boolean occupied = false;
 
-    public Space(String col, int val, boolean block){
+    public Space(String col, long spaceId, int val, boolean block){
         color=col;
+        id=spaceId;
         value=val;
         blockade=block;
     }

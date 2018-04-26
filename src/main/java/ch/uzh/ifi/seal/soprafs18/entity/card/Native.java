@@ -19,6 +19,7 @@ public class Native extends ActionCard {
 		this.goldValue = goldValue;
 		this.cardName = cardName;
 		this.cardDescription = cardDescription;
+		this.id = getNewId();
 	}
 
 	public void play(Player player){//TODO service has to move the laying piece
