@@ -19,11 +19,6 @@ public class Space implements Serializable {
         occupied = !occupied;
     }
 
-    public void switchBlockade(){
-
-        blockade = !blockade;
-    }
-
     /*public void setNeighbours(Space n1, Space n2, Space n3, Space n4, Space n5, Space n6){
         neighbours[0] = n1;
         neighbours[1] = n2;
