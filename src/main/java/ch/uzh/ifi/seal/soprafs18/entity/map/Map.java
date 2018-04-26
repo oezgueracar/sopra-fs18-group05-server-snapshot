@@ -30,6 +30,7 @@ public abstract class Map implements Serializable{
     }
 
     public abstract long[] getEndTile();
+    public abstract  long[] getStartingSpaces();
 
     public Space getSpace(long spaceId){
         for(int i = 0; i < mapTiles.size(); i++){

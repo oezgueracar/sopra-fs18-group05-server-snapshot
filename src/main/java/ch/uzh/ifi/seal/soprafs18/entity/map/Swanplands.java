@@ -325,4 +325,8 @@ public class Swanplands extends Map {
     public long[] getEndTile(){
         return endTile;
     }
+    @Override
+    public  long[] getStartingSpaces(){
+        return  startSpaces;
+    }
 }

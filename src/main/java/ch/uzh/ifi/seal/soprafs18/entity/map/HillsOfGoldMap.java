@@ -321,5 +321,9 @@ public class HillsOfGoldMap extends Map {
     public long[] getEndTile(){
         return endTile;
     }
+    @Override
+    public  long[] getStartingSpaces(){
+        return  startSpaces;
+    }
 
 }
