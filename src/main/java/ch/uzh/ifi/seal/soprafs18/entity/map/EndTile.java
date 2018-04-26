@@ -20,6 +20,8 @@ public class EndTile extends MapElement {
     public List<Space> getRow1() {
         return row1;
     }
+    @Override
+    public List<Space> getRow7(){return null;}
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
 

@@ -17,6 +17,7 @@ public abstract class MapElement implements Serializable {
     public void addRow7(Space s){}
 
     public abstract List<Space> getRow1();
+    public abstract List<Space> getRow7();
 
     public void setNextTilePos(int p){}
     public void setRotation(int r){}

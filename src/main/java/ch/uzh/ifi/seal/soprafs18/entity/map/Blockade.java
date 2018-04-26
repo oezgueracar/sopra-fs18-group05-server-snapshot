@@ -19,4 +19,6 @@ public class Blockade extends MapElement {
     public List<Space> getRow1() {
         return null;
     }
+    @Override
+    public List<Space> getRow7(){return null;}
 }
