@@ -134,38 +134,70 @@ public class GameTest {
     }
 
     @Test
-    public void startGame() {
-    }
-
-    @Test
-    public void getId() {
-    }
-
-    @Test
     public void getPlayers() {
+        p1.setName("TestPlayer1");
+        p2.setName("TestPlayer2");
+        game.addPlayer(p1);
+        game.addPlayer(p2);
+
+        ArrayList<Player> testList = new ArrayList<>();
+        testList.add(p1);
+        testList.add(p2);
+
+        assertTrue(game.getPlayers().containsAll(testList));
     }
 
     @Test
     public void getStatus() {
+        game.setStatus(GameStatus.RUNNING);
+
+        assertTrue(game.getStatus() == GameStatus.RUNNING);
     }
 
     @Test
     public void getName() {
+        game.setName("CoolGame");
+
+        assertEquals("CoolGame", game.getName());
     }
 
     @Test
     public void getTurnTime() {
+        game.setTurnTime(120);
+
+        assertTrue(game.getTurnTime() == 120);
     }
 
     @Test
     public void getMapName() {
+        game.setMapName("DemoMap");
+
+        assertEquals("DemoMap", game.getMapName());
     }
 
     @Test
     public void getPlayer() {
+        p1.setName("TestPlayer1");
+        p2.setName("TestPlayer2");
+        game.addPlayer(p1);
+        game.addPlayer(p2);
+
+        assertEquals(p2.getName(), game.getPlayer(1).getName());
     }
 
     @Test
     public void getCurrentPlayer() {
+        p1.setName("TestPlayer1");
+        p2.setName("TestPlayer2");
+        p3.setName("TestPlayer3");
+        game.addPlayer(p1);
+        game.addPlayer(p2);
+        game.addPlayer(p3);
+
+        game.changeCurrentPlayer();
+        game.changeCurrentPlayer();
+
+        assertTrue(game.getCurrentPlayer() == 2);
+
     }
 }
