@@ -5,6 +5,7 @@ import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.map.EndTile;
+import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import ch.uzh.ifi.seal.soprafs18.web.rest.GameResource;
@@ -214,17 +215,87 @@ public class GameService {
 				case ROOM:
 					serverSidePlayer.get().setReady(player.getReady());
 
-					Boolean colorAlreadyTaken = false;
-					for(Player p: serverSideGame.get().getPlayers()){
-						if (p.getColor().equals(player.getColor())){
-							colorAlreadyTaken = true;
+					if(player.getColor().equals("red") || player.getColor().equals("blue") || player.getColor().equals("yellow") || player.getColor().equals("white")) {
+						Boolean colorAlreadyTaken = false;
+						for (Player p : serverSideGame.get().getPlayers()) {
+							if (p.getColor().equals(player.getColor())) {
+								colorAlreadyTaken = true;
+							}
 						}
-					}
-					if (!colorAlreadyTaken){
-						serverSidePlayer.get().setColor(player.getColor());
+						if (!colorAlreadyTaken) {
+							serverSidePlayer.get().setColor(player.getColor());
+						}
 					}
 
 					return playerRepository.save(serverSidePlayer.get());
+				case RUNNING:
+					//Check first if the player whose turn it is tries to perform a move. Otherwise nothing will happen.
+					if(serverSideGame.get().getCurrentPlayer() == serverSideGame.get().getPlayers().indexOf(serverSidePlayer)){
+						//Move player if conditions allow it
+						//First check to see if the player tried to move
+						if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
+							Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece().getPosition());
+							//If the Space exists...
+							if (toBeMovedSpace != null) {
+								//... check the colour of the Space.
+								if(toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow")){
+									//... and if its yellow/blue/green then check if the player has enough value to move to that space and to which colour the value belongs to.
+									String playerMoveCounterColour = "";
+									if(serverSidePlayer.get().getMoveCounter()[0] != 0){
+										playerMoveCounterColour = "green";
+									}
+									else if(serverSidePlayer.get().getMoveCounter()[1] != 0){
+										playerMoveCounterColour = "blue";
+									}
+									else if(serverSidePlayer.get().getMoveCounter()[2] != 0){
+										playerMoveCounterColour = "yellow";
+									}
+
+									//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
+									if(!(playerMoveCounterColour.equals("")) && toBeMovedSpace.getColor().equals(playerMoveCounterColour)){
+										//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
+										int playerMoveCounterValue;
+										if(toBeMovedSpace.getColor().equals("green")){
+											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
+											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
+												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+												serverSidePlayer.get().setMoveCounter(playerMoveCounterValue - toBeMovedSpace.getValue(),"green");
+											}
+										}
+										else if(toBeMovedSpace.getColor().equals("blue")){
+											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
+											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
+												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+												serverSidePlayer.get().setMoveCounter(playerMoveCounterValue - toBeMovedSpace.getValue(),"blue");
+											}
+										}
+										else if(toBeMovedSpace.getColor().equals("yellow")){
+											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
+											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
+												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+												serverSidePlayer.get().setMoveCounter(playerMoveCounterValue - toBeMovedSpace.getValue(),"yellow");
+											}
+										}
+									}
+								}
+								else if(toBeMovedSpace.getColor().equals("grey")){
+
+								}
+								else if(toBeMovedSpace.getColor().equals("red")){
+
+								}
+								// else it's black; Don't do anything.
+							}
+						}
+
+						//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
+						serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
+
+						playerRepository.save(serverSidePlayer.get());
+						gameRepository.save(serverSideGame.get());
+						return playerRepository.save(serverSidePlayer.get());
+					}
+					return null;
 			}
 		}
 		return null;

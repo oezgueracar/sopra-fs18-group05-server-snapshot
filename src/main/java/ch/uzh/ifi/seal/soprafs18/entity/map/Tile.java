@@ -40,13 +40,13 @@ public class Tile extends MapElement {
     @Override
     public void addRow7(Space s){row7.add(s);}
     //Getter
-    public List getRow1(){return row1;}
-    public List getRow2(){return row2;}
-    public List getRow3(){return row3;}
-    public List getRow4(){return row4;}
-    public List getRow5(){return row5;}
-    public List getRow6(){return row6;}
-    public List getRow7(){return row7;}
+    public List<Space> getRow1(){return row1;}
+    public List<Space> getRow2(){return row2;}
+    public List<Space> getRow3(){return row3;}
+    public List<Space> getRow4(){return row4;}
+    public List<Space> getRow5(){return row5;}
+    public List<Space> getRow6(){return row6;}
+    public List<Space> getRow7(){return row7;}
 
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
@@ -62,6 +62,38 @@ public class Tile extends MapElement {
         this.rotation = r;
     }
 
-
-
+    public Space getSpace(long spaceId){
+        for(int j = 0;j < this.getRow1().size();j++){
+            if(this.getRow1().get(j).getId() == spaceId){
+                return this.getRow1().get(j);
+            }
+        }
+        for(int j = 0;j < this.getRow2().size();j++){
+            if(this.getRow2().get(j).getId() == spaceId){
+                return this.getRow2().get(j);
+            }
+        }
+        for(int j = 0;j < this.getRow3().size();j++){
+            if(this.getRow3().get(j).getId() == spaceId){
+                return this.getRow3().get(j);
+            }
+        }        for(int j = 0;j < this.getRow4().size();j++){
+            if(this.getRow4().get(j).getId() == spaceId){
+                return this.getRow4().get(j);
+            }
+        }        for(int j = 0;j < this.getRow5().size();j++){
+            if(this.getRow5().get(j).getId() == spaceId){
+                return this.getRow5().get(j);
+            }
+        }        for(int j = 0;j < this.getRow6().size();j++){
+            if(this.getRow6().get(j).getId() == spaceId){
+                return this.getRow6().get(j);
+            }
+        }        for(int j = 0;j < this.getRow7().size();j++){
+            if(this.getRow7().get(j).getId() == spaceId){
+                return this.getRow7().get(j);
+            }
+        }
+        return null;
+    }
 }

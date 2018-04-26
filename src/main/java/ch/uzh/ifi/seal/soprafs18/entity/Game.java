@@ -182,11 +182,9 @@ public class Game implements Serializable {
 	}
 
 	//TODO: Bad practice, do we need that.
-	/*@Lob
-	@Column(name = "assignedMap", length = Integer.MAX_VALUE - 1)
-	private byte[] getMap(){
+	public Map getMap(){
     	return assignedMap;
-	}*/
+	}
 
 	//TODO: Might not be needed
 	public Player getPlayer(Integer index){

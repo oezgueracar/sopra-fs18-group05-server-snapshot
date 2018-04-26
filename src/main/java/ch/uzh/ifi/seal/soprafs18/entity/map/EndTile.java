@@ -33,4 +33,13 @@ public class EndTile extends MapElement {
         this.rotation = r;
     }
 
+    public Space getSpace(long spaceId) {
+        for (int j = 0; j < this.getRow1().size(); j++) {
+            if (this.getRow1().get(j).getId() == spaceId) {
+                return this.getRow1().get(j);
+            }
+        }
+        return null;
+    }
+
 }

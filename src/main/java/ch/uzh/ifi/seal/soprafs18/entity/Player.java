@@ -84,7 +84,7 @@ public class Player implements Serializable {
 
     // Depending on the position in the ArrayList the counter is referring to the color - only one entry can be different from 0!
 	// [green, blue, yellow]
-    protected int[] moveCounter = new int[4];
+    protected int[] moveCounter = new int[3];
 
 	protected PlayingPiece assignedPiece;
 

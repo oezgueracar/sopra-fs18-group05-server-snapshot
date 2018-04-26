@@ -30,4 +30,21 @@ public abstract class Map implements Serializable{
     }
 
     public abstract long[] getEndTile();
+
+    public Space getSpace(long spaceId){
+        for(int i = 0; i < mapTiles.size(); i++){
+            if(!(mapTiles.get(i) instanceof Blockade)){
+                if(mapTiles.get(i) instanceof Tile){
+                    return ((Tile) mapTiles.get(i)).getSpace(spaceId);
+                }
+                if(mapTiles.get(i) instanceof TerrainStrip){
+                    return ((TerrainStrip) mapTiles.get(i)).getSpace(spaceId));
+                }
+                if(mapTiles.get(i) instanceof EndTile){
+                    return ((EndTile) mapTiles.get(i)).getSpace(spaceId);
+                }
+            }
+        }
+        return null;
+    }
 }

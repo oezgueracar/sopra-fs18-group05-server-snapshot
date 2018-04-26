@@ -22,9 +22,9 @@ public class TerrainStrip extends MapElement {
     @Override
     public void addRow3(Space s){row3.add(s);}
     //Getter
-    public List getRow1(){return row1;}
-    public List getRow2(){return row2;}
-    public List getRow3(){return row3;}
+    public List<Space> getRow1(){return row1;}
+    public List<Space> getRow2(){return row2;}
+    public List<Space> getRow3(){return row3;}
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
 
@@ -36,5 +36,24 @@ public class TerrainStrip extends MapElement {
     @Override
     public void setRotation(int r){
         this.rotation = r;
+    }
+
+    public Space getSpace(long spaceId) {
+        for (int j = 0; j < this.getRow1().size(); j++) {
+            if (this.getRow1().get(j).getId() == spaceId) {
+                return this.getRow1().get(j);
+            }
+        }
+        for (int j = 0; j < this.getRow2().size(); j++) {
+            if (this.getRow2().get(j).getId() == spaceId) {
+                return this.getRow2().get(j);
+            }
+        }
+        for (int j = 0; j < this.getRow3().size(); j++) {
+            if (this.getRow3().get(j).getId() == spaceId) {
+                return this.getRow3().get(j);
+            }
+        }
+        return null;
     }
 }
