@@ -1,6 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class MapElement implements Serializable {
 
@@ -14,6 +15,8 @@ public abstract class MapElement implements Serializable {
     public void addRow5(Space s){}
     public void addRow6(Space s){}
     public void addRow7(Space s){}
+
+    public abstract List<Space> getRow1();
 
     public void setNextTilePos(int p){}
     public void setRotation(int r){}

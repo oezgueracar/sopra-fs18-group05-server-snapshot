@@ -2,6 +2,8 @@ package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 public class Swanplands extends Map {
 
+    private long[] endTile;
+
     public Swanplands(){
 
         // Tile A
@@ -281,7 +283,10 @@ public class Swanplands extends Map {
         tile8	.addRow1(	new Space(	"blue"	,	584	,	1	,	false));
         tile8	.addRow1(	new Space(	"blue"	,	585	,	1	,	false));
 
-
+        // EndTile
+        endTile[0]= tile8.getRow1().get(0).getId();
+        endTile[1]= tile8.getRow1().get(1).getId();
+        endTile[2]= tile8.getRow1().get(2).getId();
 
         // Initializing Blockades
         blockades.add(new Blockade("green", 1));
@@ -305,5 +310,9 @@ public class Swanplands extends Map {
         mapTiles.add(tile7);
         mapTiles.add(tile8);
 
+    }
+
+    public long[] getEndTile(){
+        return endTile;
     }
 }
