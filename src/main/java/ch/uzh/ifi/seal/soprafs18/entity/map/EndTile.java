@@ -16,6 +16,7 @@ public class EndTile extends MapElement {
     public void addRow1(Space s){row1.add(s);}
 
     //Getter
+    @Override
     public List<Space> getRow1() {
         return row1;
     }

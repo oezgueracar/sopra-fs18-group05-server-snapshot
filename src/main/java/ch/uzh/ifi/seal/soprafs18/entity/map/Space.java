@@ -50,4 +50,8 @@ public class Space implements Serializable {
         return blockade;
     }
 
+    public long getId(){
+        return id;
+    }
+
 }

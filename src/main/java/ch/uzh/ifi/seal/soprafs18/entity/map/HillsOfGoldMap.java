@@ -2,6 +2,8 @@ package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 public class HillsOfGoldMap extends Map {
 
+    private long[] endTile;
+
     public HillsOfGoldMap(){
 
         //Tile B
@@ -277,7 +279,10 @@ public class HillsOfGoldMap extends Map {
         tile7	.addRow1(	new Space(	"green"	,	587	,	1	,	false));
         tile7	.addRow1(	new Space(	"green"	,	588	,	1	,	false));
 
-
+        // EndTile
+        endTile[0]= tile7.getRow1().get(0).getId();
+        endTile[1]= tile7.getRow1().get(1).getId();
+        endTile[2]= tile7.getRow1().get(2).getId();
 
 
         // Initializing Blockades
@@ -301,6 +306,10 @@ public class HillsOfGoldMap extends Map {
         mapTiles.add(getRandomBlockade());
         mapTiles.add(tile6);
         mapTiles.add(tile7);
+    }
+
+    public long[] getEndTile(){
+        return endTile;
     }
 
 }

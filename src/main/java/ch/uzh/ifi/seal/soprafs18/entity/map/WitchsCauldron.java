@@ -2,6 +2,8 @@ package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 public class WitchsCauldron extends Map {
 
+    private long[] endTile;
+
     public WitchsCauldron(){
 
         //Tile A
@@ -279,6 +281,11 @@ public class WitchsCauldron extends Map {
         tile7	.addRow1(	new Space(	"blue"	,	584	,	1	,	false));
         tile7	.addRow1(	new Space(	"blue"	,	585	,	1	,	false));
 
+        // EndTile
+        endTile[0]= tile7.getRow1().get(0).getId();
+        endTile[1]= tile7.getRow1().get(1).getId();
+        endTile[2]= tile7.getRow1().get(2).getId();
+
 
         // Initializing Blockades
         blockades.add(new Blockade("green", 1));
@@ -302,5 +309,9 @@ public class WitchsCauldron extends Map {
         mapTiles.add(tile6);
         mapTiles.add(tile7);
 
+    }
+
+    public long[] getEndTile(){
+        return endTile;
     }
 }

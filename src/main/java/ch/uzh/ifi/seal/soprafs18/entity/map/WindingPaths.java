@@ -2,6 +2,8 @@ package ch.uzh.ifi.seal.soprafs18.entity.map;
 
 public class WindingPaths extends Map {
 
+    private long[] endTile;
+
     public WindingPaths(){
 
         // TileB
@@ -279,6 +281,11 @@ public class WindingPaths extends Map {
         tile7	.addRow1(	new Space(	"blue"	,	584	,	1	,	false));
         tile7	.addRow1(	new Space(	"blue"	,	585	,	1	,	false));
 
+        // EndTile
+        endTile[0]= tile7.getRow1().get(0).getId();
+        endTile[1]= tile7.getRow1().get(1).getId();
+        endTile[2]= tile7.getRow1().get(2).getId();
+
         // Initializing Blockades
         blockades.add(new Blockade("green", 1));
         blockades.add(new Blockade("yellow", 1));
@@ -300,5 +307,9 @@ public class WindingPaths extends Map {
         mapTiles.add(getRandomBlockade());
         mapTiles.add(tile6);
         mapTiles.add(tile7);
+    }
+
+    public long[] getEndTile(){
+        return endTile;
     }
 }
