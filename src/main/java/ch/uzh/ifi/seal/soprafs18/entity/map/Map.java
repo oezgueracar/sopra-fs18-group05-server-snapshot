@@ -38,7 +38,7 @@ public abstract class Map implements Serializable{
                     return ((Tile) mapTiles.get(i)).getSpace(spaceId);
                 }
                 if(mapTiles.get(i) instanceof TerrainStrip){
-                    return ((TerrainStrip) mapTiles.get(i)).getSpace(spaceId));
+                    return ((TerrainStrip) mapTiles.get(i)).getSpace(spaceId);
                 }
                 if(mapTiles.get(i) instanceof EndTile){
                     return ((EndTile) mapTiles.get(i)).getSpace(spaceId);
