@@ -45,7 +45,7 @@ public class ExpeditionCard extends Card {
 		return value;
 	}
 
-	protected String getColor(){
+	public String getColor(){
 		return color;
 	}
 

@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     Player p = new Player();
-    Card c = new ExpeditionCard(1f,1f,"CardName", "Description", "green", 1, true);
+    ExpeditionCard c = new ExpeditionCard(1f,1f,"CardName", "Description", "green", 1, true);
     ArrayList<Card> testPile;
 
     @Test
@@ -218,34 +218,76 @@ public class PlayerTest {
 
     @Test
     public void setMoveCounter() {
-
+        p.setup();
+        int testInt= p.getMoveCounter()[0];
+        p.setMoveCounter(c.getValue(), c.getColor());
+        assertEquals(testInt, p.getMoveCounter()[0]-1);
     }
 
     @Test
     public void resetMoveCounter() {
+        p.setup();
+        p.setMoveCounter(c.getValue(), c.getColor());
+        p.resetMoveCounter();
+        assertEquals(0, p.getMoveCounter()[0]);
     }
 
     @Test
     public void setCoins() {
+        p.setup();
+        float testFloat = p.getCoins();
+        p.getHand().add(c);
+        p.sellCard(c);
+        assertEquals(testFloat, p.getCoins()-1f,0);
     }
 
     @Test
     public void resetCoins() {
+        p.setup();
+        p.sellCard(c);
+        p.resetCoins();
+        assertEquals(0, p.getCoins(),0);
     }
 
     @Test
     public void setPlayerLeft() {
+        p.setup();
+        p.setPlayerLeft(true);
+        assertTrue(p.getPlayerLeft());
     }
 
     @Test
     public void setIsInGoal() {
+        p.setup();
+        p.setIsInGoal(true);
+        assertTrue(p.getIsInGoal());
     }
 
     @Test
     public void setColor() {
+        p.setup();
+        p.setColor("green");
+        assertEquals("green", p.getColor());
     }
 
     @Test
+    public void setupCards(){
+        p.setColor("blue");
+        p.setup();
+        assertEquals("blue", p.getPlayingPiece().getColor());
+        assertEquals(0,p.getHand().size());
+        assertEquals(0, p.getPlayedList().size());
+        assertEquals(8,p.getDeck().size());
+
+    }
+    @Test
     public void setup() {
+        p.setColor("green");
+        p.setup();
+        assertEquals("green", p.getPlayingPiece().getColor());
+        assertEquals(0,p.getHand().size());
+        assertEquals(0, p.getPlayedList().size());
+        assertEquals(8,p.getDeck().size());
+
     }
 }
