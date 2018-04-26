@@ -26,5 +26,6 @@ public class Compass extends ActionCard {
 		player.drawCard();
 		player.drawCard();
 		player.getHand().remove(this);
+		player.getPlayedList().add(this);
 	}
 }

@@ -41,7 +41,7 @@ public class ExpeditionCard extends Card {
 			player.getHand().remove(this);
 	}
 
-	protected int getValue(){
+	public int getValue(){
 		return value;
 	}
 

@@ -20,9 +20,8 @@ public class Transmitter extends ActionCard {
 		this.cardDescription = cardDescription;
 	}
 
-	public void play(Player player, Card card){
+	public void play(Player player){
 		//TODO service has to delete the card from the market
-		player.getPlayedList().add(card);
 		player.getHand().remove(this);
 	}
 }

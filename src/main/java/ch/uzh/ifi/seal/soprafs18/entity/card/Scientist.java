@@ -20,8 +20,9 @@ public class Scientist extends ActionCard {
 		this.cardDescription = cardDescription;
 	}
 
-	public void play(Player player){
+	public void play(Player player){//TODO Frontend needs to send discarded card
 		player.drawCard();
 		player.getHand().remove(this);
+		player.getPlayedList().add(this);
 	}
 }

@@ -22,5 +22,6 @@ public class TravelLog extends ActionCard {
 	public void play(Player player){
 		player.drawCard();
 		player.drawCard();
+		player.getHand().remove(this);
 	}
 }
