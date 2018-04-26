@@ -284,6 +284,7 @@ public class Swanplands extends Map {
         tile8	.addRow1(	new Space(	"blue"	,	585	,	1	,	false));
 
         // EndTile
+        endTile = new long[3];
         endTile[0]= tile8.getRow1().get(0).getId();
         endTile[1]= tile8.getRow1().get(1).getId();
         endTile[2]= tile8.getRow1().get(2).getId();
