@@ -7,13 +7,13 @@ import java.io.Serializable;
 public class PlayingPiece implements Serializable {
 
 	private String color;
-	private int position;
+	private long position;
 
 	public PlayingPiece(String color){
 		this.color = color;
 	}
 
-	public void setPosition(int position){
+	public void setPosition(long position){
 		this.position = position;
 	}
 
@@ -21,7 +21,7 @@ public class PlayingPiece implements Serializable {
 		return color;
 	}
 
-	public int getPosition(){
+	public long getPosition(){
 		return position;
 	}
 }

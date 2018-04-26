@@ -193,8 +193,23 @@ public class Game implements Serializable {
     	return players.get(index);
 	}
 
-	public int getCurrentPlayer(){
+	public long getCurrentPlayer(){
 		return currentPlayer;
 	}
 
+	private long[] getMapEndTileIdArray (){
+		return this.assignedMap.getEntTile();
+	}
+
+	public Boolean endTileIdArrayCheck(long idToBeChecked){
+		boolean isTrue = false;
+		long[] tempEndTileIdArray = getMapEndTileIdArray();
+
+		for(int i = 0; i < tempEndTileIdArray.length; i++){
+			if(idToBeChecked == tempEndTileIdArray[i]){
+				isTrue = true;
+			}
+		}
+		return isTrue;
+	}
 }

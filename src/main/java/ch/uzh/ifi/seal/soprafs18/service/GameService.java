@@ -4,6 +4,7 @@ import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
+import ch.uzh.ifi.seal.soprafs18.entity.map.EndTile;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import ch.uzh.ifi.seal.soprafs18.web.rest.GameResource;
@@ -177,6 +178,28 @@ public class GameService {
 					}
 					return gameRepository.save(serverSideGame.get());
 				case RUNNING:
+
+					//Check if a player is in El Dorado.
+					Boolean aPlayerIsOnEndTile = false;
+                                                                                                                                                                    					for(Player p: game.getPlayers()){
+						if (p.getIsInGoal()){
+							aPlayerIsOnEndTile = true;
+						}
+					}
+					//Change game to finished if a player is in El Dorado while the
+					if (aPlayerIsOnEndTile && game.getCurrentPlayer() + 1 == 0){
+						serverSideGame.get().setStatus(GameStatus.WILL_BE_FINISHED);
+					}
+					return gameRepository.save(serverSideGame.get());
+				case WILL_BE_FINISHED:
+					if(game.getCurrentPlayer() == 0) {
+						serverSideGame.get().setStatus(GameStatus.FINISHED);
+					}
+
+					return gameRepository.save(serverSideGame.get());
+				case FINISHED:
+					serverSideGame.get().setStatus(GameStatus.ROOM);
+					return gameRepository.save(serverSideGame.get());
 			}
 		}
 		return null;
