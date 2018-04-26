@@ -22,9 +22,12 @@ public class TerrainStrip extends MapElement {
     @Override
     public void addRow3(Space s){row3.add(s);}
     //Getter
+    @Override
     public List<Space> getRow1(){return row1;}
     public List<Space> getRow2(){return row2;}
     public List<Space> getRow3(){return row3;}
+    @Override
+    public List<Space> getRow7(){return null;}
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
 
