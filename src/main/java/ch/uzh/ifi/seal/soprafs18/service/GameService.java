@@ -169,12 +169,15 @@ public class GameService {
 
 						//If the leaders request to set the game status to PENDING was accepted, the game will setup before the game status changes to RUNNING.
 						if(serverSideGame.get().getStatus() == GameStatus.PENDING){
-							for (Player p : serverSideGame.get().getPlayers()) {
-								p.setup();
-								playerRepository.save(p);
-							}
 							serverSideGame.get().startGame();
 							serverSideGame.get().setStatus(GameStatus.RUNNING);
+
+							int startingPositionArrayCounter = 0;
+							for (Player p : serverSideGame.get().getPlayers()) {
+								p.setup();
+								p.getPlayingPiece().setPosition(serverSideGame.get().getMap().getStartingSpaces()[startingPositionArrayCounter++]);
+								playerRepository.save(p);
+							}
 						}
 					}
 					return gameRepository.save(serverSideGame.get());
