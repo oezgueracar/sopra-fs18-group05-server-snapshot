@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class SpaceTest {
 
-    Space s = new Space("green",1,false);
+    Space s = new Space("green",1,1,false);
 
     @Test
     public void getBlockade() {
