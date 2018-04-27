@@ -11,7 +11,11 @@ public class TileTest {
 
     Tile t1 = new Tile();
     List<Space> testRow = new ArrayList<>();
+<<<<<<< HEAD
+    Space s1 = new Space("green",1,1, false);
+=======
     Space s1 = new Space("green",1,1,false);
+>>>>>>> de8cff6eb0f3fb47d583703fb00cb23f098f9f17
 
     @Test
     public void addRow1() {
