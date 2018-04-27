@@ -86,6 +86,9 @@ public class Player implements Serializable {
 	// [green, blue, yellow]
     protected int[] moveCounter = new int[3];
 
+	@Lob
+	@Column(name = "assignedPiece", length = Integer.MAX_VALUE - 1)
+	@JsonProperty
 	protected PlayingPiece assignedPiece;
 
 	/**
