@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class MulticolorCardTest {
 
-    @Test
+    /*@Test
     public void play() {
         Player p = new Player();
         MulticolorCard c = new MulticolorCard(2,0.5f,"Cartographer","Description", "multicolor", 1, false);
@@ -17,7 +17,7 @@ public class MulticolorCardTest {
         c.play(p);
         int newI =p.getHand().size();
         assertEquals(i-1,newI);
-    }
+    }*/
 
     @Test
     public void play2(){

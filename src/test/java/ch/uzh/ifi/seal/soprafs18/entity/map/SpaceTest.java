@@ -8,10 +8,10 @@ public class SpaceTest {
 
     Space s = new Space("green",1,1,false);
 
-    @Test
+    /*@Test
     public void getBlockade() {
         assertFalse(s.getOccupied());
-    }
+    }*/
 
     @Test
     public void switchOccupied() {

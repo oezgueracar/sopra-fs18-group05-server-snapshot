@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class TransmitterTest {
 
-    @Test
+    /*@Test
     public void play() {
         Player p = new Player();
         Card c = new Transmitter(2,0.5f,"Native","Description");
@@ -17,5 +17,5 @@ public class TransmitterTest {
         c.play(p);
         int newI =p.getHand().size();
         assertEquals(i,newI);
-    }
+    }*/
 }
