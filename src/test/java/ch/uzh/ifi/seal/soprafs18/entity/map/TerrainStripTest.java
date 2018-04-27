@@ -11,7 +11,7 @@ public class TerrainStripTest {
 
     TerrainStrip t1 = new TerrainStrip();
     List<Space> testRow = new ArrayList<>();
-    Space s1 = new Space("green", 1, false);
+    Space s1 = new Space("green", 1,1, false);
 
     @Test
     public void addRow1() {
