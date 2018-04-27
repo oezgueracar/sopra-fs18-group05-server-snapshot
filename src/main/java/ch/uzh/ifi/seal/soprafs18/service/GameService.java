@@ -233,9 +233,18 @@ public class GameService {
 					return playerRepository.save(serverSidePlayer.get());
 				case RUNNING:
 
-					serverSidePlayer.get().setMoveCounter(player.getMoveCounter()[0], "green");
+					serverSidePlayer.get().setMoveCounter(1, "green");
+
+					//TODO: Write equals method etc. for Player class to be able to use players.indexOf()
+					//First get the Position of a Player in the games Array.
+					int positionOfPlayerInPlayers = 0;
+					for(int i = 0; i < serverSideGame.get().getPlayers().size();i++){
+						if(serverSideGame.get().getPlayer(i).getId() == serverSidePlayer.get().getId()){
+							positionOfPlayerInPlayers = i;
+						}
+					}
 					//Check first if the player whose turn it is tries to perform a move. Otherwise nothing will happen.
-					if(serverSideGame.get().getCurrentPlayer() == serverSideGame.get().getPlayers().indexOf(serverSidePlayer)){
+					if(serverSideGame.get().getCurrentPlayer() == positionOfPlayerInPlayers){
 						//Move player if conditions allow it
 						//First check to see if the player tried to move
 						if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
@@ -264,21 +273,21 @@ public class GameService {
 											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
 												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-												serverSidePlayer.get().setMoveCounter(playerMoveCounterValue - toBeMovedSpace.getValue(),"green");
+												serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue(),"green");
 											}
 										}
 										else if(toBeMovedSpace.getColor().equals("blue")){
 											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
 												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-												serverSidePlayer.get().setMoveCounter(playerMoveCounterValue - toBeMovedSpace.getValue(),"blue");
+												serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[1] - toBeMovedSpace.getValue(),"blue");
 											}
 										}
 										else if(toBeMovedSpace.getColor().equals("yellow")){
 											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
 											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
 												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-												serverSidePlayer.get().setMoveCounter(playerMoveCounterValue - toBeMovedSpace.getValue(),"yellow");
+												serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[2] - toBeMovedSpace.getValue(),"yellow");
 											}
 										}
 									}

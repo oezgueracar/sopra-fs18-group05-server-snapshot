@@ -1,7 +1,5 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
-import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
-
 import java.io.Serializable;
 
 public class PlayingPiece implements Serializable {
