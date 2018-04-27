@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-public abstract class Card implements Serializable {
+public class Card implements Serializable {
 
 	private static long count = 0;
 	protected long id;

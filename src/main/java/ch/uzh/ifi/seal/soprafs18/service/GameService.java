@@ -232,6 +232,8 @@ public class GameService {
 
 					return playerRepository.save(serverSidePlayer.get());
 				case RUNNING:
+
+					serverSidePlayer.get().setMoveCounter(player.getMoveCounter()[0], "green");
 					//Check first if the player whose turn it is tries to perform a move. Otherwise nothing will happen.
 					if(serverSideGame.get().getCurrentPlayer() == serverSideGame.get().getPlayers().indexOf(serverSidePlayer)){
 						//Move player if conditions allow it
@@ -293,12 +295,10 @@ public class GameService {
 
 						//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
 						serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
-
-						playerRepository.save(serverSidePlayer.get());
-						gameRepository.save(serverSideGame.get());
-						return playerRepository.save(serverSidePlayer.get());
 					}
-					return null;
+					playerRepository.save(serverSidePlayer.get());
+					gameRepository.save(serverSideGame.get());
+					return playerRepository.save(serverSidePlayer.get());
 			}
 		}
 		return null;
