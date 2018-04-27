@@ -22,4 +22,6 @@ public abstract class MapElement implements Serializable {
     public void setNextTilePos(int p){}
     public void setRotation(int r){}
 
+    public void setNeighbours() {
+    }
 }

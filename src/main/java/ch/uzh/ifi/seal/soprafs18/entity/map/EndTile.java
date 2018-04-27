@@ -44,4 +44,28 @@ public class EndTile extends MapElement {
         return null;
     }
 
+    @Override
+    public void setNeighbours(){
+        this.row1.get(0).getNeighbours()[0] = 0;
+        this.row1.get(0).getNeighbours()[1] = this.row1.get(1).getId();
+        this.row1.get(0).getNeighbours()[2] = 0;
+        this.row1.get(0).getNeighbours()[3] = 0;
+        this.row1.get(0).getNeighbours()[4] = 0;
+        this.row1.get(0).getNeighbours()[5] = 0;
+
+        this.row1.get(0).getNeighbours()[0] = 0;
+        this.row1.get(0).getNeighbours()[1] = 0;
+        this.row1.get(0).getNeighbours()[2] = this.row1.get(2).getId();
+        this.row1.get(0).getNeighbours()[3] = 0;
+        this.row1.get(0).getNeighbours()[4] = this.row1.get(0).getId();
+        this.row1.get(0).getNeighbours()[5] = 0;
+
+        this.row1.get(0).getNeighbours()[0] = 0;
+        this.row1.get(0).getNeighbours()[1] = 0;
+        this.row1.get(0).getNeighbours()[2] = 0;
+        this.row1.get(0).getNeighbours()[3] = 0;
+        this.row1.get(0).getNeighbours()[4] = this.row1.get(1).getId();
+        this.row1.get(0).getNeighbours()[5] = 0;
+    }
+
 }

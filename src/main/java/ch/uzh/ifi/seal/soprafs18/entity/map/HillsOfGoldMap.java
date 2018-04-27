@@ -48,12 +48,12 @@ public class HillsOfGoldMap extends Map {
         tile1	.addRow7(	new Space(	"green"	,	72	,	0	,	false)	);
         tile1	.addRow7(	new Space(	"green"	,	73	,	0	,	false)	);
         tile1	.addRow7(	new Space(	"green"	,	74	,	0	,	false)	);
+        tile1.setNeighbours();
 
         // Tile C
         MapElement tile2 = new Tile();
         tile2.setNextTilePos(6);
         tile2.setRotation(0);
-        mapTiles.add(tile2);
 
         tile2	.addRow1(	new Space(	"green"	,	75	,	1	,	false));
         tile2	.addRow1(	new Space(	"green"	,	76	,	1	,	false));
@@ -92,7 +92,7 @@ public class HillsOfGoldMap extends Map {
         tile2	.addRow7(	new Space(	"yellow"	,	109	,	1	,	false));
         tile2	.addRow7(	new Space(	"blue"	,	110	,	1	,	false));
         tile2	.addRow7(	new Space(	"blue"	,	111	,	1	,	false));
-
+        tile2.setNeighbours();
 
         //Tile G
         MapElement tile3 = new Tile();
@@ -136,7 +136,7 @@ public class HillsOfGoldMap extends Map {
         tile3	.addRow7(	new Space(	"green"	,	257	,	1	,	false));
         tile3	.addRow7(	new Space(	"green"	,	258	,	1	,	false));
         tile3	.addRow7(	new Space(	"green"	,	259	,	1	,	false));
-
+        tile3.setNeighbours();
 
         //Tile K
         MapElement tile4 = new Tile();
@@ -180,7 +180,7 @@ public class HillsOfGoldMap extends Map {
         tile4	.addRow7(	new Space(	"green"	,	405	,	2	,	false));
         tile4	.addRow7(	new Space(	"green"	,	406	,	2	,	false));
         tile4	.addRow7(	new Space(	"red"	,	407	,	1	,	false));
-
+        tile4.setNeighbours();
 
 
         // Tile J
@@ -225,7 +225,7 @@ public class HillsOfGoldMap extends Map {
         tile5	.addRow7(	new Space(	"yellow"	,	368	,	1	,	false));
         tile5	.addRow7(	new Space(	"yellow"	,	369	,	1	,	false));
         tile5	.addRow7(	new Space(	"grey"	,	370	,	2	,	false));
-
+        tile5.setNeighbours();
 
 
         // Tile N
@@ -270,7 +270,7 @@ public class HillsOfGoldMap extends Map {
         tile6	.addRow7(	new Space(	"green"	,	516	,	1	,	false));
         tile6	.addRow7(	new Space(	"green"	,	517	,	1	,	false));
         tile6	.addRow7(	new Space(	"green"	,	518	,	1	,	false));
-
+        tile6.setNeighbours();
 
         // Tile U
         MapElement tile7 = new EndTile();
@@ -279,6 +279,7 @@ public class HillsOfGoldMap extends Map {
         tile7	.addRow1(	new Space(	"green"	,	586	,	1	,	false));
         tile7	.addRow1(	new Space(	"green"	,	587	,	1	,	false));
         tile7	.addRow1(	new Space(	"green"	,	588	,	1	,	false));
+        tile7.setNeighbours();
 
         // EndTile
         endTile = new long[3];

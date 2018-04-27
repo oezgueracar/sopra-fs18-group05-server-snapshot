@@ -59,4 +59,46 @@ public class TerrainStrip extends MapElement {
         }
         return null;
     }
+
+    @Override
+    public void setNeighbours(){
+
+        //Row1
+        for(int i = 0; i<this.getRow1().size(); i++){
+            this.row1.get(i).getNeighbours()[0] = 0;
+            if(i == this.getRow1().size()-1)  {this.row1.get(i).getNeighbours()[1] = 0;}
+            else                              {this.row1.get(i).getNeighbours()[1] = this.row1.get(i+1).getId();}
+            this.row1.get(i).getNeighbours()[2] = this.row2.get(i+1).getId();
+            this.row1.get(i).getNeighbours()[3] = this.row2.get(i).getId();
+            if(i == 0)  {this.row1.get(i).getNeighbours()[4] = 0;}
+            else        {this.row1.get(i).getNeighbours()[4] = this.row1.get(i-1).getId();}
+            this.row1.get(i).getNeighbours()[5] = 0;
+        }
+        //Row2
+        for(int i = 0; i<this.getRow2().size(); i++){
+            if(i == getRow2().size()-1)    {this.row2.get(i).getNeighbours()[0] = 0;}
+            else                         {this.row2.get(i).getNeighbours()[0] = this.row1.get(i).getId();}
+            if(i == getRow2().size()-1)    {this.row2.get(i).getNeighbours()[1] = 0;}
+            else                         {this.row2.get(i).getNeighbours()[1] = this.row2.get(i+1).getId();}
+            if(i == getRow2().size()-1)    {this.row2.get(i).getNeighbours()[2] = 0;}
+            else                         {this.row2.get(i).getNeighbours()[2] = this.row3.get(i).getId();}
+            if(i == 0)                   {this.row2.get(i).getNeighbours()[3] = 0;}
+            else                         {this.row2.get(i).getNeighbours()[3] = this.row3.get(i-1).getId();}
+            if(i == 0)  {this.row2.get(i).getNeighbours()[4] = 0;}
+            else        {this.row2.get(i).getNeighbours()[4] = this.row2.get(i-1).getId();}
+            if(i == 0)  {this.row2.get(i).getNeighbours()[5] = 0;}
+            else        {this.row2.get(i).getNeighbours()[5] = this.row1.get(i-1).getId();}
+        }
+        //Row7
+        for(int i = 0; i<this.getRow3().size(); i++){
+            this.row3.get(i).getNeighbours()[0] = this.row2.get(i+1).getId();
+            if(i == this.getRow3().size()-1)  {this.row3.get(i).getNeighbours()[1] = 0;}
+            else                            {this.row3.get(i).getNeighbours()[1] = this.row3.get(i+1).getId();}
+            this.row3.get(i).getNeighbours()[2] = 0;
+            this.row3.get(i).getNeighbours()[3] = 0;
+            if(i == 0)  {this.row3.get(i).getNeighbours()[4] = 0;}
+            else        {this.row3.get(i).getNeighbours()[4] = this.row3.get(i-1).getId();}
+            this.row3.get(i).getNeighbours()[5] = this.row2.get(i).getId();
+        }
+    }
 }
