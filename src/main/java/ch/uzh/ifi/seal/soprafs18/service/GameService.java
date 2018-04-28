@@ -233,6 +233,7 @@ public class GameService {
 					return playerRepository.save(serverSidePlayer.get());
 				case RUNNING:
 
+					//REMOVE THIS:
 					serverSidePlayer.get().setMoveCounter(1, "green");
 
 					//TODO: Write equals method etc. for Player class to be able to use players.indexOf()
@@ -245,60 +246,68 @@ public class GameService {
 					}
 					//Check first if the player whose turn it is tries to perform a move. Otherwise nothing will happen.
 					if(serverSideGame.get().getCurrentPlayer() == positionOfPlayerInPlayers){
-						//Move player if conditions allow it
-						//First check to see if the player tried to move
+						//Move player if conditions allow it.
+						//First check if the player tried to move:
 						if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
 							Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece().getPosition());
-							//If the Space exists...
-							if (toBeMovedSpace != null) {
-								//... check the colour of the Space.
-								if(toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow")){
-									//... and if its yellow/blue/green then check if the player has enough value to move to that space and to which colour the value belongs to.
-									String playerMoveCounterColour = "";
-									if(serverSidePlayer.get().getMoveCounter()[0] != 0){
-										playerMoveCounterColour = "green";
-									}
-									else if(serverSidePlayer.get().getMoveCounter()[1] != 0){
-										playerMoveCounterColour = "blue";
-									}
-									else if(serverSidePlayer.get().getMoveCounter()[2] != 0){
-										playerMoveCounterColour = "yellow";
-									}
-
-									//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
-									if(!(playerMoveCounterColour.equals("")) && toBeMovedSpace.getColor().equals(playerMoveCounterColour)){
-										//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
-										int playerMoveCounterValue;
-										if(toBeMovedSpace.getColor().equals("green")){
-											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
-											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
-												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-												serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue(),"green");
-											}
-										}
-										else if(toBeMovedSpace.getColor().equals("blue")){
-											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
-											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
-												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-												serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[1] - toBeMovedSpace.getValue(),"blue");
-											}
-										}
-										else if(toBeMovedSpace.getColor().equals("yellow")){
-											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
-											if(playerMoveCounterValue >= toBeMovedSpace.getValue()){
-												serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-												serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[2] - toBeMovedSpace.getValue(),"yellow");
-											}
-										}
+							//Then check if the Space exists & if it exists if it's already occupied by another playing piece & if it's a place that a piece can move to...
+							if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
+								//... check if the Space is the neighbour of the selected space...
+								Boolean isNeighbour = false;
+								long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).getNeighbours();
+								for(long neighbourSpaceId : currentSpaceNeighbourIds){
+									if(toBeMovedSpace.getId() == neighbourSpaceId){
+										isNeighbour = true;
+										break;
 									}
 								}
-								else if(toBeMovedSpace.getColor().equals("grey")){
+								if(isNeighbour) {
+									//... check the color of the Space...
+									if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow")) {
+										//... and if its yellow/blue/green then check if the player has enough value to move to that space and to which colour the value belongs to.
+										String playerMoveCounterColour = "";
+										if (serverSidePlayer.get().getMoveCounter()[0] != 0) {
+											playerMoveCounterColour = "green";
+										} else if (serverSidePlayer.get().getMoveCounter()[1] != 0) {
+											playerMoveCounterColour = "blue";
+										} else if (serverSidePlayer.get().getMoveCounter()[2] != 0) {
+											playerMoveCounterColour = "yellow";
+										}
 
-								}
-								else if(toBeMovedSpace.getColor().equals("red")){
+										//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
+										if (!(playerMoveCounterColour.equals("")) && toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
+											//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
+											int playerMoveCounterValue;
+											if (toBeMovedSpace.getColor().equals("green")) {
+												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
+												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+													serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue(), "green");
+													toBeMovedSpace.switchOccupied();
+												}
+											} else if (toBeMovedSpace.getColor().equals("blue")) {
+												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
+												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+													serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[1] - toBeMovedSpace.getValue(), "blue");
+													toBeMovedSpace.switchOccupied();
+												}
+											} else if (toBeMovedSpace.getColor().equals("yellow")) {
+												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
+												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+													serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[2] - toBeMovedSpace.getValue(), "yellow");
+													toBeMovedSpace.switchOccupied();
+												}
+											}
+										}
+									} else if (toBeMovedSpace.getColor().equals("grey")) {
 
+									} else if (toBeMovedSpace.getColor().equals("red")) {
+
+									}
+									// else it's black or a starting space; Don't do anything.
 								}
-								// else it's black; Don't do anything.
 							}
 						}
 
