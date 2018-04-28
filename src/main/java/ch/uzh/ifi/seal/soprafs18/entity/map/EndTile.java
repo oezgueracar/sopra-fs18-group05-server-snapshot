@@ -6,6 +6,12 @@ import java.util.List;
 public class EndTile extends MapElement {
 
     public List<Space> row1;
+    private List<Space> row2;
+    private List<Space> row3;
+    private List<Space> row4;
+    private List<Space> row5;
+    private List<Space> row6;
+    private List<Space> row7;
 
     public EndTile(){
         row1 = new ArrayList<>();
@@ -17,11 +23,20 @@ public class EndTile extends MapElement {
 
     //Getter
     @Override
-    public List<Space> getRow1() {
-        return row1;
-    }
+    public List<Space> getRow1(){return row1;}
+    @Override
+    public List<Space> getRow2(){return null;}
+    @Override
+    public List<Space> getRow3(){return null;}
+    @Override
+    public List<Space> getRow4(){return null;}
+    @Override
+    public List<Space> getRow5(){return null;}
+    @Override
+    public List<Space> getRow6(){return null;}
     @Override
     public List<Space> getRow7(){return null;}
+
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
 
@@ -42,6 +57,30 @@ public class EndTile extends MapElement {
             }
         }
         return null;
+    }
+
+    @Override
+    public void setNeighbours(){
+        //this.row1.get(0).getNeighbours()[0] = 0;
+        this.row1.get(0).getNeighbours()[1] = this.row1.get(1).getId();
+/*        this.row1.get(0).getNeighbours()[2] = 0;
+        this.row1.get(0).getNeighbours()[3] = 0;
+        this.row1.get(0).getNeighbours()[4] = 0;
+        this.row1.get(0).getNeighbours()[5] = 0;*/
+
+        /*this.row1.get(0).getNeighbours()[0] = 0;
+        this.row1.get(0).getNeighbours()[1] = 0;*/
+        this.row1.get(1).getNeighbours()[2] = this.row1.get(2).getId();
+        //this.row1.get(0).getNeighbours()[3] = 0;
+        this.row1.get(1).getNeighbours()[4] = this.row1.get(0).getId();
+       /* this.row1.get(0).getNeighbours()[5] = 0;
+
+        this.row1.get(0).getNeighbours()[0] = 0;
+        this.row1.get(0).getNeighbours()[1] = 0;
+        this.row1.get(0).getNeighbours()[2] = 0;
+        this.row1.get(0).getNeighbours()[3] = 0;*/
+        this.row1.get(2).getNeighbours()[4] = this.row1.get(1).getId();
+        //this.row1.get(0).getNeighbours()[5] = 0;
     }
 
 }

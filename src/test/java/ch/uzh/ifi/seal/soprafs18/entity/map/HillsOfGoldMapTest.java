@@ -7,7 +7,10 @@ import static org.junit.Assert.*;
 
 public class HillsOfGoldMapTest {
 
+    @Test
+    public void HillsOfGoldMap(){
 
+    }
     @Test
     public void getEndTile() {
         HillsOfGoldMap m = new HillsOfGoldMap();

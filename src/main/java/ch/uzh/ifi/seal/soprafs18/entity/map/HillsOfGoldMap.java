@@ -49,11 +49,11 @@ public class HillsOfGoldMap extends Map {
         tile1	.addRow7(	new Space(	"green"	,	73	,	0	,	false)	);
         tile1	.addRow7(	new Space(	"green"	,	74	,	0	,	false)	);
 
+
         // Tile C
         MapElement tile2 = new Tile();
         tile2.setNextTilePos(6);
         tile2.setRotation(0);
-        mapTiles.add(tile2);
 
         tile2	.addRow1(	new Space(	"green"	,	75	,	1	,	false));
         tile2	.addRow1(	new Space(	"green"	,	76	,	1	,	false));
@@ -92,7 +92,6 @@ public class HillsOfGoldMap extends Map {
         tile2	.addRow7(	new Space(	"yellow"	,	109	,	1	,	false));
         tile2	.addRow7(	new Space(	"blue"	,	110	,	1	,	false));
         tile2	.addRow7(	new Space(	"blue"	,	111	,	1	,	false));
-
 
         //Tile G
         MapElement tile3 = new Tile();
@@ -136,7 +135,6 @@ public class HillsOfGoldMap extends Map {
         tile3	.addRow7(	new Space(	"green"	,	257	,	1	,	false));
         tile3	.addRow7(	new Space(	"green"	,	258	,	1	,	false));
         tile3	.addRow7(	new Space(	"green"	,	259	,	1	,	false));
-
 
         //Tile K
         MapElement tile4 = new Tile();
@@ -182,7 +180,6 @@ public class HillsOfGoldMap extends Map {
         tile4	.addRow7(	new Space(	"red"	,	407	,	1	,	false));
 
 
-
         // Tile J
         MapElement tile5 = new Tile();
         tile5.setRotation(300);
@@ -225,7 +222,6 @@ public class HillsOfGoldMap extends Map {
         tile5	.addRow7(	new Space(	"yellow"	,	368	,	1	,	false));
         tile5	.addRow7(	new Space(	"yellow"	,	369	,	1	,	false));
         tile5	.addRow7(	new Space(	"grey"	,	370	,	2	,	false));
-
 
 
         // Tile N
@@ -280,6 +276,107 @@ public class HillsOfGoldMap extends Map {
         tile7	.addRow1(	new Space(	"green"	,	587	,	1	,	false));
         tile7	.addRow1(	new Space(	"green"	,	588	,	1	,	false));
 
+        //SetNeighbourss
+        tile1.setNeighbours();
+        tile2.setNeighbours();
+        tile3.setNeighbours();
+        tile4.setNeighbours();
+        tile5.setNeighbours();
+        tile6.setNeighbours();
+        tile7.setNeighbours();
+
+        //Set neighbouring tiles
+        tile1.getRow1().get(0).getNeighbours()[4] = tile2.getRow7().get(3).getId();
+        tile1.getRow2().get(0).getNeighbours()[4] = tile2.getRow7().get(2).getId();
+        tile1.getRow2().get(0).getNeighbours()[5] = tile2.getRow7().get(3).getId();
+        tile1.getRow3().get(0).getNeighbours()[4] = tile2.getRow7().get(1).getId();
+        tile1.getRow3().get(0).getNeighbours()[5] = tile2.getRow7().get(2).getId();
+        tile1.getRow4().get(0).getNeighbours()[4] = tile2.getRow7().get(0).getId();
+        tile1.getRow4().get(0).getNeighbours()[5] = tile2.getRow7().get(1).getId();
+
+        tile2.getRow7().get(0).getNeighbours()[2] = tile1.getRow4().get(0).getId();
+        tile2.getRow7().get(1).getNeighbours()[3] = tile1.getRow4().get(0).getId();
+        tile2.getRow7().get(1).getNeighbours()[2] = tile1.getRow3().get(0).getId();
+        tile2.getRow7().get(2).getNeighbours()[3] = tile1.getRow3().get(0).getId();
+        tile2.getRow7().get(2).getNeighbours()[2] = tile1.getRow2().get(0).getId();
+        tile2.getRow7().get(3).getNeighbours()[3] = tile1.getRow2().get(0).getId();
+        tile2.getRow7().get(3).getNeighbours()[2] = tile1.getRow1().get(0).getId();
+
+        tile2.getRow1().get(0).getNeighbours()[0] = tile3.getRow1().get(0).getId();
+        tile2.getRow1().get(1).getNeighbours()[5] = tile3.getRow1().get(0).getId();
+        tile2.getRow1().get(1).getNeighbours()[0] = tile3.getRow2().get(0).getId();
+        tile2.getRow1().get(2).getNeighbours()[5] = tile3.getRow1().get(0).getId();
+        tile2.getRow1().get(2).getNeighbours()[0] = tile3.getRow3().get(0).getId();
+        tile2.getRow1().get(3).getNeighbours()[5] = tile3.getRow3().get(0).getId();
+        tile2.getRow1().get(3).getNeighbours()[0] = tile3.getRow4().get(0).getId();
+
+        tile3.getRow1().get(0).getNeighbours()[5] = tile2.getRow1().get(0).getId();
+        tile3.getRow1().get(0).getNeighbours()[4] = tile2.getRow1().get(1).getId();
+        tile3.getRow2().get(0).getNeighbours()[5] = tile2.getRow1().get(1).getId();
+        tile3.getRow2().get(0).getNeighbours()[4] = tile2.getRow1().get(2).getId();
+        tile3.getRow3().get(0).getNeighbours()[5] = tile2.getRow1().get(2).getId();
+        tile3.getRow3().get(0).getNeighbours()[4] = tile2.getRow1().get(3).getId();
+        tile3.getRow4().get(0).getNeighbours()[5] = tile2.getRow1().get(3).getId();
+
+        tile3.getRow4().get(0).getNeighbours()[3] = tile4.getRow7().get(0).getId();
+        tile3.getRow5().get(0).getNeighbours()[4] = tile4.getRow7().get(0).getId();
+        tile3.getRow5().get(0).getNeighbours()[3] = tile4.getRow6().get(0).getId();
+        tile3.getRow6().get(0).getNeighbours()[4] = tile4.getRow6().get(0).getId();
+        tile3.getRow6().get(0).getNeighbours()[3] = tile4.getRow5().get(0).getId();
+        tile3.getRow7().get(0).getNeighbours()[4] = tile4.getRow5().get(0).getId();
+        tile3.getRow7().get(0).getNeighbours()[3] = tile4.getRow4().get(0).getId();
+
+        tile4.getRow4().get(0).getNeighbours()[3] = tile3.getRow7().get(0).getId();
+        tile4.getRow5().get(0).getNeighbours()[4] = tile3.getRow7().get(0).getId();
+        tile4.getRow5().get(0).getNeighbours()[3] = tile3.getRow6().get(0).getId();
+        tile4.getRow6().get(0).getNeighbours()[4] = tile3.getRow6().get(0).getId();
+        tile4.getRow6().get(0).getNeighbours()[3] = tile3.getRow5().get(0).getId();
+        tile4.getRow7().get(0).getNeighbours()[4] = tile3.getRow5().get(0).getId();
+        tile4.getRow7().get(0).getNeighbours()[3] = tile3.getRow4().get(0).getId();
+
+        tile4.getRow1().get(3).getNeighbours()[1] = tile5.getRow4().get(0).getId();
+        tile4.getRow2().get(4).getNeighbours()[0] = tile5.getRow4().get(0).getId();
+        tile4.getRow2().get(4).getNeighbours()[1] = tile5.getRow5().get(0).getId();
+        tile4.getRow3().get(5).getNeighbours()[0] = tile5.getRow5().get(0).getId();
+        tile4.getRow3().get(5).getNeighbours()[1] = tile5.getRow6().get(0).getId();
+        tile4.getRow4().get(6).getNeighbours()[0] = tile5.getRow6().get(0).getId();
+
+        tile5.getRow4().get(0).getNeighbours()[4] = tile4.getRow1().get(3).getId();
+        tile5.getRow4().get(0).getNeighbours()[3] = tile4.getRow2().get(4).getId();
+        tile5.getRow5().get(0).getNeighbours()[4] = tile4.getRow2().get(4).getId();
+        tile5.getRow5().get(0).getNeighbours()[3] = tile4.getRow3().get(5).getId();
+        tile5.getRow6().get(0).getNeighbours()[4] = tile4.getRow3().get(5).getId();
+        tile5.getRow6().get(0).getNeighbours()[3] = tile4.getRow4().get(6).getId();
+        tile5.getRow7().get(0).getNeighbours()[4] = tile4.getRow4().get(6).getId();
+
+        tile5.getRow1().get(0).getNeighbours()[0] = tile6.getRow1().get(3).getId();
+        tile5.getRow1().get(1).getNeighbours()[5] = tile6.getRow1().get(3).getId();
+        tile5.getRow1().get(1).getNeighbours()[0] = tile6.getRow1().get(2).getId();
+        tile5.getRow1().get(2).getNeighbours()[5] = tile6.getRow1().get(2).getId();
+        tile5.getRow1().get(2).getNeighbours()[0] = tile6.getRow1().get(1).getId();
+        tile5.getRow1().get(3).getNeighbours()[5] = tile6.getRow1().get(1).getId();
+        tile5.getRow1().get(3).getNeighbours()[0] = tile6.getRow1().get(0).getId();
+
+        tile6.getRow1().get(0).getNeighbours()[0] = tile5.getRow1().get(3).getId();
+        tile6.getRow1().get(1).getNeighbours()[5] = tile5.getRow1().get(3).getId();
+        tile6.getRow1().get(1).getNeighbours()[0] = tile5.getRow1().get(2).getId();
+        tile6.getRow1().get(2).getNeighbours()[5] = tile5.getRow1().get(2).getId();
+        tile6.getRow1().get(2).getNeighbours()[0] = tile5.getRow1().get(1).getId();
+        tile6.getRow1().get(3).getNeighbours()[5] = tile5.getRow1().get(1).getId();
+        tile6.getRow1().get(3).getNeighbours()[0] = tile5.getRow1().get(0).getId();
+
+        tile6.getRow6().get(0).getNeighbours()[3] = tile7.getRow1().get(2).getId();
+        tile6.getRow7().get(0).getNeighbours()[4] = tile7.getRow1().get(2).getId();
+        tile6.getRow7().get(0).getNeighbours()[3] = tile7.getRow1().get(1).getId();
+        tile6.getRow7().get(0).getNeighbours()[2] = tile7.getRow1().get(0).getId();
+        tile6.getRow7().get(1).getNeighbours()[3] = tile7.getRow1().get(0).getId();
+
+        tile7.getRow1().get(0).getNeighbours()[3] = tile6.getRow7().get(1).getId();
+        tile7.getRow1().get(0).getNeighbours()[2] = tile6.getRow7().get(0).getId();
+        tile7.getRow1().get(1).getNeighbours()[3] = tile6.getRow7().get(0).getId();
+        tile7.getRow1().get(2).getNeighbours()[3] = tile6.getRow7().get(0).getId();
+        tile7.getRow1().get(2).getNeighbours()[2] = tile6.getRow6().get(1).getId();
+
         // EndTile
         endTile = new long[3];
         endTile[0]= tile7.getRow1().get(0).getId();
@@ -315,6 +412,9 @@ public class HillsOfGoldMap extends Map {
         mapTiles.add(getRandomBlockade());
         mapTiles.add(tile6);
         mapTiles.add(tile7);
+
+        // Set tile neighbours
+
     }
 
     @Override
