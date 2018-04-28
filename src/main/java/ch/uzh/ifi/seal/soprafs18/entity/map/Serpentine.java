@@ -6,7 +6,10 @@ public class Serpentine extends Map {
     private long[] startSpaces;
 
     public Serpentine(){
+        setup();
+    }
 
+    private void setup(){
         // Tile A
         MapElement tile1 = new Tile();
         tile1.setRotation(300);

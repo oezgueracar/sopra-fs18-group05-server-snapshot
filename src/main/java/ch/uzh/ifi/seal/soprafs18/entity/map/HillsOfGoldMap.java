@@ -9,7 +9,7 @@ public class HillsOfGoldMap extends Map {
         setup();
     }
 
-    public void setup(){
+    private void setup(){
         //Tile B
         MapElement tile1 = new Tile();
         tile1.setRotation(300);
