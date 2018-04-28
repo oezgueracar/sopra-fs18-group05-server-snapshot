@@ -340,13 +340,13 @@ public class Player implements Serializable {
 	//Fill the deck of the player with the starting cards as stated in the game manual.
 	private void setupCards(){
 		for(int i = 0; i < 3; i++){
-			this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"1\"", "green", 1, false));
+			this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "green", 1, false));
 		}
 
-		this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Sailor", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"1\"", "blue", 1, false));
+		this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Sailor", "blue", 1, false));
 
 		for(int i = 0; i < 4; i++){
-			this.addCardToDeck(new ExpeditionCard(1, 1.0f, "Traveler", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"1\"", "yellow", 1, false));
+			this.addCardToDeck(new ExpeditionCard(1, 1.0f, "Traveler", "yellow", 1, false));
 		}
 	}
 
