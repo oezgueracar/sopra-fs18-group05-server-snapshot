@@ -19,5 +19,13 @@ public class HillsOfGoldMapTest {
 
     @Test
     public void getStartingSpaces() {
+        HillsOfGoldMap m = new HillsOfGoldMap();
+        assertEquals(4, m.getStartingSpaces().length);
+    }
+
+    @Test
+    public void setup() {
+        HillsOfGoldMap m = new HillsOfGoldMap();
+        assertEquals(12, m.getMapTiles().size());
     }
 }

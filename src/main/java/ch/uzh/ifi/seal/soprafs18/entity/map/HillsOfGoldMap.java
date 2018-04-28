@@ -5,8 +5,11 @@ public class HillsOfGoldMap extends Map {
     private long[] endTile;
     private long[] startSpaces;
 
-    public HillsOfGoldMap(){
+    public HillsOfGoldMap() {
+        setup();
+    }
 
+    public void setup(){
         //Tile B
         MapElement tile1 = new Tile();
         tile1.setRotation(300);
