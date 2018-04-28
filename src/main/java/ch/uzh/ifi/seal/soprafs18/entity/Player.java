@@ -299,13 +299,13 @@ public class Player implements Serializable {
 	public void setMoveCounter(int i, String color){
 		switch (color.toLowerCase()){
 			case "green":
-				moveCounter[0] = moveCounter[0]+i;
+				moveCounter[0] = i;
 				break;
 			case "blue":
-				moveCounter[1] = moveCounter[1]+i;
+				moveCounter[1] = i;
 				break;
 			case "yellow":
-				moveCounter[2] = moveCounter[2]+i;
+				moveCounter[2] = i;
 				break;
 		}
 	}

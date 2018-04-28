@@ -282,28 +282,30 @@ public class GameService {
 												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-													serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue(), "green");
+													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
 													toBeMovedSpace.switchOccupied();
 												}
 											} else if (toBeMovedSpace.getColor().equals("blue")) {
 												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-													serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[1] - toBeMovedSpace.getValue(), "blue");
+													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
 													toBeMovedSpace.switchOccupied();
 												}
 											} else if (toBeMovedSpace.getColor().equals("yellow")) {
 												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
 												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-													serverSidePlayer.get().setMoveCounter(serverSidePlayer.get().getMoveCounter()[2] - toBeMovedSpace.getValue(), "yellow");
+													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
 													toBeMovedSpace.switchOccupied();
 												}
 											}
 										}
-									} else if (toBeMovedSpace.getColor().equals("grey")) {
+									}
+									else if (toBeMovedSpace.getColor().equals("grey")) {
 
-									} else if (toBeMovedSpace.getColor().equals("red")) {
+									}
+									else if (toBeMovedSpace.getColor().equals("red")) {
 
 									}
 									// else it's black or a starting space; Don't do anything.
