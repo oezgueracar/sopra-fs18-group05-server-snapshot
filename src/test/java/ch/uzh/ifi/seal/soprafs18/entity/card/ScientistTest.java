@@ -10,7 +10,7 @@ public class ScientistTest {
     @Test
     public void play() {
         Player p = new Player();
-        Card c = new Scientist(2,0.5f,"Scientist","Description");
+        Card c = new Scientist();
         p.setup();
         p.getHand().add(c);
         int i = p.getHand().size();

@@ -10,7 +10,7 @@ public class NativeTest {
     @Test
     public void play() {
         Player p = new Player();
-        Card c = new Native(2,0.5f,"Native","Description");
+        Card c = new Native();
         p.setup();
         p.getHand().add(c);
         int i = p.getHand().size();

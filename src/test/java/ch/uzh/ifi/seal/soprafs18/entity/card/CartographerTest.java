@@ -10,7 +10,7 @@ public class CartographerTest {
     @Test
     public void play() {
         Player p = new Player();
-        Card c = new Cartographer(4,0.5f,"Cartographer","Description");
+        Card c = new Cartographer();
         p.setup();
         int i = p.getHand().size();
         c.play(p);

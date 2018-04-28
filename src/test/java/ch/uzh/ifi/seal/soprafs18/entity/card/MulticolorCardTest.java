@@ -26,14 +26,14 @@ public class MulticolorCardTest {
 
     @Test
     public void setChosenColor() {
-        MulticolorCard c = new MulticolorCard(2,0.5f,"Cartographer","Description", "multicolor", 1, false);
+        MulticolorCard c = new MulticolorCard(2,0.5f,"Cartographer", "multicolor", 1, false);
         c.setChosenColor("green");
         assertEquals("green",c.getChosenColor());
     }
 
     @Test
     public void getChosenColor() {
-        MulticolorCard c = new MulticolorCard(2,0.5f,"Cartographer","Description", "multicolor", 1, false);
+        MulticolorCard c = new MulticolorCard(2,0.5f,"Cartographer", "multicolor", 1, false);
         c.setChosenColor("green");
         assertEquals("green", c.getChosenColor());
     }

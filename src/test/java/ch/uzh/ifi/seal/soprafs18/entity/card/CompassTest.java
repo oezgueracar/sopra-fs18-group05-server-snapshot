@@ -10,7 +10,7 @@ public class CompassTest {
     @Test
     public void play() {
         Player p = new Player();
-        Card c = new Compass(2,0.5f,"Cartographer","Description");
+        Card c = new Compass();
         p.setup();
         int i = p.getHand().size();
         c.play(p);

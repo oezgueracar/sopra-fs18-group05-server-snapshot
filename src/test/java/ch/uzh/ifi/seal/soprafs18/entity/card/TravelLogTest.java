@@ -10,7 +10,7 @@ public class TravelLogTest {
     @Test
     public void play() {
         Player p = new Player();
-        Card c = new TravelLog(2,0.5f,"Travel Log","Description");
+        Card c = new TravelLog();
         p.setup();
         p.getHand().add(c);
         int i = p.getHand().size();
