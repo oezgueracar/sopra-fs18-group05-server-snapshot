@@ -15,16 +15,14 @@ public class ExpeditionCard extends Card {
 	 * @param buyingCost
 	 * @param goldValue
 	 * @param cardName
-	 * @param cardDescription
 	 * @param color
 	 * @param value
 	 * @param itemCard
 	 */
-	public ExpeditionCard(float buyingCost, float goldValue, String cardName, String cardDescription, String color, int value, boolean itemCard) {
+	public ExpeditionCard(float buyingCost, float goldValue, String cardName, String color, int value, boolean itemCard) {
 		this.buyingCost = buyingCost;
 		this.goldValue = goldValue;
 		this.cardName = cardName;
-		this.cardDescription = cardDescription;
 		this.color = color;
 		this.value = value;
 		this.itemCard = itemCard;

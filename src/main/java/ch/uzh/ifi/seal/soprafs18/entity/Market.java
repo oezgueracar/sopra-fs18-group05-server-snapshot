@@ -57,22 +57,22 @@ public class Market implements Serializable {
 
         //setup openSlots
         for(int i = 0; i<3; i++){
-            scout[i] = new ExpeditionCard(1, 0.5f, "Scout", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"2\"", "green", 2, false);
+            scout[i] = new ExpeditionCard(1, 0.5f, "Scout","green", 2, false);
         }
         for(int i = 0; i<3; i++){
-            trailblazer[i] = new ExpeditionCard(3, 0.5f, "Trailblazer", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"3\"", "green", 3, false);
+            trailblazer[i] = new ExpeditionCard(3, 0.5f, "Trailblazer", "green", 3, false);
         }
         for(int i = 0; i<3; i++){
-            JackOfAllTrades[i] = new MulticolorCard(2, 0.5f, "Jack-of-all-Trades", "Allows you to move your Playing Piece to a green, yellow or blue Space by increasing your Move Counter to \"1\"", "multicolor", 1, false);
+            JackOfAllTrades[i] = new MulticolorCard(2, 0.5f, "Jack-of-all-Trades", "multicolor", 1, false);
         }
         for(int i = 0; i<3; i++){
-            photographer[i] = new ExpeditionCard(2, 2f, "Photographer", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"3\"", "yellow", 3, false);
+            photographer[i] = new ExpeditionCard(2, 2f, "Photographer", "yellow", 3, false);
         }
         for(int i = 0; i<3; i++){
-            treasureChest[i] = new ExpeditionCard(3, 4f, "Treasure Chest", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"4\"", "yellow", 4, true);
+            treasureChest[i] = new ExpeditionCard(3, 4f, "Treasure Chest", "yellow", 4, true);
         }
         for(int i = 0; i<3; i++){
-            transmitter[i] = new Transmitter(4f, 0.5f, "Transmitter,", "Choose any one card from the market (off board cards are allowed) and place it on your discard pile");
+            transmitter[i] = new Transmitter();
             };
 
         //Putting arrays in openSlots
@@ -85,40 +85,40 @@ public class Market implements Serializable {
 
         //setup closedSlots
         for(int i = 0; i<3; i++){
-            propPlane[i] = new MulticolorCard(4, 0.5f, "Prop Plane", "Allows you to move your Playing Piece to a green, yellow or blue Space by increasing your Move Counter to \"4\"", "multicolor", 4, true);
+            propPlane[i] = new MulticolorCard(4, 0.5f, "Prop Plane", "multicolor", 4, true);
         }
         for(int i = 0; i<3; i++){
-            adventurer[i] = new MulticolorCard(4, 0.5f, "Adventurer", "Allows you to move your Playing Piece to a green, yellow or blue Space by increasing your Move Counter to \"2\"", "green", 2, false);
+            adventurer[i] = new MulticolorCard(4, 0.5f, "Adventurer", "green", 2, false);
         }
         for(int i = 0; i<3; i++){
-            pioneer[i] = new ExpeditionCard(5, 0.5f, "Pioneer", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"5\"", "green", 5, false);
+            pioneer[i] = new ExpeditionCard(5, 0.5f, "Pioneer", "green", 5, false);
         }
         for(int i = 0; i<3; i++){
-            giantMachete[i] = new ExpeditionCard(3, 0.5f, "Giant Machete", "Allows you to move your Playing Piece to a green Space by increasing your Move Counter to \"6\"", "green", 6, true);
+            giantMachete[i] = new ExpeditionCard(3, 0.5f, "Giant Machete", "green", 6, true);
         }
         for(int i = 0; i<3; i++){
-            journalist[i] = new ExpeditionCard(3, 0.5f, "Journalist", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"3\"", "yellow", 3, false);
+            journalist[i] = new ExpeditionCard(3, 0.5f, "Journalist", "yellow", 3, false);
         }
         for(int i = 0; i<3; i++){
-            millionaire[i] = new ExpeditionCard(5, 4f, "Millionaire", "Allows you to move your Playing Piece to a yellow Space by increasing your Move Counter to \"4\"", "yellow", 4, false);
+            millionaire[i] = new ExpeditionCard(5, 4f, "Millionaire", "yellow", 4, false);
         }
         for(int i = 0; i<3; i++){
-            cartographer[i] = new Cartographer(4f, 0.5f, "Cartographer", "Draw 2 cards from your draw pile");
+            cartographer[i] = new Cartographer();
         }
         for(int i = 0; i<3; i++){
-            compass[i] = new Compass(2f, 0.5f, "Compass", "Draw 3 cards from your draw pile");
+            compass[i] = new Compass();
         }
         for(int i = 0; i<3; i++){
-            travelLog[i] = new TravelLog(3f, 0.5f, "Travel Log", "Draw 2 cards from your draw pile. Then choose up to 2 cards in your hand and remove them from the game");
+            travelLog[i] = new TravelLog();
         }
         for(int i = 0; i<3; i++){
-            scientist[i] = new Scientist(4f, 0.5f, "Scientist", "Draw 1 card from your draw pile. Then choose up to 1 card in your hand and remove it from the game.");
+            scientist[i] = new Scientist();
         }
         for(int i = 0; i<3; i++){
-           nativ[i] = new Native(5f, 0.5f, "Native", "Move your playing piece onto an adjacent space");
+            nativ[i] = new Native();
         }
         for(int i = 0; i<3; i++){
-            captain[i] = new ExpeditionCard(2, 0.5f, "Captain", "Allows you to move your Playing Piece to a blue Space by increasing your Move Counter to \"3\"", "blue", 3, false);
+            captain[i] = new ExpeditionCard(2, 0.5f, "Captain", "blue", 3, false);
         }
 
         //Putting arrays in closedSlots
@@ -164,7 +164,6 @@ public class Market implements Serializable {
         helpArray = openSlots.get(emptySlot);
         openSlots.set(emptySlot, closedSlots.get(chosenCards));
         closedSlots.set(chosenCards, helpArray);
-
     }
 }
 

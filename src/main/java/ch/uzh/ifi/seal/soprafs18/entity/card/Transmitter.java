@@ -8,21 +8,18 @@ public class Transmitter extends ActionCard {
 	// TODO: documentation for constructor
 	/**
 	 * Constructor for class Transmitter
-	 * @param buyingCost
-	 * @param goldValue
-	 * @param cardName
-	 * @param cardDescription
 	 */
-	public Transmitter(float buyingCost, float goldValue, String cardName, String cardDescription) {
-		this.buyingCost = buyingCost;
-		this.goldValue = goldValue;
-		this.cardName = cardName;
-		this.cardDescription = cardDescription;
+	public Transmitter() {
+		this.buyingCost = 4f;
+		this.goldValue = 0.5f;
+		this.cardName = "Transmitter";
+		this.cardDescription = "Choose any one card from the market (off board cards are allowed) and place it on your discard pile.";
 		this.id = getNewId();
 	}
 
 	public void play(Player player){
-		//TODO service has to delete the card from the market
+		// TODO: service has to delete the card from the market - item card
+		// TODO: get card from market
 		player.getHand().remove(this);
 	}
 }
