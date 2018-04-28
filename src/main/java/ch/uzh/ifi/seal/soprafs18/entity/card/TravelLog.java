@@ -5,24 +5,20 @@ import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class TravelLog extends ActionCard {
 
-	// TODO: documentation for constructor
 	/**
 	 * Constructor for class TravelLog
-	 * @param buyingCost
-	 * @param goldValue
-	 * @param cardName
-	 * @param cardDescription
 	 */
-	public TravelLog(float buyingCost, float goldValue, String cardName, String cardDescription) {
-		this.buyingCost = buyingCost;
-		this.goldValue = goldValue;
-		this.cardName = cardName;
-		this.cardDescription = cardDescription;
+	public TravelLog() {
+		this.buyingCost = 3f;
+		this.goldValue = 0.5f;
+		this.cardName = "Travel Log";
+		this.cardDescription = "Draw 2 cards from your draw pile. Then choose up to 2 cards in your hand and remove them from the game.";
 		this.id = getNewId();
 	}
 	public void play(Player player){
 		player.drawCard();
 		player.drawCard();
 		player.getHand().remove(this);
+		// TODO: remove 2 cards from the game
 	}
 }

@@ -8,16 +8,12 @@ public class Scientist extends ActionCard {
 	// TODO: documentation for constructor
 	/**
 	 * Constructor for class Scientist
-	 * @param buyingCost
-	 * @param goldValue
-	 * @param cardName
-	 * @param cardDescription
 	 */
-	public Scientist(float buyingCost, float goldValue, String cardName, String cardDescription) {
-		this.buyingCost = buyingCost;
-		this.goldValue = goldValue;
-		this.cardName = cardName;
-		this.cardDescription = cardDescription;
+	public Scientist() {
+		this.buyingCost = 4f;
+		this.goldValue = 0.5f;
+		this.cardName = "Scientist";
+		this.cardDescription = "Draw 1 card from your draw pile. Then choose up to 1 card in your hand and remove it from the game.";
 		this.id = getNewId();
 	}
 

@@ -11,14 +11,13 @@ public class MulticolorCard extends ExpeditionCard {
      * @param buyingCost
      * @param goldValue
      * @param cardName
-     * @param cardDescription
      * @param color
      * @param value
      * @param itemCard
      */
 
-    public MulticolorCard(float buyingCost, float goldValue, String cardName, String cardDescription, String color, int value, boolean itemCard){
-        super(buyingCost, goldValue, cardName, cardDescription, color, value, itemCard);
+    public MulticolorCard(float buyingCost, float goldValue, String cardName, String color, int value, boolean itemCard){
+        super(buyingCost, goldValue, cardName, color, value, itemCard);
     }
 
     @Override
