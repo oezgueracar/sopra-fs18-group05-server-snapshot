@@ -40,12 +40,19 @@ public class Tile extends MapElement {
     @Override
     public void addRow7(Space s){row7.add(s);}
     //Getter
+    @Override
     public List<Space> getRow1(){return row1;}
+    @Override
     public List<Space> getRow2(){return row2;}
+    @Override
     public List<Space> getRow3(){return row3;}
+    @Override
     public List<Space> getRow4(){return row4;}
+    @Override
     public List<Space> getRow5(){return row5;}
+    @Override
     public List<Space> getRow6(){return row6;}
+    @Override
     public List<Space> getRow7(){return row7;}
 
     public int getNextTilePos(){return nextTilePos;}

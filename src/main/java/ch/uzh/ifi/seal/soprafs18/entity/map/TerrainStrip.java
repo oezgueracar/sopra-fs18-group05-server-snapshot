@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TerrainStrip extends MapElement {
-    List<Space> row1;
-    List<Space> row2;
-    List<Space> row3;
+    private List<Space> row1;
+    private List<Space> row2;
+    private List<Space> row3;
+    private List<Space> row4;
+    private List<Space> row5;
+    private List<Space> row6;
+    private List<Space> row7;
 
     public TerrainStrip(){
         row1 = new ArrayList<>();
@@ -24,10 +28,19 @@ public class TerrainStrip extends MapElement {
     //Getter
     @Override
     public List<Space> getRow1(){return row1;}
+    @Override
     public List<Space> getRow2(){return row2;}
+    @Override
     public List<Space> getRow3(){return row3;}
     @Override
+    public List<Space> getRow4(){return null;}
+    @Override
+    public List<Space> getRow5(){return null;}
+    @Override
+    public List<Space> getRow6(){return null;}
+    @Override
     public List<Space> getRow7(){return null;}
+
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
 

@@ -3,12 +3,13 @@ package ch.uzh.ifi.seal.soprafs18.entity.map;
 import java.io.Serializable;
 
 public class Space implements Serializable {
-    private long[] neighbours;
+
     private long id;
     private String color;
     private int value;
     private boolean blockade;
     private static boolean occupied = false;
+    private long[] neighbours;
 
     public Space(String col, long spaceId, int val, boolean block){
         color=col;
