@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     Player p = new Player();
-    ExpeditionCard c = new ExpeditionCard(1f,1f,"CardName", "Description", "green", 1, true);
+    ExpeditionCard c = new ExpeditionCard(1f,1f,"CardName",  "green", 1, true);
     ArrayList<Card> testPile;
 
     /*@Test
