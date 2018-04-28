@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
 
@@ -172,6 +173,7 @@ public class Player implements Serializable {
 		return gameId;
 	}
 
+	@JsonIgnore
 	public PlayingPiece getPlayingPiece(){
 		return assignedPiece;
 	}

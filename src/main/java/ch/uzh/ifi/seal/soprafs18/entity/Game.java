@@ -11,6 +11,7 @@ import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Map;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.*;
@@ -182,6 +183,7 @@ public class Game implements Serializable {
 	}
 
 	//TODO: Bad practice, do we need that.
+	@JsonIgnore
 	public Map getMap(){
     	return assignedMap;
 	}
