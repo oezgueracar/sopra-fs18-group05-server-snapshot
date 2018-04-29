@@ -237,108 +237,113 @@ public class GameService {
 					//REMOVE THIS:
 					serverSidePlayer.get().setMoveCounter(1, "green");
 
-					//TODO: Write equals method etc. for Player class to be able to use players.indexOf()
-					//First get the Position of a Player in the games Array.
-					int positionOfPlayerInPlayers = 0;
-					for(int i = 0; i < serverSideGame.get().getPlayers().size();i++){
-						if(serverSideGame.get().getPlayer(i).getId() == serverSidePlayer.get().getId()){
-							positionOfPlayerInPlayers = i;
-						}
-					}
-					//Check first if the player whose turn it is tries to perform a move. Otherwise nothing will happen.
-					if(serverSideGame.get().getCurrentPlayer() == positionOfPlayerInPlayers){
-						//Move player if conditions allow it.
-						//First check if the player tried to move:
-						if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
-							Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece().getPosition());
-							//Then check if the Space exists & if it exists if it's already occupied by another playing piece & if it's a place that a piece can move to...
-							if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
-								//... check if the Space is the neighbour of the selected space...
-								boolean isNeighbour = false;
-								long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).getNeighbours();
-								for(long neighbourSpaceId : currentSpaceNeighbourIds){
-									if(toBeMovedSpace.getId() == neighbourSpaceId){
-										isNeighbour = true;
-										break;
-									}
-								}
-								if(isNeighbour) {
-									//... check the color of the Space...
-									if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow")) {
-										//... and if its yellow/blue/green then check if the player has enough value to move to that space and to which colour the value belongs to.
-										String playerMoveCounterColour = "";
-										if (serverSidePlayer.get().getMoveCounter()[0] != 0) {
-											playerMoveCounterColour = "green";
-										} else if (serverSidePlayer.get().getMoveCounter()[1] != 0) {
-											playerMoveCounterColour = "blue";
-										} else if (serverSidePlayer.get().getMoveCounter()[2] != 0) {
-											playerMoveCounterColour = "yellow";
-										}
+					movePiece(serverSideGame, serverSidePlayer, player);
 
-										//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
-										if (!(playerMoveCounterColour.equals("")) && toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
-											//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
-											int playerMoveCounterValue;
-											if (toBeMovedSpace.getColor().equals("green")) {
-												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
-												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-													serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
-													toBeMovedSpace.switchOccupied();
-												}
-											} else if (toBeMovedSpace.getColor().equals("blue")) {
-												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
-												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-													serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
-													toBeMovedSpace.switchOccupied();
-												}
-											} else if (toBeMovedSpace.getColor().equals("yellow")) {
-												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
-												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-													serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
-													toBeMovedSpace.switchOccupied();
-												}
-											}
-										}
-									}
-									else if (toBeMovedSpace.getColor().equals("grey")) {
-										switch (toBeMovedSpace.getValue()){
-											case 1:
-
-											case 2:
-
-											case 3:
-
-										}
-
-									}
-									else if (toBeMovedSpace.getColor().equals("red")) {
-										switch (toBeMovedSpace.getValue()){
-											case 1:
-
-											case 2:
-
-										}
-									}
-									// else it's black or a starting space; Don't do anything.
-								}
-							}
-						}
-
-						//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
-						serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
-					}
 					playerRepository.save(serverSidePlayer.get());
 					gameRepository.save(serverSideGame.get());
 					return playerRepository.save(serverSidePlayer.get());
 			}
 		}
 		return null;
+	}
+
+	private void movePiece(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
+		//TODO: Write equals method etc. for Player class to be able to use players.indexOf()
+		//First get the Position of a Player in the games Array.
+		int positionOfPlayerInPlayers = 0;
+		for(int i = 0; i < serverSideGame.get().getPlayers().size();i++){
+			if(serverSideGame.get().getPlayer(i).getId() == serverSidePlayer.get().getId()){
+				positionOfPlayerInPlayers = i;
+			}
+		}
+		//Check first if the player whose turn it is tries to perform a move. Otherwise nothing will happen.
+		if(serverSideGame.get().getCurrentPlayer() == positionOfPlayerInPlayers){
+			//Move player if conditions allow it.
+			//First check if the player tried to move:
+			if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
+				Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece().getPosition());
+				//Then check if the Space exists & if it exists if it's already occupied by another playing piece & if it's a place that a piece can move to...
+				if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
+					//... check if the Space is the neighbour of the selected space...
+					boolean isNeighbour = false;
+					long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).getNeighbours();
+					for(long neighbourSpaceId : currentSpaceNeighbourIds){
+						if(toBeMovedSpace.getId() == neighbourSpaceId){
+							isNeighbour = true;
+							break;
+						}
+					}
+					if(isNeighbour) {
+						//... check the color of the Space...
+						if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow")) {
+							//... and if its yellow/blue/green then check if the player has enough value to move to that space and to which colour the value belongs to.
+							String playerMoveCounterColour = "";
+							if (serverSidePlayer.get().getMoveCounter()[0] != 0) {
+								playerMoveCounterColour = "green";
+							} else if (serverSidePlayer.get().getMoveCounter()[1] != 0) {
+								playerMoveCounterColour = "blue";
+							} else if (serverSidePlayer.get().getMoveCounter()[2] != 0) {
+								playerMoveCounterColour = "yellow";
+							}
+
+							//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
+							if (!(playerMoveCounterColour.equals("")) && toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
+								//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
+								int playerMoveCounterValue;
+								if (toBeMovedSpace.getColor().equals("green")) {
+									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
+									if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
+										toBeMovedSpace.switchOccupied();
+									}
+								} else if (toBeMovedSpace.getColor().equals("blue")) {
+									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
+									if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+										toBeMovedSpace.switchOccupied();
+									}
+								} else if (toBeMovedSpace.getColor().equals("yellow")) {
+									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
+									if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
+										toBeMovedSpace.switchOccupied();
+									}
+								}
+							}
+						}
+						else if (toBeMovedSpace.getColor().equals("grey")) {
+							switch (toBeMovedSpace.getValue()){
+								case 1:
+
+								case 2:
+
+								case 3:
+
+							}
+
+						}
+						else if (toBeMovedSpace.getColor().equals("red")) {
+							switch (toBeMovedSpace.getValue()){
+								case 1:
+
+								case 2:
+
+							}
+						}
+						// else it's black or a starting space; Don't do anything.
+					}
+				}
+			}
+
+			//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
+			serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
+		}
 	}
 
     // TODO: changestate
