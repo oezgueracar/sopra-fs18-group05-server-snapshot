@@ -111,7 +111,7 @@ public class PlayerTest {
     /*@Test
     public void getPlayedList() {
         testPile.add(c);
-        p.addCardToPlayingList(c);
+        p.addCardToPlayedList(c);
         assertEquals(testPile, p.getPlayedList());
     }*/
 
@@ -177,7 +177,7 @@ public class PlayerTest {
     public void addCardToPlayingList() {
         p.setup();
         int testInt = p.getPlayedList().size();
-        p.addCardToPlayingList(c);
+        p.addCardToPlayedList(c);
         assertEquals(testInt, p.getPlayedList().size()-1);
     }
 
