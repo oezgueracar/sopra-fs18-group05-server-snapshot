@@ -89,11 +89,11 @@ public class TerrainStrip extends MapElement {
         }
         //Row2
         for(int i = 0; i<this.getRow2().size(); i++){
-            if(i == getRow2().size()-1)    {this.row2.get(i).getNeighbours()[0] = 0;}
+            if(i == getRow2().size()-1)  {this.row2.get(i).getNeighbours()[0] = 0;}
             else                         {this.row2.get(i).getNeighbours()[0] = this.row1.get(i).getId();}
-            if(i == getRow2().size()-1)    {this.row2.get(i).getNeighbours()[1] = 0;}
+            if(i == getRow2().size()-1)  {this.row2.get(i).getNeighbours()[1] = 0;}
             else                         {this.row2.get(i).getNeighbours()[1] = this.row2.get(i+1).getId();}
-            if(i == getRow2().size()-1)    {this.row2.get(i).getNeighbours()[2] = 0;}
+            if(i == getRow2().size()-1)  {this.row2.get(i).getNeighbours()[2] = 0;}
             else                         {this.row2.get(i).getNeighbours()[2] = this.row3.get(i).getId();}
             if(i == 0)                   {this.row2.get(i).getNeighbours()[3] = 0;}
             else                         {this.row2.get(i).getNeighbours()[3] = this.row3.get(i-1).getId();}
@@ -102,7 +102,7 @@ public class TerrainStrip extends MapElement {
             if(i == 0)  {this.row2.get(i).getNeighbours()[5] = 0;}
             else        {this.row2.get(i).getNeighbours()[5] = this.row1.get(i-1).getId();}
         }
-        //Row7
+        //Row3
         for(int i = 0; i<this.getRow3().size(); i++){
             this.row3.get(i).getNeighbours()[0] = this.row2.get(i+1).getId();
             if(i == this.getRow3().size()-1)  {this.row3.get(i).getNeighbours()[1] = 0;}
@@ -113,5 +113,6 @@ public class TerrainStrip extends MapElement {
             else        {this.row3.get(i).getNeighbours()[4] = this.row3.get(i-1).getId();}
             this.row3.get(i).getNeighbours()[5] = this.row2.get(i).getId();
         }
+
     }
 }

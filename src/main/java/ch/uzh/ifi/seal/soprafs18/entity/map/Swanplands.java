@@ -6,6 +6,10 @@ public class Swanplands extends Map {
     private long[] startSpaces;
 
     public Swanplands(){
+        setup();
+    }
+
+    private void setup(){
 
         // Tile A
         MapElement tile1 = new Tile();

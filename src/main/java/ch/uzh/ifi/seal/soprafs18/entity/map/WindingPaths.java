@@ -6,6 +6,10 @@ public class WindingPaths extends Map {
     private long[] startSpaces;
 
     public WindingPaths(){
+        setup();
+    }
+
+        private void setup(){
 
         // TileB
         MapElement tile1 = new Tile();

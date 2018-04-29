@@ -6,6 +6,10 @@ public class WitchsCauldron extends Map {
     private long[] startSpaces;
 
     public WitchsCauldron(){
+        setup();
+    }
+
+        private void setup(){
 
         //Tile A
         MapElement tile1 = new Tile();

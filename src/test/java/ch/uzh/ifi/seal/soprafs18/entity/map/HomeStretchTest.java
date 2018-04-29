@@ -6,11 +6,11 @@ import static org.junit.Assert.*;
 
 public class HomeStretchTest {
 
-    @Test
+ /*   @Test
     public void setup() {
         HomeStretch m = new HomeStretch();
         assertEquals(4,m.getStartingSpaces().length);
-    }
+    }*/
 
     @Test
     public void getEndTile() {
