@@ -5,7 +5,6 @@ import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class Scientist extends ActionCard {
 
-	// TODO: documentation for constructor
 	/**
 	 * Constructor for class Scientist
 	 */
@@ -17,9 +16,16 @@ public class Scientist extends ActionCard {
 		this.id = getNewId();
 	}
 
-	public void play(Player player){//TODO Frontend needs to send discarded card
+	/**
+	 * The card is played and removed from the hand, then it is added to the played list.
+	 * @param player the player who plays the card
+	 */
+	public void play(Player player){
 		player.drawCard();
 		player.getHand().remove(this);
 		player.getPlayedList().add(this);
+
+		// A player is allowed to remove up to 1 card from his hand by playing this card.
+		// TODO: How do we remove a card?
 	}
 }

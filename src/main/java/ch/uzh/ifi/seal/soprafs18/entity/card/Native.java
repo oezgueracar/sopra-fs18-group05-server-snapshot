@@ -17,6 +17,10 @@ public class Native extends ActionCard {
 		this.id = getNewId();
 	}
 
+	/**
+	 * The card is played and removed from the hand, then it is added to the played list.
+	 * @param player the player who plays the card
+	 */
 	public void play(Player player){//TODO service has to move the playing piece
 		player.getPlayedList().add(this);
 		player.getHand().remove(this);

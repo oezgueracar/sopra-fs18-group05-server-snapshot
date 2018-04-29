@@ -19,6 +19,9 @@ public class TravelLog extends ActionCard {
 		player.drawCard();
 		player.drawCard();
 		player.getHand().remove(this);
-		// TODO: remove 2 cards from the game
+
+		// A player is allowed to remove up to 2 cards from his hand by playing this card.
+		// TODO: How do we remove 2 cards
+
 	}
 }

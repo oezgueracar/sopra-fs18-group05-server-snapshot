@@ -5,7 +5,6 @@ import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class Transmitter extends ActionCard {
 
-	// TODO: documentation for constructor
 	/**
 	 * Constructor for class Transmitter
 	 */
@@ -17,9 +16,12 @@ public class Transmitter extends ActionCard {
 		this.id = getNewId();
 	}
 
+	/**
+	 * The card is played and removed from the hand, since it is an item card it is not added to the playedlist.
+	 * @param player the player who plays the card
+	 */
 	public void play(Player player){
-		// TODO: service has to delete the card from the market - item card
-		// TODO: get card from market
+		// TODO: Choose card from market and move it to the discard pile
 		player.getHand().remove(this);
 	}
 }
