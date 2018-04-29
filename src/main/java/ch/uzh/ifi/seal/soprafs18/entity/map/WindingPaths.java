@@ -60,10 +60,10 @@ public class WindingPaths extends Map {
         tile2.setRotation(150);
         tile2.setNextTilePos(4);
 
-        tile2	.addRow1(	new Space(	"green"	,	297	,	1	,	false));
-        tile2	.addRow1(	new Space(	"green"	,	298	,	1	,	false));
-        tile2	.addRow1(	new Space(	"green"	,	299	,	1	,	false));
-        tile2	.addRow1(	new Space(	"green"	,	300	,	1	,	false));
+        tile2	.addRow1(	new Space(	"green"	,	297	,	1	,	true));
+        tile2	.addRow1(	new Space(	"green"	,	298	,	1	,	true));
+        tile2	.addRow1(	new Space(	"green"	,	299	,	1	,	true));
+        tile2	.addRow1(	new Space(	"green"	,	300	,	1	,	true));
         tile2	.addRow2(	new Space(	"yellow"	,	301	,	1	,	false));
         tile2	.addRow2(	new Space(	"green"	,	302	,	1	,	false));
         tile2	.addRow2(	new Space(	"black"	,	303	,	0	,	false));
@@ -108,25 +108,25 @@ public class WindingPaths extends Map {
         tile3	.addRow1(	new Space(	"green"	,	186	,	1	,	false));
         tile3	.addRow1(	new Space(	"black"	,	187	,	0	,	false));
         tile3	.addRow1(	new Space(	"black"	,	188	,	0	,	false));
-        tile3	.addRow1(	new Space(	"blue"	,	189	,	1	,	false));
+        tile3	.addRow1(	new Space(	"blue"	,	189	,	1	,	true));
         tile3	.addRow2(	new Space(	"green"	,	190	,	2	,	false));
         tile3	.addRow2(	new Space(	"green"	,	191	,	1	,	false));
         tile3	.addRow2(	new Space(	"black"	,	192	,	0	,	false));
         tile3	.addRow2(	new Space(	"blue"	,	193	,	1	,	false));
-        tile3	.addRow2(	new Space(	"blue"	,	194	,	1	,	false));
+        tile3	.addRow2(	new Space(	"blue"	,	194	,	1	,	true));
         tile3	.addRow3(	new Space(	"grey"	,	195	,	1	,	false));
         tile3	.addRow3(	new Space(	"green"	,	196	,	1	,	false));
         tile3	.addRow3(	new Space(	"blue"	,	197	,	2	,	false));
         tile3	.addRow3(	new Space(	"blue"	,	198	,	3	,	false));
         tile3	.addRow3(	new Space(	"blue"	,	199	,	1	,	false));
-        tile3	.addRow3(	new Space(	"grey"	,	200	,	1	,	false));
+        tile3	.addRow3(	new Space(	"grey"	,	200	,	1	,	true));
         tile3	.addRow4(	new Space(	"grey"	,	201	,	1	,	false));
         tile3	.addRow4(	new Space(	"yellow"	,	202	,	1	,	false));
         tile3	.addRow4(	new Space(	"yellow"	,	203	,	2	,	false));
         tile3	.addRow4(	new Space(	"black"	,	204	,	0	,	false));
         tile3	.addRow4(	new Space(	"green"	,	205	,	2	,	false));
         tile3	.addRow4(	new Space(	"green"	,	206	,	1	,	false));
-        tile3	.addRow4(	new Space(	"grey"	,	207	,	1	,	false));
+        tile3	.addRow4(	new Space(	"grey"	,	207	,	1	,	true));
         tile3	.addRow5(	new Space(	"grey"	,	208	,	1	,	false));
         tile3	.addRow5(	new Space(	"yellow"	,	209	,	1	,	false));
         tile3	.addRow5(	new Space(	"grey"	,	210	,	2	,	false));
@@ -164,25 +164,25 @@ public class WindingPaths extends Map {
         tile4	.addRow3(	new Space(	"grey"	,	235	,	1	,	false));
         tile4	.addRow3(	new Space(	"yellow"	,	236	,	1	,	false));
         tile4	.addRow3(	new Space(	"green"	,	237	,	1	,	false));
-        tile4	.addRow4(	new Space(	"black"	,	238	,	0	,	false));
+        tile4	.addRow4(	new Space(	"black"	,	238	,	0	,	true));
         tile4	.addRow4(	new Space(	"black"	,	239	,	0	,	false));
         tile4	.addRow4(	new Space(	"yellow"	,	240	,	4	,	false));
         tile4	.addRow4(	new Space(	"yellow"	,	241	,	3	,	false));
         tile4	.addRow4(	new Space(	"yellow"	,	242	,	2	,	false));
         tile4	.addRow4(	new Space(	"green"	,	243	,	2	,	false));
         tile4	.addRow4(	new Space(	"red"	,	244	,	1	,	false));
-        tile4	.addRow5(	new Space(	"yellow"	,	245	,	1	,	false));
+        tile4	.addRow5(	new Space(	"yellow"	,	245	,	1	,	true));
         tile4	.addRow5(	new Space(	"yellow"	,	246	,	2	,	false));
         tile4	.addRow5(	new Space(	"yellow"	,	247	,	2	,	false));
         tile4	.addRow5(	new Space(	"grey"	,	248	,	1	,	false));
         tile4	.addRow5(	new Space(	"yellow"	,	249	,	1	,	false));
         tile4	.addRow5(	new Space(	"green"	,	250	,	1	,	false));
-        tile4	.addRow6(	new Space(	"green"	,	251	,	1	,	false));
+        tile4	.addRow6(	new Space(	"green"	,	251	,	1	,	true));
         tile4	.addRow6(	new Space(	"green"	,	252	,	2	,	false));
         tile4	.addRow6(	new Space(	"yellow"	,	253	,	1	,	false));
         tile4	.addRow6(	new Space(	"black"	,	254	,	0	,	false));
         tile4	.addRow6(	new Space(	"green"	,	255	,	1	,	false));
-        tile4	.addRow7(	new Space(	"green"	,	256	,	1	,	false));
+        tile4	.addRow7(	new Space(	"green"	,	256	,	1	,	true));
         tile4	.addRow7(	new Space(	"green"	,	257	,	1	,	false));
         tile4	.addRow7(	new Space(	"green"	,	258	,	1	,	false));
         tile4	.addRow7(	new Space(	"green"	,	259	,	1	,	false));
@@ -226,10 +226,10 @@ public class WindingPaths extends Map {
         tile5	.addRow6(	new Space(	"yellow"	,	105	,	1	,	false));
         tile5	.addRow6(	new Space(	"yellow"	,	106	,	1	,	false));
         tile5	.addRow6(	new Space(	"blue"	,	107	,	1	,	false));
-        tile5	.addRow7(	new Space(	"yellow"	,	108	,	1	,	false));
-        tile5	.addRow7(	new Space(	"yellow"	,	109	,	1	,	false));
-        tile5	.addRow7(	new Space(	"blue"	,	110	,	1	,	false));
-        tile5	.addRow7(	new Space(	"blue"	,	111	,	1	,	false));
+        tile5	.addRow7(	new Space(	"yellow"	,	108	,	1	,	true));
+        tile5	.addRow7(	new Space(	"yellow"	,	109	,	1	,	true));
+        tile5	.addRow7(	new Space(	"blue"	,	110	,	1	,	true));
+        tile5	.addRow7(	new Space(	"blue"	,	111	,	1	,	true));
 
 
 
@@ -238,10 +238,10 @@ public class WindingPaths extends Map {
         tile6.setNextTilePos(3);
         tile6.setRotation(90);
 
-        tile6	.addRow1(	new Space(	"green"	,	482	,	1	,	false));
-        tile6	.addRow1(	new Space(	"green"	,	483	,	1	,	false));
-        tile6	.addRow1(	new Space(	"green"	,	484	,	1	,	false));
-        tile6	.addRow1(	new Space(	"green"	,	485	,	1	,	false));
+        tile6	.addRow1(	new Space(	"green"	,	482	,	1	,	true));
+        tile6	.addRow1(	new Space(	"green"	,	483	,	1	,	true));
+        tile6	.addRow1(	new Space(	"green"	,	484	,	1	,	true));
+        tile6	.addRow1(	new Space(	"green"	,	485	,	1	,	true));
         tile6	.addRow2(	new Space(	"yellow"	,	486	,	1	,	false));
         tile6	.addRow2(	new Space(	"green"	,	487	,	1	,	false));
         tile6	.addRow2(	new Space(	"green"	,	488	,	2	,	false));
