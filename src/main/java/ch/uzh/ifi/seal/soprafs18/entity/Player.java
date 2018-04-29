@@ -252,6 +252,10 @@ public class Player implements Serializable {
 		deck.remove(card);
 	}
 
+	protected void addCardToHand(Card card) {
+		hand.add(card);
+	}
+
 	protected void addCardToDeck(Card card){
 		deck.add(card);
 	}
@@ -260,7 +264,7 @@ public class Player implements Serializable {
 		discardPile.add(card);
 	}
 
-	public void addCardToPlayingList(Card card){
+	protected void addCardToPlayedList(Card card){
 		playedList.add(card);
 	}
 
@@ -283,8 +287,23 @@ public class Player implements Serializable {
 	/**
 	 * Resets the discardPile (Empties the ArrayList)
 	 */
-	private void resetDiscardPile(){
+	protected void resetDiscardPile(){
 		discardPile.clear();
+	}
+
+	public void moveFromHandToPlayedList(Card c){
+			removeCardFromHand(c);
+			addCardToPlayedList(c);
+	}
+
+	public void flushPlayedList(){
+		discardPile.addAll(playedList);
+		resetPlayedList();
+	}
+
+	public void flushDiscardPile(){
+		deck.addAll(discardPile);
+		resetDiscardPile();
 	}
 
 	/**

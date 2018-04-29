@@ -4,7 +4,7 @@ import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.map.EndTile;
+import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
@@ -320,11 +320,18 @@ public class GameService {
 						else if (toBeMovedSpace.getColor().equals("grey")) {
 							switch (toBeMovedSpace.getValue()){
 								case 1:
-
+									if(serverSidePlayer.get().getHand().size() >= 1){
+										moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									}
 								case 2:
+									if(serverSidePlayer.get().getHand().size() >= 2){
+										moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									}
 
 								case 3:
-
+									if(serverSidePlayer.get().getHand().size() >= 3){
+										moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									}
 							}
 
 						}
@@ -343,6 +350,28 @@ public class GameService {
 
 			//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
 			serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
+		}
+	}
+
+	//Check the difference between the discard pile of the client side player with the server side player and get the discarded card.
+	private List<Card> getDifferenceOfDiscardPiles(Optional<Player> serverSidePlayer, Player player){
+		if((player.getHand().size() == serverSidePlayer.get().getHand().size() - 1) && (player.getDiscardPile().size() == serverSidePlayer.get().getDiscardPile().size() + 1)) {
+			List<Card> discardedCards = new ArrayList<>(player.getDiscardPile());
+			discardedCards.removeAll(serverSidePlayer.get().getDiscardPile());
+			return discardedCards;
+		}
+		return null;
+	}
+
+	private void moveCardsFromHandToPlayedList(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
+		List<Card> discardedCards = getDifferenceOfDiscardPiles(serverSidePlayer, player);
+		if(discardedCards != null){
+			for (Card c : discardedCards){
+				serverSidePlayer.get().moveFromHandToPlayedList(c);
+			}
+			serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+			serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+			toBeMovedSpace.switchOccupied();
 		}
 	}
 
