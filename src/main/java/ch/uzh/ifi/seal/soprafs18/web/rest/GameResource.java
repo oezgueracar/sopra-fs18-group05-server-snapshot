@@ -34,16 +34,6 @@ public class GameResource
     @Autowired
     private GameService gameService;
 
-    // TODO: Retrieve a list of games
-    @RequestMapping(value = CONTEXT)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Game> listGames() {
-        logger.debug("listGames");
-        return this.gameService.listGames();
-    }
-
-    // TODO: Create a game
-    // TODO: Frontend --> callback for join game after game is created
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Game addGame(@RequestBody Game game) {
@@ -56,7 +46,29 @@ public class GameResource
         }
     }
 
-    // TODO: Retrieve information of a game
+    @RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public Player addPlayer(@PathVariable Long gameId, @RequestBody Player player) {
+        logger.debug("addPlayer: " + player);
+        return this.gameService.addPlayer(gameId, player);
+    }
+
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public Game tradeinCard(@PathVariable Long gameId, @PathVariable Long playerId, @PathVariable long cardId) {
+        logger.debug("tradeInCard: " + cardId);
+        return this.gameService.tradeinCard(gameId, playerId, cardId);
+    }
+
+    @RequestMapping(value = CONTEXT)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Game> listGames() {
+        logger.debug("listGames");
+        return this.gameService.listGames();
+    }
+
     @RequestMapping(value = CONTEXT + "/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public Game getGame(@PathVariable Long gameId) {
@@ -64,16 +76,6 @@ public class GameResource
         return this.gameService.getGame(gameId);
     }
 
-	// TODO: Create player and join game
-	@RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	@ResponseBody
-	public Player addPlayer(@PathVariable Long gameId, @RequestBody Player player) {
-		logger.debug("addPlayer: " + player);
-		return this.gameService.addPlayer(gameId, player);
-	}
-
-    // TODO: Retrieve list of players in a game
     @RequestMapping(value = CONTEXT + "/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
     public List<Player> listPlayers(@PathVariable Long gameId) {
@@ -81,7 +83,6 @@ public class GameResource
         return this.gameService.listPlayers(gameId);
     }
 
-    // TODO: Retrieve information of a player
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.OK)
     public Player getPlayer(@PathVariable Long gameId, @PathVariable Long playerId) {
@@ -89,13 +90,14 @@ public class GameResource
         return this.gameService.getPlayer(gameId, playerId);
     }
 
-    /*// TODO: Start a game, initialize cards
-    @RequestMapping(value = CONTEXT + "/{gameId}/start", method = RequestMethod.PUT)
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}")
     @ResponseStatus(HttpStatus.OK)
-    public void startGame(@PathVariable Long gameId) {
-        logger.debug("startGame: " + gameId);
-        this.gameService.startGame(gameId);
-    }*/
+    @ResponseBody
+    public Game buyCard(@PathVariable Long gameId, @PathVariable Long playerId, @PathVariable long cardId) {
+        logger.debug("buyCard: " + cardId);
+        return this.gameService.buyCard(gameId, playerId, cardId);
+    }
+
 
     @RequestMapping(value = CONTEXT + "/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)

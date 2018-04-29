@@ -2,7 +2,6 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
-import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
@@ -218,14 +217,24 @@ public class Player implements Serializable {
 	 * (@throws NoSuchElementException If the hand does not contain card)
 	 */
 	// TODO: Exception throwing and handling
-	protected void sellCard(Card card) { // throws NoSuchElementException
-		if (!hand.contains(card)){
+	public void tradeinCard(long cardId) { // throws NoSuchElementException
+		Card tradedInCard = returnCardFromHandById(cardId);
+		if(tradedInCard == null){
 			// throw new NoSuchElementException("This card is not in the player's hand.");
-		}else{
-			setCoins(card.getGoldValue());
-			playedList.add(card);
-			hand.remove(card);
 		}
+		else{
+			increaseCoins(tradedInCard.getGoldValue());
+			this.moveFromHandToPlayedList(tradedInCard);
+		}
+	}
+
+	private Card returnCardFromHandById(long cardId){
+		for(Card c : this.getHand()){
+			if(c.getId() == cardId){
+				return c;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -334,7 +343,7 @@ public class Player implements Serializable {
 		moveCounter[2]=0;
 	}
 
-	protected void setCoins(float f){
+	protected void increaseCoins(float f){
 		coins += f;
 	}
 
