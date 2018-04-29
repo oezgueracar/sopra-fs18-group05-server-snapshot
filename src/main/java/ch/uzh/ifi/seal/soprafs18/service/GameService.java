@@ -155,7 +155,7 @@ public class GameService {
 					//TODO: The leaders ready status should always be true. Meaning when a new leader is set, his ready attribute should be automatically set to true.
 					//Checks first if there are at least 2 players in the room. Checks then if all players are ready. If all of them are ready and the leader pressed the Start Game button, the game will start.
 					if (serverSideGame.get().getPlayers().size() >= GameConstants.MIN_PLAYERS) {
-						Boolean allPlayersReady = true;
+						boolean allPlayersReady = true;
 						for(Player p: serverSideGame.get().getPlayers()){
 							if (p.getReady() == false){
 								allPlayersReady = false;
@@ -176,6 +176,7 @@ public class GameService {
 							for (Player p : serverSideGame.get().getPlayers()) {
 								p.setup();
 								p.getPlayingPiece().setPosition(serverSideGame.get().getMap().getStartingSpaces()[startingPositionArrayCounter++]);
+								serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition()).switchOccupied();
 								playerRepository.save(p);
 							}
 						}
@@ -184,8 +185,8 @@ public class GameService {
 				case RUNNING:
 
 					//Check if a player is in El Dorado.
-					Boolean aPlayerIsOnEndTile = false;
-                                                                                                                                                                    					for(Player p: game.getPlayers()){
+					boolean aPlayerIsOnEndTile = false;
+					for(Player p: game.getPlayers()){
 						if (p.getIsInGoal()){
 							aPlayerIsOnEndTile = true;
 						}
@@ -219,7 +220,7 @@ public class GameService {
 					serverSidePlayer.get().setReady(player.getReady());
 
 					if(player.getColor().equals("red") || player.getColor().equals("blue") || player.getColor().equals("yellow") || player.getColor().equals("white")) {
-						Boolean colorAlreadyTaken = false;
+						boolean colorAlreadyTaken = false;
 						for (Player p : serverSideGame.get().getPlayers()) {
 							if (p.getColor().equals(player.getColor())) {
 								colorAlreadyTaken = true;
@@ -253,7 +254,7 @@ public class GameService {
 							//Then check if the Space exists & if it exists if it's already occupied by another playing piece & if it's a place that a piece can move to...
 							if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
 								//... check if the Space is the neighbour of the selected space...
-								Boolean isNeighbour = false;
+								boolean isNeighbour = false;
 								long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).getNeighbours();
 								for(long neighbourSpaceId : currentSpaceNeighbourIds){
 									if(toBeMovedSpace.getId() == neighbourSpaceId){
@@ -281,6 +282,7 @@ public class GameService {
 											if (toBeMovedSpace.getColor().equals("green")) {
 												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+													serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
 													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
 													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
 													toBeMovedSpace.switchOccupied();
@@ -288,6 +290,7 @@ public class GameService {
 											} else if (toBeMovedSpace.getColor().equals("blue")) {
 												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+													serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
 													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
 													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
 													toBeMovedSpace.switchOccupied();
@@ -295,6 +298,7 @@ public class GameService {
 											} else if (toBeMovedSpace.getColor().equals("yellow")) {
 												playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
 												if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+													serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
 													serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
 													serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
 													toBeMovedSpace.switchOccupied();
@@ -303,10 +307,23 @@ public class GameService {
 										}
 									}
 									else if (toBeMovedSpace.getColor().equals("grey")) {
+										switch (toBeMovedSpace.getValue()){
+											case 1:
+
+											case 2:
+
+											case 3:
+
+										}
 
 									}
 									else if (toBeMovedSpace.getColor().equals("red")) {
+										switch (toBeMovedSpace.getValue()){
+											case 1:
 
+											case 2:
+
+										}
 									}
 									// else it's black or a starting space; Don't do anything.
 								}

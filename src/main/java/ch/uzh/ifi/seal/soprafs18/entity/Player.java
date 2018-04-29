@@ -42,10 +42,10 @@ public class Player implements Serializable {
 
 	// Is set to false in Service when creating player
 	@Column(nullable = false)
-	protected Boolean playerLeft;
+	protected boolean playerLeft;
 
 	@Column(nullable = false)
-	protected Boolean ready;
+	protected boolean ready;
 
 	// Is the amount of coins a player has in a turn
 	@Column()
@@ -53,7 +53,7 @@ public class Player implements Serializable {
 
 	// Is true if the playingPiece of the player is in an end space
 	@Column(nullable = false)
-	protected Boolean isInGoal;
+	protected boolean isInGoal;
 
     //@ManyToOne
 	//@Column(name="playersGameId", nullable = false)
@@ -123,11 +123,11 @@ public class Player implements Serializable {
 		this.name = name;
 	}
 
-	public Boolean getReady() {
+	public boolean getReady() {
 		return ready;
 	}
 
-	public void setReady(Boolean b) {
+	public void setReady(boolean b) {
 		this.ready = b;
 	}
 
@@ -153,11 +153,11 @@ public class Player implements Serializable {
 		return moveCounter;
 	}
 
-	public Boolean getPlayerLeft() {
+	public boolean getPlayerLeft() {
 		return playerLeft;
 	}
 
-	public Boolean getIsInGoal(){
+	public boolean getIsInGoal(){
 		return isInGoal;
 	}
 
@@ -191,10 +191,6 @@ public class Player implements Serializable {
 		}else{ // TODO: multiColorCard has to set its chosen color first in PlayerService before calling playCard!
 			card.play(this);
 		}
-	}
-
-	protected void move(PlayingPiece piece, Integer selectedSpaceID){
-
 	}
 
 	// TODO: precondition not valid yet
@@ -325,11 +321,11 @@ public class Player implements Serializable {
 
 	protected void resetCoins(){coins=0f;}
 
-	public void setPlayerLeft(Boolean b){
+	public void setPlayerLeft(boolean b){
 		playerLeft = b;
 	}
 
-	public void setIsInGoal(Boolean b){
+	public void setIsInGoal(boolean b){
 		isInGoal = b;
 	}
 

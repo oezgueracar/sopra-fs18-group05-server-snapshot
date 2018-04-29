@@ -8,14 +8,15 @@ public class Space implements Serializable {
     private String color;
     private int value;
     private boolean blockade;
-    private static boolean occupied = false;
+    private boolean occupied;
     private long[] neighbours;
 
     public Space(String col, long spaceId, int val, boolean block){
-        color=col;
-        id=spaceId;
-        value=val;
-        blockade=block;
+        color = col;
+        id = spaceId;
+        value = val;
+        blockade = block;
+        occupied = false;
         neighbours = new long[6];
     }
 

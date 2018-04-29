@@ -82,7 +82,7 @@ public class Game implements Serializable {
 	// Precondition: players is not null. Player does not exist in players already.
 	// Postcondition: Player is added to players.
     public void addPlayer(Player newPlayer){
-    	Boolean playerAlreadyInRoom = false;
+    	boolean playerAlreadyInRoom = false;
     	if(this.getPlayers() != null) {
 			for (Player p : this.getPlayers()) {
 				if (p.getToken().equals(newPlayer.getToken())) {
@@ -201,7 +201,7 @@ public class Game implements Serializable {
 		return this.assignedMap.getEndTile();
 	}
 
-	public Boolean endTileIdArrayCheck(long idToBeChecked){
+	public boolean endTileIdArrayCheck(long idToBeChecked){
 		boolean isTrue = false;
 		long[] tempEndTileIdArray = getMapEndTileIdArray();
 
