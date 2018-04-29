@@ -39,7 +39,7 @@ public class Card implements Serializable {
 		return goldValue;
 	}
 
-	public boolean getRemoved() {
+	public boolean checkIfItemcard() {
 		return itemCard;
 	}
 

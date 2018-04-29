@@ -268,7 +268,7 @@ public class Player implements Serializable {
 		playedList.add(card);
 	}
 
-	protected void removeCardFromHand(Card card){
+	public void removeCardFromHand(Card card){
 		hand.remove(card);
 	}
 

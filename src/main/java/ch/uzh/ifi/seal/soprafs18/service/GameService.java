@@ -338,9 +338,14 @@ public class GameService {
 						else if (toBeMovedSpace.getColor().equals("red")) {
 							switch (toBeMovedSpace.getValue()){
 								case 1:
+									if(serverSidePlayer.get().getHand().size() >= 1){
+										removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									}
 
 								case 2:
-
+									if(serverSidePlayer.get().getHand().size() >= 2){
+										removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									}
 							}
 						}
 						// else it's black or a starting space; Don't do anything.
@@ -353,25 +358,62 @@ public class GameService {
 		}
 	}
 
-	//Check the difference between the discard pile of the client side player with the server side player and get the discarded card.
-	private List<Card> getDifferenceOfDiscardPiles(Optional<Player> serverSidePlayer, Player player){
-		if((player.getHand().size() == serverSidePlayer.get().getHand().size() - 1) && (player.getDiscardPile().size() == serverSidePlayer.get().getDiscardPile().size() + 1)) {
-			List<Card> discardedCards = new ArrayList<>(player.getDiscardPile());
-			discardedCards.removeAll(serverSidePlayer.get().getDiscardPile());
+	/*
+	Helper method to move to grey spaces. Check the difference between the played pile of the client side player with the server side player &
+	if the amount of the client side players hand has been lowered by the value of the grey space
+	and if the discard pile has been increased by the value of the grey space
+	and return the cards that have been moved to the played list.
+	*/
+	private List<Card> getDifferenceOfPlayedPiles(Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
+		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
+		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) == (player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size()) && (player.getHand().size() == (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue())) && (player.getPlayedList().size() == (serverSidePlayer.get().getPlayedList().size() + toBeMovedSpace.getValue()))) {
+			List<Card> discardedCards = new ArrayList<>(player.getPlayedList());
+			discardedCards.removeAll(serverSidePlayer.get().getPlayedList());
 			return discardedCards;
 		}
 		return null;
 	}
 
+	/*
+	Helper method to move to a red space.
+	Check first if the amount of the client side players hand has been lowered by the value of the red space
+	and return the cards that have been removed from the game.
+	*/
+	private List<Card> getRemovedCards(Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
+    	if(player.getHand().size() == (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue())) {
+			List<Card> removedCards = new ArrayList<>(serverSidePlayer.get().getHand());
+			removedCards.removeAll(player.getHand());
+			return removedCards;
+		}
+    	return null;
+	}
+
+	//Helper method to move to grey spaces. Moves the played cards from the server side players hand to his played cards list.
 	private void moveCardsFromHandToPlayedList(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
-		List<Card> discardedCards = getDifferenceOfDiscardPiles(serverSidePlayer, player);
+		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player, toBeMovedSpace);
 		if(discardedCards != null){
 			for (Card c : discardedCards){
 				serverSidePlayer.get().moveFromHandToPlayedList(c);
 			}
-			serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-			serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-			toBeMovedSpace.switchOccupied();
+			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get().getPlayedList().containsAll(discardedCards))) {
+				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+				serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+				toBeMovedSpace.switchOccupied();
+			}
+		}
+	}
+
+	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
+		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
+		if(removedCards != null) {
+			for (Card c : removedCards) {
+				serverSidePlayer.get().removeCardFromHand(c);
+			}
+			if(Collections.disjoint(serverSidePlayer.get().getHand(), removedCards)) {
+				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+				serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+				toBeMovedSpace.switchOccupied();
+			}
 		}
 	}
 
