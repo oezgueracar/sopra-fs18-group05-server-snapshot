@@ -237,7 +237,7 @@ public class GameService {
 					//REMOVE THIS:
 					serverSidePlayer.get().setMoveCounter(1, "green");
 
-					movePiece(serverSideGame, serverSidePlayer, player);
+					movePlayingPiece(serverSideGame, serverSidePlayer, player);
 
 					playerRepository.save(serverSidePlayer.get());
 					gameRepository.save(serverSideGame.get());
@@ -247,7 +247,7 @@ public class GameService {
 		return null;
 	}
 
-	private void movePiece(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
+	private void movePlayingPiece(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
 		//TODO: Write equals method etc. for Player class to be able to use players.indexOf()
 		//First get the Position of a Player in the games Array.
 		int positionOfPlayerInPlayers = 0;
