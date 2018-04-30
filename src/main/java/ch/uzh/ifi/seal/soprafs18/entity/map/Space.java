@@ -7,15 +7,17 @@ public class Space implements Serializable {
     private long id;
     private String color;
     private int value;
-    private boolean blockade;
+    private boolean isFirstOnNewTile;
+    private boolean isLastSpace;
     private boolean occupied;
     private long[] neighbours;
 
-    public Space(String col, long spaceId, int val, boolean block){
+    public Space(String col, long spaceId, int val, boolean first, boolean last){
         color = col;
         id = spaceId;
         value = val;
-        blockade = block;
+        isFirstOnNewTile = first;
+        isFirstOnNewTile = last;
         occupied = false;
         neighbours = new long[6];
     }
@@ -56,8 +58,8 @@ public class Space implements Serializable {
         return occupied;
     }
 
-    public boolean getBlockade(){
-        return blockade;
+    public boolean getFirstOnNewTile(){
+        return isFirstOnNewTile;
     }
 
     public long getId(){
