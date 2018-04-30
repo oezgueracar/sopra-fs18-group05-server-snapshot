@@ -9,7 +9,7 @@ public class HomeStretch extends Map {
         setup();
     }
 
-    private void setup(){
+    private void setup(){ // IDs are Wrong but it should not matter
 
         // TileB
         MapElement tile1 = new Tile();
