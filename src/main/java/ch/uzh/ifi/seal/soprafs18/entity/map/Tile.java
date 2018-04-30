@@ -183,12 +183,13 @@ public class Tile extends MapElement {
             if(i == 0)  {this.row6.get(i).getNeighbours()[4] = 0;}
             else        {this.row6.get(i).getNeighbours()[4] = this.row6.get(i-1).getId();}
             this.row6.get(i).getNeighbours()[5] = this.row5.get(i).getId();
+
         }
         //Row7
         for(int i = 0; i<this.getRow7().size(); i++){
             this.row7.get(i).getNeighbours()[0] = this.row6.get(i+1).getId();
             if(i == this.getRow7().size()-1)  {this.row7.get(i).getNeighbours()[1] = 0;}
-            else                            {this.row7.get(i).getNeighbours()[1] = this.row7.get(i+1).getId();}
+            else                              {this.row7.get(i).getNeighbours()[1] = this.row7.get(i+1).getId();}
             this.row7.get(i).getNeighbours()[2] = 0;
             this.row7.get(i).getNeighbours()[3] = 0;
             if(i == 0)  {this.row7.get(i).getNeighbours()[4] = 0;}
