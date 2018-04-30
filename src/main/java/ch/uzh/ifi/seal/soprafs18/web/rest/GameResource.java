@@ -112,6 +112,14 @@ public class GameResource
         return this.gameService.buyCard(gameId, playerId, player);
     }
 
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Player playCard(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player, @PathVariable long cardId) {
+        logger.debug("playCard: " + cardId);
+        return this.gameService.playCard(gameId, playerId, player, cardId);
+    }
+
     // TODO: Change ready state of a player
     /*@RequestMapping(value = CONTEXT + "/{gameId}/players/{playerID}/state", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)

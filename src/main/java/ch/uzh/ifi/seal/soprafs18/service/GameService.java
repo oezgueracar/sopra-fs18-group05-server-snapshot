@@ -272,9 +272,6 @@ public class GameService {
 
 		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
 			if(isPlayersTurn(serverSideGame, serverSidePlayer)){
-				//TODO: BoughtCardId needs to be reset every turn after the player ends his turn
-				//TODO: Player coins need to be set to 0 after ending your turn
-				//TODO: Every player needs to draw cards when their turn starts until they've got 4 in their hand or until deck is empty.
 				if(serverSidePlayer.get().getBoughtCardId() == 0) {
 					serverSidePlayer.get().setBoughtCardId(player.getBoughtCardId());
 					Card boughtCard = player.returnCardFromHandById(player.getBoughtCardId());
@@ -298,6 +295,21 @@ public class GameService {
 						}
 					}
 				}
+			}
+		}
+		return null;
+	}
+
+	public Player playCard(Long gameId, Long playerId, Player player, long cardId){
+		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
+		Optional<Game> serverSideGame = gameRepository.findById(gameId);
+
+		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING) {
+			if(isPlayersTurn(serverSideGame, serverSidePlayer)) {
+
+				playerRepository.save(serverSidePlayer.get());
+				gameRepository.save(serverSideGame.get());
+				return playerRepository.save(serverSidePlayer.get());
 			}
 		}
 		return null;
