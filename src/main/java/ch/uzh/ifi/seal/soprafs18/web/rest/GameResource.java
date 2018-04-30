@@ -1,6 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.web.rest;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
+import ch.uzh.ifi.seal.soprafs18.entity.Market;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
@@ -66,6 +67,13 @@ public class GameResource
     public Game getGame(@PathVariable Long gameId) {
         logger.debug("getGame: " + gameId);
         return this.gameService.getGame(gameId);
+    }
+
+    @RequestMapping(value = CONTEXT + "/{gameId}/market")
+    @ResponseStatus(HttpStatus.OK)
+    public Market getMarket(@PathVariable Long gameId) {
+        logger.debug("getMarketOf: " + gameId);
+        return this.gameService.getGame(gameId).getMarket();
     }
 
     @RequestMapping(value = CONTEXT + "/{gameId}/players")
