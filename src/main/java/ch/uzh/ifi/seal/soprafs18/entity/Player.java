@@ -199,7 +199,7 @@ public class Player implements Serializable {
 	 *
 	 * @pre market.openSlot.contains(card) || (market.openSlots.contains(null) && market.closedSlots.contains(card))
 	 * @post (coins@pre >= card.buyingCost())
-	 * @param card the card that is bought
+	 * @param cardId the card that is bought
 	 * (@throws NoSuchElementException If the market does not contain card)
 	 */
 	public void buyCard(long cardId, Market m){
@@ -216,7 +216,7 @@ public class Player implements Serializable {
 	 *
 	 * @pre hand.contains(card)
 	 * @post (hand.size()@pre == hand.size()+1) && (playedCards.size()@pre = playedCards.size()-1) && (coins@pre == coins+card.getGoldValue())
-	 * @param card the card that is sold
+	 * @param cardId the card that is sold
 	 * (@throws NoSuchElementException If the hand does not contain card)
 	 */
 	// TODO: Exception throwing and handling
