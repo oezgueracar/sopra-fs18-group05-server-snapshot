@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
+    //TODO Setup
     Player p = new Player();
     ExpeditionCard c = new ExpeditionCard(1f,1f,"CardName",  "green", 1, true);
     ArrayList<Card> testPile;
@@ -140,13 +141,13 @@ public class PlayerTest {
     public void buyCard() {
     }
 
-    @Test
+ /*   @Test
     public void sellCard() {
         p.setup();
         p.getHand().add(c);
         p.sellCard(c);
         assertEquals(c.getGoldValue(),p.getCoins(),0f);
-    }
+    }*/
 
     @Test
     public void drawCard() {
@@ -232,22 +233,22 @@ public class PlayerTest {
         assertEquals(0, p.getMoveCounter()[0]);
     }
 
-    @Test
+   /* @Test
     public void setCoins() {
         p.setup();
         float testFloat = p.getCoins();
         p.getHand().add(c);
         p.sellCard(c);
         assertEquals(testFloat, p.getCoins()-1f,0);
-    }
+    }*/
 
-    @Test
+   /* @Test
     public void resetCoins() {
         p.setup();
         p.sellCard(c);
         p.resetCoins();
         assertEquals(0, p.getCoins(),0);
-    }
+    }*/
 
     @Test
     public void setPlayerLeft() {

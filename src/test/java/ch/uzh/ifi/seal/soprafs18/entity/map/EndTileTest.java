@@ -9,9 +9,10 @@ import static org.junit.Assert.assertEquals;
 
 public class EndTileTest {
 
+    //TODO setup
     EndTile t1 = new EndTile();
     List<Space> testRow = new ArrayList<>();
-    Space s1 = new Space("green", 1,1, false);
+    Space s1 = new Space("green", 1,1, false, false);
 
     @Test
     public void addRow1() {

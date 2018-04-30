@@ -17,7 +17,7 @@ public class Space implements Serializable {
         id = spaceId;
         value = val;
         isFirstOnNewTile = first;
-        isFirstOnNewTile = last;
+        isLastSpace = last;
         occupied = false;
         neighbours = new long[6];
     }

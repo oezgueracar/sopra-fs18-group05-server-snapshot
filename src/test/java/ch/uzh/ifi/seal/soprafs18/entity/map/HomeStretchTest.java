@@ -6,12 +6,6 @@ import static org.junit.Assert.*;
 
 public class HomeStretchTest {
 
- /*   @Test
-    public void setup() {
-        HomeStretch m = new HomeStretch();
-        assertEquals(4,m.getStartingSpaces().length);
-    }*/
-
     @Test
     public void getEndTile() {
         HomeStretch m = new HomeStretch();
@@ -21,6 +15,6 @@ public class HomeStretchTest {
     @Test
     public void getStartingSpaces() {
         HomeStretch m = new HomeStretch();
-        assertEquals(11, m.getMapTiles().size());
+        assertEquals(4, m.getStartingSpaces().length);
     }
 }
