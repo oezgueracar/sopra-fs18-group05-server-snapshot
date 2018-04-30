@@ -58,6 +58,9 @@ public class Player implements Serializable {
 	//@Column(name="playersGameId", nullable = false)
     private Long gameId; // TODO: Check if Game or Long as type
 
+	@Column()
+	protected long boughtCardId;
+
     // Contains the cards that are in the hand
 	@Type(type = "serializable")
 	@Column(name = "hand", length = Integer.MAX_VALUE - 1)
@@ -100,6 +103,7 @@ public class Player implements Serializable {
 		ready = false;
 		isInGoal = false;
 		setToken(UUID.randomUUID().toString());
+		boughtCardId = 0;
 	}
 
 	public Long getId() {
@@ -177,6 +181,14 @@ public class Player implements Serializable {
 		return assignedPiece;
 	}
 
+	public long getBoughtCardId(){
+		return boughtCardId;
+	}
+
+	public void setBoughtCardId(long boughtCardId){
+		this.boughtCardId = boughtCardId;
+	}
+
 	/**
 	 * Plays
 	 * @pre hand.contains(card)
@@ -231,7 +243,7 @@ public class Player implements Serializable {
 		}
 	}
 
-	private Card returnCardFromHandById(long cardId){
+	public Card returnCardFromHandById(long cardId){
 		for(Card c : this.getHand()){
 			if(c.getId() == cardId){
 				return c;

@@ -249,33 +249,38 @@ public class GameService {
 		return null;
 	}
 
-	public Game tradeinCard(Long gameId, Long playerId, long cardId){
+	public Player buyCard(Long gameId, Long playerId, Player player){
 		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
 		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
 			if(isPlayersTurn(serverSideGame, serverSidePlayer)){
-				serverSidePlayer.get().tradeinCard(cardId);
+				//TODO: BoughtCardId needs to be reset every turn after the player ends his turn
+				//TODO: Player coins need to be set to 0 after ending your turn
+				//TODO: Every player needs to draw cards when their turn starts until they've got 4 in their hand or until deck is empty.
+				if(serverSidePlayer.get().getBoughtCardId() == 0) {
+					serverSidePlayer.get().setBoughtCardId(player.getBoughtCardId());
+					Card boughtCard = player.returnCardFromHandById(player.getBoughtCardId());
+					if(boughtCard != null) {
+						List<Card> tradedInCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
+						if (tradedInCards != null) {
+							float sumOfTradedCards = 0;
+							for (Card c : tradedInCards) {
+								sumOfTradedCards = sumOfTradedCards + c.getGoldValue();
+							}
+							if (sumOfTradedCards >= boughtCard.getBuyingCost()) {
+								for(Card c : tradedInCards){
+									serverSidePlayer.get().tradeinCard(c.getId());
+								}
+								serverSidePlayer.get().buyCard(serverSidePlayer.get().getBoughtCardId(), serverSideGame.get().getMarket());
+							}
 
-				gameRepository.save(serverSideGame.get());
-				playerRepository.save(serverSidePlayer.get());
-				return gameRepository.save(serverSideGame.get());
-			}
-		}
-		return null;
-	}
-
-	public Game buyCard(Long gameId, Long playerId, long cardId){
-		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
-		Optional<Game> serverSideGame = gameRepository.findById(gameId);
-
-		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
-			if(isPlayersTurn(serverSideGame, serverSidePlayer)){
-				serverSidePlayer.get().buyCard(cardId, serverSideGame.get().getMarket());
-
-				gameRepository.save(serverSideGame.get());
-				playerRepository.save(serverSidePlayer.get());
-				return gameRepository.save(serverSideGame.get());
+							playerRepository.save(serverSidePlayer.get());
+							gameRepository.save(serverSideGame.get());
+							return playerRepository.save(serverSidePlayer.get());
+						}
+					}
+				}
 			}
 		}
 		return null;
@@ -393,6 +398,17 @@ public class GameService {
 			List<Card> discardedCards = new ArrayList<>(player.getPlayedList());
 			discardedCards.removeAll(serverSidePlayer.get().getPlayedList());
 			return discardedCards;
+		}
+		return null;
+	}
+
+	//Helper method to buy cards from market.
+	private List<Card> getDifferenceOfPlayedPiles(Optional<Player> serverSidePlayer, Player player){
+		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
+		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) == (player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size())) {
+			List<Card> tradedInCards = new ArrayList<>(player.getPlayedList());
+			tradedInCards.removeAll(serverSidePlayer.get().getPlayedList());
+			return tradedInCards;
 		}
 		return null;
 	}

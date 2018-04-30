@@ -54,14 +54,6 @@ public class GameResource
         return this.gameService.addPlayer(gameId, player);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public Game tradeinCard(@PathVariable Long gameId, @PathVariable Long playerId, @PathVariable long cardId) {
-        logger.debug("tradeInCard: " + cardId);
-        return this.gameService.tradeinCard(gameId, playerId, cardId);
-    }
-
     @RequestMapping(value = CONTEXT)
     @ResponseStatus(HttpStatus.OK)
     public List<Game> listGames() {
@@ -90,15 +82,6 @@ public class GameResource
         return this.gameService.getPlayer(gameId, playerId);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Game buyCard(@PathVariable Long gameId, @PathVariable Long playerId, @PathVariable long cardId) {
-        logger.debug("buyCard: " + cardId);
-        return this.gameService.buyCard(gameId, playerId, cardId);
-    }
-
-
     @RequestMapping(value = CONTEXT + "/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Game updateGame(@PathVariable Long gameId, @RequestBody Game game) {
@@ -111,6 +94,14 @@ public class GameResource
     public Player updatePlayer(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
         logger.debug("updatePlayer: " + playerId);
         return this.gameService.updatePlayer(gameId, playerId, player);
+    }
+
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Player buyCard(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
+        logger.debug("buyCard: " + player.getBoughtCardId());
+        return this.gameService.buyCard(gameId, playerId, player);
     }
 
     // TODO: Change ready state of a player
