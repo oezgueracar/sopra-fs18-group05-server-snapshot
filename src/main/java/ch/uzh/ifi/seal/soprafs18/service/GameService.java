@@ -182,21 +182,37 @@ public class GameService {
 					}
 					return gameRepository.save(serverSideGame.get());
 				case RUNNING:
-
-					//serverSideGame.get().getCurrentPlayer()
-
-					//Check if a player is in El Dorado.
-					boolean aPlayerIsOnEndTile = false;
-					for(Player p: game.getPlayers()){
-						if (p.getIsInGoal()){
-							aPlayerIsOnEndTile = true;
+					//End Turn of Player.
+					if(serverSideGame.get().getCurrentPlayer() == game.getCurrentPlayer()) {
+						List<Card> discardedCards = getDifferenceOfHand(serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()), game.getPlayer(game.getCurrentPlayer()));
+						if(discardedCards != null && discardedCards.size() != 0){
+							for(Card c : discardedCards){
+								serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).moveFromHandToDiscardPile(c);
+							}
 						}
+
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).setBoughtCardId(0);
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).resetCoins();
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).resetMoveCounter();
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).flushPlayedList();
+
+						//Check if a player is in El Dorado.
+						boolean aPlayerIsOnEndTile = false;
+						for (Player p : game.getPlayers()) {
+							if (p.getIsInGoal()) {
+								aPlayerIsOnEndTile = true;
+							}
+						}
+						//Change game to finished if a player is in El Dorado while the
+						if (aPlayerIsOnEndTile && game.getCurrentPlayer() + 1 == 0) {
+							serverSideGame.get().setStatus(GameStatus.WILL_BE_FINISHED);
+						}
+
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).drawCardOnEndTurn();
+						serverSideGame.get().changeCurrentPlayer();
+
+						return gameRepository.save(serverSideGame.get());
 					}
-					//Change game to finished if a player is in El Dorado while the
-					if (aPlayerIsOnEndTile && game.getCurrentPlayer() + 1 == 0){
-						serverSideGame.get().setStatus(GameStatus.WILL_BE_FINISHED);
-					}
-					return gameRepository.save(serverSideGame.get());
 				case WILL_BE_FINISHED:
 					if(game.getCurrentPlayer() == 0) {
 						serverSideGame.get().setStatus(GameStatus.FINISHED);
@@ -419,11 +435,11 @@ public class GameService {
 	}
 
 	//Helper method to buy cards from market.
-	private List<Card> getDifferenceOfHand(Optional<Player> serverSidePlayer, Player player){
+	private List<Card> getDifferenceOfHand(Player serverSidePlayer, Player player){
 		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
-		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) == (player.getDiscardPile().size() - serverSidePlayer.get().getDiscardPile().size())) {
+		if((serverSidePlayer.getHand().size() - player.getHand().size()) == (player.getDiscardPile().size() - serverSidePlayer.getDiscardPile().size())) {
 			List<Card> discardedCards = new ArrayList<>(player.getDiscardPile());
-			discardedCards.removeAll(serverSidePlayer.get().getDiscardPile());
+			discardedCards.removeAll(serverSidePlayer.getDiscardPile());
 			if(discardedCards.size() != 0) {
 				return discardedCards;
 			}

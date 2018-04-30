@@ -265,8 +265,7 @@ public class Player implements Serializable {
 			if (discardPile.isEmpty()){
 				return;	// throw new NoSuchElementException("No further card is available to be drawn.");
 			}else {
-				deck = new ArrayList<>(discardPile);
-				resetDiscardPile();
+				flushDiscardPile();
 			}
 		}
 		Random randomGenerator = new Random();
@@ -276,8 +275,12 @@ public class Player implements Serializable {
 		deck.remove(card);
 	}
 
-	protected void addCardToHand(Card card) {
-		hand.add(card);
+	public void drawCardOnEndTurn(){
+		if(hand != null && deck != null) {
+			while ((hand.size() <= 4) && !(deck.isEmpty())) {
+				drawCard();
+			}
+		}
 	}
 
 	protected void addCardToDeck(Card card){
@@ -320,12 +323,17 @@ public class Player implements Serializable {
 			addCardToPlayedList(c);
 	}
 
+	public void moveFromHandToDiscardPile(Card c){
+		removeCardFromHand(c);
+		addCardToDiscardPile(c);
+	}
+
 	public void flushPlayedList(){
 		discardPile.addAll(playedList);
 		resetPlayedList();
 	}
 
-	public void flushDiscardPile(){
+	private void flushDiscardPile(){
 		deck.addAll(discardPile);
 		resetDiscardPile();
 	}
@@ -352,7 +360,7 @@ public class Player implements Serializable {
 	/**
 	 * Resets the moveCounter (Empties all entries in the Array)
 	 */
-	protected void resetMoveCounter(){
+	public void resetMoveCounter(){
 		moveCounter[0]=0;
 		moveCounter[1]=0;
 		moveCounter[2]=0;
@@ -366,7 +374,7 @@ public class Player implements Serializable {
 		coins -= f;
 	}
 
-	protected void resetCoins(){coins=0f;}
+	public void resetCoins(){coins=0f;}
 
 	public void setPlayerLeft(boolean b){
 		playerLeft = b;
