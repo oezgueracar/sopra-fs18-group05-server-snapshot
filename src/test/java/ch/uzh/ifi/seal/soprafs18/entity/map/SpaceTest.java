@@ -9,7 +9,7 @@ public class SpaceTest {
     Space s = new Space("green",1,1,false);
 
     /*@Test
-    public void getBlockade() {
+    public void getFirstOnNewTile() {
         assertFalse(s.getOccupied());
     }*/
 
