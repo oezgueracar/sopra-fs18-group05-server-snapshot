@@ -147,23 +147,59 @@ public class Market implements Serializable {
         return closedSlots;
     }
 
-    //remove a Card from an Array in an ArrayList
-    void removeCard(Card[] a){
-        for(int i=0; i<a.length; i++){
-            if(a[i] == null){}
-            else{
-                a[i] = null;
-                break;
+    //Remove a Card from an Array in an ArrayList
+    public Card removeCard(long cardId){
+        for(int i = 0; i <= openSlots.size(); i++){
+            if(openSlots.get(i) != null) {
+                for (int j = 0; j < openSlots.get(i).length; j++) {
+                    if (openSlots.get(i)[j] != null && openSlots.get(i)[j].getId() == cardId) {
+                        Card toBeRemoved = openSlots.get(i)[j];
+                        openSlots.get(i)[j] = null;
+                        openSlots.set(i, returnShrunkArray(openSlots.get(i)));
+                        return toBeRemoved;
+                    }
+                }
+            }
+        }
+        for(int i = 0; i <= closedSlots.size(); i++){
+            if(closedSlots.get(i) != null) {
+                for (int j = 0; j < closedSlots.size(); j++) {
+                    if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
+                        Card toBeRemoved = closedSlots.get(i)[j];
+                        closedSlots.get(i)[j] = null;
+                        closedSlots.set(i, returnShrunkArray(closedSlots.get(i)));
+                        moveCardSlot(i);
+                        return toBeRemoved;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    //Move an array from closedSlots to first empty entry of openSlots
+    private void moveCardSlot(int chosenCardsIndex){
+        for(int i = 0; i < openSlots.size(); i++){
+            if (openSlots.get(i) == null){
+                openSlots.set(i, closedSlots.get(chosenCardsIndex));
+                closedSlots.set(chosenCardsIndex, null);
+                return;
             }
         }
     }
 
-    //move an array from closedSlots to openSlots
-    private void moveCardSlot(int emptySlot, int chosenCards){
-        Card[] helpArray;
-        helpArray = openSlots.get(emptySlot);
-        openSlots.set(emptySlot, closedSlots.get(chosenCards));
-        closedSlots.set(chosenCards, helpArray);
+    private Card[] returnShrunkArray(Card[] cardArray){
+        if((cardArray.length - 1) > 0) {
+            Card[] helperArray = new Card[cardArray.length - 1];
+            int index = 0;
+            for (int i = 0; i < cardArray.length; i++) {
+                if (cardArray[i] != null) {
+                    helperArray[index++] = cardArray[i];
+                }
+            }
+            return helperArray;
+        }
+        return null;
     }
 }
 

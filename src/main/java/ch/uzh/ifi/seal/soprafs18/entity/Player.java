@@ -202,10 +202,13 @@ public class Player implements Serializable {
 	 * @param card the card that is bought
 	 * (@throws NoSuchElementException If the market does not contain card)
 	 */
-	protected void buyCard(Card card){
-		//if (!market.getOpenSlots().contains(card)){}
+	public void buyCard(long cardId, Market m){
+		Card boughtCard = m.removeCard(cardId);
 
-
+		if(boughtCard != null && (this.getCoins() >= boughtCard.getBuyingCost())){
+			this.decreaseCoins(boughtCard.getBuyingCost());
+			this.addCardToDiscardPile(boughtCard);
+		}
 	}
 
 	/**
@@ -345,6 +348,10 @@ public class Player implements Serializable {
 
 	protected void increaseCoins(float f){
 		coins += f;
+	}
+
+	protected void decreaseCoins(float f){
+		coins -= f;
 	}
 
 	protected void resetCoins(){coins=0f;}

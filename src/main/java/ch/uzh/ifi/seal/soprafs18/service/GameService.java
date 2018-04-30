@@ -271,6 +271,7 @@ public class GameService {
 
 		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
 			if(isPlayersTurn(serverSideGame, serverSidePlayer)){
+				serverSidePlayer.get().buyCard(cardId, serverSideGame.get().getMarket());
 
 				gameRepository.save(serverSideGame.get());
 				playerRepository.save(serverSidePlayer.get());
@@ -280,7 +281,7 @@ public class GameService {
 		return null;
 	}
 
-	//Move player if conditions allow it.
+	//Move playing piece if conditions allow it.
 	private void movePlayingPiece(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
 		//First check if the player tried to move:
 		if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {

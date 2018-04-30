@@ -185,7 +185,18 @@ public class Game implements Serializable {
 	//TODO: Bad practice, do we need that.
 	@JsonIgnore
 	public Map getMap(){
-    	return assignedMap;
+    	if(assignedMap != null) {
+			return assignedMap;
+		}
+		return null;
+	}
+
+	@JsonIgnore
+	public Market getMarket() {
+    	if(assignedMarket != null) {
+			return assignedMarket;
+		}
+		return null;
 	}
 
 	//TODO: Might not be needed
