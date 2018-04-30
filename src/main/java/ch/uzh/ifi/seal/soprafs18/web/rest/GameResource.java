@@ -96,7 +96,7 @@ public class GameResource
         return this.gameService.updatePlayer(gameId, playerId, player);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/")
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Player buyCard(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
