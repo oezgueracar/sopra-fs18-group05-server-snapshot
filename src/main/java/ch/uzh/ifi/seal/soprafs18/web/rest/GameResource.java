@@ -128,14 +128,6 @@ public class GameResource
         return this.gameService.addPlayer(gameId, playerToken);
     }*/
 
-    // TODO: Update moveCounter, reachable and hand of a player
-
-    // TODO: Update current position of a player
-
-    // TODO: Update coins and hand of a player
-
-    // TODO: market
-
     // TODO: Update playedList, discardPile and status of players
 
     @ExceptionHandler
