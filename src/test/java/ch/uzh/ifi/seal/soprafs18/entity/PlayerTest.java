@@ -2,6 +2,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,16 +11,15 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    //TODO Setup
-    Player p = new Player();
-    ExpeditionCard c = new ExpeditionCard(1f,1f,"CardName",  "green", 1, true);
-    ArrayList<Card> testPile;
+    Player p;
+    ExpeditionCard c;
 
-    /*@Test
-    public void getId() {
-        p.setGameId((long) 1);
-        assertEquals(java.util.Optional.of(1),p.getId());
-    }*/
+    @Before
+    public void setUp() {
+        p = new Player();
+        c = new ExpeditionCard(1f, 1f, "CardName", "green", 1, true);
+        p.setup();
+    }
 
     @Test
     public void getToken() {
@@ -88,9 +88,10 @@ public class PlayerTest {
     }*/
 
     @Test
-    public void getMoveCounter() {
+    public void getMoveCounter() {    }
 
-    }
+    @Test
+    public void getCoins(){}
 
     @Test
     public void getPlayerLeft() {
@@ -109,12 +110,11 @@ public class PlayerTest {
         assertEquals(testPile,p.getDiscardPile());
     }*/
 
-    /*@Test
+    @Test
     public void getPlayedList() {
-        testPile.add(c);
         p.addCardToPlayedList(c);
-        assertEquals(testPile, p.getPlayedList());
-    }*/
+        assertEquals(1, p.getPlayedList().size());
+    }
 
     /*@Test
     public void getGameId() {
@@ -218,10 +218,51 @@ public class PlayerTest {
     }
 
     @Test
+    public void resetDiscardPile(){
+        p.discardPile.add(c);
+        assertEquals(1,p.getDiscardPile().size());
+        p.resetDiscardPile();
+        assertEquals(0, p.getDiscardPile().size());
+    }
+
+    @Test
+    public void moveFromHandToPlayedList(){
+        p.getHand().add(c);
+        assertEquals(1,p.getHand().size());
+        p.moveFromHandToPlayedList(c);
+        assertEquals(0, p.getHand().size());
+        assertEquals(1,p.getPlayedList().size());
+    }
+
+    @Test
+    public void moveFromHandToDiscardPile(){
+        p.getHand().add(c);
+        assertEquals(1,p.getHand().size());
+        p.moveFromHandToDiscardPile(c);
+        assertEquals(0, p.getHand().size());
+        assertEquals(1,p.getDiscardPile().size());
+    }
+
+    @Test
+    public void flushPlayedList(){
+        p.addCardToPlayedList(c);
+        assertEquals(1,p.getPlayedList().size());
+        assertEquals(0,p.getDiscardPile().size());
+        p.flushPlayedList();
+        assertEquals(0,p.getPlayedList().size());
+        assertEquals(1,p.getDiscardPile().size());
+    }
+
+
+    @Test
     public void setMoveCounter() {
         p.setup();
         int testInt= p.getMoveCounter()[0];
         p.setMoveCounter(c.getValue(), c.getColor());
+        assertEquals(testInt, p.getMoveCounter()[0]-1);
+        p.setMoveCounter(c.getValue(), "blue");
+        assertEquals(testInt, p.getMoveCounter()[0]-1);
+        p.setMoveCounter(c.getValue(), "yellow");
         assertEquals(testInt, p.getMoveCounter()[0]-1);
     }
 
