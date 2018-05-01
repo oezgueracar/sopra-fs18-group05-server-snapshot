@@ -2,6 +2,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
+import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
@@ -84,6 +85,11 @@ public class Player implements Serializable {
 	@Column(name = "playedList", length = Integer.MAX_VALUE - 1)
 	@JsonProperty
     protected List<Card> playedList;
+
+	@Type(type = "serializable")
+	@Column(name = "blockades", length = Integer.MAX_VALUE - 1)
+	@JsonProperty
+	protected List<Blockade> blockades;
 
     // Depending on the position in the ArrayList the counter is referring to the color - only one entry can be different from 0!
 	// [green, blue, yellow]
@@ -170,6 +176,10 @@ public class Player implements Serializable {
 
 	public List<Card> getPlayedList(){
 		return playedList;
+	}
+
+	public List<Blockade> getBlockades(){
+		return blockades;
 	}
 
 	public Long getGameId(){
@@ -295,6 +305,10 @@ public class Player implements Serializable {
 		playedList.add(card);
 	}
 
+	public void addBlockade(Blockade blockade){
+		this.blockades.add(blockade);
+	}
+
 	public void removeCardFromHand(Card card){
 		hand.remove(card);
 	}
@@ -416,6 +430,8 @@ public class Player implements Serializable {
 
 		// Contains the cards that were played in this turn
 		playedList = new ArrayList<>();
+
+		blockades = new ArrayList<>();
 
 		this.setupCards();
 	}
