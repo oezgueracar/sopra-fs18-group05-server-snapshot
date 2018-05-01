@@ -348,7 +348,7 @@ public class GameService {
 											if(playerMoveCounterValue >= removedBlockade.getValue()){
 												serverSidePlayer.get().addBlockade(removedBlockade);
 												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
-
+												removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 											}
 										}
 										else if (playerMoveCounterColour.equals("blue")){
@@ -356,7 +356,7 @@ public class GameService {
 											if(playerMoveCounterValue >= removedBlockade.getValue()){
 												serverSidePlayer.get().addBlockade(removedBlockade);
 												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
-
+												removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 											}
 										}
 										else { //yellow
@@ -364,7 +364,7 @@ public class GameService {
 											if(playerMoveCounterValue >= removedBlockade.getValue()){
 												serverSidePlayer.get().addBlockade(removedBlockade);
 												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
-
+												removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 											}
 										}
 									}
@@ -536,7 +536,7 @@ public class GameService {
 			}
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get().getPlayedList().containsAll(discardedCards))) {
 				serverSidePlayer.get().addBlockade(removedBlockade);
-
+				removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 			}
 		}
 	}
@@ -579,6 +579,10 @@ public class GameService {
 			}
 		}
 		return serverSideGame.get().getCurrentPlayer() == positionOfPlayerInPlayers;
+	}
+
+	private void removeBlockadeOnMap(Game serverSideGame, long playingPiecePosition){
+
 	}
 
     // TODO: changestate
