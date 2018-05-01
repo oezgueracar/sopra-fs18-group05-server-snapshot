@@ -17,4 +17,5 @@ public class HomeStretchTest {
         HomeStretch m = new HomeStretch();
         assertEquals(4, m.getStartingSpaces().length);
     }
+
 }
