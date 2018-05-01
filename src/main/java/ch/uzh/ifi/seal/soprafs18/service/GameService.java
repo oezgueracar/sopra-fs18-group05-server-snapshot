@@ -51,13 +51,16 @@ public class GameService {
     }
 
     public Game addGame(Game game) {
-    	game.getPlayer(0).setColor("red");
-		game.getPlayer(0).setReady(true);
-		game.getPlayer(0).setToken(UUID.randomUUID().toString());
-		Game serverSideGame = gameRepository.save(game);
-		serverSideGame.getPlayer(0).setGameId(serverSideGame.getId());
-		serverSideGame.setName(serverSideGame.getPlayer(0).getName() + "'s Game");
-		return gameRepository.save(serverSideGame);
+    	if(game.getPlayer(0).getName().length() < 9) {
+			game.getPlayer(0).setColor("red");
+			game.getPlayer(0).setReady(true);
+			game.getPlayer(0).setToken(UUID.randomUUID().toString());
+			Game serverSideGame = gameRepository.save(game);
+			serverSideGame.getPlayer(0).setGameId(serverSideGame.getId());
+			serverSideGame.setName(serverSideGame.getPlayer(0).getName() + "'s Game");
+			return gameRepository.save(serverSideGame);
+		}
+		return null;
     }
 
     public Game getGame(Long gameId) {
@@ -84,7 +87,7 @@ public class GameService {
 			// Add player to playerRepository
 			//TODO: How to display to frontend that a new player couldn't be added?
 			//TODO: Color setting needs to be handled here. Also leader should always have same color upon hosting a game.
-			if (game.get().getStatus() == ROOM && numberOfPlayers < GameConstants.MAX_PLAYERS){
+			if (game.get().getStatus() == ROOM && numberOfPlayers < GameConstants.MAX_PLAYERS && player.getName().length() < 9){
 				if (player.getId() == null) {
 					player.setGameId(gameId);
 
@@ -123,7 +126,7 @@ public class GameService {
 				}
 			}
 			else {
-				System.out.println("Could not join game. Game room is full or game is already running.");
+				System.out.println("Could not join game. Player name too long (Max length is 8), Game room is full or game is already running.");
 			}
 
 		}
