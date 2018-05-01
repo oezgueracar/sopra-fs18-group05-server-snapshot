@@ -132,7 +132,6 @@ public class GameService {
 		return null;
 	}
 
-	// TODO: Getplayer
 	public Player getPlayer(Long gameId, Long playerId) {
 		Optional<Game> game = gameRepository.findById(gameId);
 		Optional<Player> player = playerRepository.findById(playerId);
@@ -183,19 +182,37 @@ public class GameService {
 					}
 					return gameRepository.save(serverSideGame.get());
 				case RUNNING:
-
-					//Check if a player is in El Dorado.
-					boolean aPlayerIsOnEndTile = false;
-					for(Player p: game.getPlayers()){
-						if (p.getIsInGoal()){
-							aPlayerIsOnEndTile = true;
+					//End Turn of Player.
+					if(serverSideGame.get().getCurrentPlayer() == game.getCurrentPlayer()) {
+						List<Card> discardedCards = getDifferenceOfHand(serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()), game.getPlayer(game.getCurrentPlayer()));
+						if(discardedCards != null && discardedCards.size() != 0){
+							for(Card c : discardedCards){
+								serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).moveFromHandToDiscardPile(c);
+							}
 						}
+
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).setBoughtCardId(0);
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).resetCoins();
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).resetMoveCounter();
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).flushPlayedList();
+
+						//Check if a player is in El Dorado.
+						boolean aPlayerIsOnEndTile = false;
+						for (Player p : game.getPlayers()) {
+							if (p.getIsInGoal()) {
+								aPlayerIsOnEndTile = true;
+							}
+						}
+						//Change game to finished if a player is in El Dorado while the
+						if (aPlayerIsOnEndTile && game.getCurrentPlayer() + 1 == 0) {
+							serverSideGame.get().setStatus(GameStatus.WILL_BE_FINISHED);
+						}
+
+						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).drawCardOnEndTurn();
+						serverSideGame.get().changeCurrentPlayer();
+
+						return gameRepository.save(serverSideGame.get());
 					}
-					//Change game to finished if a player is in El Dorado while the
-					if (aPlayerIsOnEndTile && game.getCurrentPlayer() + 1 == 0){
-						serverSideGame.get().setStatus(GameStatus.WILL_BE_FINISHED);
-					}
-					return gameRepository.save(serverSideGame.get());
 				case WILL_BE_FINISHED:
 					if(game.getCurrentPlayer() == 0) {
 						serverSideGame.get().setStatus(GameStatus.FINISHED);
@@ -249,33 +266,50 @@ public class GameService {
 		return null;
 	}
 
-	public Game tradeinCard(Long gameId, Long playerId, long cardId){
+	public Player buyCard(Long gameId, Long playerId, Player player){
 		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
 		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
 			if(isPlayersTurn(serverSideGame, serverSidePlayer)){
-				serverSidePlayer.get().tradeinCard(cardId);
+				if(serverSidePlayer.get().getBoughtCardId() == 0) {
+					serverSidePlayer.get().setBoughtCardId(player.getBoughtCardId());
+					Card boughtCard = player.returnCardFromHandById(player.getBoughtCardId());
+					if(boughtCard != null) {
+						List<Card> tradedInCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
+						if (tradedInCards != null && tradedInCards.size() != 0) {
+							float sumOfTradedCards = 0;
+							for (Card c : tradedInCards) {
+								sumOfTradedCards = sumOfTradedCards + c.getGoldValue();
+							}
+							if (sumOfTradedCards >= boughtCard.getBuyingCost()) {
+								for(Card c : tradedInCards){
+									serverSidePlayer.get().tradeinCard(c.getId());
+								}
+								serverSidePlayer.get().buyCard(serverSidePlayer.get().getBoughtCardId(), serverSideGame.get().getMarket());
+							}
 
-				gameRepository.save(serverSideGame.get());
-				playerRepository.save(serverSidePlayer.get());
-				return gameRepository.save(serverSideGame.get());
+							playerRepository.save(serverSidePlayer.get());
+							gameRepository.save(serverSideGame.get());
+							return playerRepository.save(serverSidePlayer.get());
+						}
+					}
+				}
 			}
 		}
 		return null;
 	}
 
-	public Game buyCard(Long gameId, Long playerId, long cardId){
+	public Player playCard(Long gameId, Long playerId, Player player, long cardId){
 		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
-		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
-			if(isPlayersTurn(serverSideGame, serverSidePlayer)){
-				serverSidePlayer.get().buyCard(cardId, serverSideGame.get().getMarket());
+		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING) {
+			if(isPlayersTurn(serverSideGame, serverSidePlayer)) {
 
-				gameRepository.save(serverSideGame.get());
 				playerRepository.save(serverSidePlayer.get());
-				return gameRepository.save(serverSideGame.get());
+				gameRepository.save(serverSideGame.get());
+				return playerRepository.save(serverSidePlayer.get());
 			}
 		}
 		return null;
@@ -392,7 +426,35 @@ public class GameService {
 		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) == (player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size()) && (player.getHand().size() == (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue())) && (player.getPlayedList().size() == (serverSidePlayer.get().getPlayedList().size() + toBeMovedSpace.getValue()))) {
 			List<Card> discardedCards = new ArrayList<>(player.getPlayedList());
 			discardedCards.removeAll(serverSidePlayer.get().getPlayedList());
-			return discardedCards;
+			if(discardedCards.size() != 0) {
+				return discardedCards;
+			}
+		}
+		return null;
+	}
+
+	//Helper method to buy cards from market.
+	private List<Card> getDifferenceOfPlayedPiles(Optional<Player> serverSidePlayer, Player player){
+		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
+		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) == (player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size())) {
+			List<Card> tradedInCards = new ArrayList<>(player.getPlayedList());
+			tradedInCards.removeAll(serverSidePlayer.get().getPlayedList());
+			if(tradedInCards.size() != 0) {
+				return tradedInCards;
+			}
+		}
+		return null;
+	}
+
+	//Helper method to buy cards from market.
+	private List<Card> getDifferenceOfHand(Player serverSidePlayer, Player player){
+		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
+		if((serverSidePlayer.getHand().size() - player.getHand().size()) == (player.getDiscardPile().size() - serverSidePlayer.getDiscardPile().size())) {
+			List<Card> discardedCards = new ArrayList<>(player.getDiscardPile());
+			discardedCards.removeAll(serverSidePlayer.getDiscardPile());
+			if(discardedCards.size() != 0) {
+				return discardedCards;
+			}
 		}
 		return null;
 	}
@@ -406,7 +468,9 @@ public class GameService {
     	if(player.getHand().size() == (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue())) {
 			List<Card> removedCards = new ArrayList<>(serverSidePlayer.get().getHand());
 			removedCards.removeAll(player.getHand());
-			return removedCards;
+			if(removedCards.size() != 0) {
+				return removedCards;
+			}
 		}
     	return null;
 	}
@@ -414,7 +478,7 @@ public class GameService {
 	//Helper method to move to grey spaces. Moves the played cards from the server side players hand to his played cards list.
 	private void moveCardsFromHandToPlayedList(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player, toBeMovedSpace);
-		if(discardedCards != null){
+		if(discardedCards != null && discardedCards.size() != 0){
 			for (Card c : discardedCards){
 				serverSidePlayer.get().moveFromHandToPlayedList(c);
 			}
@@ -428,7 +492,7 @@ public class GameService {
 
 	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
 		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
-		if(removedCards != null) {
+		if(removedCards != null && removedCards.size() != 0) {
 			for (Card c : removedCards) {
 				serverSidePlayer.get().removeCardFromHand(c);
 			}

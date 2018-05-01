@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity.card;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Card implements Serializable {
 
@@ -50,4 +51,21 @@ public class Card implements Serializable {
 	/*public String getCardDescription() {
 		return cardDescription;
 	}*/
+
+	@Override
+	public boolean equals(Object o) {
+		// self check
+		if (this == o)
+			return true;
+		// null check
+		if (o == null)
+			return false;
+		// type check and cast
+		if (getClass() != o.getClass())
+			return false;
+		Card card = (Card) o;
+		// field comparison
+		return id == card.getId();
+	}
+
 }

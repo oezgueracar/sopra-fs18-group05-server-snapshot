@@ -58,6 +58,9 @@ public class Player implements Serializable {
 	//@Column(name="playersGameId", nullable = false)
     private Long gameId; // TODO: Check if Game or Long as type
 
+	@Column()
+	protected long boughtCardId;
+
     // Contains the cards that are in the hand
 	@Type(type = "serializable")
 	@Column(name = "hand", length = Integer.MAX_VALUE - 1)
@@ -100,6 +103,7 @@ public class Player implements Serializable {
 		ready = false;
 		isInGoal = false;
 		setToken(UUID.randomUUID().toString());
+		boughtCardId = 0;
 	}
 
 	public Long getId() {
@@ -177,6 +181,14 @@ public class Player implements Serializable {
 		return assignedPiece;
 	}
 
+	public long getBoughtCardId(){
+		return boughtCardId;
+	}
+
+	public void setBoughtCardId(long boughtCardId){
+		this.boughtCardId = boughtCardId;
+	}
+
 	/**
 	 * Plays
 	 * @pre hand.contains(card)
@@ -231,7 +243,7 @@ public class Player implements Serializable {
 		}
 	}
 
-	private Card returnCardFromHandById(long cardId){
+	public Card returnCardFromHandById(long cardId){
 		for(Card c : this.getHand()){
 			if(c.getId() == cardId){
 				return c;
@@ -253,8 +265,7 @@ public class Player implements Serializable {
 			if (discardPile.isEmpty()){
 				return;	// throw new NoSuchElementException("No further card is available to be drawn.");
 			}else {
-				deck = new ArrayList<>(discardPile);
-				resetDiscardPile();
+				flushDiscardPile();
 			}
 		}
 		Random randomGenerator = new Random();
@@ -264,8 +275,12 @@ public class Player implements Serializable {
 		deck.remove(card);
 	}
 
-	protected void addCardToHand(Card card) {
-		hand.add(card);
+	public void drawCardOnEndTurn(){
+		if(hand != null && deck != null) {
+			while ((hand.size() <= 4) && !(deck.isEmpty())) {
+				drawCard();
+			}
+		}
 	}
 
 	protected void addCardToDeck(Card card){
@@ -308,12 +323,17 @@ public class Player implements Serializable {
 			addCardToPlayedList(c);
 	}
 
+	public void moveFromHandToDiscardPile(Card c){
+		removeCardFromHand(c);
+		addCardToDiscardPile(c);
+	}
+
 	public void flushPlayedList(){
 		discardPile.addAll(playedList);
 		resetPlayedList();
 	}
 
-	public void flushDiscardPile(){
+	private void flushDiscardPile(){
 		deck.addAll(discardPile);
 		resetDiscardPile();
 	}
@@ -340,7 +360,7 @@ public class Player implements Serializable {
 	/**
 	 * Resets the moveCounter (Empties all entries in the Array)
 	 */
-	protected void resetMoveCounter(){
+	public void resetMoveCounter(){
 		moveCounter[0]=0;
 		moveCounter[1]=0;
 		moveCounter[2]=0;
@@ -354,7 +374,7 @@ public class Player implements Serializable {
 		coins -= f;
 	}
 
-	protected void resetCoins(){coins=0f;}
+	public void resetCoins(){coins=0f;}
 
 	public void setPlayerLeft(boolean b){
 		playerLeft = b;

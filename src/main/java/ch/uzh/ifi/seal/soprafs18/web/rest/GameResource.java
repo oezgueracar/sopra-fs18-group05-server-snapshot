@@ -1,6 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.web.rest;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
+import ch.uzh.ifi.seal.soprafs18.entity.Market;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
@@ -54,14 +55,6 @@ public class GameResource
         return this.gameService.addPlayer(gameId, player);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public Game tradeinCard(@PathVariable Long gameId, @PathVariable Long playerId, @PathVariable long cardId) {
-        logger.debug("tradeInCard: " + cardId);
-        return this.gameService.tradeinCard(gameId, playerId, cardId);
-    }
-
     @RequestMapping(value = CONTEXT)
     @ResponseStatus(HttpStatus.OK)
     public List<Game> listGames() {
@@ -74,6 +67,13 @@ public class GameResource
     public Game getGame(@PathVariable Long gameId) {
         logger.debug("getGame: " + gameId);
         return this.gameService.getGame(gameId);
+    }
+
+    @RequestMapping(value = CONTEXT + "/{gameId}/market")
+    @ResponseStatus(HttpStatus.OK)
+    public Market getMarket(@PathVariable Long gameId) {
+        logger.debug("getMarketOf: " + gameId);
+        return this.gameService.getGame(gameId).getMarket();
     }
 
     @RequestMapping(value = CONTEXT + "/{gameId}/players")
@@ -90,15 +90,6 @@ public class GameResource
         return this.gameService.getPlayer(gameId, playerId);
     }
 
-    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Game buyCard(@PathVariable Long gameId, @PathVariable Long playerId, @PathVariable long cardId) {
-        logger.debug("buyCard: " + cardId);
-        return this.gameService.buyCard(gameId, playerId, cardId);
-    }
-
-
     @RequestMapping(value = CONTEXT + "/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Game updateGame(@PathVariable Long gameId, @RequestBody Game game) {
@@ -113,6 +104,22 @@ public class GameResource
         return this.gameService.updatePlayer(gameId, playerId, player);
     }
 
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Player buyCard(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
+        logger.debug("buyCard: " + player.getBoughtCardId());
+        return this.gameService.buyCard(gameId, playerId, player);
+    }
+
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Player playCard(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player, @PathVariable long cardId) {
+        logger.debug("playCard: " + cardId);
+        return this.gameService.playCard(gameId, playerId, player, cardId);
+    }
+
     // TODO: Change ready state of a player
     /*@RequestMapping(value = CONTEXT + "/{gameId}/players/{playerID}/state", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
@@ -120,14 +127,6 @@ public class GameResource
         logger.debug("changeState: " + playerToken);
         return this.gameService.addPlayer(gameId, playerToken);
     }*/
-
-    // TODO: Update moveCounter, reachable and hand of a player
-
-    // TODO: Update current position of a player
-
-    // TODO: Update coins and hand of a player
-
-    // TODO: market
 
     // TODO: Update playedList, discardPile and status of players
 

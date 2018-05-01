@@ -204,7 +204,7 @@ public class Game implements Serializable {
     	return players.get(index);
 	}
 
-	public long getCurrentPlayer(){
+	public int getCurrentPlayer(){
 		return currentPlayer;
 	}
 
