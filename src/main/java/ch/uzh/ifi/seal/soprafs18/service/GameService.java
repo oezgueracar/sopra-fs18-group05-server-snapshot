@@ -582,7 +582,23 @@ public class GameService {
 	}
 
 	private void removeBlockadeOnMap(Game serverSideGame, long playingPiecePosition){
-
+		ArrayList<Space> toBeUpdatedSpaces = new ArrayList<>();
+		toBeUpdatedSpaces.add(serverSideGame.getMap().getSpace(playingPiecePosition));
+		while(toBeUpdatedSpaces.size() != 0){
+			ArrayList<Space> tempToBeUpdatedSpaces = new ArrayList<>();
+			for (Space s : toBeUpdatedSpaces){
+				s.removeBlockadeStatus();
+				long[] neighbourIds = s.getNeighbours();
+				for(int i = 0; i < neighbourIds.length; i++){
+					Space tempSpace = serverSideGame.getMap().getSpace(neighbourIds[i]);
+					if(tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile()){
+						tempToBeUpdatedSpaces.add(tempSpace);
+					}
+				}
+				toBeUpdatedSpaces.remove(s);
+			}
+			toBeUpdatedSpaces = tempToBeUpdatedSpaces;
+		}
 	}
 
     // TODO: changestate

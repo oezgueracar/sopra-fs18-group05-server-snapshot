@@ -26,12 +26,13 @@ public class Space implements Serializable {
         occupied = !occupied;
     }
 
-    public void switchIsLastSpace(){
-        isLastSpace = !isLastSpace;
-    }
-
-    public void switchIsFirstOnNewTile(){
-        isFirstOnNewTile = !isFirstOnNewTile;
+    public void removeBlockadeStatus(){
+        if(isFirstOnNewTile){
+            isFirstOnNewTile = !isFirstOnNewTile;
+        }
+        else if (isLastSpace){
+            isLastSpace = !isLastSpace;
+        }
     }
 
 /*    public void setNeighbours(Space n1, Space n2, Space n3, Space n4, Space n5, Space n6){
