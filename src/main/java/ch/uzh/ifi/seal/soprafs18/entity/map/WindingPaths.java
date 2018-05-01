@@ -186,8 +186,6 @@ public class WindingPaths extends Map {
             tile4	.addRow7(	new Space(	"green"	,	257	,	1	,	false,	false));
             tile4	.addRow7(	new Space(	"green"	,	258	,	1	,	false,	false));
             tile4	.addRow7(	new Space(	"green"	,	259	,	1	,	false,	false));
-            tile4	.addRow1(	new Space(	"blue"	,	260	,	1	,	false,	false));
-
 
 
             // Tile C

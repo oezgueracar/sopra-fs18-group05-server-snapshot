@@ -228,7 +228,7 @@ public class Serpentine extends Map {
         tile5	.addRow7(	new Space(	"yellow"	,	367	,	1	,	false,	false));
         tile5	.addRow7(	new Space(	"yellow"	,	368	,	1	,	false,	false));
         tile5	.addRow7(	new Space(	"yellow"	,	369	,	1	,	false,	false));
-        tile2	.addRow7(	new Space(	"grey"	,	370	,	2	,	false,	false));
+        tile5	.addRow7(	new Space(	"grey"	,	370	,	2	,	false,	false));
 
 
 

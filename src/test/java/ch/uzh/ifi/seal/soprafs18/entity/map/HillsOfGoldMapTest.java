@@ -6,31 +6,31 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class HillsOfGoldMapTest{
+    HillsOfGoldMap m;
 
+    @Before
+    public void setUO(){
+        m = new HillsOfGoldMap();
+    }
     @Test
     public void getEndTile() {
-        HillsOfGoldMap m = new HillsOfGoldMap();
         assertEquals(3, m.getEndTile().length);
     }
 
     @Test
     public void getStartingSpaces() {
-        HillsOfGoldMap m = new HillsOfGoldMap();
         assertEquals(4, m.getStartingSpaces().length);
     }
 
     @Test
     public void getMapTiles(){
-        HillsOfGoldMap m = new HillsOfGoldMap();
         //Testing if all MapElements are there
         assertEquals(12, m.getMapTiles().size());
     }
 
     @Test
     public void setup() {
-        HillsOfGoldMap m = new HillsOfGoldMap();
         //Testing rows of tiles
-
         for(int i=0;i<m.getMapTiles().size();i++){
             if(m.getMapTiles().get(i) instanceof Tile){
                 assertEquals(4,m.getMapTiles().get(i).getRow1().size());
