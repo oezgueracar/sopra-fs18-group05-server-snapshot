@@ -153,7 +153,7 @@ public class Market implements Serializable {
 
     //Remove a Card from an Array in an ArrayList
     public Card removeCard(long cardId){
-        for(int i = 0; i <= openSlots.size(); i++){
+        for(int i = 0; i < openSlots.size(); i++){
             if(openSlots.get(i) != null) {
                 for (int j = 0; j < openSlots.get(i).length; j++) {
                     if (openSlots.get(i)[j] != null && openSlots.get(i)[j].getId() == cardId) {
@@ -165,7 +165,7 @@ public class Market implements Serializable {
                 }
             }
         }
-        for(int i = 0; i <= closedSlots.size(); i++){
+        for(int i = 0; i < closedSlots.size(); i++){
             if(closedSlots.get(i) != null) {
                 for (int j = 0; j < closedSlots.size(); j++) {
                     if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
