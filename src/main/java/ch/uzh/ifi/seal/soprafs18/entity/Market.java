@@ -33,6 +33,10 @@ public class Market implements Serializable {
 
 
     public Market(){
+        setup();
+    }
+
+    private void setup(){
         openSlots = new ArrayList<>();
         scout = new Card[3];
         trailblazer = new Card[3];
