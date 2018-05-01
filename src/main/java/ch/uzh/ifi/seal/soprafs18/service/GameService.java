@@ -335,121 +335,121 @@ public class GameService {
 						break;
 					}
 				}
-				if(isNeighbour) {
-					//If Blockade exists
-					if(serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).isLastSpace()) {
-						if(serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null && serverSidePlayer.get().getBlockades().size() < player.getBlockades().size()){
-							Blockade removedBlockade = getDifferenceOfBlockades(serverSidePlayer, player);
+				if(isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
+					//... check the color of the Space...
+					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow")) {
+						//... and if its yellow/blue/green then check if the player has enough value to move to that space and to which colour the value belongs to.
+						String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
 
-							if(removedBlockade != null) {
-								if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue") ||removedBlockade.getColor().equals("yellow")) {
-									String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
-									if(playerMoveCounterColour.equals(removedBlockade.getColor())){
-										int playerMoveCounterValue;
-										if (playerMoveCounterColour.equals("green")){
-											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
-											if(playerMoveCounterValue >= removedBlockade.getValue()){
-												serverSidePlayer.get().addBlockade(removedBlockade);
-												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
-												removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
-											}
-										}
-										else if (playerMoveCounterColour.equals("blue")){
-											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
-											if(playerMoveCounterValue >= removedBlockade.getValue()){
-												serverSidePlayer.get().addBlockade(removedBlockade);
-												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
-												removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
-											}
-										}
-										else { //yellow
-											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
-											if(playerMoveCounterValue >= removedBlockade.getValue()){
-												serverSidePlayer.get().addBlockade(removedBlockade);
-												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
-												removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
-											}
-										}
-									}
+						//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
+						if (playerMoveCounterColour != null && toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
+							//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
+							int playerMoveCounterValue;
+							if (toBeMovedSpace.getColor().equals("green")) {
+								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
+								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+									serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+									serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
+									toBeMovedSpace.switchOccupied();
 								}
-								else { //grey
-									switch(removedBlockade.getValue()) {
-										case 1:
-											moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 1);
-										case 2:
-											moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 2);
-									}
+							} else if (toBeMovedSpace.getColor().equals("blue")) {
+								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
+								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+									serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+									serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+									toBeMovedSpace.switchOccupied();
+								}
+							} else if (toBeMovedSpace.getColor().equals("yellow")) {
+								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
+								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
+									serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+									serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
+									toBeMovedSpace.switchOccupied();
 								}
 							}
+						}
+					} else if (toBeMovedSpace.getColor().equals("grey")) {
+						switch (toBeMovedSpace.getValue()) {
+							case 1:
+								if (serverSidePlayer.get().getHand().size() >= 1) {
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 1);
+								}
+							case 2:
+								if (serverSidePlayer.get().getHand().size() >= 2) {
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 2);
+								}
+
+							case 3:
+								if (serverSidePlayer.get().getHand().size() >= 3) {
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 3);
+								}
+						}
+
+					} else if (toBeMovedSpace.getColor().equals("red")) {
+						switch (toBeMovedSpace.getValue()) {
+							case 1:
+								if (serverSidePlayer.get().getHand().size() >= 1) {
+									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+								}
+
+							case 2:
+								if (serverSidePlayer.get().getHand().size() >= 2) {
+									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+								}
 						}
 					}
-					else {
-						//... check the color of the Space...
-						if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow")) {
-							//... and if its yellow/blue/green then check if the player has enough value to move to that space and to which colour the value belongs to.
-							String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
+					// else it's black or a starting space; Don't do anything.
+				}
+			}
+		}
+		else {
+			//If Blockade exists and player is next to the blockade
+			if(serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).isLastSpace()) {
+				if(serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null && serverSidePlayer.get().getBlockades().size() < player.getBlockades().size()){
+					Blockade removedBlockade = getDifferenceOfBlockades(serverSidePlayer, player);
 
-							//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
-							if (playerMoveCounterColour != null && toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
-								//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
+					if(removedBlockade != null) {
+						if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue") ||removedBlockade.getColor().equals("yellow")) {
+							String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
+							if(playerMoveCounterColour.equals(removedBlockade.getColor())){
 								int playerMoveCounterValue;
-								if (toBeMovedSpace.getColor().equals("green")) {
+								if (playerMoveCounterColour.equals("green")){
 									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
-									if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
-										toBeMovedSpace.switchOccupied();
+									if(playerMoveCounterValue >= removedBlockade.getValue()){
+										serverSidePlayer.get().addBlockade(removedBlockade);
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - removedBlockade.getValue()), "green");
+										removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 									}
-								} else if (toBeMovedSpace.getColor().equals("blue")) {
+								}
+								else if (playerMoveCounterColour.equals("blue")){
 									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
-									if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
-										toBeMovedSpace.switchOccupied();
+									if(playerMoveCounterValue >= removedBlockade.getValue()){
+										serverSidePlayer.get().addBlockade(removedBlockade);
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - removedBlockade.getValue()), "blue");
+										removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 									}
-								} else if (toBeMovedSpace.getColor().equals("yellow")) {
+								}
+								else { //yellow
 									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
-									if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
-										toBeMovedSpace.switchOccupied();
+									if(playerMoveCounterValue >= removedBlockade.getValue()){
+										serverSidePlayer.get().addBlockade(removedBlockade);
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - removedBlockade.getValue()), "yellow");
+										removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 									}
 								}
 							}
-						} else if (toBeMovedSpace.getColor().equals("grey")) {
-							switch (toBeMovedSpace.getValue()) {
+						}
+						else { //grey
+							switch(removedBlockade.getValue()) {
 								case 1:
-									if (serverSidePlayer.get().getHand().size() >= 1) {
-										moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 1);
-									}
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 1);
 								case 2:
-									if (serverSidePlayer.get().getHand().size() >= 2) {
-										moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 2);
-									}
-
-								case 3:
-									if (serverSidePlayer.get().getHand().size() >= 3) {
-										moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 3);
-									}
-							}
-
-						} else if (toBeMovedSpace.getColor().equals("red")) {
-							switch (toBeMovedSpace.getValue()) {
-								case 1:
-									if (serverSidePlayer.get().getHand().size() >= 1) {
-										removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
-									}
-
-								case 2:
-									if (serverSidePlayer.get().getHand().size() >= 2) {
-										removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
-									}
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 2);
 							}
 						}
-						// else it's black or a starting space; Don't do anything.
 					}
 				}
 			}
