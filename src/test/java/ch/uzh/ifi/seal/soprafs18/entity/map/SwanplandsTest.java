@@ -1,6 +1,5 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-import com.sun.xml.internal.bind.v2.runtime.SwaRefAdapterMarker;
 import org.junit.Before;
 import org.junit.Test;
 
