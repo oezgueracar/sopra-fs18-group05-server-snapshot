@@ -195,6 +195,17 @@ public class Player implements Serializable {
 		return boughtCardId;
 	}
 
+	public String getMoveCounterColor(){
+		if (this.getMoveCounter()[0] != 0) {
+			return "green";
+		} else if (this.getMoveCounter()[1] != 0) {
+			return "blue";
+		} else if (this.getMoveCounter()[2] != 0) {
+			return "yellow";
+		}
+		return null;
+	}
+
 	public void setBoughtCardId(long boughtCardId){
 		this.boughtCardId = boughtCardId;
 	}

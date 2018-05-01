@@ -38,4 +38,19 @@ public class Blockade extends MapElement {
     @Override
     public List<Space> getRow7(){return null;}
 
+    @Override
+    public boolean equals(Object o) {
+        // self check
+        if (this == o)
+            return true;
+        // null check
+        if (o == null)
+            return false;
+        // type check and cast
+        if (getClass() != o.getClass())
+            return false;
+        Blockade blockade = (Blockade) o;
+        // field comparison
+        return (color.equals(blockade.getColor()) && value == blockade.getValue());
+    }
 }

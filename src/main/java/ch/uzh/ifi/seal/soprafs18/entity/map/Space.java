@@ -62,6 +62,10 @@ public class Space implements Serializable {
         return isFirstOnNewTile;
     }
 
+    public boolean isLastSpace() {
+        return isLastSpace;
+    }
+
     public long getId(){
         return id;
     }
