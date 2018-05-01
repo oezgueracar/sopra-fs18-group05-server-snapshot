@@ -90,6 +90,7 @@ public class GameResource
         return this.gameService.getPlayer(gameId, playerId);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Game updateGame(@PathVariable Long gameId, @RequestBody Game game) {
@@ -97,6 +98,7 @@ public class GameResource
         return this.gameService.updateGame(gameId, game);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Player updatePlayer(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
@@ -104,6 +106,7 @@ public class GameResource
         return this.gameService.updatePlayer(gameId, playerId, player);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -112,6 +115,7 @@ public class GameResource
         return this.gameService.buyCard(gameId, playerId, player);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
