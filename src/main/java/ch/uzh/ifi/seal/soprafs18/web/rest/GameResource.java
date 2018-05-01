@@ -99,6 +99,7 @@ public class GameResource
 
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin("http://localhost:8080")
     public Player updatePlayer(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
         logger.debug("updatePlayer: " + playerId);
         return this.gameService.updatePlayer(gameId, playerId, player);
