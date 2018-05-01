@@ -334,7 +334,7 @@ public class GameService {
 				}
 				if(isNeighbour) {
 					//If Blockade exists
-					if(toBeMovedSpace.getFirstOnNewTile() && serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).isLastSpace()) {
+					if(serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).isLastSpace()) {
 						if(serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null && serverSidePlayer.get().getBlockades().size() < player.getBlockades().size()){
 							Blockade removedBlockade = getDifferenceOfBlockades(serverSidePlayer, player);
 
@@ -345,20 +345,37 @@ public class GameService {
 										int playerMoveCounterValue;
 										if (playerMoveCounterColour.equals("green")){
 											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
+											if(playerMoveCounterValue >= removedBlockade.getValue()){
+												serverSidePlayer.get().addBlockade(removedBlockade);
+												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
+
+											}
 										}
 										else if (playerMoveCounterColour.equals("blue")){
 											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
+											if(playerMoveCounterValue >= removedBlockade.getValue()){
+												serverSidePlayer.get().addBlockade(removedBlockade);
+												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+
+											}
 										}
 										else { //yellow
 											playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
-										}
-										if(playerMoveCounterValue >= removedBlockade.getValue()){
-											serverSidePlayer.get().addBlockade(removedBlockade);
+											if(playerMoveCounterValue >= removedBlockade.getValue()){
+												serverSidePlayer.get().addBlockade(removedBlockade);
+												serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
+
+											}
 										}
 									}
 								}
 								else { //grey
-
+									switch(removedBlockade.getValue()) {
+										case 1:
+											moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 1);
+										case 2:
+											moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 2);
+									}
 								}
 							}
 						}
@@ -508,6 +525,20 @@ public class GameService {
 			return removedBlockade;
 		}
 		return null;
+	}
+
+	//Helper method to remove a grey blockade. Moves the played cards from the server side players hand to his played cards list.
+	private void moveCardsFromHandToPlayedList(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Blockade removedBlockade, int amountOfDiscardedCards){
+		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
+		if(discardedCards != null && discardedCards.size() == amountOfDiscardedCards){
+			for (Card c : discardedCards){
+				serverSidePlayer.get().moveFromHandToPlayedList(c);
+			}
+			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get().getPlayedList().containsAll(discardedCards))) {
+				serverSidePlayer.get().addBlockade(removedBlockade);
+
+			}
+		}
 	}
 
 	//Helper method to move to grey spaces. Moves the played cards from the server side players hand to his played cards list.
