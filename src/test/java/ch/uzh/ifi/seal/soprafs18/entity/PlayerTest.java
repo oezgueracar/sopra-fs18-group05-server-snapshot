@@ -136,9 +136,6 @@ public class PlayerTest {
         assertEquals(1,p.getHand().size());
         p.playCard(c);
         assertEquals(0, p.getHand().size());
-
-
-
     }
 
     @Test
