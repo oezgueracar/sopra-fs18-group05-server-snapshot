@@ -19,25 +19,25 @@ public class Swanplands extends Map {
         tile1	.addRow1(	new Space(	"green"	,	1	,	1	,	false,	false));
         tile1	.addRow1(	new Space(	"red"	,	2	,	1	,	false,	false));
         tile1	.addRow1(	new Space(	"green"	,	3	,	1	,	false,	false));
-        tile1	.addRow1(	new Space(	"green"	,	4	,	1	,	false,	false));
+        tile1	.addRow1(	new Space(	"green"	,	4	,	1	,	false,	true));
         tile1	.addRow2(	new Space(	"blue"	,	5	,	1	,	false,	false));
         tile1	.addRow2(	new Space(	"black"	,	6	,	0	,	false,	false));
         tile1	.addRow2(	new Space(	"green"	,	7	,	1	,	false,	false));
         tile1	.addRow2(	new Space(	"green"	,	8	,	1	,	false,	false));
-        tile1	.addRow2(	new Space(	"yellow"	,	9	,	1	,	false,	false));
+        tile1	.addRow2(	new Space(	"yellow"	,	9	,	1	,	false,	true));
         tile1	.addRow3(	new Space(	"green"	,	10	,	1	,	false,	false));
         tile1	.addRow3(	new Space(	"black"	,	11	,	0	,	false,	false));
         tile1	.addRow3(	new Space(	"yellow"	,	12	,	1	,	false,	false));
         tile1	.addRow3(	new Space(	"green"	,	13	,	1	,	false,	false));
         tile1	.addRow3(	new Space(	"green"	,	14	,	1	,	false,	false));
-        tile1	.addRow3(	new Space(	"green"	,	15	,	1	,	false,	false));
+        tile1	.addRow3(	new Space(	"green"	,	15	,	1	,	false,	true));
         tile1	.addRow4(	new Space(	"green"	,	16	,	1	,	false,	false));
         tile1	.addRow4(	new Space(	"yellow"	,	17	,	1	,	false,	false));
         tile1	.addRow4(	new Space(	"green"	,	18	,	1	,	false,	false));
         tile1	.addRow4(	new Space(	"blue"	,	19	,	1	,	false,	false));
         tile1	.addRow4(	new Space(	"green"	,	20	,	1	,	false,	false));
         tile1	.addRow4(	new Space(	"yellow"	,	21	,	1	,	false,	false));
-        tile1	.addRow4(	new Space(	"green"	,	22	,	1	,	false,	false));
+        tile1	.addRow4(	new Space(	"green"	,	22	,	1	,	false,	true));
         tile1	.addRow5(	new Space(	"green"	,	23	,	1	,	false,	false));
         tile1	.addRow5(	new Space(	"green"	,	24	,	1	,	false,	false));
         tile1	.addRow5(	new Space(	"yellow"	,	25	,	1	,	false,	false));
@@ -61,22 +61,22 @@ public class Swanplands extends Map {
         tile2.setNextTilePos(6);
         tile2.setRotation(270);
 
-        tile2	.addRow1(	new Space(	"green"	,	567	,	1	,	false,	false));
-        tile2	.addRow1(	new Space(	"green"	,	568	,	1	,	false,	false));
-        tile2	.addRow1(	new Space(	"black"	,	569	,	0	,	false,	false));
-        tile2	.addRow1(	new Space(	"yellow"	,	570	,	1	,	false,	false));
-        tile2	.addRow1(	new Space(	"yellow"	,	571	,	1	,	false,	false));
+        tile2	.addRow1(	new Space(	"green"	,	567	,	1	,	false,	true));
+        tile2	.addRow1(	new Space(	"green"	,	568	,	1	,	false,	true));
+        tile2	.addRow1(	new Space(	"black"	,	569	,	0	,	false,	true));
+        tile2	.addRow1(	new Space(	"yellow"	,	570	,	1	,	false,	true));
+        tile2	.addRow1(	new Space(	"yellow"	,	571	,	1	,	false,	true));
         tile2	.addRow2(	new Space(	"green"	,	572	,	1	,	false,	false));
         tile2	.addRow2(	new Space(	"green"	,	573	,	3	,	false,	false));
         tile2	.addRow2(	new Space(	"black"	,	574	,	0	,	false,	false));
         tile2	.addRow2(	new Space(	"yellow"	,	575	,	1	,	false,	false));
         tile2	.addRow2(	new Space(	"red"	,	576	,	1	,	false,	false));
         tile2	.addRow2(	new Space(	"yellow"	,	577	,	1	,	false,	false));
-        tile2	.addRow3(	new Space(	"green"	,	578	,	1	,	false,	false));
-        tile2	.addRow3(	new Space(	"green"	,	579	,	1	,	false,	false));
-        tile2	.addRow3(	new Space(	"black"	,	580	,	0	,	false,	false));
-        tile2	.addRow3(	new Space(	"yellow"	,	581	,	1	,	false,	false));
-        tile2	.addRow3(	new Space(	"yellow"	,	582	,	1	,	false,	false));
+        tile2	.addRow3(	new Space(	"green"	,	578	,	1	,	true,	false));
+        tile2	.addRow3(	new Space(	"green"	,	579	,	1	,	true,	false));
+        tile2	.addRow3(	new Space(	"black"	,	580	,	0	,	true,	false));
+        tile2	.addRow3(	new Space(	"yellow"	,	581	,	1	,	true,	false));
+        tile2	.addRow3(	new Space(	"yellow"	,	582	,	1	,	true,	false));
 
 
         // Tile D
@@ -105,22 +105,22 @@ public class Swanplands extends Map {
         tile3	.addRow4(	new Space(	"black"	,	130	,	0	,	false,	false));
         tile3	.addRow4(	new Space(	"green"	,	131	,	1	,	false,	false));
         tile3	.addRow4(	new Space(	"green"	,	132	,	1	,	false,	false));
-        tile3	.addRow4(	new Space(	"green"	,	133	,	2	,	false,	false));
+        tile3	.addRow4(	new Space(	"green"	,	133	,	2	,	true,	false));
         tile3	.addRow5(	new Space(	"green"	,	134	,	1	,	false,	false));
         tile3	.addRow5(	new Space(	"blue"	,	135	,	1	,	false,	false));
         tile3	.addRow5(	new Space(	"blue"	,	136	,	1	,	false,	false));
         tile3	.addRow5(	new Space(	"blue"	,	137	,	2	,	false,	false));
         tile3	.addRow5(	new Space(	"blue"	,	138	,	1	,	false,	false));
-        tile3	.addRow5(	new Space(	"green"	,	139	,	1	,	false,	false));
+        tile3	.addRow5(	new Space(	"green"	,	139	,	1	,	true,	false));
         tile3	.addRow6(	new Space(	"green"	,	140	,	1	,	false,	false));
         tile3	.addRow6(	new Space(	"blue"	,	141	,	1	,	false,	false));
         tile3	.addRow6(	new Space(	"blue"	,	142	,	1	,	false,	false));
         tile3	.addRow6(	new Space(	"blue"	,	143	,	1	,	false,	false));
-        tile3	.addRow6(	new Space(	"green"	,	144	,	1	,	false,	false));
+        tile3	.addRow6(	new Space(	"green"	,	144	,	1	,	true,	false));
         tile3	.addRow7(	new Space(	"green"	,	145	,	1	,	false,	false));
         tile3	.addRow7(	new Space(	"green"	,	146	,	1	,	false,	false));
         tile3	.addRow7(	new Space(	"green"	,	147	,	1	,	false,	false));
-        tile3	.addRow7(	new Space(	"green"	,	148	,	2	,	false,	false));
+        tile3	.addRow7(	new Space(	"green"	,	148	,	2	,	true,	false));
 
 
         // Tile H
@@ -128,10 +128,10 @@ public class Swanplands extends Map {
         tile4.setNextTilePos(6);
         tile4.setRotation(210);
 
-        tile4	.addRow1(	new Space(	"blue"	,	260	,	1	,	false,	false));
-        tile4	.addRow1(	new Space(	"blue"	,	261	,	2	,	false,	false));
-        tile4	.addRow1(	new Space(	"blue"	,	262	,	2	,	false,	false));
-        tile4	.addRow1(	new Space(	"blue"	,	263	,	2	,	false,	false));
+        tile4	.addRow1(	new Space(	"blue"	,	260	,	1	,	false,	true));
+        tile4	.addRow1(	new Space(	"blue"	,	261	,	2	,	false,	true));
+        tile4	.addRow1(	new Space(	"blue"	,	262	,	2	,	false,	true));
+        tile4	.addRow1(	new Space(	"blue"	,	263	,	2	,	false,	true));
         tile4	.addRow2(	new Space(	"yellow"	,	264	,	1	,	false,	false));
         tile4	.addRow2(	new Space(	"blue"	,	265	,	1	,	false,	false));
         tile4	.addRow2(	new Space(	"blue"	,	266	,	1	,	false,	false));
@@ -161,10 +161,10 @@ public class Swanplands extends Map {
         tile4	.addRow6(	new Space(	"green"	,	290	,	1	,	false,	false));
         tile4	.addRow6(	new Space(	"green"	,	291	,	1	,	false,	false));
         tile4	.addRow6(	new Space(	"green"	,	292	,	2	,	false,	false));
-        tile4	.addRow7(	new Space(	"green"	,	293	,	1	,	false,	false));
-        tile4	.addRow7(	new Space(	"green"	,	294	,	2	,	false,	false));
-        tile4	.addRow7(	new Space(	"green"	,	295	,	2	,	false,	false));
-        tile4	.addRow7(	new Space(	"green"	,	296	,	2	,	false,	false));
+        tile4	.addRow7(	new Space(	"green"	,	293	,	1	,	true,	false));
+        tile4	.addRow7(	new Space(	"green"	,	294	,	2	,	true,	false));
+        tile4	.addRow7(	new Space(	"green"	,	295	,	2	,	true,	false));
+        tile4	.addRow7(	new Space(	"green"	,	296	,	2	,	true,	false));
 
 
         // Tile E
@@ -187,28 +187,28 @@ public class Swanplands extends Map {
         tile5	.addRow3(	new Space(	"blue"	,	161	,	1	,	false,	false));
         tile5	.addRow3(	new Space(	"blue"	,	162	,	1	,	false,	false));
         tile5	.addRow3(	new Space(	"green"	,	163	,	1	,	false,	false));
-        tile5	.addRow4(	new Space(	"green"	,	164	,	1	,	false,	false));
+        tile5	.addRow4(	new Space(	"green"	,	164	,	1	,	true,	false));
         tile5	.addRow4(	new Space(	"green"	,	165	,	2	,	false,	false));
         tile5	.addRow4(	new Space(	"green"	,	166	,	3	,	false,	false));
         tile5	.addRow4(	new Space(	"blue"	,	167	,	1	,	false,	false));
         tile5	.addRow4(	new Space(	"green"	,	168	,	1	,	false,	false));
         tile5	.addRow4(	new Space(	"green"	,	169	,	2	,	false,	false));
         tile5	.addRow4(	new Space(	"green"	,	170	,	1	,	false,	false));
-        tile5	.addRow5(	new Space(	"green"	,	171	,	1	,	false,	false));
+        tile5	.addRow5(	new Space(	"green"	,	171	,	1	,	true,	false));
         tile5	.addRow5(	new Space(	"grey"	,	172	,	1	,	false,	false));
         tile5	.addRow5(	new Space(	"grey"	,	173	,	3	,	false,	false));
         tile5	.addRow5(	new Space(	"grey"	,	174	,	1	,	false,	false));
         tile5	.addRow5(	new Space(	"black"	,	175	,	0	,	false,	false));
         tile5	.addRow5(	new Space(	"green"	,	176	,	1	,	false,	false));
-        tile5	.addRow6(	new Space(	"grey"	,	177	,	1	,	false,	false));
+        tile5	.addRow6(	new Space(	"grey"	,	177	,	1	,	true,	false));
         tile5	.addRow6(	new Space(	"black"	,	178	,	0	,	false,	false));
         tile5	.addRow6(	new Space(	"green"	,	179	,	2	,	false,	false));
         tile5	.addRow6(	new Space(	"blue"	,	180	,	2	,	false,	false));
         tile5	.addRow6(	new Space(	"green"	,	181	,	1	,	false,	false));
-        tile5	.addRow7(	new Space(	"black"	,	182	,	0	,	false,	false));
-        tile5	.addRow7(	new Space(	"grey"	,	183	,	1	,	false,	false));
-        tile5	.addRow7(	new Space(	"grey"	,	184	,	1	,	false,	false));
-        tile5	.addRow7(	new Space(	"green"	,	185	,	1	,	false,	false));
+        tile5	.addRow7(	new Space(	"black"	,	182	,	0	,	true,	true));
+        tile5	.addRow7(	new Space(	"grey"	,	183	,	1	,	false,	true));
+        tile5	.addRow7(	new Space(	"grey"	,	184	,	1	,	false,	true));
+        tile5	.addRow7(	new Space(	"green"	,	185	,	1	,	false,	true));
 
 
         // Tile O
@@ -216,22 +216,22 @@ public class Swanplands extends Map {
         tile6.setNextTilePos(6);
         tile6.setRotation(90);
 
-        tile6	.addRow1(	new Space(	"yellow"	,	519	,	2	,	false,	false));
-        tile6	.addRow1(	new Space(	"yellow"	,	520	,	1	,	false,	false));
-        tile6	.addRow1(	new Space(	"grey"	,	521	,	0	,	false,	false));
-        tile6	.addRow1(	new Space(	"green"	,	522	,	2	,	false,	false));
-        tile6	.addRow1(	new Space(	"grey"	,	523	,	2	,	false,	false));
+        tile6	.addRow1(	new Space(	"yellow"	,	519	,	2	,	false,	true));
+        tile6	.addRow1(	new Space(	"yellow"	,	520	,	1	,	false,	true));
+        tile6	.addRow1(	new Space(	"grey"	,	521	,	0	,	false,	true));
+        tile6	.addRow1(	new Space(	"green"	,	522	,	2	,	false,	true));
+        tile6	.addRow1(	new Space(	"grey"	,	523	,	2	,	false,	true));
         tile6	.addRow2(	new Space(	"yellow"	,	524	,	1	,	false,	false));
         tile6	.addRow2(	new Space(	"black"	,	525	,	0	,	false,	false));
         tile6	.addRow2(	new Space(	"blue"	,	526	,	4	,	false,	false));
         tile6	.addRow2(	new Space(	"black"	,	527	,	0	,	false,	false));
         tile6	.addRow2(	new Space(	"black"	,	528	,	0	,	false,	false));
         tile6	.addRow2(	new Space(	"grey"	,	529	,	1	,	false,	false));
-        tile6	.addRow3(	new Space(	"yellow"	,	530	,	1	,	false,	false));
-        tile6	.addRow3(	new Space(	"blue"	,	531	,	1	,	false,	false));
-        tile6	.addRow3(	new Space(	"green"	,	532	,	2	,	false,	false));
-        tile6	.addRow3(	new Space(	"green"	,	533	,	1	,	false,	false));
-        tile6	.addRow3(	new Space(	"grey"	,	534	,	1	,	false,	false));
+        tile6	.addRow3(	new Space(	"yellow"	,	530	,	1	,	true,	false));
+        tile6	.addRow3(	new Space(	"blue"	,	531	,	1	,	true,	false));
+        tile6	.addRow3(	new Space(	"green"	,	532	,	2	,	true,	false));
+        tile6	.addRow3(	new Space(	"green"	,	533	,	1	,	true,	false));
+        tile6	.addRow3(	new Space(	"grey"	,	534	,	1	,	true,	false));
 
 
 
@@ -244,25 +244,25 @@ public class Swanplands extends Map {
         tile7	.addRow1(	new Space(	"red"	,	371	,	1	,	false,	false));
         tile7	.addRow1(	new Space(	"green"	,	372	,	2	,	false,	false));
         tile7	.addRow1(	new Space(	"green"	,	373	,	2	,	false,	false));
-        tile7	.addRow1(	new Space(	"green"	,	374	,	1	,	false,	false));
+        tile7	.addRow1(	new Space(	"green"	,	374	,	1	,	true,	false));
         tile7	.addRow2(	new Space(	"green"	,	375	,	1	,	false,	false));
         tile7	.addRow2(	new Space(	"green"	,	376	,	1	,	false,	false));
         tile7	.addRow2(	new Space(	"blue"	,	377	,	3	,	false,	false));
         tile7	.addRow2(	new Space(	"green"	,	378	,	1	,	false,	false));
-        tile7	.addRow2(	new Space(	"green"	,	379	,	2	,	false,	false));
+        tile7	.addRow2(	new Space(	"green"	,	379	,	2	,	true,	false));
         tile7	.addRow3(	new Space(	"green"	,	380	,	1	,	false,	false));
         tile7	.addRow3(	new Space(	"green"	,	381	,	2	,	false,	false));
         tile7	.addRow3(	new Space(	"green"	,	382	,	1	,	false,	false));
         tile7	.addRow3(	new Space(	"green"	,	383	,	3	,	false,	false));
         tile7	.addRow3(	new Space(	"green"	,	384	,	1	,	false,	false));
-        tile7	.addRow3(	new Space(	"green"	,	385	,	2	,	false,	false));
+        tile7	.addRow3(	new Space(	"green"	,	385	,	2	,	true,	false));
         tile7	.addRow4(	new Space(	"green"	,	386	,	2	,	false,	false));
         tile7	.addRow4(	new Space(	"green"	,	387	,	1	,	false,	false));
         tile7	.addRow4(	new Space(	"green"	,	388	,	3	,	false,	false));
         tile7	.addRow4(	new Space(	"green"	,	389	,	1	,	false,	false));
         tile7	.addRow4(	new Space(	"green"	,	390	,	3	,	false,	false));
         tile7	.addRow4(	new Space(	"green"	,	391	,	1	,	false,	false));
-        tile7	.addRow4(	new Space(	"green"	,	392	,	2	,	false,	false));
+        tile7	.addRow4(	new Space(	"green"	,	392	,	2	,	true,	false));
         tile7	.addRow5(	new Space(	"green"	,	393	,	2	,	false,	false));
         tile7	.addRow5(	new Space(	"green"	,	394	,	1	,	false,	false));
         tile7	.addRow5(	new Space(	"green"	,	395	,	3	,	false,	false));
