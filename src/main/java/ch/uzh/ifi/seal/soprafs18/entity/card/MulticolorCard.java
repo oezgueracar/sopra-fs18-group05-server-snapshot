@@ -27,11 +27,10 @@ public class MulticolorCard extends ExpeditionCard {
     public void play(Player player){
         player.setMoveCounter(this.value, chosenColor);
         if(itemCard){
-            return;
+            player.getHand().remove(this);
         }else{
             player.getPlayedList().add(this);
         }
-        player.getHand().remove(this);
     }
 
     public void setChosenColor(String newChosenColor) {

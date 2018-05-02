@@ -4,7 +4,7 @@ import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
+import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
@@ -310,10 +310,31 @@ public class GameService {
 
 		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING) {
 			if(isPlayersTurn(serverSideGame, serverSidePlayer)) {
+				Card toBePlayedCard = serverSidePlayer.get().getCardFromHandById(cardId);
+				if (toBePlayedCard != null) {
+					if(toBePlayedCard instanceof Native){
 
-				playerRepository.save(serverSidePlayer.get());
-				gameRepository.save(serverSideGame.get());
-				return playerRepository.save(serverSidePlayer.get());
+					}
+					else if(toBePlayedCard instanceof Scientist){
+
+					}
+					else if (toBePlayedCard instanceof Transmitter){
+
+					}
+					else if (toBePlayedCard instanceof TravelLog){
+
+					}
+					else if (toBePlayedCard instanceof MulticolorCard){
+						MulticolorCard toBePlayedMultiColorCard = player.getCardFromHandById(cardId);
+						if ((MulticolorCard)player.getCardFromHandById(cardId))
+					}
+					else{
+						toBePlayedCard.play(serverSidePlayer.get());
+					}
+					playerRepository.save(serverSidePlayer.get());
+					gameRepository.save(serverSideGame.get());
+					return playerRepository.save(serverSidePlayer.get());
+				}
 			}
 		}
 		return null;
