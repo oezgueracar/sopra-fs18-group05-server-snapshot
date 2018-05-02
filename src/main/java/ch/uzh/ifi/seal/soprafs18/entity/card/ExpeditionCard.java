@@ -36,11 +36,10 @@ public class ExpeditionCard extends Card {
 	public void play(Player player){
 			player.setMoveCounter(value, color);
 			if(itemCard){
-				return;
+				player.getHand().remove(this);
 			}else{
 				player.getPlayedList().add(this);
 			}
-			player.getHand().remove(this);
 	}
 
 	public int getValue(){

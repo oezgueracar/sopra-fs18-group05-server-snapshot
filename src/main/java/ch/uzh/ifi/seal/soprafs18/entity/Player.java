@@ -218,11 +218,20 @@ public class Player implements Serializable {
 	 * (@throws NoSuchElementException If the hand does not contain card)
 	 */
 	protected void playCard(Card card){ // throws NoSuchElementException
-		if (!hand.contains(card)){
+		if (card == null){
 			return; // throw new NoSuchElementException("This card is not in the player's hand.");
 		}else{ // TODO: multiColorCard has to set its chosen color first in PlayerService before calling playCard!
 			card.play(this);
 		}
+	}
+
+	public Card getCardFromHandById(long cardId){
+		for (Card c : hand){
+			if (c.getId() == cardId) {
+				return c;
+			}
+		}
+		return null;
 	}
 
 	// TODO: precondition not valid yet

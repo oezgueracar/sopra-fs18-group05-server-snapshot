@@ -4,7 +4,7 @@ import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
+import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
@@ -310,10 +310,33 @@ public class GameService {
 
 		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING) {
 			if(isPlayersTurn(serverSideGame, serverSidePlayer)) {
+				Card toBePlayedCard = serverSidePlayer.get().getCardFromHandById(cardId);
+				if (toBePlayedCard != null) {
+					if(toBePlayedCard instanceof Native){
 
-				playerRepository.save(serverSidePlayer.get());
-				gameRepository.save(serverSideGame.get());
-				return playerRepository.save(serverSidePlayer.get());
+					}
+					else if(toBePlayedCard instanceof Scientist){
+
+					}
+					else if (toBePlayedCard instanceof Transmitter){
+
+					}
+					else if (toBePlayedCard instanceof TravelLog){
+
+					}
+					else if ((toBePlayedCard instanceof MulticolorCard) && player.getCardFromHandById(cardId) instanceof MulticolorCard){
+						if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null){
+							((MulticolorCard) toBePlayedCard).setChosenColor(((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor());
+							toBePlayedCard.play(serverSidePlayer.get());
+						}
+					}
+					else{
+						toBePlayedCard.play(serverSidePlayer.get());
+					}
+					playerRepository.save(serverSidePlayer.get());
+					gameRepository.save(serverSideGame.get());
+					return playerRepository.save(serverSidePlayer.get());
+				}
 			}
 		}
 		return null;
@@ -375,16 +398,16 @@ public class GameService {
 						switch (toBeMovedSpace.getValue()) {
 							case 1:
 								if (serverSidePlayer.get().getHand().size() >= 1) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 1);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 2);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 
 							case 3:
 								if (serverSidePlayer.get().getHand().size() >= 3) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 3);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 						}
 
@@ -392,12 +415,12 @@ public class GameService {
 						switch (toBeMovedSpace.getValue()) {
 							case 1:
 								if (serverSidePlayer.get().getHand().size() >= 1) {
-									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
-									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 						}
 					}
@@ -445,9 +468,9 @@ public class GameService {
 						else { //grey
 							switch(removedBlockade.getValue()) {
 								case 1:
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 1);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, removedBlockade.getValue());
 								case 2:
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 2);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, removedBlockade.getValue());
 							}
 						}
 					}
@@ -559,9 +582,9 @@ public class GameService {
 		}
 	}
 
-	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
+	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace, int amountOfRemovedCards){
 		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
-		if(removedCards != null && removedCards.size() != 0) {
+		if(removedCards != null && removedCards.size() == amountOfRemovedCards) {
 			for (Card c : removedCards) {
 				serverSidePlayer.get().removeCardFromHand(c);
 			}
