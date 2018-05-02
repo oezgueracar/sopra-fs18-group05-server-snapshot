@@ -224,6 +224,7 @@ public class GameService {
 
 					return gameRepository.save(serverSideGame.get());
 				case FINISHED:
+					determineWinner(serverSideGame.get());
 					serverSideGame.get().setStatus(GameStatus.ROOM);
 					return gameRepository.save(serverSideGame.get());
 			}
@@ -675,6 +676,52 @@ public class GameService {
 				toBeUpdatedSpaces.remove(s);
 			}
 			toBeUpdatedSpaces = tempToBeUpdatedSpaces;
+		}
+	}
+
+	private void determineWinner(Game serverSideGame){
+		int counter = 0;
+		for (Player p : serverSideGame.getPlayers()){
+			if(p.getIsInGoal()){
+				counter ++;
+			}
+		}
+		if(counter == 0){
+			return;
+		}
+		else if(counter == 1){
+			for (Player p : serverSideGame.getPlayers()){
+				if(p.getIsInGoal()){
+					p.setWinner();
+				}
+			}
+		}
+		else if(counter >= 2){
+			Player winner;
+			int[] sizeOfBlockadesLists = new int[serverSideGame.getPlayers().size()];
+			for(int i = 0; i < serverSideGame.getPlayers().size(); i++){
+				sizeOfBlockadesLists[i] = serverSideGame.getPlayer(i).getBlockades().size();
+			}
+			if(sizeOfBlockadesLists.length != 0){
+				int largest = 0;
+				for(int i = 0; i < sizeOfBlockadesLists.length; i++){
+					if (sizeOfBlockadesLists[i] > sizeOfBlockadesLists[largest]){
+						largest = i;
+					}
+				}
+				ArrayList<Integer> indexOfPlayersWithLargestAmountOfBlockades = new ArrayList<>();
+				for(int i = 0; i < sizeOfBlockadesLists.length; i++){
+					if(sizeOfBlockadesLists[i] == sizeOfBlockadesLists[largest]){
+						indexOfPlayersWithLargestAmountOfBlockades.add(i);
+					}
+				}
+				if(indexOfPlayersWithLargestAmountOfBlockades.size() == 1){
+					serverSideGame.getPlayer(0).setWinner();
+				}
+				else if (indexOfPlayersWithLargestAmountOfBlockades.size() >= 2){
+					//TODO: Player with the blockade that has largest power value wins. All indexes that are in the arraylist need to be checked.
+				}
+			}
 		}
 	}
 

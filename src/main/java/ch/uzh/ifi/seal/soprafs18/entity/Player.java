@@ -55,6 +55,9 @@ public class Player implements Serializable {
 	@Column(nullable = false)
 	protected boolean isInGoal;
 
+	@Column
+	protected boolean winner;
+
     //@ManyToOne
 	//@Column(name="playersGameId", nullable = false)
     private Long gameId; // TODO: Check if Game or Long as type
@@ -108,6 +111,7 @@ public class Player implements Serializable {
 		playerLeft = false;
 		ready = false;
 		isInGoal = false;
+		winner = false;
 		setToken(UUID.randomUUID().toString());
 		boughtCardId = 0;
 	}
@@ -168,6 +172,10 @@ public class Player implements Serializable {
 
 	public boolean getIsInGoal(){
 		return isInGoal;
+	}
+
+	public boolean getWinner(){
+		return winner;
 	}
 
 	public List<Card> getDiscardPile(){
@@ -449,6 +457,10 @@ public class Player implements Serializable {
 
 	public void setIsInGoal(boolean b){
 		isInGoal = b;
+	}
+
+	public void setWinner(){
+		winner = !winner;
 	}
 
 	public void setColor(String newColor){
