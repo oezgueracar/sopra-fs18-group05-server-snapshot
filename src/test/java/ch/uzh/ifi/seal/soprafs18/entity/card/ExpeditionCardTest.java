@@ -26,7 +26,7 @@ public class ExpeditionCardTest {
         p.getHand().add(c);
         int i = p.getHand().size();
         c.play(p);
-        int newI =p.getHand().size();
+        int newI = p.getHand().size();
         assertEquals(i-1,newI);
     }
 
