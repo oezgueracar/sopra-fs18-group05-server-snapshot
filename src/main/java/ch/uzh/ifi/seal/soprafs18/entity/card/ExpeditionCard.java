@@ -37,9 +37,7 @@ public class ExpeditionCard extends Card {
 			player.setMoveCounter(value, color);
 			if(!itemCard){
 				player.getPlayedList().add(this);
-				player.getHand().remove(this);
 			}
-
 			player.getHand().remove(this);
 	}
 

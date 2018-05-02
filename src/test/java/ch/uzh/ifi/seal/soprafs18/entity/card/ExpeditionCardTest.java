@@ -14,7 +14,7 @@ public class ExpeditionCardTest {
         p.setup();
         int[] testVar = p.getMoveCounter();
         c.play(p);
-        testVar[0] = testVar[0]+c.getValue();
+        testVar[0] = testVar[0] + c.getValue();
         assertEquals(testVar,p.getMoveCounter());
     }
 
