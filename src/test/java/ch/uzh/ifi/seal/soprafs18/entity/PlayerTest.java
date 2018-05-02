@@ -131,6 +131,14 @@ public class PlayerTest {
 
     @Test
     public void playCard() {
+        p.playCard(c);
+        p.getHand().add(c);
+        assertEquals(1,p.getHand().size());
+        p.playCard(c);
+        assertEquals(0, p.getHand().size());
+
+
+
     }
 
     @Test
