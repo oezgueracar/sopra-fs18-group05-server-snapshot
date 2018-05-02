@@ -5,6 +5,9 @@ public class WitchsCauldron extends Map {
     private long[] endTile;
     private long[] startSpaces;
 
+    /**
+     * Constructor
+     */
     public WitchsCauldron(){
         setup();
     }

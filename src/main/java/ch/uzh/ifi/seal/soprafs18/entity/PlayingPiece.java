@@ -9,8 +9,10 @@ public class PlayingPiece implements Serializable {
 	private String color;
 	private long position;
 
-	public PlayingPiece(){}
-
+	/**
+	 * Constructor
+	 * @param color the color
+	 */
 	@JsonIgnore
 	public PlayingPiece(String color){
 		this.color = color;

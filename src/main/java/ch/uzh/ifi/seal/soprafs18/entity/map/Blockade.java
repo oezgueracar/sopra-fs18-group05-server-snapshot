@@ -14,12 +14,17 @@ public class Blockade extends MapElement {
     private List<Space> row6;
     private List<Space> row7;
 
+    /**
+     * Constructor
+     * @param col the color of the blockade
+     * @param val the value of the blockade
+     */
     public Blockade(String col, int val){
         color = col;
         value = val;
     }
 
-    //Getter
+    // Getter
     public String getColor(){return color;}
     public int getValue(){return value;}
 

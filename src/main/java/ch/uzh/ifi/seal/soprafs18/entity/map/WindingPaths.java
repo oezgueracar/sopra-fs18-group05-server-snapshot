@@ -5,6 +5,9 @@ public class WindingPaths extends Map {
     private long[] endTile;
     private long[] startSpaces;
 
+    /**
+     * Constructor
+     */
     public WindingPaths(){
         setup();
     }

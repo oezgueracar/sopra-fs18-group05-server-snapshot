@@ -13,7 +13,9 @@ public class Tile extends MapElement {
     private List<Space> row6;
     private List<Space> row7;
 
-
+    /**
+     * Constructor
+     */
     public Tile(){
         row1 = new ArrayList<>();
         row2 = new ArrayList<>();
@@ -24,7 +26,7 @@ public class Tile extends MapElement {
         row7 = new ArrayList<>();
     }
 
-    //Fill Rows
+    // Fill Rows
     @Override
     public void addRow1(Space s){row1.add(s);}
     @Override

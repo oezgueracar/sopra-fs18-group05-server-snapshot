@@ -12,6 +12,10 @@ public abstract class Map implements Serializable{
     protected List<Blockade> blockades = new ArrayList<Blockade>();
     protected Random random;
 
+    /**
+     * Selects random a blockade instance in the list blockades.
+     * @return a blockade instance
+     */
     protected Blockade getRandomBlockade(){
         random = new Random();
         int index = random.nextInt(blockades.size());
@@ -30,8 +34,14 @@ public abstract class Map implements Serializable{
     }
 
     public abstract long[] getEndTile();
+
     public abstract  long[] getStartingSpaces();
 
+    /**
+     * Gets the space instance matching the spaceId
+     * @param spaceId the id of the space that is wanted
+     * @return the space instance according to the spaceId
+     */
     public Space getSpace(long spaceId){
         for(int i = 0; i < mapTiles.size(); i++){
             if(!(mapTiles.get(i) instanceof Blockade)){

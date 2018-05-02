@@ -225,6 +225,7 @@ public class Player implements Serializable {
 		}
 	}
 
+	// TODO: exactly the same method as "returnCardFromHandById" on lines 282-291
 	public Card getCardFromHandById(long cardId){
 		for (Card c : hand){
 			if (c.getId() == cardId) {
@@ -273,8 +274,15 @@ public class Player implements Serializable {
 		}
 	}
 
+	/**
+	 * Checks if a requested card is in this player's hand.
+	 * @param cardId
+	 * @return instance Card matching cardId, if the card is in this player's hand, otherwise null
+	 */
 	public Card returnCardFromHandById(long cardId){
+		// For each card in hand
 		for(Card c : this.getHand()){
+			// return the card, if the card matching the parameter cardId is in the hand
 			if(c.getId() == cardId){
 				return c;
 			}
@@ -283,7 +291,7 @@ public class Player implements Serializable {
 	}
 
 	/**
-	 * Draws a card from the deck and moves it to the hand
+	 * Draws a card from the deck and moves it to the hand.
 	 *
 	 * @pre (!deck.isEmpty()) && (!discardPile.isEmpty())
 	 * @post (hand.size()@pre == hand.size()-1) && (deck.size()@pre==deck.size()+1)
@@ -305,6 +313,9 @@ public class Player implements Serializable {
 		deck.remove(card);
 	}
 
+	/**
+	 * Draws a card from the deck and moves it to the hand.
+	 */
 	public void drawCardOnEndTurn(){
 		if(hand != null && deck != null) {
 			while ((hand.size() <= 4) && !(deck.isEmpty())) {
@@ -312,39 +323,47 @@ public class Player implements Serializable {
 			}
 		}
 	}
-
+	// TODO: not necessary - refactor
 	protected void addCardToDeck(Card card){
 		deck.add(card);
 	}
 
+	// TODO: not necessary - refactor
 	protected void addCardToDiscardPile(Card card){
 		discardPile.add(card);
 	}
 
+	// TODO: not necessary - refactor
 	protected void addCardToPlayedList(Card card){
 		playedList.add(card);
 	}
 
+	// TODO: not necessary - refactor
 	public void addBlockade(Blockade blockade){
 		this.blockades.add(blockade);
 	}
 
+	// TODO: not necessary - refactor
 	public void removeCardFromHand(Card card){
 		hand.remove(card);
 	}
 
+	// TODO: not necessary - refactor
 	protected void removeCardFromDiscardPile(Card card){
 		discardPile.remove(card);
 	}
 
+	// TODO: not necessary - refactor
 	protected void removeCardFromDeck(Card card){
 		deck.remove(card);
 	}
 
+	// TODO: not necessary - refactor
 	protected void resetPlayedList(){
 		playedList.clear();
 	}
 
+	// TODO: not necessary - refactor
 	/**
 	 * Resets the discardPile (Empties the ArrayList)
 	 */
@@ -352,21 +371,35 @@ public class Player implements Serializable {
 		discardPile.clear();
 	}
 
+	/**
+	 * Moves a card from the hand to the playedList.
+	 * @param c the card instance
+	 */
 	public void moveFromHandToPlayedList(Card c){
 			removeCardFromHand(c);
 			addCardToPlayedList(c);
 	}
 
+	/**
+	 * Moves a card from the hand to the discardPile.
+	 * @param c the card instance
+	 */
 	public void moveFromHandToDiscardPile(Card c){
 		removeCardFromHand(c);
 		addCardToDiscardPile(c);
 	}
 
+	/**
+	 * Moves all entries in playedList to the discardPile.
+	 */
 	public void flushPlayedList(){
 		discardPile.addAll(playedList);
 		resetPlayedList();
 	}
 
+	/**
+	 * Moves all entries in discardPile to the deck.
+	 */
 	private void flushDiscardPile(){
 		deck.addAll(discardPile);
 		resetDiscardPile();
@@ -422,7 +455,10 @@ public class Player implements Serializable {
 		this.color = newColor;
 	}
 
-	//Fill the deck of the player with the starting cards as stated in the game manual.
+	/**
+	 * Sets up the cards that belong to the starting hand or deck of a player.
+	 * Three explorers, one sailor and four travelers are given to each player at the start of the game.
+	 */
 	private void setupCards(){
 		for(int i = 0; i < 3; i++){
 			this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "green", 1, false));
@@ -435,7 +471,9 @@ public class Player implements Serializable {
 		}
 	}
 
-	//Sets up the player so he's ready before entering the game.
+	/**
+	 * Sets up the player by initializing his playingPiece, hand, deck, discardPile, playedList and owned blockades.
+	 */
 	public void setup(){
 		this.assignedPiece = new PlayingPiece(this.color);
 
@@ -456,17 +494,24 @@ public class Player implements Serializable {
 		this.setupCards();
 	}
 
-	// ##############################################################################################################
+	// TODO: Organized structure: setup - play/buy/tradein - move from arrays to arrays - increase/decrease counters - resetter - getters - setters
+
+	// TODO: setups here
+
+	// TODO: play/buy/tradein
+
+	// TODO: Moving cards
+
+	// TODO: counters
+
+	// TODO: resetters
+
+	// TODO: getters here
+
+	// TODO: setters here
+
 
 	/*
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) return true;

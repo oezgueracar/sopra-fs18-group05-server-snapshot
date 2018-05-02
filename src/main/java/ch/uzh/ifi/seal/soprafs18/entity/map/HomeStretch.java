@@ -5,11 +5,14 @@ public class HomeStretch extends Map {
     private long[] endTile;
     private long[] startSpaces;
 
+    /**
+     * Constructor
+     */
     public HomeStretch(){
         setup();
     }
 
-    private void setup(){ // IDs are Wrong but it should not matter
+    private void setup(){ // TODO: Check if IDs are wrong but it should not matter (check if it matters!)
 
         // TileB
         MapElement tile1 = new Tile();
