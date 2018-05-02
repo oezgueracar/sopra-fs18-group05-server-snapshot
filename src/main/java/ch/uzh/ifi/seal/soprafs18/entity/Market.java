@@ -36,6 +36,9 @@ public class Market implements Serializable {
         setup();
     }
 
+    /**
+     * Initializes all cards in the market and adds them to the openSlots or closedSlots respectively.
+     */
     private void setup(){
         openSlots = new ArrayList<>();
         scout = new Card[3];
@@ -59,7 +62,7 @@ public class Market implements Serializable {
         nativ = new Card[3];
         captain = new Card[3];
 
-        //setup openSlots
+        // Setup openSlots
         for(int i = 0; i<3; i++){
             scout[i] = new ExpeditionCard(1, 0.5f, "Scout","green", 2, false);
         }
@@ -79,7 +82,7 @@ public class Market implements Serializable {
             transmitter[i] = new Transmitter();
             };
 
-        //Putting arrays in openSlots
+        // Adding card arrays to openSlots
         openSlots.add(0, scout);
         openSlots.add(1, trailblazer);
         openSlots.add(2, JackOfAllTrades);
@@ -87,7 +90,7 @@ public class Market implements Serializable {
         openSlots.add(4, treasureChest);
         openSlots.add(5, transmitter);
 
-        //setup closedSlots
+        // Setup closedSlots
         for(int i = 0; i<3; i++){
             propPlane[i] = new MulticolorCard(4, 0.5f, "Prop Plane", "multicolor", 4, true);
         }
@@ -125,7 +128,7 @@ public class Market implements Serializable {
             captain[i] = new ExpeditionCard(2, 0.5f, "Captain", "blue", 3, false);
         }
 
-        //Putting arrays in closedSlots
+        // Adding card arrays to closedSlots
         closedSlots.add(0, propPlane);
         closedSlots.add(1, adventurer);
         closedSlots.add(2, pioneer);
@@ -142,7 +145,6 @@ public class Market implements Serializable {
     }
 
 
-    //Getter and Setter
     public List<Card[]> getOpenSlots(){
         return openSlots;
     }
@@ -151,7 +153,11 @@ public class Market implements Serializable {
         return closedSlots;
     }
 
-    //Remove a Card from an Array in an ArrayList
+    /**
+     * Removes a card from the according array
+     * @param cardId the id of the card that is removed
+     * @return the card instance matching cardId
+     */
     public Card removeCard(long cardId){
         for(int i = 0; i < openSlots.size(); i++){
             if(openSlots.get(i) != null) {
@@ -182,6 +188,11 @@ public class Market implements Serializable {
     }
 
     //Move an array from closedSlots to first empty entry of openSlots
+
+    /**
+     * Moves a card array from closedSlots to openSlots
+     * @param chosenCardsIndex The index of the card Array in the ArrayList openSlots.
+     */
     private void moveCardSlot(int chosenCardsIndex){
         for(int i = 0; i < openSlots.size(); i++){
             if (openSlots.get(i) == null){
@@ -192,6 +203,11 @@ public class Market implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param cardArray
+     * @return
+     */
     private Card[] returnShrunkArray(Card[] cardArray){
         if((cardArray.length - 1) > 0) {
             Card[] helperArray = new Card[cardArray.length - 1];
@@ -206,5 +222,3 @@ public class Market implements Serializable {
         return null;
     }
 }
-
-

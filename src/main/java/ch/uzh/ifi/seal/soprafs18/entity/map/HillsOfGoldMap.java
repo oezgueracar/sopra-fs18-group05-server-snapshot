@@ -5,6 +5,9 @@ public class HillsOfGoldMap extends Map {
     private long[] endTile;
     private long[] startSpaces;
 
+    /**
+     * Constructor
+     */
     public HillsOfGoldMap() {
         setup();
     }

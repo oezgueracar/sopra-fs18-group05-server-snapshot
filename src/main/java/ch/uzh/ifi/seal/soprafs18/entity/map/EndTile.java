@@ -13,6 +13,9 @@ public class EndTile extends MapElement {
     private List<Space> row6;
     private List<Space> row7;
 
+    /**
+     * Constructor
+     */
     public EndTile(){
         row1 = new ArrayList<>();
     }

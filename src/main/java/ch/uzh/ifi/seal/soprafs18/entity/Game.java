@@ -18,15 +18,9 @@ import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.*;
 
 @Entity
 public class Game implements Serializable {
-	
-	/**
-	 * 
-	 */
-	//TODO: What the frick is this?
+
 	private static final long serialVersionUID = 1L;
 
-	//TODO: misses eventual setup? Where do we initialize all cards?
-    // should check that game is PENDING after it got created in post condition and that all attributes are set correctly
 	public Game(){
 		setTurnTime(60);
 		players = new ArrayList<>();
@@ -79,8 +73,12 @@ public class Game implements Serializable {
     */
 
     //TODO: How to display to frontend that a new player couldn't be added?
-	// Precondition: players is not null. Player does not exist in players already.
-	// Postcondition: Player is added to players.
+	/**
+	 * Adds a new player to an existing game, that is not yet full and is not running.
+	 * @param newPlayer the new player that is added to the game.
+	 * @pre !playerAlreadyInRoom
+	 * @post this.getPlayers().contains(newPlayer)
+	 */
     public void addPlayer(Player newPlayer){
     	boolean playerAlreadyInRoom = false;
     	if(this.getPlayers() != null) {
@@ -96,6 +94,7 @@ public class Game implements Serializable {
 			assert(this.getPlayers().contains(newPlayer));
 		}
 		else {
+    		// Room is already full
     		System.out.println("Bad Request. Player is already in room or Max Number of Players reached.");
 		}
     }
@@ -145,13 +144,17 @@ public class Game implements Serializable {
         }
     }
 
-	//Helper function for setting up all associated Objects with game.
-	//TODO: assignedMarket type is not known by the compiler idky...
+	/**
+	 * Sets the game information about the map and the status.
+	 */
 	public void setup(){
         setMapName("HillsOfGoldMap");
 		setStatus(ROOM);
 	}
 
+	/**
+	 * Starts the game and initializes the map.
+	 */
 	public void startGame(){
     	this.initializeMap();
 		assignedMarket = new Market();
