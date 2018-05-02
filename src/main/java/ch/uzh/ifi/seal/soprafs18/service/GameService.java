@@ -375,16 +375,16 @@ public class GameService {
 						switch (toBeMovedSpace.getValue()) {
 							case 1:
 								if (serverSidePlayer.get().getHand().size() >= 1) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 1);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 2);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 
 							case 3:
 								if (serverSidePlayer.get().getHand().size() >= 3) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, 3);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 						}
 
@@ -445,9 +445,9 @@ public class GameService {
 						else { //grey
 							switch(removedBlockade.getValue()) {
 								case 1:
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 1);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, removedBlockade.getValue());
 								case 2:
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, 2);
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, removedBlockade.getValue());
 							}
 						}
 					}
