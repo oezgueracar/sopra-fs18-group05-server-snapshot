@@ -187,6 +187,34 @@ public class Market implements Serializable {
         return null;
     }
 
+    public Card removeCardTransmitter(long cardId){
+        for(int i = 0; i < openSlots.size(); i++){
+            if(openSlots.get(i) != null) {
+                for (int j = 0; j < openSlots.get(i).length; j++) {
+                    if (openSlots.get(i)[j] != null && openSlots.get(i)[j].getId() == cardId) {
+                        Card toBeRemoved = openSlots.get(i)[j];
+                        openSlots.get(i)[j] = null;
+                        openSlots.set(i, returnShrunkArray(openSlots.get(i)));
+                        return toBeRemoved;
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < closedSlots.size(); i++){
+            if(closedSlots.get(i) != null) {
+                for (int j = 0; j < closedSlots.size(); j++) {
+                    if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
+                        Card toBeRemoved = closedSlots.get(i)[j];
+                        closedSlots.get(i)[j] = null;
+                        closedSlots.set(i, returnShrunkArray(closedSlots.get(i)));
+                        return toBeRemoved;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     //Move an array from closedSlots to first empty entry of openSlots
 
     /**
