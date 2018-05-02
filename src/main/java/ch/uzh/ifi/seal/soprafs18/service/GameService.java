@@ -392,12 +392,12 @@ public class GameService {
 						switch (toBeMovedSpace.getValue()) {
 							case 1:
 								if (serverSidePlayer.get().getHand().size() >= 1) {
-									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
-									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace);
+									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
 								}
 						}
 					}
@@ -559,9 +559,9 @@ public class GameService {
 		}
 	}
 
-	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
+	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace, int amountOfRemovedCards){
 		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
-		if(removedCards != null && removedCards.size() != 0) {
+		if(removedCards != null && removedCards.size() == amountOfRemovedCards) {
 			for (Card c : removedCards) {
 				serverSidePlayer.get().removeCardFromHand(c);
 			}
