@@ -324,9 +324,11 @@ public class GameService {
 					else if (toBePlayedCard instanceof TravelLog){
 
 					}
-					else if (toBePlayedCard instanceof MulticolorCard){
-						MulticolorCard toBePlayedMultiColorCard = player.getCardFromHandById(cardId);
-						if ((MulticolorCard)player.getCardFromHandById(cardId))
+					else if ((toBePlayedCard instanceof MulticolorCard) && player.getCardFromHandById(cardId) instanceof MulticolorCard){
+						if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null){
+							((MulticolorCard) toBePlayedCard).setChosenColor(((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor());
+							toBePlayedCard.play(serverSidePlayer.get());
+						}
 					}
 					else{
 						toBePlayedCard.play(serverSidePlayer.get());
