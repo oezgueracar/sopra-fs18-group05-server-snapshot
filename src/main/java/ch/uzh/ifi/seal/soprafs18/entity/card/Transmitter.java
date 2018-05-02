@@ -23,5 +23,6 @@ public class Transmitter extends ActionCard {
 	public void play(Player player){
 		// TODO: Choose card from market and move it to the discard pile
 		player.getHand().remove(this);
+		player.getPlayedList().add(this);
 	}
 }

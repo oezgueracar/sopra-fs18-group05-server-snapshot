@@ -329,7 +329,7 @@ public class Player implements Serializable {
 	}
 
 	// TODO: not necessary - refactor
-	protected void addCardToDiscardPile(Card card){
+	public void addCardToDiscardPile(Card card){
 		discardPile.add(card);
 	}
 

@@ -187,7 +187,7 @@ public class Market implements Serializable {
         return null;
     }
 
-    public Card removeCardTransmitter(long cardId){
+    public Card removeTransmitter(long cardId){
         for(int i = 0; i < openSlots.size(); i++){
             if(openSlots.get(i) != null) {
                 for (int j = 0; j < openSlots.get(i).length; j++) {

@@ -319,9 +319,8 @@ public class GameService {
 
 					}
 					else if (toBePlayedCard instanceof Transmitter){
-						long previousBoughtCardId = serverSidePlayer.get().getBoughtCardId();
-						serverSidePlayer.get()serverSideGame.get().getMarket().removeCardTransmitter(player.getBoughtCardId());
-						
+						toBePlayedCard.play(serverSidePlayer.get());
+						serverSidePlayer.get().addCardToDiscardPile(serverSideGame.get().getMarket().removeTransmitter(player.getBoughtCardId()));
 					}
 					else if (toBePlayedCard instanceof TravelLog){
 
