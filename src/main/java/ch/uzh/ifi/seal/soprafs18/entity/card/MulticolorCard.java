@@ -31,6 +31,7 @@ public class MulticolorCard extends ExpeditionCard {
             player.getHand().remove(this);
         }else{
             player.getPlayedList().add(this);
+            player.getHand().remove(this);
         }
     }
 
