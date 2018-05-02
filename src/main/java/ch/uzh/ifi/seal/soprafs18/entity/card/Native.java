@@ -22,7 +22,7 @@ public class Native extends ActionCard {
 	 * @param player the player who plays the card
 	 */
 	public void play(Player player){//TODO service has to move the playing piece
-		player.getPlayedList().add(this);
 		player.getHand().remove(this);
+		player.getPlayedList().add(this);
 	}
 }

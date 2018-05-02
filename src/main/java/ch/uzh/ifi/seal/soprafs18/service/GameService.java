@@ -313,7 +313,8 @@ public class GameService {
 				Card toBePlayedCard = serverSidePlayer.get().getCardFromHandById(cardId);
 				if (toBePlayedCard != null) {
 					if(toBePlayedCard instanceof Native){
-
+						toBePlayedCard.play(serverSidePlayer.get());
+						movePlayingPieceNative(serverSideGame, serverSidePlayer, player);
 					}
 					else if(toBePlayedCard instanceof Scientist){
 
@@ -483,6 +484,53 @@ public class GameService {
 		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
 	}
 
+	@SuppressWarnings("Duplicates")
+	private void movePlayingPieceNative(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
+		//First check if the player tried to move:
+		if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
+			Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece().getPosition());
+			//Then check if the Space exists & if it exists if it's already occupied by another playing piece & if it's a place that a piece can move to...
+			if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
+				//... check if the Space is the neighbour of the selected space...
+				boolean isNeighbour = false;
+				long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).getNeighbours();
+				for(long neighbourSpaceId : currentSpaceNeighbourIds){
+					if(toBeMovedSpace.getId() == neighbourSpaceId){
+						isNeighbour = true;
+						break;
+					}
+				}
+				if(isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
+					//... check the color of the Space...
+					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow") || toBeMovedSpace.getColor().equals("grey") || toBeMovedSpace.getColor().equals("red")) {
+						serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+						serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+						toBeMovedSpace.switchOccupied();
+					}
+					// else it's black or a starting space; Don't do anything.
+				}
+			}
+		}
+		else {
+			//If Blockade exists and player is next to the blockade
+			if(serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).isLastSpace()) {
+				if(serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null && serverSidePlayer.get().getBlockades().size() < player.getBlockades().size()){
+					Blockade removedBlockade = getDifferenceOfBlockades(serverSidePlayer, player);
+
+					if(removedBlockade != null) {
+						if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue") || removedBlockade.getColor().equals("yellow") || removedBlockade.getColor().equals("grey")) {
+							serverSidePlayer.get().addBlockade(removedBlockade);
+							removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
+						}
+					}
+				}
+			}
+		}
+
+		//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
+		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
+	}
+
 	/*
 	Helper method to move to grey spaces. Check the difference between the played pile of the client side player with the server side player &
 	if the amount of the client side players hand has been lowered by the value of the grey space
@@ -608,6 +656,7 @@ public class GameService {
 		return serverSideGame.get().getCurrentPlayer() == positionOfPlayerInPlayers;
 	}
 
+	//The boolean of all neighbours of the current space of the playing piece that hinder passing due to boolean = true is set to false.
 	private void removeBlockadeOnMap(Game serverSideGame, long playingPiecePosition){
 		ArrayList<Space> toBeUpdatedSpaces = new ArrayList<>();
 		toBeUpdatedSpaces.add(serverSideGame.getMap().getSpace(playingPiecePosition));
