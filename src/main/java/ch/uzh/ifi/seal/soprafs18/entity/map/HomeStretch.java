@@ -77,28 +77,28 @@ public class HomeStretch extends Map {
         tile2	.addRow3(	new Space(	"green"	,	346	,	2	,	false,	false));
         tile2	.addRow3(	new Space(	"grey"	,	347	,	2	,	false,	false));
         tile2	.addRow3(	new Space(	"grey"	,	348	,	1	,	false,	false));
-        tile2	.addRow4(	new Space(	"yellow",	349	,	1	,	false,	false));
+        tile2	.addRow4(	new Space(	"yellow",	349	,	1	,	true,	false));
         tile2	.addRow4(	new Space(	"yellow",	350	,	1	,	false,	false));
         tile2	.addRow4(	new Space(	"green"	,	351	,	2	,	false,	false));
         tile2	.addRow4(	new Space(	"red"	,	352	,	1	,	false,	false));
         tile2	.addRow4(	new Space(	"green"	,	353	,	1	,	false,	false));
         tile2	.addRow4(	new Space(	"grey"	,	354	,	2	,	false,	false));
-        tile2	.addRow4(	new Space(	"grey"	,	355	,	1	,	false,	false));
-        tile2	.addRow5(	new Space(	"yellow",	356	,	1	,	false,	false));
+        tile2	.addRow4(	new Space(	"grey"	,	355	,	1	,	false,	true));
+        tile2	.addRow5(	new Space(	"yellow",	356	,	1	,	true,	false));
         tile2	.addRow5(	new Space(	"yellow",	357	,	2	,	false,	false));
         tile2	.addRow5(	new Space(	"green"	,	358	,	1	,	false,	false));
         tile2	.addRow5(	new Space(	"green"	,	359	,	1	,	false,	false));
         tile2	.addRow5(	new Space(	"grey"	,	360	,	2	,	false,	false));
-        tile2	.addRow5(	new Space(	"grey"	,	361	,	1	,	false,	false));
-        tile2	.addRow6(	new Space(	"yellow",	362	,	1	,	false,	false));
+        tile2	.addRow5(	new Space(	"grey"	,	361	,	1	,	false,	true));
+        tile2	.addRow6(	new Space(	"yellow",	362	,	1	,	true,	false));
         tile2	.addRow6(	new Space(	"yellow",	363	,	2	,	false,	false));
         tile2	.addRow6(	new Space(	"yellow",	364	,	2	,	false,	false));
         tile2	.addRow6(	new Space(	"black"	,	365	,	0	,	false,	false));
-        tile2	.addRow6(	new Space(	"grey"	,	366	,	1	,	false,	false));
-        tile2	.addRow7(	new Space(	"yellow",	367	,	1	,	false,	false));
+        tile2	.addRow6(	new Space(	"grey"	,	366	,	1	,	false,	true));
+        tile2	.addRow7(	new Space(	"yellow",	367	,	1	,	true,	false));
         tile2	.addRow7(	new Space(	"yellow",	368	,	1	,	false,	false));
         tile2	.addRow7(	new Space(	"yellow",	369	,	1	,	false,	false));
-        tile2	.addRow7(	new Space(	"grey"	,	370	,	2	,	false,	false));
+        tile2	.addRow7(	new Space(	"grey"	,	370	,	2	,	false,	true));
 
 
 
