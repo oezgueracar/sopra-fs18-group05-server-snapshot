@@ -6,7 +6,14 @@ public class PlayerMode2 {
 
 	private PlayingPiece assignedPiece2;
 
-    public PlayerMode2(String color1, String color2, String name, String token){
+	// TODO: initialization of second playingPiece of a player - add parameter to recognize player.
+	/**
+	 * Constructor
+	 *
+	 * @param color1 color of the first playingPiece
+	 * @param color2 color of the second playingPiece
+	 */
+    public PlayerMode2(String color1, String color2){
 
 	}
 

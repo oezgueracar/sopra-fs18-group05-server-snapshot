@@ -5,6 +5,9 @@ public class Swanplands extends Map {
     private long[] endTile;
     private long[] startSpaces;
 
+    /**
+     * Constructor
+     */
     public Swanplands(){
         setup();
     }

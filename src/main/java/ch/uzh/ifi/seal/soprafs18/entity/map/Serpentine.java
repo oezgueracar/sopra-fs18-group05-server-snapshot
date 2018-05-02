@@ -5,6 +5,9 @@ public class Serpentine extends Map {
     private long[] endTile;
     private long[] startSpaces;
 
+    /**
+     * Constructor
+     */
     public Serpentine(){
         setup();
     }

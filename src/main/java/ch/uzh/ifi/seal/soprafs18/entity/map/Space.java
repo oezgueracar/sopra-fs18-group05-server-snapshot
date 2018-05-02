@@ -12,6 +12,15 @@ public class Space implements Serializable {
     private boolean occupied;
     private long[] neighbours;
 
+    /**
+     * Constructor
+     *
+     * @param col the color
+     * @param spaceId the id
+     * @param val the value
+     * @param first
+     * @param last
+     */
     public Space(String col, long spaceId, int val, boolean first, boolean last){
         color = col;
         id = spaceId;
