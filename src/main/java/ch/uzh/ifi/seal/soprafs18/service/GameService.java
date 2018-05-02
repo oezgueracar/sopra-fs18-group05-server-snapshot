@@ -316,15 +316,9 @@ public class GameService {
 						toBePlayedCard.play(serverSidePlayer.get());
 						movePlayingPieceNative(serverSideGame, serverSidePlayer, player);
 					}
-					else if(toBePlayedCard instanceof Scientist){
-
-					}
 					else if (toBePlayedCard instanceof Transmitter){
 						toBePlayedCard.play(serverSidePlayer.get());
 						serverSidePlayer.get().addCardToDiscardPile(serverSideGame.get().getMarket().removeTransmitter(player.getBoughtCardId()));
-					}
-					else if (toBePlayedCard instanceof TravelLog){
-
 					}
 					else if ((toBePlayedCard instanceof MulticolorCard) && player.getCardFromHandById(cardId) instanceof MulticolorCard){
 						if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null){
@@ -335,10 +329,18 @@ public class GameService {
 					else{
 						toBePlayedCard.play(serverSidePlayer.get());
 					}
-					playerRepository.save(serverSidePlayer.get());
-					gameRepository.save(serverSideGame.get());
-					return playerRepository.save(serverSidePlayer.get());
 				}
+				else { //If the player has discarded cards from his hand with Scientist or TravelLog, it'll be handled here upon receiving another request
+					List<Card> discardedCards = getDifferenceOfHand(serverSidePlayer.get(), player);
+					if(discardedCards != null && discardedCards.size() != 0){
+						for(Card c : discardedCards){
+							serverSidePlayer.get().moveFromHandToDiscardPile(c);
+						}
+					}
+				}
+				playerRepository.save(serverSidePlayer.get());
+				gameRepository.save(serverSideGame.get());
+				return playerRepository.save(serverSidePlayer.get());
 			}
 		}
 		return null;
@@ -484,7 +486,6 @@ public class GameService {
 		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
 	}
 
-	@SuppressWarnings("Duplicates")
 	private void movePlayingPieceNative(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
 		//First check if the player tried to move:
 		if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
