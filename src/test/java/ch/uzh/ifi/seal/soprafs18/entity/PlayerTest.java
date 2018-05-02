@@ -13,12 +13,14 @@ public class PlayerTest {
 
     Player p;
     ExpeditionCard c;
+    Market m;
 
     @Before
     public void setUp() {
         p = new Player();
         c = new ExpeditionCard(1f, 1f, "CardName", "green", 1, true);
         p.setup();
+        m = new Market();
     }
 
     @Test
@@ -144,6 +146,12 @@ public class PlayerTest {
 
     @Test
     public void buyCard() {
+        assertEquals(0, p.getDiscardPile().size());
+        p.coins= 10;
+        p.buyCard(m.getOpenSlots().get(0)[0].getId(), m);
+        assertEquals(1, p.getDiscardPile().size());
+        assertEquals(2, m.getOpenSlots().get(0).length);
+        p.coins = 0;
     }
 
  /*   @Test

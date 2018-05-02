@@ -39,6 +39,7 @@ public class ExpeditionCard extends Card {
 				player.getHand().remove(this);
 			}else{
 				player.getPlayedList().add(this);
+				player.getHand().remove(this);
 			}
 	}
 
