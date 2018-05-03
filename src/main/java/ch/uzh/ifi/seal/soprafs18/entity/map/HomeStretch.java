@@ -246,7 +246,7 @@ public class HomeStretch extends Map {
         tile6	.addRow4(	new Space(	"blue"	,	81	,	1	,	true,	false));
         tile6	.addRow4(	new Space(	"yellow"	,	82	,	1	,	false,	false));
         tile6	.addRow4(	new Space(	"yellow"	,	83	,	1	,	false,	false));
-        tile6	.addRow4(	new Space(	"yellow"	,	84	,	0	,	false,	false));
+        tile6	.addRow4(	new Space(	"black"	,	84	,	0	,	false,	false));
         tile6	.addRow4(	new Space(	"blue"	,	85	,	1	,	false,	false));
         tile6	.addRow4(	new Space(	"grey"	,	86	,	1	,	false,	false));
         tile6	.addRow4(	new Space(	"grey"	,	87	,	1	,	false,	false));

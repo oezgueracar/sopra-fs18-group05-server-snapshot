@@ -80,7 +80,7 @@ public class HillsOfGoldMap extends Map {
         tile2	.addRow4(	new Space(	"blue"	,	90	,	1	,	false,	false));
         tile2	.addRow4(	new Space(	"yellow"	,	91	,	1	,	false,	false));
         tile2	.addRow4(	new Space(	"yellow"	,	92	,	1	,	false,	false));
-        tile2	.addRow4(	new Space(	"yellow"	,	93	,	0	,	false,	false));
+        tile2	.addRow4(	new Space(	"black"	,	93	,	0	,	false,	false));
         tile2	.addRow4(	new Space(	"blue"	,	94	,	1	,	false,	false));
         tile2	.addRow4(	new Space(	"grey"	,	95	,	1	,	false,	false));
         tile2	.addRow4(	new Space(	"grey"	,	96	,	1	,	false,	false));
