@@ -5,29 +5,25 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class HillsOfGoldMapTest{
-    HillsOfGoldMap m;
+public class SwamplandsTest {
+    Swamplands m;
 
     @Before
     public void setUO(){
-        m = new HillsOfGoldMap();
+        m = new Swamplands();
     }
+
     @Test
     public void getEndTile() {
+        Swamplands m = new Swamplands();
         assertEquals(3, m.getEndTile().length);
     }
 
     @Test
     public void getStartingSpaces() {
+        Swamplands m = new Swamplands();
         assertEquals(4, m.getStartingSpaces().length);
     }
-
-    @Test
-    public void getMapTiles(){
-        //Testing if all MapElements are there
-        assertEquals(12, m.getMapTiles().size());
-    }
-
     @Test
     public void setup() {
         //Testing rows of tiles

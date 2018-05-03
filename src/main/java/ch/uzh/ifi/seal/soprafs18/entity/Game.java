@@ -26,7 +26,7 @@ public class Game implements Serializable {
 		players = new ArrayList<>();
 		setup();
 
-		//assert((name != null) && (status == ROOM) && (turnTime == 60) && (mapName.equals("HillsOfGoldMap")));
+		//assert((name != null) && (status == ROOM) && (turnTime == 60) && (mapName.equals("HillsOfGold")));
     }
 	
 	@Id
@@ -148,7 +148,7 @@ public class Game implements Serializable {
 	 * Sets the game information about the map and the status.
 	 */
 	public void setup(){
-        setMapName("HillsOfGoldMap");
+        setMapName("HillsOfGold");
 		setStatus(ROOM);
 	}
 

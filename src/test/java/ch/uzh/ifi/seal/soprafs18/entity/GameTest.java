@@ -37,7 +37,7 @@ public class GameTest {
     public void Constructor(){
         Game game2 = new Game();
         assertTrue(game2.getTurnTime() == 60);
-        assertEquals("HillsOfGoldMap", game2.getMapName());
+        assertEquals("HillsOfGold", game2.getMapName());
         assertTrue(game2.getStatus() == GameStatus.ROOM);
     }
 
@@ -74,9 +74,9 @@ public class GameTest {
 
     @Test
     public void setMapName() {
-        game.setMapName("Swanplands");
+        game.setMapName("Swamplands");
 
-        assertEquals("Swanplands", game.getMapName());
+        assertEquals("Swamplands", game.getMapName());
     }
 
     @Test
@@ -129,7 +129,7 @@ public class GameTest {
     public void setup() {
         game.setup();
 
-        assertEquals("HillsOfGoldMap", game.getMapName());
+        assertEquals("HillsOfGold", game.getMapName());
         assertTrue(game.getStatus() == GameStatus.ROOM);
     }
 

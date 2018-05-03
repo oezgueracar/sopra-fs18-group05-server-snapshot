@@ -95,7 +95,7 @@ public class GameResourceTest {
 
         //Get request to the game created above. It must contain only 1 player.
         mockMvc.perform(get("/games/1"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"TestLeader's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGoldMap\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"id\":2,\"name\":\"TestLeaderCopy\",\"token\":\"" + userTokenString + "\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"isInGoal\":false,\"gameId\":1,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"moveCounter\":[0,0,0],\"playingPiece\":null}]}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"TestLeader's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"id\":2,\"name\":\"TestLeaderCopy\",\"token\":\"" + userTokenString + "\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"isInGoal\":false,\"gameId\":1,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"moveCounter\":[0,0,0],\"playingPiece\":null}]}"));
 
         //assertTrue(serverSideGame.getPlayers().size() == 1);
     }*/

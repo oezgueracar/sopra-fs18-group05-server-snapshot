@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-public class HillsOfGoldMap extends Map {
+public class HillsOfGold extends Map {
 
     private long[] endTile;
     private long[] startSpaces;
@@ -8,7 +8,7 @@ public class HillsOfGoldMap extends Map {
     /**
      * Constructor
      */
-    public HillsOfGoldMap() {
+    public HillsOfGold() {
         setup();
     }
 
@@ -16,7 +16,7 @@ public class HillsOfGoldMap extends Map {
         //Tile B
         MapElement tile1 = new Tile();
         tile1.setRotation(300);
-        tile1.setNextTilePos(5);
+        tile1.setNextTilePos(6);
 
         tile1	.addRow1(	new Space(	"green"	,	38	,	1	,	false,	true)	);
         tile1	.addRow1(	new Space(	"blue"	,	39	,	1	,	false,	false)	);
@@ -104,7 +104,7 @@ public class HillsOfGoldMap extends Map {
         //Tile G
         MapElement tile3 = new Tile();
         tile3.setRotation(120);
-        tile3.setNextTilePos(4);
+        tile3.setNextTilePos(2);
 
         tile3	.addRow1(	new Space(	"green"	,	223	,	1	,	true,	false));
         tile3	.addRow1(	new Space(	"green"	,	224	,	1	,	false,	false));
@@ -147,7 +147,7 @@ public class HillsOfGoldMap extends Map {
 
         //Tile K
         MapElement tile4 = new Tile();
-        tile4.setNextTilePos(1);
+        tile4.setNextTilePos(2);
         tile4.setRotation(300);
 
         tile4	.addRow1(	new Space(	"red"	,	371	,	1	,	false,	false));
@@ -192,7 +192,7 @@ public class HillsOfGoldMap extends Map {
         // Tile J
         MapElement tile5 = new Tile();
         tile5.setRotation(300);
-        tile5.setNextTilePos(6);
+        tile5.setNextTilePos(1);
 
 
         tile5	.addRow1(	new Space(	"blue"	,	334	,	1	,	false,	true));
@@ -236,7 +236,7 @@ public class HillsOfGoldMap extends Map {
 
         // Tile N
         MapElement tile6 = new Tile();
-        tile6.setNextTilePos(4);
+        tile6.setNextTilePos(2);
         tile6.setRotation(120);
 
 
