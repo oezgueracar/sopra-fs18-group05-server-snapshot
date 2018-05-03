@@ -17,7 +17,7 @@ public class HomeStretch extends Map {
         // TileB
         MapElement tile1 = new Tile();
         tile1.setRotation(270);
-        tile1.setNextTilePos(5);
+        tile1.setNextTilePos(1);
 
         tile1	.addRow1(	new Space(	"green"	,	29	,	1	,	false,	true)	);
         tile1	.addRow1(	new Space(	"blue"	,	30	,	1	,	false,	false)	);
@@ -108,7 +108,7 @@ public class HomeStretch extends Map {
 
         // Tile Q
         MapElement tile3 = new TerrainStrip();
-        tile3.setNextTilePos(3);
+        tile3.setNextTilePos(2);
         tile3.setRotation(90);
 
         tile3	.addRow1(	new Space(	"grey"	,	542	,	1	,	true,	false));
@@ -134,7 +134,7 @@ public class HomeStretch extends Map {
         // Tile K
         MapElement tile4 = new Tile();
         tile4.setRotation(330);
-        tile4.setNextTilePos(1);
+        tile4.setNextTilePos(2);
 
         tile4	.addRow1(	new Space(	"red"	,	362	,	1	,	false,	false));
         tile4	.addRow1(	new Space(	"green"	,	363	,	2	,	false,	false));
@@ -179,7 +179,7 @@ public class HomeStretch extends Map {
 
         // Tile M
         MapElement tile5 = new Tile();
-        tile5.setNextTilePos(3);
+        tile5.setNextTilePos(2);
         tile5.setRotation(90);
 
         tile5	.addRow1(	new Space(	"green"	,	436	,	1	,	true,	false));
@@ -226,7 +226,7 @@ public class HomeStretch extends Map {
         //Tile C
         MapElement tile6 = new Tile();
         tile6.setRotation(330);
-        tile6.setNextTilePos(1);
+        tile6.setNextTilePos(2);
 
         tile6	.addRow1(	new Space(	"green"	,	66	,	1	,	false,	false));
         tile6	.addRow1(	new Space(	"green"	,	67	,	1	,	false,	false));

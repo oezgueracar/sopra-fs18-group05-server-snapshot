@@ -16,7 +16,7 @@ public class Serpentine extends Map {
         // Tile A
         MapElement tile1 = new Tile();
         tile1.setRotation(300);
-        tile1.setNextTilePos(1);
+        tile1.setNextTilePos(2);
 
         tile1	.addRow1(	new Space(	"green"	,	1,		1	,	false,	false));
         tile1	.addRow1(	new Space(	"red"	,	2,	1	,	false,	false));
@@ -59,7 +59,7 @@ public class Serpentine extends Map {
 
         // TIle C
         MapElement tile2 = new Tile();
-        tile2.setNextTilePos(3);
+        tile2.setNextTilePos(1);
         tile2.setRotation(120);
 
         tile2	.addRow1(	new Space(	"green"	,	75	,	1	,	false,	true));
@@ -105,7 +105,7 @@ public class Serpentine extends Map {
         // Tile E
         MapElement tile3 = new Tile();
         tile3.setRotation(270);
-        tile3.setNextTilePos(4);
+        tile3.setNextTilePos(5);
 
         tile3	.addRow1(	new Space(	"red"	,	149	,	1	,	false,	false));
         tile3	.addRow1(	new Space(	"yellow"	,	150	,	1	,	false,	false));
@@ -148,7 +148,7 @@ public class Serpentine extends Map {
 
         // Tile G
         MapElement tile4 = new Tile();
-        tile4.setNextTilePos(4);
+        tile4.setNextTilePos(1);
         tile4.setRotation(180);
 
         tile4	.addRow1(	new Space(	"green"	,	223	,	1	,	true,	false));
@@ -193,7 +193,7 @@ public class Serpentine extends Map {
         // TIle J
         MapElement tile5 = new Tile();
         tile5.setRotation(180);
-        tile5.setNextTilePos(5);
+        tile5.setNextTilePos(2);
 
         tile5	.addRow1(	new Space(	"blue"	,	334	,	1	,	false,	true));
         tile5	.addRow1(	new Space(	"blue"	,	335	,	1	,	false,	false));
@@ -239,7 +239,7 @@ public class Serpentine extends Map {
         // Tile M
         MapElement tile6 = new Tile();
         tile6.setRotation(60);
-        tile6.setNextTilePos(4);
+        tile6.setNextTilePos(3);
 
         tile6	.addRow1(	new Space(	"green"	,	445	,	1	,	true,	false));
         tile6	.addRow1(	new Space(	"green"	,	446	,	1	,	true,	false));
