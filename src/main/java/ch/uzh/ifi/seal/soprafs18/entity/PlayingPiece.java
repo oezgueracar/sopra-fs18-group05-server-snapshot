@@ -13,6 +13,11 @@ public class PlayingPiece implements Serializable {
 	 * Constructor
 	 * @param color the color
 	 */
+
+	public PlayingPiece(){
+
+	}
+
 	@JsonIgnore
 	public PlayingPiece(String color){
 		this.color = color;
