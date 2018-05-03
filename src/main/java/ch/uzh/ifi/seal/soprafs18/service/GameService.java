@@ -327,13 +327,8 @@ public class GameService {
 						toBePlayedCard.play(serverSidePlayer.get());
 					}
 				}
-				else { //If the player has discarded cards from his hand with Scientist or TravelLog, it'll be handled here upon receiving another request
-					List<Card> discardedCards = getDifferenceOfHand(serverSidePlayer.get(), player);
-					if(discardedCards != null && discardedCards.size() != 0){
-						for(Card c : discardedCards){
-							serverSidePlayer.get().moveFromHandToDiscardPile(c);
-						}
-					}
+				else if (cardId == -1) { //If the player has discarded cards from his hand with Scientist or TravelLog, it'll be handled here upon receiving another request
+					removeHandCardsFromGameScientistTravelLog(serverSideGame, serverSidePlayer, player);
 				}
 				playerRepository.save(serverSidePlayer.get());
 				gameRepository.save(serverSideGame.get());
@@ -589,6 +584,16 @@ public class GameService {
     	return null;
 	}
 
+	//Helper method of a helper method to remove cards from the game after playing Scientist or TravelLog
+	private List<Card> getRemovedCardsScientistTravelLog(Optional<Player> serverSidePlayer, Player player){
+		List<Card> removedCards = new ArrayList<>(serverSidePlayer.get().getHand());
+		removedCards.removeAll(player.getHand());
+		if(removedCards.size() != 0) {
+			return removedCards;
+		}
+		return null;
+	}
+
 	private Blockade getDifferenceOfBlockades(Optional<Player> serverSidePlayer, Player player){
 		ArrayList<Blockade> removedBlockades = new ArrayList<>(player.getBlockades());
 		removedBlockades.removeAll(serverSidePlayer.get().getBlockades());
@@ -629,6 +634,7 @@ public class GameService {
 		}
 	}
 
+	//Helper method to move to red spaces.
 	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace, int amountOfRemovedCards){
 		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
 		if(removedCards != null && removedCards.size() == amountOfRemovedCards) {
@@ -639,6 +645,16 @@ public class GameService {
 				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
 				serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
 				toBeMovedSpace.switchOccupied();
+			}
+		}
+	}
+
+	//Helper method to remove the cards from hand after playing the Scientist or TravelLog
+	private void removeHandCardsFromGameScientistTravelLog(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
+		List<Card> removedCards = getRemovedCardsScientistTravelLog(serverSidePlayer, player);
+		if(removedCards != null && removedCards.size() != 0) {
+			for (Card c : removedCards) {
+				serverSidePlayer.get().removeCardFromHand(c);
 			}
 		}
 	}
