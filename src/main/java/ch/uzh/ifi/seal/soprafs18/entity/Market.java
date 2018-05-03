@@ -153,6 +153,38 @@ public class Market implements Serializable {
         return closedSlots;
     }
 
+    //Will only return card from closed slot if there is a free place in the openslot (free spaces are null)
+    public Card getCardByCardId(long cardId){
+        for(int i = 0; i < openSlots.size(); i++){
+            if(openSlots.get(i) != null) {
+                for (int j = 0; j < openSlots.get(i).length; j++) {
+                    if (openSlots.get(i)[j] != null && openSlots.get(i)[j].getId() == cardId) {
+                        return openSlots.get(i)[j];
+                    }
+                }
+            }
+        }
+
+        boolean openSpaceIsFree = false;
+        for(Card[] cardArray : openSlots){
+            if(cardArray == null){
+                openSpaceIsFree = true;
+            }
+        }
+        if(openSpaceIsFree) {
+            for (int i = 0; i < closedSlots.size(); i++) {
+                if (closedSlots.get(i) != null) {
+                    for (int j = 0; j < closedSlots.size(); j++) {
+                        if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
+                            return closedSlots.get(i)[j];
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Removes a card from the according array
      * @param cardId the id of the card that is removed
@@ -171,15 +203,24 @@ public class Market implements Serializable {
                 }
             }
         }
-        for(int i = 0; i < closedSlots.size(); i++){
-            if(closedSlots.get(i) != null) {
-                for (int j = 0; j < closedSlots.size(); j++) {
-                    if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
-                        Card toBeRemoved = closedSlots.get(i)[j];
-                        closedSlots.get(i)[j] = null;
-                        closedSlots.set(i, returnShrunkArray(closedSlots.get(i)));
-                        moveCardSlot(i);
-                        return toBeRemoved;
+
+        boolean openSpaceIsFree = false;
+        for(Card[] cardArray : openSlots){
+            if(cardArray == null){
+                openSpaceIsFree = true;
+            }
+        }
+        if(openSpaceIsFree) {
+            for (int i = 0; i < closedSlots.size(); i++) {
+                if (closedSlots.get(i) != null) {
+                    for (int j = 0; j < closedSlots.size(); j++) {
+                        if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
+                            Card toBeRemoved = closedSlots.get(i)[j];
+                            closedSlots.get(i)[j] = null;
+                            closedSlots.set(i, returnShrunkArray(closedSlots.get(i)));
+                            moveCardSlot(i);
+                            return toBeRemoved;
+                        }
                     }
                 }
             }
@@ -221,6 +262,8 @@ public class Market implements Serializable {
      * Moves a card array from closedSlots to openSlots
      * @param chosenCardsIndex The index of the card Array in the ArrayList openSlots.
      */
+
+    //Moves the chosen Card Array from closedSlots to openSlots.
     private void moveCardSlot(int chosenCardsIndex){
         for(int i = 0; i < openSlots.size(); i++){
             if (openSlots.get(i) == null){

@@ -279,7 +279,7 @@ public class GameService {
 			if(isPlayersTurn(serverSideGame, serverSidePlayer)){
 				if(serverSidePlayer.get().getBoughtCardId() == 0) {
 					serverSidePlayer.get().setBoughtCardId(player.getBoughtCardId());
-					Card boughtCard = player.returnCardFromHandById(player.getBoughtCardId());
+					Card boughtCard = serverSideGame.get().getMarket().getCardByCardId(player.getBoughtCardId());
 					if(boughtCard != null) {
 						List<Card> tradedInCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
 						if (tradedInCards != null && tradedInCards.size() != 0) {
