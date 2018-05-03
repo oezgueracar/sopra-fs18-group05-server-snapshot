@@ -313,7 +313,7 @@ public class GameService {
 						toBePlayedCard.play(serverSidePlayer.get());
 						movePlayingPieceNative(serverSideGame, serverSidePlayer, player);
 					}
-					else if (toBePlayedCard instanceof Transmitter){
+					else if (toBePlayedCard instanceof Transmitter || toBePlayedCard instanceof TravelLog){
 						toBePlayedCard.play(serverSidePlayer.get());
 						serverSidePlayer.get().addCardToDiscardPile(serverSideGame.get().getMarket().removeTransmitter(player.getBoughtCardId()));
 					}
