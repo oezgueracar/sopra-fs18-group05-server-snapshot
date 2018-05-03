@@ -255,10 +255,6 @@ public class GameService {
 
 					return playerRepository.save(serverSidePlayer.get());
 				case RUNNING:
-
-					//REMOVE THIS:
-					serverSidePlayer.get().setMoveCounter(1, "green");
-
 					if(isPlayersTurn(serverSideGame, serverSidePlayer)) {
 						movePlayingPiece(serverSideGame, serverSidePlayer, player);
 					}
