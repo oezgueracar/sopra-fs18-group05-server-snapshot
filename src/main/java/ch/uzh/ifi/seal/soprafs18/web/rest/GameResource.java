@@ -107,7 +107,7 @@ public class GameResource
     }
 
     @CrossOrigin
-    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/", method = RequestMethod.PUT)
+    @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Player buyCard(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
