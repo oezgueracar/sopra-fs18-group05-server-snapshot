@@ -219,7 +219,6 @@ public class GameService {
 						return gameRepository.save(serverSideGame.get());
 					}
 				case FINISHED:
-					serverSideGame.get().setStatus(GameStatus.ROOM);
 					return gameRepository.save(serverSideGame.get());
 			}
 		}
