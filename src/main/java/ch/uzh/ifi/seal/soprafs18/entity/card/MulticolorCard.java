@@ -26,6 +26,7 @@ public class MulticolorCard extends ExpeditionCard {
      */
     @Override
     public void play(Player player){
+        player.resetMoveCounter();
         player.setMoveCounter(this.value, chosenColor);
         if(itemCard){
             player.getHand().remove(this);

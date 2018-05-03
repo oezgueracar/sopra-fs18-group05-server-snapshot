@@ -34,11 +34,12 @@ public class ExpeditionCard extends Card {
 	 */
 	@Override
 	public void play(Player player){
-			player.setMoveCounter(value, color);
-			if(!itemCard){
-				player.getPlayedList().add(this);
-			}
-			player.getHand().remove(this);
+		player.resetMoveCounter();
+		player.setMoveCounter(value, color);
+		if(!itemCard){
+			player.getPlayedList().add(this);
+		}
+		player.getHand().remove(this);
 	}
 
 	public int getValue(){
