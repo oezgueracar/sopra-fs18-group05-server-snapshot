@@ -203,6 +203,7 @@ public class Player implements Serializable {
 		return boughtCardId;
 	}
 
+	@JsonIgnore
 	public String getMoveCounterColor(){
 		if (this.getMoveCounter()[0] != 0) {
 			return "green";
