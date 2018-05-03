@@ -504,6 +504,11 @@ public class Player implements Serializable {
 		blockades = new ArrayList<>();
 
 		this.setupCards();
+
+		this.drawCard();
+		this.drawCard();
+		this.drawCard();
+		this.drawCard();
 	}
 
 	// TODO: Organized structure: setup - play/buy/tradein - move from arrays to arrays - increase/decrease counters - resetter - getters - setters
