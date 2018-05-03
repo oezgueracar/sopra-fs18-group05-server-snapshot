@@ -17,7 +17,7 @@ public class WindingPaths extends Map {
         // TileB
         MapElement tile1 = new Tile();
         tile1.setRotation(270);
-        tile1.setNextTilePos(5);
+        tile1.setNextTilePos(1);
 
             tile1	.addRow1(	new Space(	"green"	,	38	,	1	,	false,	true)	);
             tile1	.addRow1(	new Space(	"blue"	,	39	,	1	,	false,	false)	);
@@ -62,7 +62,7 @@ public class WindingPaths extends Map {
             //Tile I
         MapElement tile2 = new Tile();
         tile2.setRotation(150);
-        tile2.setNextTilePos(4);
+        tile2.setNextTilePos(2);
 
             tile2	.addRow1(	new Space(	"green"	,	297	,	1	,	true,	false));
             tile2	.addRow1(	new Space(	"green"	,	298	,	1	,	true,	false));
@@ -105,7 +105,7 @@ public class WindingPaths extends Map {
 
             // Tile F
         MapElement tile3 = new Tile();
-        tile3.setNextTilePos(5);
+        tile3.setNextTilePos(3);
         tile3.setRotation(150);
 
             tile3	.addRow1(	new Space(	"green"	,	186	,	1	,	false,	true));
@@ -149,7 +149,7 @@ public class WindingPaths extends Map {
 
             // Tile G
         MapElement tile4 = new Tile();
-        tile4.setNextTilePos(5);
+        tile4.setNextTilePos(1);
         tile4.setRotation(270);
 
             tile4	.addRow1(	new Space(	"green"	,	223	,	1	,	false,	true));
@@ -194,7 +194,7 @@ public class WindingPaths extends Map {
             // Tile C
         MapElement tile5 = new Tile();
         tile5.setRotation(330);
-        tile5.setNextTilePos(1);
+        tile5.setNextTilePos(2);
 
             tile5	.addRow1(	new Space(	"green"	,	75	,	1	,	false,	false));
             tile5	.addRow1(	new Space(	"green"	,	76	,	1	,	false,	false));
@@ -237,7 +237,7 @@ public class WindingPaths extends Map {
 
             // Tile N
         MapElement tile6 = new Tile();
-        tile6.setNextTilePos(3);
+        tile6.setNextTilePos(2);
         tile6.setRotation(90);
 
             tile6	.addRow1(	new Space(	"green"	,	482	,	1	,	true,	false));

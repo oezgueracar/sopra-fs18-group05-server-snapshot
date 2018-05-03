@@ -16,7 +16,7 @@ public class Swamplands extends Map {
 
         // Tile A
         MapElement tile1 = new Tile();
-        tile1.setNextTilePos(1);
+        tile1.setNextTilePos(2);
         tile1.setNextTilePos(330);
 
         tile1	.addRow1(	new Space(	"green"	,	1	,	1	,	false,	false));
@@ -61,7 +61,7 @@ public class Swamplands extends Map {
 
         // Tile R
         MapElement tile2 = new TerrainStrip();
-        tile2.setNextTilePos(6);
+        tile2.setNextTilePos(2);
         tile2.setRotation(270);
 
         tile2	.addRow1(	new Space(	"green"	,	567	,	1	,	false,	true));
@@ -85,7 +85,7 @@ public class Swamplands extends Map {
         // Tile D
         MapElement tile3 = new Tile();
         tile3.setRotation(210);
-        tile3.setNextTilePos(6);
+        tile3.setNextTilePos(3);
 
         tile3	.addRow1(	new Space(	"green"	,	112	,	1	,	false,	false));
         tile3	.addRow1(	new Space(	"green"	,	113	,	1	,	false,	false));
@@ -128,7 +128,7 @@ public class Swamplands extends Map {
 
         // Tile H
         MapElement tile4 = new Tile();
-        tile4.setNextTilePos(6);
+        tile4.setNextTilePos(3);
         tile4.setRotation(210);
 
         tile4	.addRow1(	new Space(	"blue"	,	260	,	1	,	false,	true));
@@ -173,7 +173,7 @@ public class Swamplands extends Map {
         // Tile E
         MapElement tile5 = new Tile();
         tile5.setRotation(270);
-        tile5.setNextTilePos(3);
+        tile5.setNextTilePos(5);
 
         tile5	.addRow1(	new Space(	"red"	,	149	,	1	,	false,	false));
         tile5	.addRow1(	new Space(	"yellow"	,	150	,	1	,	false,	false));
@@ -216,7 +216,7 @@ public class Swamplands extends Map {
 
         // Tile O
         MapElement tile6 = new TerrainStrip();
-        tile6.setNextTilePos(6);
+        tile6.setNextTilePos(5);
         tile6.setRotation(90);
 
         tile6	.addRow1(	new Space(	"yellow"	,	519	,	2	,	false,	true));
@@ -242,7 +242,7 @@ public class Swamplands extends Map {
         // Tile K
         MapElement tile7 = new Tile();
         tile7.setRotation(330);
-        tile7.setNextTilePos(4);
+        tile7.setNextTilePos(5);
 
         tile7	.addRow1(	new Space(	"red"	,	371	,	1	,	false,	false));
         tile7	.addRow1(	new Space(	"green"	,	372	,	2	,	false,	false));
