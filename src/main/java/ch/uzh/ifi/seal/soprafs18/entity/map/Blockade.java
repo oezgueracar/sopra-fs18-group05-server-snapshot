@@ -6,6 +6,7 @@ public class Blockade extends MapElement {
 
     private String color;
     private int value;
+    private int powerValue;
     private List<Space> row1;
     private List<Space> row2;
     private List<Space> row3;
@@ -19,9 +20,10 @@ public class Blockade extends MapElement {
      * @param col the color of the blockade
      * @param val the value of the blockade
      */
-    public Blockade(String col, int val){
+    public Blockade(String col, int val, int powVal){
         color = col;
         value = val;
+        powerValue = powVal;
     }
 
     // Getter

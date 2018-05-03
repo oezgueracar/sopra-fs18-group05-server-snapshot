@@ -300,13 +300,13 @@ public class WindingPaths extends Map {
         startSpaces[2] = tile1.getRow7().get(1).getId();
         startSpaces[3] = tile1.getRow7().get(0).getId();
 
-        // Initializing Blockades
-        blockades.add(new Blockade("green", 1));
-        blockades.add(new Blockade("yellow", 1));
-        blockades.add(new Blockade("grey", 1));
-        blockades.add(new Blockade("blue", 1));
-        blockades.add(new Blockade("green", 2));
-        blockades.add(new Blockade("grey", 2));
+            // Initializing Blockades
+            blockades.add(new Blockade("green", 1, 1));
+            blockades.add(new Blockade("yellow", 1, 2));
+            blockades.add(new Blockade("grey", 1, 3));
+            blockades.add(new Blockade("blue", 1, 4));
+            blockades.add(new Blockade("green", 2, 5));
+            blockades.add(new Blockade("grey", 2, 6));
 
         //Filling element of the map in the ArrayList
         mapTiles.add(tile1);
