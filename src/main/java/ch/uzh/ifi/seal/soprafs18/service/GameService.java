@@ -207,9 +207,10 @@ public class GameService {
 								aPlayerIsOnEndTile = true;
 							}
 						}
-						//Change game to finished if a player is in El Dorado while the
+						//Change game to finished if a player is in El Dorado
 						if (aPlayerIsOnEndTile && game.getCurrentPlayer() + 1 == 0) {
-							serverSideGame.get().setStatus(GameStatus.WILL_BE_FINISHED);
+							determineWinner(serverSideGame.get());
+							serverSideGame.get().setStatus(GameStatus.FINISHED);
 						}
 
 						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).drawCardOnEndTurn();
@@ -217,14 +218,7 @@ public class GameService {
 
 						return gameRepository.save(serverSideGame.get());
 					}
-				case WILL_BE_FINISHED:
-					if(game.getCurrentPlayer() == 0) {
-						serverSideGame.get().setStatus(GameStatus.FINISHED);
-					}
-
-					return gameRepository.save(serverSideGame.get());
 				case FINISHED:
-					determineWinner(serverSideGame.get());
 					serverSideGame.get().setStatus(GameStatus.ROOM);
 					return gameRepository.save(serverSideGame.get());
 			}
