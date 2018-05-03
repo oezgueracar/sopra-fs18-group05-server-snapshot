@@ -30,9 +30,18 @@ public class MarketTest {
         m.removeCard(m.getOpenSlots().get(0)[0].getId());
         assertEquals(2,m.getOpenSlots().get(0).length);
 
+        assertEquals(2, m.getOpenSlots().get(0).length);
+        m.removeCard(m.getOpenSlots().get(0)[0].getId());
+        assertEquals(1,m.getOpenSlots().get(0).length);
+
+        assertEquals(1, m.getOpenSlots().get(0).length);
+        m.removeCard(m.getOpenSlots().get(0)[0].getId());
+        assertNull(m.getOpenSlots().get(0));
+
         assertEquals(3, m.getClosedSlots().get(0).length);
         m.removeCard(m.getClosedSlots().get(0)[0].getId());
-        assertEquals(2,m.getClosedSlots().get(0).length);
+        assertNull(m.getClosedSlots().get(0));
+        assertEquals(2,m.getOpenSlots().get(0).length);
     }
 
     @Test

@@ -135,9 +135,9 @@ public class PlayerTest {
     public void playCard() {
         p.playCard(c);
         p.getHand().add(c);
-        assertEquals(1,p.getHand().size());
+        assertEquals(5,p.getHand().size());
         p.playCard(c);
-        assertEquals(0, p.getHand().size());
+        assertEquals(4, p.getHand().size());
     }
 
     @Test
@@ -241,18 +241,18 @@ public class PlayerTest {
     @Test
     public void moveFromHandToPlayedList(){
         p.getHand().add(c);
-        assertEquals(1,p.getHand().size());
+        assertEquals(5,p.getHand().size());
         p.moveFromHandToPlayedList(c);
-        assertEquals(0, p.getHand().size());
+        assertEquals(4, p.getHand().size());
         assertEquals(1,p.getPlayedList().size());
     }
 
     @Test
     public void moveFromHandToDiscardPile(){
         p.getHand().add(c);
-        assertEquals(1,p.getHand().size());
+        assertEquals(5,p.getHand().size());
         p.moveFromHandToDiscardPile(c);
-        assertEquals(0, p.getHand().size());
+        assertEquals(4, p.getHand().size());
         assertEquals(1,p.getDiscardPile().size());
     }
 
@@ -330,9 +330,9 @@ public class PlayerTest {
         p.setColor("blue");
         p.setup();
         assertEquals("blue", p.getPlayingPiece().getColor());
-        assertEquals(0,p.getHand().size());
+        assertEquals(4,p.getHand().size());
         assertEquals(0, p.getPlayedList().size());
-        assertEquals(8,p.getDeck().size());
+        assertEquals(4,p.getDeck().size());
 
     }
     @Test
@@ -340,9 +340,9 @@ public class PlayerTest {
         p.setColor("green");
         p.setup();
         assertEquals("green", p.getPlayingPiece().getColor());
-        assertEquals(0,p.getHand().size());
+        assertEquals(4,p.getHand().size());
         assertEquals(0, p.getPlayedList().size());
-        assertEquals(8,p.getDeck().size());
+        assertEquals(4,p.getDeck().size());
 
     }
 }

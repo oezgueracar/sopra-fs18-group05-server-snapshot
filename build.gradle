@@ -22,7 +22,7 @@ apply plugin: "jacoco"
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.example'
-version = '0.4-SNAPSHOT'
+version = '0.9-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
