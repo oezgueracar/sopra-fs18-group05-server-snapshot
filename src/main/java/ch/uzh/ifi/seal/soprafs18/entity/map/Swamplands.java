@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-public class Swanplands extends Map {
+public class Swamplands extends Map {
 
     private long[] endTile;
     private long[] startSpaces;
@@ -8,7 +8,7 @@ public class Swanplands extends Map {
     /**
      * Constructor
      */
-    public Swanplands(){
+    public Swamplands(){
         setup();
     }
 
