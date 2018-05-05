@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class BlockadeTest {
 
-    Blockade b1 = new Blockade("green", 1);
+    Blockade b1 = new Blockade("green", 1, 1);
 
     @Test
     public void getColor() {
@@ -16,5 +16,10 @@ public class BlockadeTest {
     @Test
     public void getValue() {
     assertEquals(1,b1.getValue());
+    }
+
+    @Test
+    public void getPowerValue(){
+        assertEquals(1, b1.getPowerValue());
     }
 }
