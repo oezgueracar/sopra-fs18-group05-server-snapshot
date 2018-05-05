@@ -93,10 +93,6 @@ public class Game implements Serializable {
 
 			assert(this.getPlayers().contains(newPlayer));
 		}
-		else {
-    		// Room is already full
-    		System.out.println("Bad Request. Player is already in room or Max Number of Players reached.");
-		}
     }
 
 	//TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
