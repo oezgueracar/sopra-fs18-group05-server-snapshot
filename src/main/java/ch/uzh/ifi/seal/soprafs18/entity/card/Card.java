@@ -52,7 +52,7 @@ public class Card implements Serializable {
 		return cardDescription;
 	}*/
 
-	@Override
+	/*@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -67,5 +67,5 @@ public class Card implements Serializable {
 	@Override
 	public int hashCode() {
 		return Long.hashCode(this.id);
-	}
+	}*/
 }

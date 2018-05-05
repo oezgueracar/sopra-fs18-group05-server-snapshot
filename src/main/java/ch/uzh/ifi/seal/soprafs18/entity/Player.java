@@ -530,7 +530,7 @@ public class Player implements Serializable {
 
 
 
-	@Override
+	/*@Override
 	public boolean equals(Object o) {
 		if (o == this)
 			return true;
@@ -545,5 +545,5 @@ public class Player implements Serializable {
 	@Override
 	public int hashCode() {
 		return Long.hashCode(this.id);
-	}
+	}*/
 }
