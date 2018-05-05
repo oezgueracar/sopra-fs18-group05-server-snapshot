@@ -262,7 +262,7 @@ public class Player implements Serializable {
 
 		if(boughtCard != null && (this.getCoins() >= boughtCard.getBuyingCost())){
 			this.decreaseCoins(boughtCard.getBuyingCost());
-			this.addCardToDiscardPile(boughtCard);
+			this.discardPile.add(boughtCard);
 		}
 	}
 
@@ -319,45 +319,6 @@ public class Player implements Serializable {
 			}
 		}
 	}
-	// TODO: not necessary - refactor
-	protected void addCardToDeck(Card card){
-		deck.add(card);
-	}
-
-	// TODO: not necessary - refactor
-	public void addCardToDiscardPile(Card card){
-		discardPile.add(card);
-	}
-
-	// TODO: not necessary - refactor
-	protected void addCardToPlayedList(Card card){
-		playedList.add(card);
-	}
-
-	// TODO: not necessary - refactor
-	public void addBlockade(Blockade blockade){
-		this.blockades.add(blockade);
-	}
-
-	// TODO: not necessary - refactor
-	public void removeCardFromHand(Card card){
-		hand.remove(card);
-	}
-
-	// TODO: not necessary - refactor
-	protected void removeCardFromDiscardPile(Card card){
-		discardPile.remove(card);
-	}
-
-	// TODO: not necessary - refactor
-	protected void removeCardFromDeck(Card card){
-		deck.remove(card);
-	}
-
-	// TODO: not necessary - refactor
-	protected void resetPlayedList(){
-		playedList.clear();
-	}
 
 	// TODO: not necessary - refactor
 	/**
@@ -372,8 +333,8 @@ public class Player implements Serializable {
 	 * @param c the card instance
 	 */
 	public void moveFromHandToPlayedList(Card c){
-			removeCardFromHand(c);
-			addCardToPlayedList(c);
+		hand.remove(c);
+		playedList.add(c);
 	}
 
 	/**
@@ -381,8 +342,8 @@ public class Player implements Serializable {
 	 * @param c the card instance
 	 */
 	public void moveFromHandToDiscardPile(Card c){
-		removeCardFromHand(c);
-		addCardToDiscardPile(c);
+		hand.remove(c);
+		discardPile.add(c);
 	}
 
 	/**
@@ -390,7 +351,7 @@ public class Player implements Serializable {
 	 */
 	public void flushPlayedList(){
 		discardPile.addAll(playedList);
-		resetPlayedList();
+		playedList.clear();
 	}
 
 	/**
@@ -461,13 +422,13 @@ public class Player implements Serializable {
 	 */
 	private void setupCards(){
 		for(int i = 0; i < 3; i++){
-			this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Explorer", "green", 1, false));
+			this.deck.add(new ExpeditionCard(1, 0.5f, "Explorer", "green", 1, false));
 		}
 
-		this.addCardToDeck(new ExpeditionCard(1, 0.5f, "Sailor", "blue", 1, false));
+		this.deck.add(new ExpeditionCard(1, 0.5f, "Sailor", "blue", 1, false));
 
 		for(int i = 0; i < 4; i++){
-			this.addCardToDeck(new ExpeditionCard(1, 1.0f, "Traveler", "yellow", 1, false));
+			this.deck.add(new ExpeditionCard(1, 1.0f, "Traveler", "yellow", 1, false));
 		}
 	}
 

@@ -114,7 +114,7 @@ public class PlayerTest {
 
     @Test
     public void getPlayedList() {
-        p.addCardToPlayedList(c);
+        p.getPlayedList().add(c);
         assertEquals(1, p.getPlayedList().size());
     }
 
@@ -172,65 +172,6 @@ public class PlayerTest {
     }
 
     @Test
-    public void addCardToDeck() {
-        p.setup();
-        int testInt = p.getDeck().size();
-        p.addCardToDeck(c);
-        assertEquals(testInt, p.getDeck().size()-1);
-    }
-
-    @Test
-    public void addCardToDiscardPile() {
-        p.setup();
-        int testInt = p.getDiscardPile().size();
-        p.addCardToDiscardPile(c);
-        assertEquals(testInt, p.getDiscardPile().size()-1);
-    }
-
-    @Test
-    public void addCardToPlayingList() {
-        p.setup();
-        int testInt = p.getPlayedList().size();
-        p.addCardToPlayedList(c);
-        assertEquals(testInt, p.getPlayedList().size()-1);
-    }
-
-    @Test
-    public void removeCardFromHand() {
-        p.setup();
-        p.getHand().add(c);
-        int testInt = p.getHand().size();
-        p.removeCardFromHand(c);
-        assertEquals(testInt-1,p.getHand().size());
-    }
-
-    @Test
-    public void removeCardFromDiscardPile() {
-        p.setup();
-        p.getDiscardPile().add(c);
-        int testInt = p.getDiscardPile().size();
-        p.removeCardFromDiscardPile(c);
-        assertEquals(testInt-1,p.getDiscardPile().size());
-    }
-
-    @Test
-    public void removeCardFromDeck() {
-        p.setup();
-        p.getDeck().add(c);
-        int testInt = p.getDeck().size();
-        p.removeCardFromDeck(c);
-        assertEquals(testInt-1,p.getDeck().size());
-    }
-
-    @Test
-    public void resetPlayedList() {
-        p.setup();
-        p.getPlayedList().add(c);
-        p.resetPlayedList();
-        assertEquals(0, p.getPlayedList().size());
-    }
-
-    @Test
     public void resetDiscardPile(){
         p.discardPile.add(c);
         assertEquals(1,p.getDiscardPile().size());
@@ -258,7 +199,7 @@ public class PlayerTest {
 
     @Test
     public void flushPlayedList(){
-        p.addCardToPlayedList(c);
+        p.getPlayedList().add(c);
         assertEquals(1,p.getPlayedList().size());
         assertEquals(0,p.getDiscardPile().size());
         p.flushPlayedList();
