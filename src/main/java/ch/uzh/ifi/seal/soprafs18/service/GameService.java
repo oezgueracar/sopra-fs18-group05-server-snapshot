@@ -360,18 +360,30 @@ public class GameService {
 							if (toBeMovedSpace.getColor().equals("green")) {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-									serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-									serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
-									toBeMovedSpace.switchOccupied();
+									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
+									}
+									else{
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
+										toBeMovedSpace.switchOccupied();
+									}
 								}
 							} else if (toBeMovedSpace.getColor().equals("blue")) {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-									serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-									serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
-									toBeMovedSpace.switchOccupied();
+									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+									}
+									else {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+										toBeMovedSpace.switchOccupied();
+									}
 								}
 							} else if (toBeMovedSpace.getColor().equals("yellow")) {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
@@ -489,9 +501,14 @@ public class GameService {
 				if(isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
 					//... check the color of the Space...
 					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow") || toBeMovedSpace.getColor().equals("grey") || toBeMovedSpace.getColor().equals("red")) {
-						serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-						serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-						toBeMovedSpace.switchOccupied();
+						if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+							serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+						}
+						else {
+							serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+							serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+							toBeMovedSpace.switchOccupied();
+						}
 					}
 					// else it's black or a starting space; Don't do anything.
 				}
