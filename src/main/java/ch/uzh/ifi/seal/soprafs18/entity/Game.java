@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
-import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -88,7 +87,7 @@ public class Game implements Serializable {
 				}
 			}
 		}
-		if(!playerAlreadyInRoom && this.getPlayers().size() < GameConstants.MAX_PLAYERS) {
+		if(!playerAlreadyInRoom && this.getPlayers() != null && this.getPlayers().size() < GameConstants.MAX_PLAYERS) {
 			this.players.add(newPlayer);
 
 			assert(this.getPlayers().contains(newPlayer));
@@ -110,8 +109,8 @@ public class Game implements Serializable {
 		boolean isTrue = false;
 		long[] tempEndTileIdArray = assignedMap.getEndTile();
 
-		for(int i = 0; i < tempEndTileIdArray.length; i++){
-			if(idToBeChecked == tempEndTileIdArray[i]){
+		for(long l : tempEndTileIdArray){
+			if(idToBeChecked == l){
 				isTrue = true;
 			}
 		}

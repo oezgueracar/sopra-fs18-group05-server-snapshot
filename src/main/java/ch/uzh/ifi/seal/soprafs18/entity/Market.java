@@ -10,27 +10,8 @@ import java.util.List;
 public class Market implements Serializable {
 
     private List<Card[]> openSlots;
-    private Card[] scout;
-    private Card[] trailblazer;
-    private Card[] JackOfAllTrades;
-    private Card[] photographer;
-    private Card[] treasureChest;
-    private Card[] transmitter;
 
     private List<Card[]> closedSlots;
-    private Card[] propPlane;
-    private Card[] adventurer;
-    private Card[] pioneer;
-    private Card[] giantMachete;
-    private Card[] journalist;
-    private Card[] millionaire;
-    private Card[] cartographer;
-    private Card[] compass;
-    private Card[] travelLog;
-    private Card[] scientist;
-    private Card[] nativ;
-    private Card[] captain;
-
 
     public Market(){
         setup();
@@ -41,26 +22,26 @@ public class Market implements Serializable {
      */
     private void setup(){
         openSlots = new ArrayList<>();
-        scout = new Card[3];
-        trailblazer = new Card[3];
-        JackOfAllTrades = new Card[3];
-        photographer = new Card[3];
-        treasureChest = new Card[3];
-        transmitter = new Card[3];
+        Card[] scout = new Card[3];
+        Card[] trailblazer = new Card[3];
+        Card[] JackOfAllTrades = new Card[3];
+        Card[] photographer = new Card[3];
+        Card[] treasureChest = new Card[3];
+        Card[] transmitter = new Card[3];
 
         closedSlots = new ArrayList<>();
-        propPlane = new Card[3];
-        adventurer = new Card[3];
-        pioneer = new Card[3];
-        giantMachete = new Card[3];
-        journalist = new Card[3];
-        millionaire = new Card[3];
-        cartographer = new Card[3];
-        compass = new Card[3];
-        travelLog = new Card[3];
-        scientist = new Card[3];
-        nativ = new Card[3];
-        captain = new Card[3];
+        Card[] propPlane = new Card[3];
+        Card[] adventurer = new Card[3];
+        Card[] pioneer = new Card[3];
+        Card[] giantMachete = new Card[3];
+        Card[] journalist = new Card[3];
+        Card[] millionaire = new Card[3];
+        Card[] cartographer = new Card[3];
+        Card[] compass = new Card[3];
+        Card[] travelLog = new Card[3];
+        Card[] scientist = new Card[3];
+        Card[] nativ = new Card[3];
+        Card[] captain = new Card[3];
 
         // Setup openSlots
         for(int i = 0; i<3; i++){
@@ -80,9 +61,8 @@ public class Market implements Serializable {
         }
         for(int i = 0; i<3; i++){
             transmitter[i] = new Transmitter();
-            };
+            }
 
-        // Adding card arrays to openSlots
         openSlots.add(0, scout);
         openSlots.add(1, trailblazer);
         openSlots.add(2, JackOfAllTrades);
@@ -128,7 +108,6 @@ public class Market implements Serializable {
             captain[i] = new ExpeditionCard(2, 0.5f, "Captain", "blue", 3, false);
         }
 
-        // Adding card arrays to closedSlots
         closedSlots.add(0, propPlane);
         closedSlots.add(1, adventurer);
         closedSlots.add(2, pioneer);
@@ -153,13 +132,13 @@ public class Market implements Serializable {
         return closedSlots;
     }
 
-    //Will only return card from closed slot if there is a free place in the openslot (free spaces are null)
+    //Will only return card from closed slot if there is a free place in the openSlot (free spaces are null)
     public Card getCardByCardId(long cardId){
-        for(int i = 0; i < openSlots.size(); i++){
-            if(openSlots.get(i) != null) {
-                for (int j = 0; j < openSlots.get(i).length; j++) {
-                    if (openSlots.get(i)[j] != null && openSlots.get(i)[j].getId() == cardId) {
-                        return openSlots.get(i)[j];
+        for(Card[] cardArray : openSlots){
+            if(cardArray != null) {
+                for (Card c : cardArray) {
+                    if (c != null && c.getId() == cardId) {
+                        return c;
                     }
                 }
             }
@@ -190,7 +169,7 @@ public class Market implements Serializable {
      * @param cardId the id of the card that is removed
      * @return the card instance matching cardId
      */
-    public Card removeCard(long cardId){
+    protected Card removeCard(long cardId){
         for(int i = 0; i < openSlots.size(); i++){
             if(openSlots.get(i) != null) {
                 for (int j = 0; j < openSlots.get(i).length; j++) {
@@ -276,16 +255,16 @@ public class Market implements Serializable {
 
     /**
      *
-     * @param cardArray
-     * @return
+     * @param cardArray The Array of Cards that needs to be shrunk.
+     * @return Returns a shrunken cardArray without any null elements.
      */
     private Card[] returnShrunkArray(Card[] cardArray){
         if((cardArray.length - 1) > 0) {
             Card[] helperArray = new Card[cardArray.length - 1];
             int index = 0;
-            for (int i = 0; i < cardArray.length; i++) {
-                if (cardArray[i] != null) {
-                    helperArray[index++] = cardArray[i];
+            for (Card c : cardArray) {
+                if (c != null) {
+                    helperArray[index++] = c;
                 }
             }
             return helperArray;
