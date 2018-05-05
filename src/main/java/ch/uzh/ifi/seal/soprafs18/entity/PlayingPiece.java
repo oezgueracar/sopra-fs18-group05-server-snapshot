@@ -9,16 +9,15 @@ public class PlayingPiece implements Serializable {
 	private String color;
 	private long position;
 
-	/**
-	 * Constructor
-	 * @param color the color
-	 */
-
 	//Needed for Serializing
 	public PlayingPiece(){
 
 	}
 
+	/**
+	 * Constructor
+	 * @param color the color
+	 */
 	@JsonIgnore
 	public PlayingPiece(String color){
 		this.color = color;
@@ -26,10 +25,6 @@ public class PlayingPiece implements Serializable {
 
 	public void setPosition(long position){
 		this.position = position;
-	}
-
-	public void setColor(String color){
-		this.color = color;
 	}
 
 	public String getColor(){
