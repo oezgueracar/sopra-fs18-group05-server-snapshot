@@ -703,10 +703,12 @@ public class GameService {
 		}
 		else if(counter >= 2){
 			Player winner;
+			//Create an array containing the amount of blockades of each player
 			int[] sizeOfBlockadesLists = new int[serverSideGame.getPlayers().size()];
 			for(int i = 0; i < serverSideGame.getPlayers().size(); i++){
 				sizeOfBlockadesLists[i] = serverSideGame.getPlayer(i).getBlockades().size();
 			}
+			//Search for the player with the largest amount of blockades in the created array
 			if(sizeOfBlockadesLists.length != 0){
 				int largest = 0;
 				for(int i = 0; i < sizeOfBlockadesLists.length; i++){
@@ -714,6 +716,7 @@ public class GameService {
 						largest = i;
 					}
 				}
+				//Put all the indexes of players that have the largest amount of blockades into a list
 				ArrayList<Integer> indexOfPlayersWithLargestAmountOfBlockades = new ArrayList<>();
 				for(int i = 0; i < sizeOfBlockadesLists.length; i++){
 					if(sizeOfBlockadesLists[i] == sizeOfBlockadesLists[largest]){
@@ -721,10 +724,28 @@ public class GameService {
 					}
 				}
 				if(indexOfPlayersWithLargestAmountOfBlockades.size() == 1){
-					serverSideGame.getPlayer(0).setWinner();
+					serverSideGame.getPlayer(indexOfPlayersWithLargestAmountOfBlockades.get(0)).setWinner();
 				}
+				//Find the Player with the blockade that has the largest power value and declare him as winner
 				else if (indexOfPlayersWithLargestAmountOfBlockades.size() >= 2){
-					//TODO: Player with the blockade that has largest power value wins. All indexes that are in the arraylist need to be checked.
+					int[] blockadeMaxValues = new int[indexOfPlayersWithLargestAmountOfBlockades.size()];
+					for(int i = 0; i < indexOfPlayersWithLargestAmountOfBlockades.size(); i++){
+						blockadeMaxValues[i] = 0;
+					}
+					for(int i = 0; i < indexOfPlayersWithLargestAmountOfBlockades.size(); i++){
+						for(Blockade b : serverSideGame.getPlayer(indexOfPlayersWithLargestAmountOfBlockades.get(i)).getBlockades()){
+							if(b.getPowerValue() > blockadeMaxValues[i]){
+								blockadeMaxValues[i] = b.getPowerValue();
+							}
+						}
+					}
+					int indexOfWinner = 0;
+					for(int i = 0; i < blockadeMaxValues.length; i++){
+						if(blockadeMaxValues[i] > blockadeMaxValues[indexOfWinner]){
+							indexOfWinner = i;
+						}
+					}
+					serverSideGame.getPlayer(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner)).setWinner();
 				}
 			}
 		}

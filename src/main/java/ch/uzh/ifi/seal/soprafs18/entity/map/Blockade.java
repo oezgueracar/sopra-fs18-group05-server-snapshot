@@ -29,6 +29,9 @@ public class Blockade extends MapElement {
     // Getter
     public String getColor(){return color;}
     public int getValue(){return value;}
+    public int getPowerValue(){
+        return powerValue;
+    }
 
     @Override
     public List<Space> getRow1(){return null;}
