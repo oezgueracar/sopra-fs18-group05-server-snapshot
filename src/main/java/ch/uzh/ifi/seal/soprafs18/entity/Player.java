@@ -529,15 +529,21 @@ public class Player implements Serializable {
 	// TODO: setters here
 
 
-	/*
+
 	@Override
 	public boolean equals(Object o) {
-		if (o == this) return true;
-		if (!(o instanceof Player)) {
+		if (o == this)
+			return true;
+		if (o == null)
 			return false;
-		}
+		if (getClass() != o.getClass())
+			return false;
 		Player player = (Player) o;
-		return this.getId().equals(player.getId());
-	}*/
+		return this.id == player.getId();
+	}
 
+	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
+	}
 }

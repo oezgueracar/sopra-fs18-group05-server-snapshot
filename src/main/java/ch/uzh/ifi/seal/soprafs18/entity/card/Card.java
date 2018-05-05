@@ -54,18 +54,18 @@ public class Card implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		// self check
 		if (this == o)
 			return true;
-		// null check
 		if (o == null)
 			return false;
-		// type check and cast
 		if (getClass() != o.getClass())
 			return false;
 		Card card = (Card) o;
-		// field comparison
-		return id == card.getId();
+		return this.id == card.getId();
 	}
 
+	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
+	}
 }
