@@ -413,18 +413,10 @@ public class Player implements Serializable {
 	public void setup(){
 		this.assignedPiece = new PlayingPiece(this.color);
 
-		// Contains the cards that are in the hand
 		hand = new ArrayList<>();
-
-		// Contains the cards that are in the deck
 		deck = new ArrayList<>();
-
-		// Contains the cards in the discardPile
 		discardPile = new ArrayList<>();
-
-		// Contains the cards that were played in this turn
 		playedList = new ArrayList<>();
-
 		blockades = new ArrayList<>();
 
 		this.setupCards();
