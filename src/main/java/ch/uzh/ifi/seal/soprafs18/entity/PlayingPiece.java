@@ -14,6 +14,7 @@ public class PlayingPiece implements Serializable {
 	 * @param color the color
 	 */
 
+	//Needed for Serializing
 	public PlayingPiece(){
 
 	}

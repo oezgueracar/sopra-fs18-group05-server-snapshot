@@ -36,7 +36,6 @@ public class Player implements Serializable {
 	/*@Column(nullable = false)
 	private PlayerStatus status;*/
 
-	// TODO: check at point of setting status to "ready" if valid color
 	@Column(nullable = false)
 	protected String color;
 
@@ -58,9 +57,7 @@ public class Player implements Serializable {
 	@Column
 	protected boolean winner;
 
-    //@ManyToOne
-	//@Column(name="playersGameId", nullable = false)
-    private Long gameId; // TODO: Check if Game or Long as type
+    private Long gameId;
 
 	@Column()
 	protected long boughtCardId;
@@ -174,6 +171,7 @@ public class Player implements Serializable {
 		return isInGoal;
 	}
 
+	//Needed for Serializing
 	public boolean getWinner(){
 		return winner;
 	}
@@ -229,12 +227,17 @@ public class Player implements Serializable {
 	protected void playCard(Card card){ // throws NoSuchElementException
 		if (card == null){
 			return; // throw new NoSuchElementException("This card is not in the player's hand.");
-		}else{ // TODO: multiColorCard has to set its chosen color first in PlayerService before calling playCard!
+		}
+		else {
 			card.play(this);
 		}
 	}
 
-	// TODO: exactly the same method as "returnCardFromHandById" on lines 282-291
+	/**
+	 * Checks if a requested card is in this player's hand.
+	 * @param cardId
+	 * @return instance Card matching cardId, if the card is in this player's hand, otherwise null
+	 */
 	public Card getCardFromHandById(long cardId){
 		for (Card c : hand){
 			if (c.getId() == cardId) {
@@ -245,7 +248,7 @@ public class Player implements Serializable {
 	}
 
 	// TODO: precondition not valid yet
-	// TODO: A player can only buy one card a turn!
+	// TODO: A player can only buy one card a turn! Is handled in GameService but should rather be handled here.
 	/**
 	 * Buys a card - moves a card from the market to the discardPile and resets coins
 	 *
@@ -273,7 +276,7 @@ public class Player implements Serializable {
 	 */
 	// TODO: Exception throwing and handling
 	public void tradeinCard(long cardId) { // throws NoSuchElementException
-		Card tradedInCard = returnCardFromHandById(cardId);
+		Card tradedInCard = getCardFromHandById(cardId);
 		if(tradedInCard == null){
 			// throw new NoSuchElementException("This card is not in the player's hand.");
 		}
@@ -281,22 +284,6 @@ public class Player implements Serializable {
 			increaseCoins(tradedInCard.getGoldValue());
 			this.moveFromHandToPlayedList(tradedInCard);
 		}
-	}
-
-	/**
-	 * Checks if a requested card is in this player's hand.
-	 * @param cardId
-	 * @return instance Card matching cardId, if the card is in this player's hand, otherwise null
-	 */
-	public Card returnCardFromHandById(long cardId){
-		// For each card in hand
-		for(Card c : this.getHand()){
-			// return the card, if the card matching the parameter cardId is in the hand
-			if(c.getId() == cardId){
-				return c;
-			}
-		}
-		return null;
 	}
 
 	/**

@@ -115,8 +115,6 @@ public class Game implements Serializable {
         this.name = newName;
     }
 
-    //TODO: Definitely need to test if the tryblock enables overloading so that right map is used. Why does typecasting to abstract class work?
-	//TODO: assignedMap is not accepted, cannot resolve what type it is...idky???
     private void initializeMap() {
         try{
             assignedMap = (Map) Class.forName("ch.uzh.ifi.seal.soprafs18.entity.map." + mapName).newInstance();
@@ -132,7 +130,6 @@ public class Game implements Serializable {
         }
     }
 
-    //TODO: post and pre to check if in right boundary and if it has been changed like planned
     //TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
     public void changeCurrentPlayer(){
     	this.getPlayers().removeAll(Collections.singleton(null));
@@ -185,7 +182,6 @@ public class Game implements Serializable {
     	return mapName;
 	}
 
-	//TODO: Bad practice, do we need that.
 	@JsonIgnore
 	public Map getMap(){
     	if(assignedMap != null) {
@@ -202,7 +198,6 @@ public class Game implements Serializable {
 		return null;
 	}
 
-	//TODO: Might not be needed
 	public Player getPlayer(Integer index){
     	return players.get(index);
 	}

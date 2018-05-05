@@ -86,7 +86,6 @@ public class GameService {
 
 			// Add player to playerRepository
 			//TODO: How to display to frontend that a new player couldn't be added?
-			//TODO: Color setting needs to be handled here. Also leader should always have same color upon hosting a game.
 			if (game.get().getStatus() == ROOM && numberOfPlayers < GameConstants.MAX_PLAYERS && player.getName().length() < 9){
 				if (player.getId() == null) {
 					player.setGameId(gameId);
@@ -155,7 +154,6 @@ public class GameService {
 					serverSideGame.get().setMapName(game.getMapName());
 					serverSideGame.get().setTurnTime(game.getTurnTime());
 
-					//TODO: The leaders ready status should always be true. Meaning when a new leader is set, his ready attribute should be automatically set to true.
 					//Checks first if there are at least 2 players in the room. Checks then if all players are ready. If all of them are ready and the leader pressed the Start Game button, the game will start.
 					if (serverSideGame.get().getPlayers().size() >= GameConstants.MIN_PLAYERS) {
 						boolean allPlayersReady = true;
@@ -670,7 +668,6 @@ public class GameService {
 	}
 
 	private boolean isPlayersTurn(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer){
-		//TODO: Write equals method etc. for Player class to be able to use players.indexOf()
 		int positionOfPlayerInPlayers = 0;
 		for(int i = 0; i < serverSideGame.get().getPlayers().size();i++){
 			if(serverSideGame.get().getPlayer(i).getId() == serverSidePlayer.get().getId()){
@@ -767,25 +764,4 @@ public class GameService {
 			}
 		}
 	}
-
-    // TODO: changestate
-
-	// TODO: update moveCounter, reachable and hand of a player
-
-	// TODO: Update current position of a player
-
-	// TODO: Update coins and hand of a player
-
-	// TODO: market
-
-	// TODO: Update playedList, discardPile and status of players
-
-
-    /*public void stopGame(Long gameId, String playerToken) {
-        Optional<Game> game = gameRepository.findById(gameId);
-        Optional<Player> owner = playerRepository.findByToken(playerToken);
-        if (owner != null && game.isPresent()){ // && game.get().getOwner().equals(owner.get().getName())) {
-            // TODO: implement the logic for stopping the game
-        }
-    }*/
 }

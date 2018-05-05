@@ -124,16 +124,6 @@ public class GameResource
         return this.gameService.playCard(gameId, playerId, player, cardId);
     }
 
-    // TODO: Change ready state of a player
-    /*@RequestMapping(value = CONTEXT + "/{gameId}/players/{playerID}/state", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    public String changeState(@PathVariable Long gameId, @RequestParam("token") String playerToken) {
-        logger.debug("changeState: " + playerToken);
-        return this.gameService.addPlayer(gameId, playerToken);
-    }*/
-
-    // TODO: Update playedList, discardPile and status of players
-
     @ExceptionHandler
     private void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
