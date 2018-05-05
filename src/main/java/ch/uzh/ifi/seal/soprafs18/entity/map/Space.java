@@ -88,4 +88,20 @@ public class Space implements Serializable {
         return id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        Space space = (Space) o;
+        return this.id == space.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(this.id);
+    }
 }
