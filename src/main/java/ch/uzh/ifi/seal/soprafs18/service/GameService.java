@@ -51,13 +51,13 @@ public class GameService {
     }
 
     public Game addGame(Game game) {
-    	if(game.getPlayer(0).getName().length() < 9) {
-			game.getPlayer(0).setColor("red");
-			game.getPlayer(0).setReady(true);
-			game.getPlayer(0).setToken(UUID.randomUUID().toString());
+    	if(game.getPlayers().get(0).getName().length() < 9) {
+			game.getPlayers().get(0).setColor("red");
+			game.getPlayers().get(0).setReady(true);
+			game.getPlayers().get(0).setToken(UUID.randomUUID().toString());
 			Game serverSideGame = gameRepository.save(game);
-			serverSideGame.getPlayer(0).setGameId(serverSideGame.getId());
-			serverSideGame.setName(serverSideGame.getPlayer(0).getName() + "'s Game");
+			serverSideGame.getPlayers().get(0).setGameId(serverSideGame.getId());
+			serverSideGame.setName(serverSideGame.getPlayers().get(0).getName() + "'s Game");
 			return gameRepository.save(serverSideGame);
 		}
 		return null;
@@ -186,17 +186,18 @@ public class GameService {
 				case RUNNING:
 					//End Turn of Player.
 					if(serverSideGame.get().getCurrentPlayer() == game.getCurrentPlayer()) {
-						List<Card> discardedCards = getDifferenceOfHand(serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()), game.getPlayer(game.getCurrentPlayer()));
+						List<Card> discardedCards = getDifferenceOfHand(serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()), game.getPlayers().get(game.getCurrentPlayer()));
 						if(discardedCards != null && discardedCards.size() != 0){
 							for(Card c : discardedCards){
-								serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).moveFromHandToDiscardPile(c);
+								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).getHand().remove(c);
+								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).getDiscardPile().add(c);
 							}
 						}
 
-						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).setBoughtCardId(0);
-						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).resetCoins();
-						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).resetMoveCounter();
-						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).flushPlayedList();
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).setBoughtCardId(0);
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).resetCoins();
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).resetMoveCounter();
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).flushPlayedList();
 
 						//Check if a player is in El Dorado.
 						boolean aPlayerIsOnEndTile = false;
@@ -211,7 +212,7 @@ public class GameService {
 							serverSideGame.get().setStatus(GameStatus.FINISHED);
 						}
 
-						serverSideGame.get().getPlayer(serverSideGame.get().getCurrentPlayer()).drawCardOnEndTurn();
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).drawCardOnEndTurn();
 						serverSideGame.get().changeCurrentPlayer();
 
 						return gameRepository.save(serverSideGame.get());
@@ -618,7 +619,8 @@ public class GameService {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
 		if(discardedCards != null && discardedCards.size() == amountOfDiscardedCards){
 			for (Card c : discardedCards){
-				serverSidePlayer.get().moveFromHandToPlayedList(c);
+				serverSidePlayer.get().getHand().remove(c);
+				serverSidePlayer.get().getPlayedList().add(c);
 			}
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get().getPlayedList().containsAll(discardedCards))) {
 				serverSidePlayer.get().getBlockades().add(removedBlockade);
@@ -632,7 +634,8 @@ public class GameService {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player, toBeMovedSpace);
 		if(discardedCards != null && discardedCards.size() == amountOfDiscardedCards){
 			for (Card c : discardedCards){
-				serverSidePlayer.get().moveFromHandToPlayedList(c);
+				serverSidePlayer.get().getHand().remove(c);
+				serverSidePlayer.get().getPlayedList().add(c);
 			}
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get().getPlayedList().containsAll(discardedCards))) {
 				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
@@ -670,7 +673,7 @@ public class GameService {
 	private boolean isPlayersTurn(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer){
 		int positionOfPlayerInPlayers = 0;
 		for(int i = 0; i < serverSideGame.get().getPlayers().size();i++){
-			if(serverSideGame.get().getPlayer(i).getId() == serverSidePlayer.get().getId()){
+			if(serverSideGame.get().getPlayers().get(i).getId() == serverSidePlayer.get().getId()){
 				positionOfPlayerInPlayers = i;
 			}
 		}
@@ -720,7 +723,7 @@ public class GameService {
 			//Create an array containing the amount of blockades of each player
 			int[] sizeOfBlockadesLists = new int[serverSideGame.getPlayers().size()];
 			for(int i = 0; i < serverSideGame.getPlayers().size(); i++){
-				sizeOfBlockadesLists[i] = serverSideGame.getPlayer(i).getBlockades().size();
+				sizeOfBlockadesLists[i] = serverSideGame.getPlayers().get(i).getBlockades().size();
 			}
 			//Search for the player with the largest amount of blockades in the created array
 			if(sizeOfBlockadesLists.length != 0){
@@ -738,7 +741,7 @@ public class GameService {
 					}
 				}
 				if(indexOfPlayersWithLargestAmountOfBlockades.size() == 1){
-					serverSideGame.getPlayer(indexOfPlayersWithLargestAmountOfBlockades.get(0)).setWinner();
+					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(0)).setWinner();
 				}
 				//Find the Player with the blockade that has the largest power value and declare him as winner
 				else if (indexOfPlayersWithLargestAmountOfBlockades.size() >= 2){
@@ -747,7 +750,7 @@ public class GameService {
 						blockadeMaxValues[i] = 0;
 					}
 					for(int i = 0; i < indexOfPlayersWithLargestAmountOfBlockades.size(); i++){
-						for(Blockade b : serverSideGame.getPlayer(indexOfPlayersWithLargestAmountOfBlockades.get(i)).getBlockades()){
+						for(Blockade b : serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(i)).getBlockades()){
 							if(b.getPowerValue() > blockadeMaxValues[i]){
 								blockadeMaxValues[i] = b.getPowerValue();
 							}
@@ -759,7 +762,7 @@ public class GameService {
 							indexOfWinner = i;
 						}
 					}
-					serverSideGame.getPlayer(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner)).setWinner();
+					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner)).setWinner();
 				}
 			}
 		}

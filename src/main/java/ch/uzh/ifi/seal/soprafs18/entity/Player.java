@@ -282,7 +282,8 @@ public class Player implements Serializable {
 		}
 		else{
 			increaseCoins(tradedInCard.getGoldValue());
-			this.moveFromHandToPlayedList(tradedInCard);
+			hand.remove(tradedInCard);
+			playedList.add(tradedInCard);
 		}
 	}
 
@@ -320,32 +321,6 @@ public class Player implements Serializable {
 		}
 	}
 
-	// TODO: not necessary - refactor
-	/**
-	 * Resets the discardPile (Empties the ArrayList)
-	 */
-	protected void resetDiscardPile(){
-		discardPile.clear();
-	}
-
-	/**
-	 * Moves a card from the hand to the playedList.
-	 * @param c the card instance
-	 */
-	public void moveFromHandToPlayedList(Card c){
-		hand.remove(c);
-		playedList.add(c);
-	}
-
-	/**
-	 * Moves a card from the hand to the discardPile.
-	 * @param c the card instance
-	 */
-	public void moveFromHandToDiscardPile(Card c){
-		hand.remove(c);
-		discardPile.add(c);
-	}
-
 	/**
 	 * Moves all entries in playedList to the discardPile.
 	 */
@@ -359,7 +334,7 @@ public class Player implements Serializable {
 	 */
 	private void flushDiscardPile(){
 		deck.addAll(discardPile);
-		resetDiscardPile();
+		discardPile.clear();
 	}
 
 	/**

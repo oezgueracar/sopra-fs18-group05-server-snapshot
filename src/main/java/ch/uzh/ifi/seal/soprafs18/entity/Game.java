@@ -99,120 +99,20 @@ public class Game implements Serializable {
 		}
     }
 
-    public void setStatus(GameStatus newStatus){
-        this.status = newStatus;
-    }
-
-    public void setMapName(String newMapName){
-        this.mapName = newMapName;
-    }
-
-    public void setTurnTime(Integer newTurnTime){
-        this.turnTime = newTurnTime;
-    }
-
-    public void setName(String newName){
-        this.name = newName;
-    }
-
-    private void initializeMap() {
-        try{
-            assignedMap = (Map) Class.forName("ch.uzh.ifi.seal.soprafs18.entity.map." + mapName).newInstance();
-        }
-        catch (ClassNotFoundException e1){
-            System.out.println("Class not Found Exception");
-        }
-        catch (IllegalAccessException e2){
-            System.out.println("Illegal Access Exception");
-        }
-        catch (InstantiationException e3){
-            System.out.println("Instantiation Exception");
-        }
-    }
-
-    //TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
-    public void changeCurrentPlayer(){
-    	this.getPlayers().removeAll(Collections.singleton(null));
-        if (this.currentPlayer + 1 == this.getPlayers().size()){
-            this.currentPlayer = 0;
-        }
-        else {
-            currentPlayer++;
-        }
-    }
-
-	/**
-	 * Sets the game information about the map and the status.
-	 */
-	public void setup(){
-        setMapName("HillsOfGold");
-		setStatus(ROOM);
-	}
-
-	/**
-	 * Starts the game and initializes the map.
-	 */
-	public void startGame(){
-    	this.initializeMap();
-		assignedMarket = new Market();
-	}
-    
-	public Long getId(){
-		return id;
-	}
-
-	public List<Player> getPlayers(){
-		return players;
-	}
-
-	public GameStatus getStatus(){
-		return status;
-	}
-
-	public String getName(){
-		return name;
-	}
-
-	public int getTurnTime(){
-    	return turnTime;
-
-	}
-
-	public String getMapName(){
-    	return mapName;
-	}
-
-	@JsonIgnore
-	public Map getMap(){
-    	if(assignedMap != null) {
-			return assignedMap;
+	//TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
+	public void changeCurrentPlayer(){
+		this.getPlayers().removeAll(Collections.singleton(null));
+		if (this.currentPlayer + 1 == this.getPlayers().size()){
+			this.currentPlayer = 0;
 		}
-		return null;
-	}
-
-	@JsonIgnore
-	public Market getMarket() {
-    	if(assignedMarket != null) {
-			return assignedMarket;
+		else {
+			currentPlayer++;
 		}
-		return null;
-	}
-
-	public Player getPlayer(Integer index){
-    	return players.get(index);
-	}
-
-	public int getCurrentPlayer(){
-		return currentPlayer;
-	}
-
-	private long[] getMapEndTileIdArray (){
-		return this.assignedMap.getEndTile();
 	}
 
 	public boolean endTileIdArrayCheck(long idToBeChecked){
 		boolean isTrue = false;
-		long[] tempEndTileIdArray = getMapEndTileIdArray();
+		long[] tempEndTileIdArray = assignedMap.getEndTile();
 
 		for(int i = 0; i < tempEndTileIdArray.length; i++){
 			if(idToBeChecked == tempEndTileIdArray[i]){
@@ -220,5 +120,97 @@ public class Game implements Serializable {
 			}
 		}
 		return isTrue;
+	}
+
+	private void initializeMap() {
+		try{
+			assignedMap = (Map) Class.forName("ch.uzh.ifi.seal.soprafs18.entity.map." + mapName).newInstance();
+		}
+		catch (ClassNotFoundException e1){
+			System.out.println("Class not Found Exception");
+		}
+		catch (IllegalAccessException e2){
+			System.out.println("Illegal Access Exception");
+		}
+		catch (InstantiationException e3){
+			System.out.println("Instantiation Exception");
+		}
+	}
+
+	/**
+	 * Sets the game information about the map and the status.
+	 */
+	public void setup(){
+		setMapName("HillsOfGold");
+		setStatus(ROOM);
+	}
+
+	/**
+	 * Starts the game and initializes the map.
+	 */
+	public void startGame(){
+		this.initializeMap();
+		assignedMarket = new Market();
+	}
+
+	public void setName(String newName){
+		this.name = newName;
+	}
+
+    public void setStatus(GameStatus newStatus){
+        this.status = newStatus;
+    }
+
+	public void setTurnTime(Integer newTurnTime){
+		this.turnTime = newTurnTime;
+	}
+
+    public void setMapName(String newMapName){
+        this.mapName = newMapName;
+    }
+    
+	public Long getId(){
+		return id;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public GameStatus getStatus(){
+		return status;
+	}
+
+	public int getCurrentPlayer(){
+		return currentPlayer;
+	}
+
+	public int getTurnTime(){
+		return turnTime;
+
+	}
+
+	public String getMapName(){
+		return mapName;
+	}
+
+	@JsonIgnore
+	public Map getMap(){
+		if(assignedMap != null) {
+			return assignedMap;
+		}
+		return null;
+	}
+
+	@JsonIgnore
+	public Market getMarket() {
+		if(assignedMarket != null) {
+			return assignedMarket;
+		}
+		return null;
+	}
+
+	public List<Player> getPlayers(){
+		return players;
 	}
 }

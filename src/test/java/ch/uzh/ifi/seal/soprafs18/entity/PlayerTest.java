@@ -172,32 +172,6 @@ public class PlayerTest {
     }
 
     @Test
-    public void resetDiscardPile(){
-        p.discardPile.add(c);
-        assertEquals(1,p.getDiscardPile().size());
-        p.resetDiscardPile();
-        assertEquals(0, p.getDiscardPile().size());
-    }
-
-    @Test
-    public void moveFromHandToPlayedList(){
-        p.getHand().add(c);
-        assertEquals(5,p.getHand().size());
-        p.moveFromHandToPlayedList(c);
-        assertEquals(4, p.getHand().size());
-        assertEquals(1,p.getPlayedList().size());
-    }
-
-    @Test
-    public void moveFromHandToDiscardPile(){
-        p.getHand().add(c);
-        assertEquals(5,p.getHand().size());
-        p.moveFromHandToDiscardPile(c);
-        assertEquals(4, p.getHand().size());
-        assertEquals(1,p.getDiscardPile().size());
-    }
-
-    @Test
     public void flushPlayedList(){
         p.getPlayedList().add(c);
         assertEquals(1,p.getPlayedList().size());
