@@ -88,7 +88,7 @@ public class Space implements Serializable {
         return id;
     }
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -103,5 +103,5 @@ public class Space implements Serializable {
     @Override
     public int hashCode() {
         return Long.hashCode(this.id);
-    }*/
+    }
 }
