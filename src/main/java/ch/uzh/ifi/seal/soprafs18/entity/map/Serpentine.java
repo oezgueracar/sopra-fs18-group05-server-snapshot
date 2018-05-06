@@ -13,7 +13,8 @@ public class Serpentine extends Map {
     }
 
     private void setup(){
-        // Tile A
+
+        //Tile A
         MapElement tile1 = new Tile();
         tile1.setRotation(300);
         tile1.setNextTilePos(2);
@@ -57,7 +58,7 @@ public class Serpentine extends Map {
         tile1	.addRow7(	new Space(	"green"	,	37	,	0	,	false,	false));
 
 
-        // TIle C
+        //Tile C
         MapElement tile2 = new Tile();
         tile2.setNextTilePos(1);
         tile2.setRotation(120);
@@ -102,7 +103,7 @@ public class Serpentine extends Map {
 
 
 
-        // Tile E
+        //Tile E
         MapElement tile3 = new Tile();
         tile3.setRotation(270);
         tile3.setNextTilePos(5);
@@ -146,7 +147,7 @@ public class Serpentine extends Map {
         tile3	.addRow7(	new Space(	"green"	,	185	,	1	,	true,	false));
 
 
-        // Tile G
+        //Tile G
         MapElement tile4 = new Tile();
         tile4.setNextTilePos(1);
         tile4.setRotation(180);
@@ -190,7 +191,7 @@ public class Serpentine extends Map {
         tile4	.addRow7(	new Space(	"green"	,	259	,	1	,	false,	false));
 
 
-        // TIle J
+        //Tile J
         MapElement tile5 = new Tile();
         tile5.setRotation(180);
         tile5.setNextTilePos(2);
@@ -236,7 +237,7 @@ public class Serpentine extends Map {
 
 
 
-        // Tile M
+        //Tile M
         MapElement tile6 = new Tile();
         tile6.setRotation(60);
         tile6.setNextTilePos(3);
@@ -290,20 +291,20 @@ public class Serpentine extends Map {
         tile7	.addRow1(	new Space(	"blue"	,	585	,	1	,	false,	false));
 
 
-        // EndTile
+        //EndTile
         endTile = new long[3];
         endTile[0] = tile7.getRow1().get(0).getId();
         endTile[1] = tile7.getRow1().get(1).getId();
         endTile[2] = tile7.getRow1().get(2).getId();
 
-        // StartPosition
+        //StartPosition
         startSpaces = new long[4];
         startSpaces[0] = tile1.getRow7().get(3).getId();
         startSpaces[1] = tile1.getRow7().get(2).getId();
         startSpaces[2] = tile1.getRow7().get(1).getId();
         startSpaces[3] = tile1.getRow7().get(0).getId();
 
-        // Initializing Blockades
+        //Initializing Blockades
         blockades.add(new Blockade("green", 1, 1));
         blockades.add(new Blockade("yellow", 1, 2));
         blockades.add(new Blockade("grey", 1, 3));

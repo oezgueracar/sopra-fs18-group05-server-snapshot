@@ -26,7 +26,6 @@ public class Tile extends MapElement {
         row7 = new ArrayList<>();
     }
 
-    // Fill Rows
     @Override
     public void addRow1(Space s){row1.add(s);}
     @Override
@@ -41,7 +40,7 @@ public class Tile extends MapElement {
     public void addRow6(Space s){row6.add(s);}
     @Override
     public void addRow7(Space s){row7.add(s);}
-    //Getter
+
     @Override
     public List<Space> getRow1(){return row1;}
     @Override
@@ -60,8 +59,6 @@ public class Tile extends MapElement {
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
 
-
-    //Setter
     @Override
     public void setNextTilePos(int p){
         this.nextTilePos = p;
@@ -71,7 +68,7 @@ public class Tile extends MapElement {
         this.rotation = r;
     }
 
-    public Space getSpace(long spaceId){
+    protected Space getSpace(long spaceId){
         for(int j = 0;j < this.getRow1().size();j++){
             if(this.getRow1().get(j).getId() == spaceId){
                 return this.getRow1().get(j);
@@ -199,5 +196,4 @@ public class Tile extends MapElement {
             this.row7.get(i).getNeighbours()[5] = this.row6.get(i).getId();
         }
     }
-
 }

@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class Cartographer extends ActionCard {
 
@@ -12,7 +11,6 @@ public class Cartographer extends ActionCard {
 		this.buyingCost = 4f;
 		this.goldValue = 0.5f;
 		this.cardName = "Cartographer";
-		this.cardDescription = "Draw 2 cards from your draw pile.";
 		this.id = getNewId();
 		this.itemCard = false;
 	}

@@ -7,7 +7,6 @@ public abstract class MapElement implements Serializable {
 
     protected int nextTilePos;
     protected int rotation;
-    private List<Space> row;
 
     public void addRow1(Space s){}
     public void addRow2(Space s){}

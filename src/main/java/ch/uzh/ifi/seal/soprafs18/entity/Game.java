@@ -74,23 +74,23 @@ public class Game implements Serializable {
     //TODO: How to display to frontend that a new player couldn't be added?
 	/**
 	 * Adds a new player to an existing game, that is not yet full and is not running.
-	 * @param newPlayer the new player that is added to the game.
+	 * @param player the new player that is added to the game.
 	 * @pre !playerAlreadyInRoom
-	 * @post this.getPlayers().contains(newPlayer)
+	 * @post this.getPlayers().contains(player)
 	 */
-    public void addPlayer(Player newPlayer){
+    public void addPlayer(Player player){
     	boolean playerAlreadyInRoom = false;
     	if(this.getPlayers() != null) {
 			for (Player p : this.getPlayers()) {
-				if (p.getToken().equals(newPlayer.getToken())) {
+				if (p.getToken().equals(player.getToken())) {
 					playerAlreadyInRoom = true;
 				}
 			}
 		}
 		if(!playerAlreadyInRoom && this.getPlayers() != null && this.getPlayers().size() < GameConstants.MAX_PLAYERS) {
-			this.players.add(newPlayer);
+			this.players.add(player);
 
-			assert(this.getPlayers().contains(newPlayer));
+			assert(this.getPlayers().contains(player));
 		}
     }
 
@@ -101,13 +101,13 @@ public class Game implements Serializable {
 			this.currentPlayer = 0;
 		}
 		else {
-			currentPlayer++;
+			this.currentPlayer++;
 		}
 	}
 
 	public boolean endTileIdArrayCheck(long idToBeChecked){
 		boolean isTrue = false;
-		long[] tempEndTileIdArray = assignedMap.getEndTile();
+		long[] tempEndTileIdArray = this.assignedMap.getEndTile();
 
 		for(long l : tempEndTileIdArray){
 			if(idToBeChecked == l){
@@ -119,7 +119,7 @@ public class Game implements Serializable {
 
 	private void initializeMap() {
 		try{
-			assignedMap = (Map) Class.forName("ch.uzh.ifi.seal.soprafs18.entity.map." + mapName).newInstance();
+			this.assignedMap = (Map) Class.forName("ch.uzh.ifi.seal.soprafs18.entity.map." + this.mapName).newInstance();
 		}
 		catch (ClassNotFoundException e1){
 			System.out.println("Class not Found Exception");
@@ -144,24 +144,24 @@ public class Game implements Serializable {
 	 * Starts the game and initializes the map.
 	 */
 	public void startGame(){
-		this.initializeMap();
+		initializeMap();
 		assignedMarket = new Market();
 	}
 
-	public void setName(String newName){
-		this.name = newName;
+	public void setName(String name){
+		this.name = name;
 	}
 
-    public void setStatus(GameStatus newStatus){
-        this.status = newStatus;
+    public void setStatus(GameStatus status){
+        this.status = status;
     }
 
-	public void setTurnTime(Integer newTurnTime){
-		this.turnTime = newTurnTime;
+	public void setTurnTime(Integer turnTime){
+		this.turnTime = turnTime;
 	}
 
-    public void setMapName(String newMapName){
-        this.mapName = newMapName;
+    public void setMapName(String mapName){
+        this.mapName = mapName;
     }
     
 	public Long getId(){
@@ -182,7 +182,6 @@ public class Game implements Serializable {
 
 	public int getTurnTime(){
 		return turnTime;
-
 	}
 
 	public String getMapName(){

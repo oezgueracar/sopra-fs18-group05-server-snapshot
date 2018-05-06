@@ -14,7 +14,7 @@ public class HomeStretch extends Map {
 
     private void setup(){ // TODO: Check if IDs are wrong but it should not matter (check if it matters!)
 
-        // TileB
+        //Tile B
         MapElement tile1 = new Tile();
         tile1.setRotation(270);
         tile1.setNextTilePos(1);
@@ -60,7 +60,7 @@ public class HomeStretch extends Map {
 
 
 
-        // TIle J
+        //Tile J
         MapElement tile2 = new Tile();
         tile2.setRotation(30);
         tile2.setNextTilePos(2);
@@ -106,7 +106,7 @@ public class HomeStretch extends Map {
 
 
 
-        // Tile Q
+        //Tile Q
         MapElement tile3 = new TerrainStrip();
         tile3.setNextTilePos(2);
         tile3.setRotation(90);
@@ -131,7 +131,7 @@ public class HomeStretch extends Map {
 
 
 
-        // Tile K
+        //Tile K
         MapElement tile4 = new Tile();
         tile4.setRotation(330);
         tile4.setNextTilePos(2);
@@ -177,7 +177,7 @@ public class HomeStretch extends Map {
 
 
 
-        // Tile M
+        //Tile M
         MapElement tile5 = new Tile();
         tile5.setNextTilePos(2);
         tile5.setRotation(90);
@@ -268,7 +268,7 @@ public class HomeStretch extends Map {
 
 
 
-        // Tile U
+        //Tile U
         MapElement tile7 = new EndTile();
         tile7.setRotation(315);
 
@@ -277,7 +277,7 @@ public class HomeStretch extends Map {
         tile7	.addRow1(	new Space(	"green"	,	579	,	1	,	false,	false));
 
 
-        //SetNeighbourss
+        //Set Neighbours
         tile1.setNeighbours();
         tile2.setNeighbours();
         tile3.setNeighbours();
@@ -286,7 +286,7 @@ public class HomeStretch extends Map {
         tile6.setNeighbours();
         tile7.setNeighbours();
 
-        // Set neighbouring tiles
+        //Set neighbouring tiles
         tile1.getRow1().get(0).getNeighbours()[5] = tile2.getRow7().get(0).getId();
         tile1.getRow1().get(0).getNeighbours()[4] = tile2.getRow6().get(0).getId();
         tile1.getRow2().get(0).getNeighbours()[5] = tile2.getRow6().get(0).getId();
@@ -385,20 +385,20 @@ public class HomeStretch extends Map {
 
 
 
-        // EndTile
+        //EndTile
         endTile = new long[3];
         endTile[0]= tile7.getRow1().get(0).getId();
         endTile[1]= tile7.getRow1().get(1).getId();
         endTile[2]= tile7.getRow1().get(2).getId();
 
-        // StartPosition
+        //StartPosition
         startSpaces = new long[4];
         startSpaces[0] = tile1.getRow7().get(3).getId();
         startSpaces[1] = tile1.getRow7().get(2).getId();
         startSpaces[2] = tile1.getRow7().get(1).getId();
         startSpaces[3] = tile1.getRow7().get(0).getId();
 
-        // Initializing Blockades
+        //Initializing Blockades
         blockades.add(new Blockade("green", 1, 1));
         blockades.add(new Blockade("yellow", 1, 2));
         blockades.add(new Blockade("grey", 1, 3));

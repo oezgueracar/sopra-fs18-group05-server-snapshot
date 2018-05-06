@@ -20,11 +20,9 @@ public class EndTile extends MapElement {
         row1 = new ArrayList<>();
     }
 
-    //Fill Rows
     @Override
     public void addRow1(Space s){row1.add(s);}
 
-    //Getter
     @Override
     public List<Space> getRow1(){return row1;}
     @Override
@@ -43,7 +41,6 @@ public class EndTile extends MapElement {
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
 
-    //Setter
     @Override
     public void setNextTilePos(int p){
         this.nextTilePos = p;

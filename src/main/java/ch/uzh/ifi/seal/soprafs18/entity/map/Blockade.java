@@ -26,7 +26,6 @@ public class Blockade extends MapElement {
         powerValue = powVal;
     }
 
-    // Getter
     public String getColor(){return color;}
     public int getValue(){return value;}
     public int getPowerValue(){

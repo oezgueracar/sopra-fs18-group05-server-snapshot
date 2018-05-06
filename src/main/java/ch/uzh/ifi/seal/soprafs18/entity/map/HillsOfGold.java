@@ -13,6 +13,7 @@ public class HillsOfGold extends Map {
     }
 
     private void setup(){
+
         //Tile B
         MapElement tile1 = new Tile();
         tile1.setRotation(300);
@@ -57,7 +58,7 @@ public class HillsOfGold extends Map {
         tile1	.addRow7(	new Space(	"green"	,	74	,	0	,	false,	false)	);
 
 
-        // Tile C
+        //Tile C
         MapElement tile2 = new Tile();
         tile2.setNextTilePos(6);
         tile2.setRotation(0);
@@ -189,7 +190,7 @@ public class HillsOfGold extends Map {
         tile4	.addRow7(	new Space(	"red"	,	407	,	1	,	false,	false));
 
 
-        // Tile J
+        //Tile J
         MapElement tile5 = new Tile();
         tile5.setRotation(300);
         tile5.setNextTilePos(1);
@@ -234,7 +235,7 @@ public class HillsOfGold extends Map {
         tile5	.addRow7(	new Space(	"grey"	,	370	,	2	,	false,	false));
 
 
-        // Tile N
+        //Tile N
         MapElement tile6 = new Tile();
         tile6.setNextTilePos(2);
         tile6.setRotation(120);
@@ -279,7 +280,7 @@ public class HillsOfGold extends Map {
         tile6	.addRow7(	new Space(	"green"	,	518	,	1	,	false,	false));
 
 
-        // Tile U
+        //Tile U
         MapElement tile7 = new EndTile();
         tile7.setRotation(270);
 
@@ -389,13 +390,13 @@ public class HillsOfGold extends Map {
         tile7.getRow1().get(2).getNeighbours()[3] = tile6.getRow7().get(0).getId();
         tile7.getRow1().get(2).getNeighbours()[2] = tile6.getRow6().get(1).getId();
 
-        // EndTile
+        //EndTile
         endTile = new long[3];
         endTile[0]= tile7.getRow1().get(0).getId();
         endTile[1]= tile7.getRow1().get(1).getId();
         endTile[2]= tile7.getRow1().get(2).getId();
 
-        // StartPosition
+        //StartPosition
         startSpaces = new long[4];
         startSpaces[0] = tile1.getRow7().get(3).getId();
         startSpaces[1] = tile1.getRow7().get(2).getId();
@@ -403,7 +404,7 @@ public class HillsOfGold extends Map {
         startSpaces[3] = tile1.getRow7().get(0).getId();
 
 
-        // Initializing Blockades
+        //Initializing Blockades
         blockades.add(new Blockade("green", 1, 1));
         blockades.add(new Blockade("yellow", 1, 2));
         blockades.add(new Blockade("grey", 1, 3));
@@ -425,7 +426,7 @@ public class HillsOfGold extends Map {
         mapTiles.add(tile6);
         mapTiles.add(tile7);
 
-        // Set tile neighbours
+        //Set tile neighbours
 
     }
 

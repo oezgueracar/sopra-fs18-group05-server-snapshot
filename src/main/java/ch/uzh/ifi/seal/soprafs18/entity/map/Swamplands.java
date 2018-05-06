@@ -14,7 +14,7 @@ public class Swamplands extends Map {
 
     private void setup(){
 
-        // Tile A
+        //Tile A
         MapElement tile1 = new Tile();
         tile1.setNextTilePos(2);
         tile1.setNextTilePos(330);
@@ -59,7 +59,7 @@ public class Swamplands extends Map {
 
 
 
-        // Tile R
+        //Tile R
         MapElement tile2 = new TerrainStrip();
         tile2.setNextTilePos(2);
         tile2.setRotation(270);
@@ -82,7 +82,7 @@ public class Swamplands extends Map {
         tile2	.addRow3(	new Space(	"yellow"	,	582	,	1	,	true,	false));
 
 
-        // Tile D
+        //Tile D
         MapElement tile3 = new Tile();
         tile3.setRotation(210);
         tile3.setNextTilePos(3);
@@ -126,7 +126,7 @@ public class Swamplands extends Map {
         tile3	.addRow7(	new Space(	"green"	,	148	,	2	,	true,	false));
 
 
-        // Tile H
+        //Tile H
         MapElement tile4 = new Tile();
         tile4.setNextTilePos(3);
         tile4.setRotation(210);
@@ -170,7 +170,7 @@ public class Swamplands extends Map {
         tile4	.addRow7(	new Space(	"green"	,	296	,	2	,	true,	false));
 
 
-        // Tile E
+        //Tile E
         MapElement tile5 = new Tile();
         tile5.setRotation(270);
         tile5.setNextTilePos(5);
@@ -214,7 +214,7 @@ public class Swamplands extends Map {
         tile5	.addRow7(	new Space(	"green"	,	185	,	1	,	false,	true));
 
 
-        // Tile O
+        //Tile O
         MapElement tile6 = new TerrainStrip();
         tile6.setNextTilePos(5);
         tile6.setRotation(90);
@@ -239,7 +239,7 @@ public class Swamplands extends Map {
 
 
 
-        // Tile K
+        //Tile K
         MapElement tile7 = new Tile();
         tile7.setRotation(330);
         tile7.setNextTilePos(5);
@@ -291,20 +291,20 @@ public class Swamplands extends Map {
         tile8	.addRow1(	new Space(	"blue"	,	584	,	1	,false,	false));
         tile8	.addRow1(	new Space(	"blue"	,	585	,	1	,false,	false));
 
-        // EndTile
+        //EndTile
         endTile = new long[3];
         endTile[0]= tile8.getRow1().get(0).getId();
         endTile[1]= tile8.getRow1().get(1).getId();
         endTile[2]= tile8.getRow1().get(2).getId();
 
-        // StartPosition
+        //StartPosition
         startSpaces = new long[4];
         startSpaces[0] = tile1.getRow7().get(3).getId();
         startSpaces[1] = tile1.getRow7().get(2).getId();
         startSpaces[2] = tile1.getRow7().get(1).getId();
         startSpaces[3] = tile1.getRow7().get(0).getId();
 
-        // Initializing Blockades
+        //Initializing Blockades
         blockades.add(new Blockade("green", 1, 1));
         blockades.add(new Blockade("yellow", 1, 2));
         blockades.add(new Blockade("grey", 1, 3));

@@ -7,9 +7,9 @@ import java.util.Random;
 
 public abstract class Map implements Serializable{
 
-    protected List<MapElement> mapTiles = new ArrayList<MapElement>();
+    protected List<MapElement> mapTiles = new ArrayList<>();
 
-    protected List<Blockade> blockades = new ArrayList<Blockade>();
+    protected List<Blockade> blockades = new ArrayList<>();
     protected Random random;
 
     /**
@@ -29,6 +29,7 @@ public abstract class Map implements Serializable{
         return mapTiles;
     }
 
+    //Needed for Serializing.
     public List<Blockade> getBlockades() {
         return blockades;
     }
@@ -43,16 +44,16 @@ public abstract class Map implements Serializable{
      * @return the space instance according to the spaceId
      */
     public Space getSpace(long spaceId){
-        for(int i = 0; i < mapTiles.size(); i++){
-            if(!(mapTiles.get(i) instanceof Blockade)){
-                if(mapTiles.get(i) instanceof Tile){
-                    return ((Tile) mapTiles.get(i)).getSpace(spaceId);
+        for(MapElement mapElement : mapTiles){
+            if(!(mapElement instanceof Blockade)){
+                if(mapElement instanceof Tile){
+                    return ((Tile) mapElement).getSpace(spaceId);
                 }
-                if(mapTiles.get(i) instanceof TerrainStrip){
-                    return ((TerrainStrip) mapTiles.get(i)).getSpace(spaceId);
+                if(mapElement instanceof TerrainStrip){
+                    return ((TerrainStrip) mapElement).getSpace(spaceId);
                 }
-                if(mapTiles.get(i) instanceof EndTile){
-                    return ((EndTile) mapTiles.get(i)).getSpace(spaceId);
+                if(mapElement instanceof EndTile){
+                    return ((EndTile) mapElement).getSpace(spaceId);
                 }
             }
         }

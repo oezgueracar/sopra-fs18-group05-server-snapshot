@@ -18,8 +18,8 @@ public class Space implements Serializable {
      * @param col the color
      * @param spaceId the id
      * @param val the value
-     * @param first
-     * @param last
+     * @param first If it's the first Space of a Tile.
+     * @param last If it's the last Space of a Tile.
      */
     public Space(String col, long spaceId, int val, boolean first, boolean last){
         color = col;
@@ -37,14 +37,14 @@ public class Space implements Serializable {
 
     public void removeBlockadeStatus(){
         if(isFirstOnNewTile){
-            isFirstOnNewTile = !isFirstOnNewTile;
+            isFirstOnNewTile = false;
         }
         else if (isLastSpace){
-            isLastSpace = !isLastSpace;
+            isLastSpace = false;
         }
     }
 
-/*    public void setNeighbours(Space n1, Space n2, Space n3, Space n4, Space n5, Space n6){
+    /*public void setNeighbours(Space n1, Space n2, Space n3, Space n4, Space n5, Space n6){
         neighbours[0] = n1;
         neighbours[1] = n2;
         neighbours[2] = n3;
@@ -57,7 +57,7 @@ public class Space implements Serializable {
         return neighbours;
     }
 
-/*    public void addNeighbour(Space s){
+    /*public void addNeighbour(Space s){
         for(int i= 0; i< neighbours.length;i++) {
             if (neighbours[i] == null)
                 neighbours[i] = s;

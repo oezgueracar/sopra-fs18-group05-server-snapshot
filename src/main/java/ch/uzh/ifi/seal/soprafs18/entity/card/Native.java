@@ -1,8 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
-import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 
 public class Native extends ActionCard {
 
@@ -13,7 +11,6 @@ public class Native extends ActionCard {
 		this.buyingCost = 5f;
 		this.goldValue = 0.5f;
 		this.cardName = "Native";
-		this.cardDescription = "Move your playing piece to an adjacent space.";
 		this.id = getNewId();
 	}
 
@@ -21,7 +18,7 @@ public class Native extends ActionCard {
 	 * The card is played and removed from the hand, then it is added to the played list.
 	 * @param player the player who plays the card
 	 */
-	public void play(Player player){//TODO service has to move the playing piece
+	public void play(Player player){
 		player.getHand().remove(this);
 		player.getPlayedList().add(this);
 	}

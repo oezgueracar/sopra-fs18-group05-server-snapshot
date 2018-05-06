@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 
 public class MulticolorCard extends ExpeditionCard {
 

@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class Compass extends ActionCard {
 
@@ -12,7 +11,6 @@ public class Compass extends ActionCard {
 		this.buyingCost = 2f;
 		this.goldValue = 0.5f;
 		this.cardName = "Compass";
-		this.cardDescription = "Draw 3 cards from your draw pile.";
 		this.id = getNewId();
 		this.itemCard = true;
 	}
@@ -27,7 +25,6 @@ public class Compass extends ActionCard {
 		player.drawCard();
 		player.drawCard();
 
-		// Card get only removed, since it is an item card.
 		player.getHand().remove(this);
 	}
 }

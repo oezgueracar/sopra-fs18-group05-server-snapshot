@@ -3,7 +3,6 @@ package ch.uzh.ifi.seal.soprafs18.entity.card;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Card implements Serializable {
 
@@ -13,13 +12,6 @@ public class Card implements Serializable {
 	protected float goldValue;
 	protected boolean itemCard;
 	protected String cardName;
-	//protected String cardDescription;
-
-	// TODO: remove a card instance from a game
-	// TODO: ...idea: we could just remove it from the playedPile and NOT move it to the discardPile (if itemCard)
-	// TODO: ...(no) idea: how do we handle red spaces???
-	public void remove(){
-	}
 
 	public void play(Player player){}
 
@@ -40,17 +32,14 @@ public class Card implements Serializable {
 		return goldValue;
 	}
 
-	public boolean checkIfItemcard() {
+	public boolean isItemCard() {
 		return itemCard;
 	}
 
+	//Needed for Serializing.
 	public String getCardName() {
 		return cardName;
 	}
-
-	/*public String getCardDescription() {
-		return cardDescription;
-	}*/
 
 	@Override
 	public boolean equals(Object o) {

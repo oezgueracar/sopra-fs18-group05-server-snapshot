@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.card.ActionCard;
 
 public class Scientist extends ActionCard {
 
@@ -12,7 +11,6 @@ public class Scientist extends ActionCard {
 		this.buyingCost = 4f;
 		this.goldValue = 0.5f;
 		this.cardName = "Scientist";
-		this.cardDescription = "Draw 1 card from your draw pile. Then choose up to 1 card in your hand and remove it from the game.";
 		this.id = getNewId();
 	}
 
@@ -24,8 +22,5 @@ public class Scientist extends ActionCard {
 		player.drawCard();
 		player.getHand().remove(this);
 		player.getPlayedList().add(this);
-
-		// A player is allowed to remove up to 1 card from his hand by playing this card.
-		// TODO: How do we remove a card?
 	}
 }

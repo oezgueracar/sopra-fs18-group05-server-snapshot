@@ -21,14 +21,13 @@ public class TerrainStrip extends MapElement {
         row3 = new ArrayList<>();
     }
 
-    // Fill Rows
     @Override
     public void addRow1(Space s){row1.add(s);}
     @Override
     public void addRow2(Space s){row2.add(s);}
     @Override
     public void addRow3(Space s){row3.add(s);}
-    //Getter
+
     @Override
     public List<Space> getRow1(){return row1;}
     @Override
@@ -47,7 +46,6 @@ public class TerrainStrip extends MapElement {
     public int getNextTilePos(){return nextTilePos;}
     public int getRotation(){return rotation;}
 
-    //Setter
     @Override
     public void setNextTilePos(int p){
         this.nextTilePos = p;

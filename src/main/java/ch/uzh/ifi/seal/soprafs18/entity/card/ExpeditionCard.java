@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.card;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
-import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 
 public class ExpeditionCard extends Card {
 
@@ -48,9 +47,5 @@ public class ExpeditionCard extends Card {
 
 	public String getColor(){
 		return color;
-	}
-
-	protected boolean isItemCard(){
-		return itemCard;
 	}
 }

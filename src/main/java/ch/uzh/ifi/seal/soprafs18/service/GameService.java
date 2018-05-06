@@ -34,8 +34,6 @@ public class GameService {
 
     private final PlayerRepository playerRepository;
 
-    private final String CONTEXT = "/games";
-
     Logger logger = LoggerFactory.getLogger(GameResource.class);
 
     @Autowired
@@ -74,7 +72,7 @@ public class GameService {
 		if (game.isPresent()) {
 			return game.get().getPlayers();
 		}
-		return game.get().getPlayers();
+		return null;
 	}
 
 	public Player addPlayer(Long gameId, Player player) {
@@ -158,7 +156,7 @@ public class GameService {
 					if (serverSideGame.get().getPlayers().size() >= GameConstants.MIN_PLAYERS) {
 						boolean allPlayersReady = true;
 						for(Player p: serverSideGame.get().getPlayers()){
-							if (p.getReady() == false){
+							if (!(p.getReady())){
 								allPlayersReady = false;
 							}
 						}
@@ -320,7 +318,7 @@ public class GameService {
 					}
 				}
 				else if (cardId == -1) { //If the player has discarded cards from his hand with Scientist or TravelLog, it'll be handled here upon receiving another request
-					removeHandCardsFromGameScientistTravelLog(serverSideGame, serverSidePlayer, player);
+					removeHandCardsFromGameScientistTravelLog(serverSidePlayer, player);
 				}
 				playerRepository.save(serverSidePlayer.get());
 				gameRepository.save(serverSideGame.get());
@@ -353,7 +351,7 @@ public class GameService {
 						String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
 
 						//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
-						if (playerMoveCounterColour != null && toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
+						if (toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
 							//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
 							int playerMoveCounterValue;
 							if (toBeMovedSpace.getColor().equals("green")) {
@@ -661,7 +659,7 @@ public class GameService {
 	}
 
 	//Helper method to remove the cards from hand after playing the Scientist or TravelLog
-	private void removeHandCardsFromGameScientistTravelLog(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
+	private void removeHandCardsFromGameScientistTravelLog(Optional<Player> serverSidePlayer, Player player){
 		List<Card> removedCards = getRemovedCardsScientistTravelLog(serverSidePlayer, player);
 		if(removedCards != null && removedCards.size() != 0) {
 			for (Card c : removedCards) {
@@ -673,7 +671,7 @@ public class GameService {
 	private boolean isPlayersTurn(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer){
 		int positionOfPlayerInPlayers = 0;
 		for(int i = 0; i < serverSideGame.get().getPlayers().size();i++){
-			if(serverSideGame.get().getPlayers().get(i).getId() == serverSidePlayer.get().getId()){
+			if(serverSideGame.get().getPlayers().get(i).getId().equals(serverSidePlayer.get().getId())){
 				positionOfPlayerInPlayers = i;
 			}
 		}
@@ -689,8 +687,8 @@ public class GameService {
 			for (Space s : toBeUpdatedSpaces){
 				s.removeBlockadeStatus();
 				long[] neighbourIds = s.getNeighbours();
-				for(int i = 0; i < neighbourIds.length; i++){
-					Space tempSpace = serverSideGame.getMap().getSpace(neighbourIds[i]);
+				for(long l : neighbourIds){
+					Space tempSpace = serverSideGame.getMap().getSpace(l);
 					if(tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile()){
 						tempToBeUpdatedSpaces.add(tempSpace);
 					}
@@ -708,10 +706,7 @@ public class GameService {
 				counter ++;
 			}
 		}
-		if(counter == 0){
-			return;
-		}
-		else if(counter == 1){
+		if(counter == 1){
 			for (Player p : serverSideGame.getPlayers()){
 				if(p.getIsInGoal()){
 					p.setWinner();
@@ -719,7 +714,6 @@ public class GameService {
 			}
 		}
 		else if(counter >= 2){
-			Player winner;
 			//Create an array containing the amount of blockades of each player
 			int[] sizeOfBlockadesLists = new int[serverSideGame.getPlayers().size()];
 			for(int i = 0; i < serverSideGame.getPlayers().size(); i++){
