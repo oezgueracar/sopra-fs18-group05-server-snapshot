@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.web.rest;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
-import ch.uzh.ifi.seal.soprafs18.entity.Market;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 
