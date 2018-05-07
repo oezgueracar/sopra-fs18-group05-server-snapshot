@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Map implements Serializable{
+public abstract class Map implements Serializable {
+
 
     protected List<MapElement> mapTiles = new ArrayList<>();
 

@@ -1,8 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
-import java.io.Serializable;
+public class HillsOfGold extends Map {
 
-public class HillsOfGold extends Map{
 
     private long[] endTile;
     private long[] startSpaces;
