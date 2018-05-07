@@ -315,7 +315,7 @@ public class Player implements Serializable {
 	 */
 	public void drawCardOnEndTurn(){
 		if(hand != null && deck != null) {
-			while ((hand.size() <= 4) && !(deck.isEmpty())) {
+			while ((hand.size() < 4) && !(deck.isEmpty())) {
 				drawCard();
 			}
 		}
