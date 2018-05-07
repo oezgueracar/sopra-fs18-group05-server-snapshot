@@ -373,12 +373,12 @@ public class GameService {
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
 										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[1] - toBeMovedSpace.getValue()), "blue");
 									}
 									else {
 										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[1] - toBeMovedSpace.getValue()), "blue");
 										toBeMovedSpace.switchOccupied();
 									}
 								}
@@ -387,7 +387,7 @@ public class GameService {
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
 									serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
+									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[2] - toBeMovedSpace.getValue()), "yellow");
 									toBeMovedSpace.switchOccupied();
 								}
 							}
