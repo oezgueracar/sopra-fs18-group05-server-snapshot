@@ -255,7 +255,7 @@ public class GameService {
 			return gameRepository.save(serverSideGame.get());
 		}
 		else {
-			throw new RuntimeException("Game or player do not exist.");
+			throw new RuntimeException("Game does not exist.");
 		}
 	}
 
