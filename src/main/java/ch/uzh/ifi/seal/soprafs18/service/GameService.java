@@ -249,6 +249,16 @@ public class GameService {
 		return null;
 	}
 
+	public Game fastForwardGame(Long gameId){
+		Optional<Game> serverSideGame = gameRepository.findById(gameId);
+		if (serverSideGame.isPresent()){
+			return gameRepository.save(serverSideGame.get());
+		}
+		else {
+			throw new RuntimeException("Game or player do not exist.");
+		}
+	}
+
 	public Player updatePlayer(Long gameId, Long playerId, Player player){
 		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);

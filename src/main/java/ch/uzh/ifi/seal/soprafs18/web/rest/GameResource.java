@@ -84,6 +84,14 @@ public class GameResource
     }
 
     @CrossOrigin
+    @RequestMapping(value = CONTEXT + "/{gameId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public Game fastForwardGame(@PathVariable Long gameId) {
+        logger.debug("fastForwardGame: " + gameId);
+        return this.gameService.fastForwardGame(gameId);
+    }
+
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Player updatePlayer(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
