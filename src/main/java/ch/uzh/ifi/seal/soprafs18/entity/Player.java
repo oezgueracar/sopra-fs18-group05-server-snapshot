@@ -15,7 +15,6 @@ import java.util.UUID;
 import javax.persistence.*;
 
 @Entity
-@JsonTypeName("Player")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ @JsonSubTypes.Type(value = PlayerMode2.class, name = "PlayerMode2")})
 public class Player implements Serializable {
@@ -199,7 +198,13 @@ public class Player implements Serializable {
 		return assignedPiece;
 	}
 
-	public long getBoughtCardId(){
+	@JsonIgnore
+    public PlayingPiece getPlayingPiece2(){
+	    return null;
+    }
+
+
+    public long getBoughtCardId(){
 		return boughtCardId;
 	}
 

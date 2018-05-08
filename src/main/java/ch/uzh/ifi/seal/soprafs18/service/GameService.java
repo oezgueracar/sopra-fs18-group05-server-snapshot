@@ -4,6 +4,7 @@ import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
+import ch.uzh.ifi.seal.soprafs18.entity.PlayerMode2;
 import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
@@ -181,16 +182,48 @@ public class GameService {
 							serverSideGame.get().startGame();
 							serverSideGame.get().setStatus(GameStatus.RUNNING);
 
-							int startingPositionArrayCounter = 0;
-							for (Player p : serverSideGame.get().getPlayers()) {
-								p.setup();
-								p.getPlayingPiece().setPosition(serverSideGame.get().getMap()
-												   .getStartingSpaces()[startingPositionArrayCounter++]);
-								serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition())
-											  .switchOccupied();
-								playerRepository.save(p);
-							}
-						}
+                            if (serverSideGame.get().getPlayers().size() > 2) {
+                                List<Player> tempList = new ArrayList<>();
+                                int startingPositionArrayCounter = 0;
+                                for (int i = 0; i < serverSideGame.get().getPlayers().size(); i++) {
+                                    serverSideGame.get().getPlayers()
+                                                  .set(i, (Player) serverSideGame.get().getPlayers().get(i));
+                                    serverSideGame.get().getPlayers().get(i).setup();
+                                    serverSideGame.get().getPlayers().get(i).getPlayingPiece()
+                                                        .setPosition(serverSideGame.get().getMap()
+                                                        .getStartingSpaces()[startingPositionArrayCounter++]);
+                                    serverSideGame.get().getMap().getSpace(serverSideGame.get().getPlayers().get(i)
+                                                  .getPlayingPiece().getPosition()).switchOccupied();
+                                    playerRepository.save(serverSideGame.get().getPlayers().get(i));
+                                }
+                            }
+                            else if (serverSideGame.get().getPlayers().size() == 2) {
+                                System.out.println(serverSideGame.get().getPlayers().get(0).getClass().getName());
+                                serverSideGame.get().getPlayers().get(0).setup();
+                                serverSideGame.get().getPlayers().get(1).setup();
+
+                                serverSideGame.get().getPlayers().get(0).getPlayingPiece()
+                                                    .setPosition(serverSideGame.get().getMap().getStartingSpaces()[0]);
+                                serverSideGame.get().getPlayers().get(0).getPlayingPiece2()
+                                                    .setPosition(serverSideGame.get().getMap().getStartingSpaces()[2]);
+                                serverSideGame.get().getPlayers().get(1).getPlayingPiece()
+                                                    .setPosition(serverSideGame.get().getMap().getStartingSpaces()[1]);
+                                serverSideGame.get().getPlayers().get(1).getPlayingPiece2()
+                                                    .setPosition(serverSideGame.get().getMap().getStartingSpaces()[3]);
+
+                                serverSideGame.get().getMap().getSpace(serverSideGame.get().getPlayers().get(0)
+                                                    .getPlayingPiece().getPosition()).switchOccupied();
+                                serverSideGame.get().getMap().getSpace(serverSideGame.get().getPlayers()
+                                                    .get(0).getPlayingPiece2().getPosition()).switchOccupied();
+                                serverSideGame.get().getMap().getSpace(serverSideGame.get().getPlayers().get(1)
+                                                    .getPlayingPiece().getPosition()).switchOccupied();
+                                serverSideGame.get().getMap().getSpace( serverSideGame.get().getPlayers()
+                                                    .get(1).getPlayingPiece2().getPosition()).switchOccupied();
+
+                                playerRepository.save(serverSideGame.get().getPlayers().get(0));
+                                playerRepository.save(serverSideGame.get().getPlayers().get(1));
+                            }
+                        }
 					}
 					return gameRepository.save(serverSideGame.get());
 				case RUNNING:
