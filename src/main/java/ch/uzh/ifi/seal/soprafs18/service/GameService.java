@@ -183,18 +183,15 @@ public class GameService {
 							serverSideGame.get().setStatus(GameStatus.RUNNING);
 
                             if (serverSideGame.get().getPlayers().size() > 2) {
-                                List<Player> tempList = new ArrayList<>();
+                                serverSideGame.get().castPlayersToPlayer();
                                 int startingPositionArrayCounter = 0;
-                                for (int i = 0; i < serverSideGame.get().getPlayers().size(); i++) {
-                                    serverSideGame.get().getPlayers()
-                                                  .set(i, (Player) serverSideGame.get().getPlayers().get(i));
-                                    serverSideGame.get().getPlayers().get(i).setup();
-                                    serverSideGame.get().getPlayers().get(i).getPlayingPiece()
-                                                        .setPosition(serverSideGame.get().getMap()
-                                                        .getStartingSpaces()[startingPositionArrayCounter++]);
-                                    serverSideGame.get().getMap().getSpace(serverSideGame.get().getPlayers().get(i)
-                                                  .getPlayingPiece().getPosition()).switchOccupied();
-                                    playerRepository.save(serverSideGame.get().getPlayers().get(i));
+                                for (Player p : serverSideGame.get().getPlayers()) {
+                                    p.setup();
+                                    p.getPlayingPiece().setPosition(serverSideGame.get().getMap()
+                                            .getStartingSpaces()[startingPositionArrayCounter++]);
+                                    serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition())
+                                            .switchOccupied();
+                                    playerRepository.save(p);
                                 }
                             }
                             else if (serverSideGame.get().getPlayers().size() == 2) {
