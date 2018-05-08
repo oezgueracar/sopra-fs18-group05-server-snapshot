@@ -3,8 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
@@ -16,6 +15,9 @@ import java.util.UUID;
 import javax.persistence.*;
 
 @Entity
+@JsonTypeName("Player")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ @JsonSubTypes.Type(value = PlayerMode2.class, name = "PlayerMode2")})
 public class Player implements Serializable {
 
 
