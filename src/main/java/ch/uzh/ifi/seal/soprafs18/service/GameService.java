@@ -183,7 +183,21 @@ public class GameService {
 							serverSideGame.get().setStatus(GameStatus.RUNNING);
 
                             if (serverSideGame.get().getPlayers().size() > 2) {
-                                serverSideGame.get().castPlayersToPlayer();
+                                List<Player> oldPlayers = serverSideGame.get().getPlayers();
+                                serverSideGame.get().getPlayers().clear();
+                                for(Player p : oldPlayers) {
+                                    playerRepository.delete(p);
+                                }
+                                playerRepository.flush();
+                                gameRepository.save(serverSideGame.get());
+
+                                for(Player p : oldPlayers){
+                                    serverSideGame.get().addPlayer(p);
+                                }
+                                gameRepository.save(serverSideGame.get());
+
+                                System.out.println(serverSideGame.get().getPlayers().size());
+
                                 int startingPositionArrayCounter = 0;
                                 for (Player p : serverSideGame.get().getPlayers()) {
                                     p.setup();
@@ -334,7 +348,7 @@ public class GameService {
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
 		if (serverSidePlayer.isPresent() && serverSideGame.isPresent()
-										&& serverSideGame.get().getStatus() == GameStatus.RUNNING) {
+										 && serverSideGame.get().getStatus() == GameStatus.RUNNING) {
 			if (isPlayersTurn(serverSideGame, serverSidePlayer)){
 				if (serverSidePlayer.get().getBoughtCardId() == 0) {
 					serverSidePlayer.get().setBoughtCardId(player.getBoughtCardId());

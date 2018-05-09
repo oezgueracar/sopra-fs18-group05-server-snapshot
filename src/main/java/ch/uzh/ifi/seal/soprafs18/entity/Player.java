@@ -15,7 +15,7 @@ import java.util.UUID;
 import javax.persistence.*;
 
 @Entity
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonSubTypes({ @JsonSubTypes.Type(value = PlayerMode2.class, name = "PlayerMode2")})
 public class Player implements Serializable {
 
@@ -26,6 +26,8 @@ public class Player implements Serializable {
 	@GeneratedValue
 	@Column(name = "playerId")
 	protected Long id;
+
+    protected String type;
 
 	@Column(nullable = false)
 	protected String name;
@@ -117,6 +119,18 @@ public class Player implements Serializable {
 	public Long getId() {
 		return id;
 	}
+
+	protected void setId(Long id){
+	    this.id = id;
+    }
+
+    public String getType(){
+	    return type;
+    }
+
+    public void setType(String type){
+	    this.type = type;
+    }
 
 	public String getToken(){
 		return token;
@@ -473,4 +487,22 @@ public class Player implements Serializable {
 			return super.hashCode();
 		}
 	}
+
+	public Player returnCastPlayer(){
+        Player tempPlayer = new Player();
+        tempPlayer.setId(this.getId());
+        tempPlayer.setType("Player");
+        tempPlayer.setName(this.getName());
+        tempPlayer.setToken(this.getToken());
+        tempPlayer.setColor(this.getColor());
+        tempPlayer.setPlayerLeft(this.getPlayerLeft());
+        tempPlayer.setReady(this.getReady());
+        tempPlayer.resetCoins();
+        //isInGoal is already set to false
+        //Winner is already set to false
+        tempPlayer.setGameId(this.getGameId());
+        //boughtCardId is already set to 0
+
+        return tempPlayer;
+    }
 }

@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 
 @Entity
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 public class PlayerMode2 extends Player {
 
 	@Lob
