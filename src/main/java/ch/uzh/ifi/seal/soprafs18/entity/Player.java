@@ -487,22 +487,4 @@ public class Player implements Serializable {
 			return super.hashCode();
 		}
 	}
-
-	public Player returnCastPlayer(){
-        Player tempPlayer = new Player();
-        tempPlayer.setId(this.getId());
-        tempPlayer.setType("Player");
-        tempPlayer.setName(this.getName());
-        tempPlayer.setToken(this.getToken());
-        tempPlayer.setColor(this.getColor());
-        tempPlayer.setPlayerLeft(this.getPlayerLeft());
-        tempPlayer.setReady(this.getReady());
-        tempPlayer.resetCoins();
-        //isInGoal is already set to false
-        //Winner is already set to false
-        tempPlayer.setGameId(this.getGameId());
-        //boughtCardId is already set to 0
-
-        return tempPlayer;
-    }
 }

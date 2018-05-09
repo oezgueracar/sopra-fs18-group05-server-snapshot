@@ -95,28 +95,6 @@ public class Game implements Serializable {
 		}
     }
 
-    public void castPlayersToPlayer(List<Player> oldPlayers){
-    	List<Player> tempPlayers = new ArrayList<>();
-    	for (Player p : oldPlayers){
-    		Player tempPlayer = new Player();
-    		tempPlayer.setId(p.getId());
-    		tempPlayer.setType("Player");
-    		tempPlayer.setName(p.getName());
-    		tempPlayer.setToken(p.getToken());
-    		tempPlayer.setColor(p.getColor());
-    		tempPlayer.setPlayerLeft(p.getPlayerLeft());
-    		tempPlayer.setReady(p.getReady());
-    		tempPlayer.resetCoins();
-    		//isInGoal is already set to false
-    		//Winner is already set to false
-			tempPlayer.setGameId(p.getGameId());
-			//boughtCardId is already set to 0
-
-			tempPlayers.add(tempPlayer);
-		}
-		players = tempPlayers;
-	}
-
 	//TODO: Important Invariant: Always check if players arraylist size == maxPlayers... you always have to fix it if a player leaves the game or if the amount of players is lower than maxPlayers.
 	public void changeCurrentPlayer(){
 		this.getPlayers().removeAll(Collections.singleton(null));

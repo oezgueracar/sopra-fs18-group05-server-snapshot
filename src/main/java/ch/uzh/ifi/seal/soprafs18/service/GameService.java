@@ -183,19 +183,19 @@ public class GameService {
 							serverSideGame.get().setStatus(GameStatus.RUNNING);
 
                             if (serverSideGame.get().getPlayers().size() > 2) {
-                                List<Player> oldPlayers = new ArrayList<>();
+                                /*List<Player> oldPlayers = new ArrayList<>();
                                 oldPlayers.addAll(serverSideGame.get().getPlayers());
                                 serverSideGame.get().getPlayers().clear();
                                 for(Player p : oldPlayers) {
                                     playerRepository.delete(p);
                                 }
                                 playerRepository.flush();
-                                gameRepository.saveAndFlush(serverSideGame.get());
+                                gameRepository.saveAndFlush(serverSideGame.get());*/
 
-                                for(Player p : oldPlayers){
-                                	Player tempPlayer = p.returnCastPlayer();
-									playerRepository.saveAndFlush(tempPlayer);
-                                    serverSideGame.get().addPlayer(tempPlayer);
+                                for(Player p : serverSideGame.get().getPlayers()){
+                                	p.setType("Player");
+									playerRepository.saveAndFlush(p);
+                                    serverSideGame.get().addPlayer(p);
                                 }
                                 gameRepository.saveAndFlush(serverSideGame.get());
 
