@@ -12,9 +12,10 @@ public class CompassTest {
         Player p = new Player();
         Card c = new Compass();
         p.setup();
+        p.getHand().add(c);
         int i = p.getHand().size();
         c.play(p);
         int newI =p.getHand().size();
-        assertEquals(i+3,newI);
+        assertEquals(i+2,newI);
     }
 }

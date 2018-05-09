@@ -9,7 +9,7 @@ public class SwamplandsTest {
     Swamplands m;
 
     @Before
-    public void setUO(){
+    public void setUp(){
         m = new Swamplands();
     }
 

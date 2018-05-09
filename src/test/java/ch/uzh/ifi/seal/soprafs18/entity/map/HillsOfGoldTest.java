@@ -9,7 +9,7 @@ public class HillsOfGoldTest {
     HillsOfGold m;
 
     @Before
-    public void setUO(){
+    public void setUp(){
         m = new HillsOfGold();
     }
     @Test

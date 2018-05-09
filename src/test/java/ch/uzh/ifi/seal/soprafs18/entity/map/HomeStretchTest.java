@@ -9,7 +9,7 @@ public class HomeStretchTest {
     HomeStretch m;
 
     @Before
-    public void setUO(){
+    public void setUp(){
         m = new HomeStretch();
     }
 

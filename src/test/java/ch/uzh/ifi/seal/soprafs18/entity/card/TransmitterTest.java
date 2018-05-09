@@ -7,15 +7,15 @@ import static org.junit.Assert.*;
 
 public class TransmitterTest {
 
-    /*@Test
+    @Test
     public void play() {
         Player p = new Player();
-        Card c = new Transmitter(2,0.5f,"Native","Description");
+        Card c = new Transmitter();
         p.setup();
         p.getHand().add(c);
         int i = p.getHand().size();
         c.play(p);
         int newI =p.getHand().size();
-        assertEquals(i,newI);
-    }*/
+        assertEquals(i-1,newI);
+    }
 }

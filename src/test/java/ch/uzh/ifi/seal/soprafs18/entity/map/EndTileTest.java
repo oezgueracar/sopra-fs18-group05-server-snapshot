@@ -1,5 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
+import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +10,16 @@ import static org.junit.Assert.assertEquals;
 
 public class EndTileTest {
 
-    //TODO setup
-    EndTile t1 = new EndTile();
-    List<Space> testRow = new ArrayList<>();
-    Space s1 = new Space("green", 1,1, false, false);
+    EndTile t1;
+    List<Space> testRow;
+    Space s1;
+
+    @Before
+    public void setUp(){
+        t1 = new EndTile();
+        testRow = new ArrayList<>();
+        s1 = new Space("green", 1,1, false, false);
+    }
 
     @Test
     public void addRow1() {

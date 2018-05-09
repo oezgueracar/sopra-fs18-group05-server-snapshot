@@ -9,7 +9,7 @@ public class SerpentineTest {
     Serpentine m;
 
     @Before
-    public void setUO(){
+    public void setUp(){
         m = new Serpentine();
     }
 
