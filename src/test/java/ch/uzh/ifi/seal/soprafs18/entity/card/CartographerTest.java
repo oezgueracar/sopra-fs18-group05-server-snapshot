@@ -12,9 +12,12 @@ public class CartographerTest {
         Player p = new Player();
         Card c = new Cartographer();
         p.setup();
+        p.getHand().add(c);
         int i = p.getHand().size();
+        int j = p.getPlayedList().size();
         c.play(p);
-        int newI =p.getHand().size();
-        assertEquals(i+2,newI);
+
+        assertEquals(i+1,p.getHand().size());
+        assertEquals(j+1, p.getPlayedList().size());
     }
 }

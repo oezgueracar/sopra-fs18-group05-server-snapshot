@@ -89,11 +89,11 @@ public class PlayerTest {
         assertEquals(testPile, p.getHand());
     }*/
 
-    @Test
-    public void getMoveCounter() {    }
-
-    @Test
-    public void getCoins(){}
+  /*  @Test
+    public void getMoveCounter() {}
+*/
+/*    @Test
+    public void getCoins(){}*/
 
     @Test
     public void getPlayerLeft() {
@@ -138,10 +138,6 @@ public class PlayerTest {
         assertEquals(5,p.getHand().size());
         p.playCard(c);
         assertEquals(4, p.getHand().size());
-    }
-
-    @Test
-    public void move() {
     }
 
     @Test
