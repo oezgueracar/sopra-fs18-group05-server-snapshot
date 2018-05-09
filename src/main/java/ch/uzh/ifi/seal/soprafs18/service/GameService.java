@@ -783,94 +783,89 @@ public class GameService {
 				}
 			}
 		}
-		else {
-			//If Blockade exists and player is next to the blockade
-			if (serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
-								   .isLastSpace()) {
-				if (serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null
-																  && serverSidePlayer.get().getBlockades().size() <
-																	 player.getBlockades().size()) {
-					Blockade removedBlockade = getDifferenceOfBlockades(serverSidePlayer, player);
+		//If Blockade exists and player is next to the blockade
+		else if ((serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
+				.isLastSpace()) || ((serverSidePlayer.get() instanceof PlayerMode2)
+				&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2().getPosition())
+				.isLastSpace() )) {
 
-					if (removedBlockade != null) {
-						if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue")
-																	   || removedBlockade.getColor().equals("yellow")){
-							String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
-							if (playerMoveCounterColour.equals(removedBlockade.getColor())){
-								int playerMoveCounterValue;
-								if (playerMoveCounterColour.equals("green")){
-									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
-									if(playerMoveCounterValue >= removedBlockade.getValue()){
-										serverSidePlayer.get().getBlockades().add(removedBlockade);
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
-														.getMoveCounter()[0] - removedBlockade.getValue()),
-														"green");
-										removeBlockadeOnMap(serverSideGame.get(),
-															serverSidePlayer.get().getPlayingPiece().getPosition());
-									}
-									else {
-										throw new IllegalArgumentException("Request contains invalid information. " +
-																		   "Not enough green counter.");
-									}
+			if(serverSidePlayer.get().getBlockades() != null
+					&& player.getBlockades() != null
+					&& serverSidePlayer.get().getBlockades().size() <
+					player.getBlockades().size()){
+
+				Blockade removedBlockade = getDifferenceOfBlockades(serverSidePlayer, player);
+
+				if (removedBlockade != null) {
+					if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue")
+							|| removedBlockade.getColor().equals("yellow")) {
+						String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
+						if (playerMoveCounterColour.equals(removedBlockade.getColor())) {
+							int playerMoveCounterValue;
+							if (playerMoveCounterColour.equals("green")) {
+								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
+								if (playerMoveCounterValue >= removedBlockade.getValue()) {
+									serverSidePlayer.get().getBlockades().add(removedBlockade);
+									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+													.getMoveCounter()[0] - removedBlockade.getValue()),
+											"green");
+									removeBlockadeOnMap(serverSideGame.get(),
+											serverSidePlayer.get().getPlayingPiece().getPosition());
+								} else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+											"Not enough green counter.");
 								}
-								else if (playerMoveCounterColour.equals("blue")){
-									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
-									if (playerMoveCounterValue >= removedBlockade.getValue()){
-										serverSidePlayer.get().getBlockades().add(removedBlockade);
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
-														.getMoveCounter()[0] - removedBlockade.getValue()),
-														"blue");
-										removeBlockadeOnMap(serverSideGame.get(),
-															serverSidePlayer.get().getPlayingPiece().getPosition());
-									}
-									else {
-										throw new IllegalArgumentException("Request contains invalid information. " +
-																		   "Not enough blue counter.");
-									}
+							} else if (playerMoveCounterColour.equals("blue")) {
+								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
+								if (playerMoveCounterValue >= removedBlockade.getValue()) {
+									serverSidePlayer.get().getBlockades().add(removedBlockade);
+									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+													.getMoveCounter()[0] - removedBlockade.getValue()),
+											"blue");
+									removeBlockadeOnMap(serverSideGame.get(),
+											serverSidePlayer.get().getPlayingPiece().getPosition());
+								} else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+											"Not enough blue counter.");
 								}
-								else { //yellow
-									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
-									if (playerMoveCounterValue >= removedBlockade.getValue()){
-										serverSidePlayer.get().getBlockades().add(removedBlockade);
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
-														.getMoveCounter()[0] - removedBlockade.getValue()),
-														"yellow");
-										removeBlockadeOnMap(serverSideGame.get(),
-															serverSidePlayer.get().getPlayingPiece().getPosition());
-									}
-									else {
-										throw new IllegalArgumentException("Request contains invalid information. " +
-																		   "Not enough yellow counter.");
-									}
+							} else { //yellow
+								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
+								if (playerMoveCounterValue >= removedBlockade.getValue()) {
+									serverSidePlayer.get().getBlockades().add(removedBlockade);
+									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+													.getMoveCounter()[0] - removedBlockade.getValue()),
+											"yellow");
+									removeBlockadeOnMap(serverSideGame.get(),
+											serverSidePlayer.get().getPlayingPiece().getPosition());
+								} else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+											"Not enough yellow counter.");
 								}
 							}
-							else {
-								throw new IllegalArgumentException("Request contains invalid information. " +
-																   "Blockade color is different from players " +
-																   "MoveCounter color.");
-							}
+						} else {
+							throw new IllegalArgumentException("Request contains invalid information. " +
+									"Blockade color is different from players " +
+									"MoveCounter color.");
 						}
-						else { //grey
-							switch (removedBlockade.getValue()) {
-								case 1:
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
-																  removedBlockade, removedBlockade.getValue());
-								case 2:
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
-																  removedBlockade, removedBlockade.getValue());
-							}
+					} else { //grey
+						switch (removedBlockade.getValue()) {
+							case 1:
+								moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+										removedBlockade, removedBlockade.getValue());
+							case 2:
+								moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+										removedBlockade, removedBlockade.getValue());
 						}
 					}
-					else {
-						throw new IllegalArgumentException("Request contains invalid information. " +
-														   "Blockade does not exist.");
-					}
-				}
-				else {
+				} else {
 					throw new IllegalArgumentException("Request contains invalid information. " +
-													   "No Blockade chosen.");
+							"Blockade does not exist.");
 				}
 			}
+		}
+		//Reset Move Counter
+		else {
+			serverSidePlayer.get().resetMoveCounter();
 		}
 
 		//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
