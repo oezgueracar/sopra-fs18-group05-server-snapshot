@@ -548,9 +548,11 @@ public class GameService {
 					} else if (toBeMovedSpace.getColor().equals("red")) {
 						switch (toBeMovedSpace.getValue()) {
 							case 1:
+								System.out.println("You made it until here. 1");
 								if (serverSidePlayer.get().getHand().size() >= 1) {
 									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace,
 															toBeMovedSpace.getValue());
+									System.out.println("You made it until here. 2");
 								}
 								else {
 									throw new IllegalArgumentException("Request contains invalid information. " +
