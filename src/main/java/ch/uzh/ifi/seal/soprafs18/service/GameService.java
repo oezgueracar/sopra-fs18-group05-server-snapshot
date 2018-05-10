@@ -522,6 +522,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 1).");
 								}
+								break;
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
 									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
@@ -531,7 +532,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 2).");
 								}
-
+								break;
 							case 3:
 								if (serverSidePlayer.get().getHand().size() >= 3) {
 									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
@@ -541,6 +542,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 3).");
 								}
+								break;
 						}
 
 					} else if (toBeMovedSpace.getColor().equals("red")) {
@@ -554,7 +556,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 1).");
 								}
-
+								break;
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
 									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace,
@@ -564,6 +566,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 2).");
 								}
+								break;
 						}
 					}
 					// else it's black or a starting space; Don't do anything.
@@ -650,9 +653,11 @@ public class GameService {
 								case 1:
 									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
 																  removedBlockade, removedBlockade.getValue());
+									break;
 								case 2:
 									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
 																  removedBlockade, removedBlockade.getValue());
+									break;
 							}
 						}
 					}
