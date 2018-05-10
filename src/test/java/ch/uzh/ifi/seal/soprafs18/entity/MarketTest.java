@@ -28,14 +28,11 @@ public class MarketTest {
     public void removeCard() {
 
         for(int i=0; i<m.getOpenSlots().size();i++){
-            for(int j=0; j<m.getOpenSlots().get(i).length;j++){
-                System.out.println("aa"+i+"+"+j);
+            for(int j=0; j<3;j++){
                 assertEquals(3-j,m.getOpenSlots().get(i).length);
-                System.out.println("bb"+i+"+"+j);
                 m.removeCard(m.getOpenSlots().get(i)[j].getId());
-                System.out.println("cc"+i+"+"+j);
                 assertEquals(2-j,m.getOpenSlots().get(i).length);
-                System.out.println("dd"+i+"+"+j);
+                System.out.println(i+"+"+j);
             }
         }
         for(int i=0; i<m.getClosedSlots().size();i++){

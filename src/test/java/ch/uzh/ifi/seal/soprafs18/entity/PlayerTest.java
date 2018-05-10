@@ -147,7 +147,20 @@ public class PlayerTest {
         p.buyCard(m.getOpenSlots().get(0)[0].getId(), m);
         assertEquals(1, p.getDiscardPile().size());
         assertEquals(2, m.getOpenSlots().get(0).length);
+        assertEquals(9,p.getCoins(),0);
+        p.buyCard(m.getOpenSlots().get(4)[0].getId(), m);
+        assertEquals(6,p.getCoins(),0);
         p.coins = 0;
+    }
+
+    @Test
+    public void tradeinCard(){
+        p.coins =0;
+        float l = p.getHand().get(0).getGoldValue();
+        p.tradeinCard(p.getHand().get(0).getId());
+        assertEquals(l,p.getCoins(),0);
+
+
     }
 
  /*   @Test
@@ -165,6 +178,18 @@ public class PlayerTest {
         p.drawCard();
         int testInt2 = p.getHand().size();
         assertEquals(testInt+1, testInt2);
+    }
+
+    @Test
+    public void drawCardOnEndTurn(){
+        assertEquals(4,p.getHand().size());
+        p.getHand().remove(0);
+        p.getHand().remove(0);
+        assertEquals(2, p.getHand().size());
+        p.drawCardOnEndTurn();
+        assertEquals(4,p.getHand().size());
+        p.drawCardOnEndTurn();
+        assertEquals(4,p.getHand().size());
     }
 
     @Test
