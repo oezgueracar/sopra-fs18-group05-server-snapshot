@@ -46,6 +46,7 @@ public class GameTest {
         p1.setName("TestPlayer1");
         game.addPlayer(p1);
         assertEquals("TestPlayer1", game.getPlayers().get(0).getName());
+        assertEquals(1,game.getPlayers().size());
     }
 
     //Tests if adding more players to a game than the amount of MAX_PLAYERS is possible. It should not be possible.
@@ -139,10 +140,14 @@ public class GameTest {
         p2.setName("TestPlayer2");
         game.addPlayer(p1);
         game.addPlayer(p2);
+        game.addPlayer(p3);
+        game.addPlayer(p4);
 
         ArrayList<Player> testList = new ArrayList<>();
         testList.add(p1);
         testList.add(p2);
+        testList.add(p3);
+        testList.add(p4);
 
         assertTrue(game.getPlayers().containsAll(testList));
     }

@@ -61,4 +61,12 @@ public class EndTileTest {
         t1.setRotation(60);
         assertEquals(60,t1.getRotation());
     }
+
+    @Test
+    public void getSpace(){
+        t1.addRow1(s1);
+        assertEquals(s1, t1.getSpace(1));
+        assertEquals(null, t1.getSpace(2));
+
+    }
 }

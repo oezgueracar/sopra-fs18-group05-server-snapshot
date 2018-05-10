@@ -58,9 +58,4 @@ public class ExpeditionCardTest {
         assertEquals("green", c.getColor());
     }
 
-    @Test
-    public void isItemCard() {
-        ExpeditionCard c = new ExpeditionCard(2,0.5f,"Cartographer", "green", 1, false);
-        assertFalse(c.isItemCard());
-    }
 }

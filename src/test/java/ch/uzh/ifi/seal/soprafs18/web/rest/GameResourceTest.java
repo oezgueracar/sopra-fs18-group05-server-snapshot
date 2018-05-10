@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.web.rest;
 import ch.uzh.ifi.seal.soprafs18.Application;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
+import ch.uzh.ifi.seal.soprafs18.service.GameService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,9 +13,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -25,13 +29,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/*@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-//@WebAppConfiguration
-//@WebMvcTest(GameResource.class)*/
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = Application.class)
+@WebAppConfiguration
+@WebMvcTest(GameResource.class)
+
+
 public class GameResourceTest {
 
-    /*Game game;
+    Game game;
     String gameJson;
     Player p1;
     String player2Json;
@@ -42,6 +48,9 @@ public class GameResourceTest {
 
     @Autowired
     private WebApplicationContext context;
+
+    @Autowired
+    private GameService gameService;
 
     private MockMvc mockMvc;
 
@@ -98,10 +107,11 @@ public class GameResourceTest {
                 .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"TestLeader's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"id\":2,\"name\":\"TestLeaderCopy\",\"token\":\"" + userTokenString + "\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"isInGoal\":false,\"gameId\":1,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"moveCounter\":[0,0,0],\"playingPiece\":null}]}"));
 
         //assertTrue(serverSideGame.getPlayers().size() == 1);
-    }*/
+    }
 
     @Test
     public void listGames() {
+
     }
 
     @Test
