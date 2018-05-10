@@ -918,9 +918,16 @@ public class GameService {
 		}
 
 		//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
-		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
-						.getPlayingPiece().getPosition()));
-	}
+        if (serverSidePlayer.get() instanceof PlayerMode2) {
+            serverSidePlayer.get().setIsInGoal((serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
+                            .getPlayingPiece().getPosition())) && (serverSideGame.get()
+                            .endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece2().getPosition())));
+        }
+        else {
+            serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
+                            .getPlayingPiece().getPosition()));
+        }
+    }
 
 	private void movePlayingPieceNative(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer,
 										Player player) {
