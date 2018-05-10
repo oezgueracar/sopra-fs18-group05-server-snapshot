@@ -1028,8 +1028,23 @@ public class GameService {
 				== (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue()))
 				&& (player.getPlayedList().size()
 				== (serverSidePlayer.get().getPlayedList().size() + toBeMovedSpace.getValue()))) {
-			List<Card> discardedCards = new ArrayList<>(player.getPlayedList());
-			discardedCards.removeAll(serverSidePlayer.get().getPlayedList());
+
+			List<Card> discardedCards = new ArrayList<>();
+			List<Card> serverSidePlayedList = new ArrayList<>();
+			for (Card c : player.getPlayedList()){
+				discardedCards.add(c);
+			}
+			for (Card c : serverSidePlayer.get().getPlayedList()){
+				serverSidePlayedList.add(c);
+			}
+			for(Card c : serverSidePlayedList){
+				for(int i = 0; i < discardedCards.size(); i++){
+					if(c.getId() == discardedCards.get(i).getId()){
+						discardedCards.remove(i);
+						break;
+					}
+				}
+			}
 			if(discardedCards.size() != 0) {
 				return discardedCards;
 			}
@@ -1042,8 +1057,23 @@ public class GameService {
 		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
 		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) ==
 				(player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size())) {
-			List<Card> tradedInCards = new ArrayList<>(player.getPlayedList());
-			tradedInCards.removeAll(serverSidePlayer.get().getPlayedList());
+
+			List<Card> tradedInCards = new ArrayList<>();
+			List<Card> serverSidePlayedList = new ArrayList<>();
+			for (Card c : player.getPlayedList()){
+				tradedInCards.add(c);
+			}
+			for (Card c : serverSidePlayer.get().getPlayedList()){
+				serverSidePlayedList.add(c);
+			}
+			for(Card c : serverSidePlayedList){
+				for(int i = 0; i < tradedInCards.size(); i++){
+					if(c.getId() == tradedInCards.get(i).getId()){
+						tradedInCards.remove(i);
+						break;
+					}
+				}
+			}
 			if(tradedInCards.size() != 0) {
 				return tradedInCards;
 			}
@@ -1055,9 +1085,24 @@ public class GameService {
 	private List<Card> getDifferenceOfHand(Player serverSidePlayer, Player player){
 		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
 		if((serverSidePlayer.getHand().size() - player.getHand().size()) == (player.getDiscardPile().size() -
-																			 serverSidePlayer.getDiscardPile().size())){
-			List<Card> discardedCards = new ArrayList<>(player.getDiscardPile());
-			discardedCards.removeAll(serverSidePlayer.getDiscardPile());
+				serverSidePlayer.getDiscardPile().size())){
+
+			List<Card> discardedCards = new ArrayList<>();
+			List<Card> serverSideDiscardPile = new ArrayList<>();
+			for (Card c : player.getDiscardPile()){
+				discardedCards.add(c);
+			}
+			for (Card c : serverSidePlayer.getDiscardPile()){
+				serverSideDiscardPile.add(c);
+			}
+			for(Card c : serverSideDiscardPile){
+				for(int i = 0; i < discardedCards.size(); i++){
+					if(c.getId() == discardedCards.get(i).getId()){
+						discardedCards.remove(i);
+						break;
+					}
+				}
+			}
 			if(discardedCards.size() != 0) {
 				return discardedCards;
 			}
@@ -1072,19 +1117,47 @@ public class GameService {
 	*/
 	private List<Card> getRemovedCards(Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
     	if(player.getHand().size() == (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue())) {
-			List<Card> removedCards = new ArrayList<>(serverSidePlayer.get().getHand());
-			removedCards.removeAll(player.getHand());
+			List<Card> removedCards = new ArrayList<>();
+			List<Card> clientSideHand = new ArrayList<>();
+			for (Card c : serverSidePlayer.get().getHand()){
+				removedCards.add(c);
+			}
+			for (Card c : player.getHand()){
+				clientSideHand.add(c);
+			}
+			for(Card c : clientSideHand){
+				for(int i = 0; i < removedCards.size(); i++){
+					if(c.getId() == removedCards.get(i).getId()){
+						removedCards.remove(i);
+						break;
+					}
+				}
+			}
 			if(removedCards.size() != 0) {
 				return removedCards;
 			}
 		}
-    	return null;
+		return null;
 	}
 
 	//Helper method of a helper method to remove cards from the game after playing Scientist or TravelLog
 	private List<Card> getRemovedCardsScientistTravelLog(Optional<Player> serverSidePlayer, Player player){
-		List<Card> removedCards = new ArrayList<>(serverSidePlayer.get().getHand());
-		removedCards.removeAll(player.getHand());
+		List<Card> removedCards = new ArrayList<>();
+		List<Card> clientSideHand = new ArrayList<>();
+		for (Card c : serverSidePlayer.get().getHand()){
+			removedCards.add(c);
+		}
+		for (Card c : player.getHand()){
+			clientSideHand.add(c);
+		}
+		for(Card c : clientSideHand){
+			for(int i = 0; i < removedCards.size(); i++){
+				if(c.getId() == removedCards.get(i).getId()){
+					removedCards.remove(i);
+					break;
+				}
+			}
+		}
 		if(removedCards.size() != 0) {
 			return removedCards;
 		}
@@ -1092,9 +1165,23 @@ public class GameService {
 	}
 
 	private Blockade getDifferenceOfBlockades(Optional<Player> serverSidePlayer, Player player){
-		ArrayList<Blockade> removedBlockades = new ArrayList<>(player.getBlockades());
-		removedBlockades.removeAll(serverSidePlayer.get().getBlockades());
-		removedBlockades.trimToSize();
+		List<Blockade> removedBlockades = new ArrayList<>();
+		List<Blockade> serverSideBlockades = new ArrayList<>();
+		for (Blockade b : player.getBlockades()){
+			removedBlockades.add(b);
+		}
+		for (Blockade b : serverSidePlayer.get().getBlockades()){
+			serverSideBlockades.add(b);
+		}
+		for(Blockade b : serverSideBlockades){
+			for(int i = 0; i < removedBlockades.size(); i++){
+				if(b.getPowerValue() == removedBlockades.get(i).getPowerValue()){
+					removedBlockades.remove(i);
+					break;
+				}
+			}
+		}
+
 		Blockade removedBlockade = removedBlockades.get(0);
 		if(removedBlockade != null){
 			return removedBlockade;
