@@ -49,7 +49,8 @@ public class GameService {
     }
 
     public Game addGame(Game game) {
-    	if(game.getPlayers().get(0).getName().length() < 9) {
+    	if(game != null && game.getPlayers() != null && game.getPlayers().size() != 0
+				&& game.getPlayers().get(0).getName().length() < 9) {
 			game.getPlayers().get(0).setColor("red");
 			game.getPlayers().get(0).setReady(true);
 			game.getPlayers().get(0).setToken(UUID.randomUUID().toString());
@@ -58,7 +59,9 @@ public class GameService {
 			serverSideGame.setName(serverSideGame.getPlayers().get(0).getName() + "'s Game");
 			return gameRepository.save(serverSideGame);
 		}
-		return null;
+		else {
+			throw new IllegalArgumentException("No leader in body or leader name too long.");
+		}
     }
 
     public Game getGame(Long gameId) {
@@ -72,7 +75,9 @@ public class GameService {
 		if (game.isPresent()) {
 			return game.get().getPlayers();
 		}
-		return null;
+		else {
+			throw new RuntimeException("Game does not exist");
+		}
 	}
 
 	public Player addPlayer(Long gameId, Player player) {
@@ -83,8 +88,8 @@ public class GameService {
 			int numberOfPlayers = game.get().getPlayers().size();
 
 			// Add player to playerRepository
-			//TODO: How to display to frontend that a new player couldn't be added?
-			if (game.get().getStatus() == ROOM && numberOfPlayers < GameConstants.MAX_PLAYERS && player.getName().length() < 9){
+			if (game.get().getStatus() == ROOM && numberOfPlayers < GameConstants.MAX_PLAYERS
+					&& player.getName().length() < 9){
 				if (player.getId() == null) {
 					player.setGameId(gameId);
 
@@ -121,16 +126,17 @@ public class GameService {
 					this.logger.debug("Game: " + game.get().getName() + " - player added: " + player.getName());
 					return playerRepository.save(player);
 				}
+				else {
+					throw new RuntimeException("Error adding player. No Id could be allocated to player.");
+				}
 			}
 			else {
-				System.out.println("Could not join game. Player name too long (Max length is 8), Game room is full or game is already running.");
+				throw new RuntimeException("Game is running or player name too long.");
 			}
-
 		}
 		else {
-			this.logger.error("Error adding player with id: " + player.getId());
+			throw new RuntimeException("Error adding player. Game does not exist.");
 		}
-		return null;
 	}
 
 	public Player getPlayer(Long gameId, Long playerId) {
@@ -139,7 +145,9 @@ public class GameService {
 		if (game.isPresent() && player.isPresent()) {
 			return player.get();
 		}
-		return null;
+		else {
+			throw new RuntimeException("Game or player do not exist.");
+		}
 	}
 
     public Game updateGame(Long gameId, Game game){
@@ -152,7 +160,8 @@ public class GameService {
 					serverSideGame.get().setMapName(game.getMapName());
 					serverSideGame.get().setTurnTime(game.getTurnTime());
 
-					//Checks first if there are at least 2 players in the room. Checks then if all players are ready. If all of them are ready and the leader pressed the Start Game button, the game will start.
+					//Checks first if there are at least 2 players in the room. Checks then if all players are ready.
+					//If all of them are ready and the leader pressed the Start Game button, the game will start.
 					if (serverSideGame.get().getPlayers().size() >= GameConstants.MIN_PLAYERS) {
 						boolean allPlayersReady = true;
 						for(Player p: serverSideGame.get().getPlayers()){
@@ -166,7 +175,8 @@ public class GameService {
 							serverSideGame.get().setStatus(game.getStatus());
 						}
 
-						//If the leaders request to set the game status to PENDING was accepted, the game will setup before the game status changes to RUNNING.
+						//If the leaders request to set the game status to PENDING was accepted,
+						//the game will setup before the game status changes to RUNNING.
 						if(serverSideGame.get().getStatus() == GameStatus.PENDING){
 							serverSideGame.get().startGame();
 							serverSideGame.get().setStatus(GameStatus.RUNNING);
@@ -174,8 +184,10 @@ public class GameService {
 							int startingPositionArrayCounter = 0;
 							for (Player p : serverSideGame.get().getPlayers()) {
 								p.setup();
-								p.getPlayingPiece().setPosition(serverSideGame.get().getMap().getStartingSpaces()[startingPositionArrayCounter++]);
-								serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition()).switchOccupied();
+								p.getPlayingPiece().setPosition(serverSideGame.get().getMap()
+												   .getStartingSpaces()[startingPositionArrayCounter++]);
+								serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition())
+											  .switchOccupied();
 								playerRepository.save(p);
 							}
 						}
@@ -184,18 +196,26 @@ public class GameService {
 				case RUNNING:
 					//End Turn of Player.
 					if(serverSideGame.get().getCurrentPlayer() == game.getCurrentPlayer()) {
-						List<Card> discardedCards = getDifferenceOfHand(serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()), game.getPlayers().get(game.getCurrentPlayer()));
+						List<Card> discardedCards = getDifferenceOfHand(serverSideGame.get().getPlayers()
+													.get(serverSideGame.get().getCurrentPlayer()), game.getPlayers()
+													.get(game.getCurrentPlayer()));
 						if(discardedCards != null && discardedCards.size() != 0){
 							for(Card c : discardedCards){
-								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).getHand().remove(c);
-								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).getDiscardPile().add(c);
+								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+													.getHand().remove(c);
+								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+													.getDiscardPile().add(c);
 							}
 						}
 
-						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).setBoughtCardId(0);
-						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).resetCoins();
-						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).resetMoveCounter();
-						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).flushPlayedList();
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+									  .setBoughtCardId(0);
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+									  .resetCoins();
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+									  .resetMoveCounter();
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+									  .flushPlayedList();
 
 						//Check if a player is in El Dorado.
 						boolean aPlayerIsOnEndTile = false;
@@ -210,16 +230,33 @@ public class GameService {
 							serverSideGame.get().setStatus(GameStatus.FINISHED);
 						}
 
-						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer()).drawCardOnEndTurn();
+						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+									  .drawCardOnEndTurn();
 						serverSideGame.get().changeCurrentPlayer();
 
 						return gameRepository.save(serverSideGame.get());
+					}
+					else {
+						throw new IllegalArgumentException("Currently it's an other players turn.");
 					}
 				case FINISHED:
 					return gameRepository.save(serverSideGame.get());
 			}
 		}
+		else {
+			throw new RuntimeException("Game does not exist.");
+		}
 		return null;
+	}
+
+	public Game fastForwardGame(Long gameId){
+		Optional<Game> serverSideGame = gameRepository.findById(gameId);
+		if (serverSideGame.isPresent()){
+			return gameRepository.save(serverSideGame.get());
+		}
+		else {
+			throw new RuntimeException("Game does not exist.");
+		}
 	}
 
 	public Player updatePlayer(Long gameId, Long playerId, Player player){
@@ -231,7 +268,9 @@ public class GameService {
 				case ROOM:
 					serverSidePlayer.get().setReady(player.getReady());
 
-					if(player.getColor().equals("red") || player.getColor().equals("blue") || player.getColor().equals("yellow") || player.getColor().equals("white")) {
+					if(player.getColor().equals("red") || player.getColor().equals("blue")
+													   || player.getColor().equals("yellow")
+													   || player.getColor().equals("white")) {
 						boolean colorAlreadyTaken = false;
 						for (Player p : serverSideGame.get().getPlayers()) {
 							if (p.getColor().equals(player.getColor())) {
@@ -254,6 +293,9 @@ public class GameService {
 					return playerRepository.save(serverSidePlayer.get());
 			}
 		}
+		else {
+			throw new RuntimeException("Game or player do not exist.");
+		}
 		return null;
 	}
 
@@ -261,12 +303,13 @@ public class GameService {
 		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
-		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
-			if(isPlayersTurn(serverSideGame, serverSidePlayer)){
-				if(serverSidePlayer.get().getBoughtCardId() == 0) {
+		if (serverSidePlayer.isPresent() && serverSideGame.isPresent()
+										&& serverSideGame.get().getStatus() == GameStatus.RUNNING) {
+			if (isPlayersTurn(serverSideGame, serverSidePlayer)){
+				if (serverSidePlayer.get().getBoughtCardId() == 0) {
 					serverSidePlayer.get().setBoughtCardId(player.getBoughtCardId());
 					Card boughtCard = serverSideGame.get().getMarket().getCardByCardId(player.getBoughtCardId());
-					if(boughtCard != null) {
+					if (boughtCard != null) {
 						List<Card> tradedInCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
 						if (tradedInCards != null && tradedInCards.size() != 0) {
 							float sumOfTradedCards = 0;
@@ -274,138 +317,229 @@ public class GameService {
 								sumOfTradedCards = sumOfTradedCards + c.getGoldValue();
 							}
 							if (sumOfTradedCards >= boughtCard.getBuyingCost()) {
-								for(Card c : tradedInCards){
+								for (Card c : tradedInCards){
 									serverSidePlayer.get().tradeinCard(c.getId());
 								}
-								serverSidePlayer.get().buyCard(serverSidePlayer.get().getBoughtCardId(), serverSideGame.get().getMarket());
+								serverSidePlayer.get().buyCard(serverSidePlayer.get().getBoughtCardId(),
+															   serverSideGame.get().getMarket());
+							}
+							else {
+								throw new IllegalArgumentException("Request contains invalid information. " +
+																   "Cards traded in by player do not provide enough " +
+																   "coins to buy this card.");
 							}
 
 							playerRepository.save(serverSidePlayer.get());
 							gameRepository.save(serverSideGame.get());
 							return playerRepository.save(serverSidePlayer.get());
 						}
+						else {
+							throw new IllegalArgumentException("Request contains invalid information. " +
+															   "No cards have been traded in.");
+						}
+					}
+					else {
+						throw new IllegalArgumentException("Request contains invalid information. " +
+														   "To be bought card does not exist in the market " +
+														   "or card is in a closed slot.");
 					}
 				}
+				else {
+					throw new IllegalArgumentException("Request contains invalid information. " +
+													   "Player has already bought a card in this turn.");
+				}
+			}
+			else {
+				throw new IllegalArgumentException("Request contains invalid information. Other players turn.");
 			}
 		}
-		return null;
+		else {
+			throw new RuntimeException("Game or player do not exist or game is not running yet.");
+		}
 	}
 
 	public Player playCard(Long gameId, Long playerId, Player player, long cardId){
 		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
-		if(serverSidePlayer.isPresent() && serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING) {
-			if(isPlayersTurn(serverSideGame, serverSidePlayer)) {
+		if (serverSidePlayer.isPresent() && serverSideGame.isPresent()
+										&& serverSideGame.get().getStatus() == GameStatus.RUNNING) {
+			if (isPlayersTurn(serverSideGame, serverSidePlayer)) {
 				Card toBePlayedCard = serverSidePlayer.get().getCardFromHandById(cardId);
 				if (toBePlayedCard != null) {
-					if(toBePlayedCard instanceof Native){
+					if (toBePlayedCard instanceof Native){
 						toBePlayedCard.play(serverSidePlayer.get());
 						movePlayingPieceNative(serverSideGame, serverSidePlayer, player);
 					}
 					else if (toBePlayedCard instanceof Transmitter){
 						toBePlayedCard.play(serverSidePlayer.get());
-						serverSidePlayer.get().getDiscardPile().add(serverSideGame.get().getMarket().removeTransmitter(player.getBoughtCardId()));
+						serverSidePlayer.get().getDiscardPile().add(serverSideGame.get().getMarket()
+											  .removeTransmitter(player.getBoughtCardId()));
 					}
-					else if ((toBePlayedCard instanceof MulticolorCard) && player.getCardFromHandById(cardId) instanceof MulticolorCard){
-						if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null){
-							((MulticolorCard) toBePlayedCard).setChosenColor(((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor());
+					else if ((toBePlayedCard instanceof MulticolorCard)
+							  && player.getCardFromHandById(cardId) instanceof MulticolorCard) {
+						if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null) {
+							((MulticolorCard) toBePlayedCard).setChosenColor(((MulticolorCard) player
+															 .getCardFromHandById(cardId)).getChosenColor());
 							toBePlayedCard.play(serverSidePlayer.get());
 						}
 					}
-					else{
+					else {
 						toBePlayedCard.play(serverSidePlayer.get());
 					}
 				}
-				else if (cardId == -1) { //If the player has discarded cards from his hand with Scientist or TravelLog, it'll be handled here upon receiving another request
+				else if (cardId == -1) { //If the player has discarded cards from his hand with Scientist or TravelLog,
+										 //it'll be handled here upon receiving another request.
 					removeHandCardsFromGameScientistTravelLog(serverSidePlayer, player);
+				}
+				else {
+					throw new IllegalArgumentException("Request contains invalid information. Card does not exist.");
 				}
 				playerRepository.save(serverSidePlayer.get());
 				gameRepository.save(serverSideGame.get());
 				return playerRepository.save(serverSidePlayer.get());
 			}
+			else {
+				throw new IllegalArgumentException("Request contains invalid information. Other players turn.");
+			}
 		}
-		return null;
+		else {
+			throw new RuntimeException("Game or player do not exist or game is not running yet.");
+		}
 	}
 
 	//Move playing piece if conditions allow it.
 	private void movePlayingPiece(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
 		//First check if the player tried to move:
-		if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
+		if (serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
 			Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece().getPosition());
-			//Then check if the Space exists & if it exists if it's already occupied by another playing piece & if it's a place that a piece can move to...
+			//Then check if the Space exists & if it exists if it's already occupied by another playing piece &
+			//if it's a place that a piece can move to...
 			if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
 				//... check if the Space is the neighbour of the selected space...
 				boolean isNeighbour = false;
-				long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).getNeighbours();
-				for(long neighbourSpaceId : currentSpaceNeighbourIds){
+				long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
+												.getPlayingPiece().getPosition()).getNeighbours();
+				for (long neighbourSpaceId : currentSpaceNeighbourIds){
 					if(toBeMovedSpace.getId() == neighbourSpaceId){
 						isNeighbour = true;
 						break;
 					}
 				}
-				if(isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
+				if (isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
 					//... check the color of the Space...
-					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow")) {
-						//... and if its yellow/blue/green then check if the player has enough value to move to that space and to which colour the value belongs to.
+					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue")
+																  || toBeMovedSpace.getColor().equals("yellow")) {
+						//... and if its yellow/blue/green then check if the player has enough value to move
+						//to that space and to which colour the value belongs to.
 						String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
 
-						//If the player has got enough value for a specific colour and if the colour is the same as the space he wants to move to...
+						//If the player has got enough value for a specific colour
+						//and if the colour is the same as the space he wants to move to...
 						if (toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
-							//... it'll continue to check if the moveCounter value is sufficiently high after getting the right moveCounter value:
+							//... it'll continue to check if the moveCounter value is sufficiently high
+							//after getting the right moveCounter value:
 							int playerMoveCounterValue;
 							if (toBeMovedSpace.getColor().equals("green")) {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
-										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
+														.getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+														.getMoveCounter()[0] - toBeMovedSpace.getValue()),
+														"green");
 									}
-									else{
-										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "green");
+									else {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+													  .getPosition()).switchOccupied();
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
+														.getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+														.getMoveCounter()[0] - toBeMovedSpace.getValue()),
+														"green");
 										toBeMovedSpace.switchOccupied();
 									}
+								}
+								else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+																	   "Not enough green counter.");
 								}
 							} else if (toBeMovedSpace.getColor().equals("blue")) {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
-										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
+															  .getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+														.getMoveCounter()[1] - toBeMovedSpace.getValue()),
+														"blue");
 									}
 									else {
-										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "blue");
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+													  .getPosition()).switchOccupied();
+										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
+														.getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+														.getMoveCounter()[1] - toBeMovedSpace.getValue()),
+														"blue");
 										toBeMovedSpace.switchOccupied();
 									}
+								}
+								else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+																	   "Not enough blue counter.");
 								}
 							} else if (toBeMovedSpace.getColor().equals("yellow")) {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
-									serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-									serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
-									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - toBeMovedSpace.getValue()), "yellow");
+									serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+												  .getPosition()).switchOccupied();
+									serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
+													.getPosition());
+									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+													.getMoveCounter()[2] - toBeMovedSpace.getValue()), "yellow");
 									toBeMovedSpace.switchOccupied();
 								}
+								else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+																	   "Not enough yellow counter.");
+								}
 							}
+						}
+						else {
+							throw new IllegalArgumentException("Request contains invalid information. " +
+															   "Space color different from players MoveCounter color.");
 						}
 					} else if (toBeMovedSpace.getColor().equals("grey")) {
 						switch (toBeMovedSpace.getValue()) {
 							case 1:
 								if (serverSidePlayer.get().getHand().size() >= 1) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+																  toBeMovedSpace, toBeMovedSpace.getValue());
+								}
+								else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+																	   "Not enough cards in hand (Need 1).");
 								}
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+																  toBeMovedSpace, toBeMovedSpace.getValue());
+								}
+								else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+																	   "Not enough cards in hand (Need 2).");
 								}
 
 							case 3:
 								if (serverSidePlayer.get().getHand().size() >= 3) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+																  toBeMovedSpace, toBeMovedSpace.getValue());
+								}
+								else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+																	   "Not enough cards in hand (Need 3).");
 								}
 						}
 
@@ -413,133 +547,231 @@ public class GameService {
 						switch (toBeMovedSpace.getValue()) {
 							case 1:
 								if (serverSidePlayer.get().getHand().size() >= 1) {
-									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
+									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace,
+															toBeMovedSpace.getValue());
+								}
+								else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+																	   "Not enough cards in hand (Need 1).");
 								}
 
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
-									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace, toBeMovedSpace.getValue());
+									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace,
+															toBeMovedSpace.getValue());
+								}
+								else {
+									throw new IllegalArgumentException("Request contains invalid information. " +
+																	   "Not enough cards in hand (Need 2).");
 								}
 						}
 					}
 					// else it's black or a starting space; Don't do anything.
 				}
+				else {
+					throw new IllegalArgumentException("Request contains invalid information. New Space is " +
+													   "not a neighbour or blockade is hindering movement.");
+				}
+			}
+			else {
+				throw new IllegalArgumentException("Request contains invalid information. New Space does not exist, " +
+												   "is occupied or cannot be moved to.");
 			}
 		}
 		else {
 			//If Blockade exists and player is next to the blockade
-			if(serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).isLastSpace()) {
-				if(serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null && serverSidePlayer.get().getBlockades().size() < player.getBlockades().size()){
+			if (serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
+								   .isLastSpace()) {
+				if (serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null
+																  && serverSidePlayer.get().getBlockades().size() <
+																	 player.getBlockades().size()) {
 					Blockade removedBlockade = getDifferenceOfBlockades(serverSidePlayer, player);
 
-					if(removedBlockade != null) {
-						if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue") ||removedBlockade.getColor().equals("yellow")) {
+					if (removedBlockade != null) {
+						if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue")
+																	   || removedBlockade.getColor().equals("yellow")){
 							String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
-							if(playerMoveCounterColour.equals(removedBlockade.getColor())){
+							if (playerMoveCounterColour.equals(removedBlockade.getColor())){
 								int playerMoveCounterValue;
 								if (playerMoveCounterColour.equals("green")){
 									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 									if(playerMoveCounterValue >= removedBlockade.getValue()){
 										serverSidePlayer.get().getBlockades().add(removedBlockade);
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - removedBlockade.getValue()), "green");
-										removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+														.getMoveCounter()[0] - removedBlockade.getValue()),
+														"green");
+										removeBlockadeOnMap(serverSideGame.get(),
+															serverSidePlayer.get().getPlayingPiece().getPosition());
+									}
+									else {
+										throw new IllegalArgumentException("Request contains invalid information. " +
+																		   "Not enough green counter.");
 									}
 								}
 								else if (playerMoveCounterColour.equals("blue")){
 									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
-									if(playerMoveCounterValue >= removedBlockade.getValue()){
+									if (playerMoveCounterValue >= removedBlockade.getValue()){
 										serverSidePlayer.get().getBlockades().add(removedBlockade);
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - removedBlockade.getValue()), "blue");
-										removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+														.getMoveCounter()[0] - removedBlockade.getValue()),
+														"blue");
+										removeBlockadeOnMap(serverSideGame.get(),
+															serverSidePlayer.get().getPlayingPiece().getPosition());
+									}
+									else {
+										throw new IllegalArgumentException("Request contains invalid information. " +
+																		   "Not enough blue counter.");
 									}
 								}
 								else { //yellow
 									playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
-									if(playerMoveCounterValue >= removedBlockade.getValue()){
+									if (playerMoveCounterValue >= removedBlockade.getValue()){
 										serverSidePlayer.get().getBlockades().add(removedBlockade);
-										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get().getMoveCounter()[0] - removedBlockade.getValue()), "yellow");
-										removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
+										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
+														.getMoveCounter()[0] - removedBlockade.getValue()),
+														"yellow");
+										removeBlockadeOnMap(serverSideGame.get(),
+															serverSidePlayer.get().getPlayingPiece().getPosition());
+									}
+									else {
+										throw new IllegalArgumentException("Request contains invalid information. " +
+																		   "Not enough yellow counter.");
 									}
 								}
 							}
+							else {
+								throw new IllegalArgumentException("Request contains invalid information. " +
+																   "Blockade color is different from players " +
+																   "MoveCounter color.");
+							}
 						}
 						else { //grey
-							switch(removedBlockade.getValue()) {
+							switch (removedBlockade.getValue()) {
 								case 1:
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, removedBlockade.getValue());
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+																  removedBlockade, removedBlockade.getValue());
 								case 2:
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player, removedBlockade, removedBlockade.getValue());
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+																  removedBlockade, removedBlockade.getValue());
 							}
 						}
 					}
+					else {
+						throw new IllegalArgumentException("Request contains invalid information. " +
+														   "Blockade does not exist.");
+					}
+				}
+				else {
+					throw new IllegalArgumentException("Request contains invalid information. " +
+													   "No Blockade chosen.");
 				}
 			}
 		}
 
 		//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
-		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
+		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
+						.getPlayingPiece().getPosition()));
 	}
 
-	private void movePlayingPieceNative(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player){
+	private void movePlayingPieceNative(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer,
+										Player player) {
 		//First check if the player tried to move:
-		if(serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
+		if (serverSidePlayer.get().getPlayingPiece().getPosition() != player.getPlayingPiece().getPosition()) {
 			Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece().getPosition());
-			//Then check if the Space exists & if it exists if it's already occupied by another playing piece & if it's a place that a piece can move to...
+			//Then check if the Space exists & if it exists if it's already occupied by another playing piece &
+			//if it's a place that a piece can move to...
 			if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
 				//... check if the Space is the neighbour of the selected space...
 				boolean isNeighbour = false;
-				long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).getNeighbours();
-				for(long neighbourSpaceId : currentSpaceNeighbourIds){
-					if(toBeMovedSpace.getId() == neighbourSpaceId){
+				long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
+																.getPlayingPiece().getPosition()).getNeighbours();
+				for (long neighbourSpaceId : currentSpaceNeighbourIds){
+					if (toBeMovedSpace.getId() == neighbourSpaceId){
 						isNeighbour = true;
 						break;
 					}
 				}
-				if(isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
+				if (isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
 					//... check the color of the Space...
-					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue") || toBeMovedSpace.getColor().equals("yellow") || toBeMovedSpace.getColor().equals("grey") || toBeMovedSpace.getColor().equals("red")) {
+					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue")
+																  || toBeMovedSpace.getColor().equals("yellow")
+																  || toBeMovedSpace.getColor().equals("grey")
+																  || toBeMovedSpace.getColor().equals("red")) {
 						if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
-							serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+							serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
+											.getPosition());
 						}
 						else {
-							serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
-							serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
+							serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+												.getPosition()).switchOccupied();
+							serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
+											.getPosition());
 							toBeMovedSpace.switchOccupied();
 						}
 					}
 					// else it's black or a starting space; Don't do anything.
 				}
+				else {
+					throw new IllegalArgumentException("Request contains invalid information. New Space is " +
+													   "not a neighbour or blockade is hindering movement.");
+				}
+			}
+			else {
+				throw new IllegalArgumentException("Request contains invalid information. New Space does not exist, " +
+												   "is occupied or cannot be moved to.");
 			}
 		}
 		else {
 			//If Blockade exists and player is next to the blockade
-			if(serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).isLastSpace()) {
-				if(serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null && serverSidePlayer.get().getBlockades().size() < player.getBlockades().size()){
+			if(serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
+								   .isLastSpace()) {
+				if(serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null
+																 && serverSidePlayer.get().getBlockades().size() <
+																	player.getBlockades().size()){
 					Blockade removedBlockade = getDifferenceOfBlockades(serverSidePlayer, player);
 
 					if(removedBlockade != null) {
-						if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue") || removedBlockade.getColor().equals("yellow") || removedBlockade.getColor().equals("grey")) {
+						if (removedBlockade.getColor().equals("green") || removedBlockade.getColor().equals("blue")
+																	   || removedBlockade.getColor().equals("yellow")
+																	   || removedBlockade.getColor().equals("grey")) {
 							serverSidePlayer.get().getBlockades().add(removedBlockade);
-							removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
+							removeBlockadeOnMap(serverSideGame.get(),
+												serverSidePlayer.get().getPlayingPiece().getPosition());
 						}
 					}
+					else {
+						throw new IllegalArgumentException("Request contains invalid information. " +
+														   "Blockade does not exist.");
+					}
+				}
+				else {
+					throw new IllegalArgumentException("Request contains invalid information. " +
+													   "No Blockade chosen.");
 				}
 			}
 		}
 
 		//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
-		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece().getPosition()));
+		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
+						.getPlayingPiece().getPosition()));
 	}
 
 	/*
-	Helper method to move to grey spaces. Check the difference between the played pile of the client side player with the server side player &
+	Helper method to move to grey spaces.
+	Check the difference between the played pile of the client side player with the server side player &
 	if the amount of the client side players hand has been lowered by the value of the grey space
 	and if the discard pile has been increased by the value of the grey space
 	and return the cards that have been moved to the played list.
 	*/
-	private List<Card> getDifferenceOfPlayedPiles(Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
+	private List<Card> getDifferenceOfPlayedPiles(Optional<Player> serverSidePlayer, Player player,
+												  Space toBeMovedSpace) {
 		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
-		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) == (player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size()) && (player.getHand().size() == (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue())) && (player.getPlayedList().size() == (serverSidePlayer.get().getPlayedList().size() + toBeMovedSpace.getValue()))) {
+		if((serverSidePlayer.get().getHand().size() - player.getHand().size())
+				== (player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size())
+				&& (player.getHand().size()
+				== (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue()))
+				&& (player.getPlayedList().size()
+				== (serverSidePlayer.get().getPlayedList().size() + toBeMovedSpace.getValue()))) {
 			List<Card> discardedCards = new ArrayList<>(player.getPlayedList());
 			discardedCards.removeAll(serverSidePlayer.get().getPlayedList());
 			if(discardedCards.size() != 0) {
@@ -552,7 +784,8 @@ public class GameService {
 	//Helper method to buy cards from market.
 	private List<Card> getDifferenceOfPlayedPiles(Optional<Player> serverSidePlayer, Player player){
 		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
-		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) == (player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size())) {
+		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) ==
+				(player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size())) {
 			List<Card> tradedInCards = new ArrayList<>(player.getPlayedList());
 			tradedInCards.removeAll(serverSidePlayer.get().getPlayedList());
 			if(tradedInCards.size() != 0) {
@@ -565,7 +798,8 @@ public class GameService {
 	//Helper method to buy cards from market.
 	private List<Card> getDifferenceOfHand(Player serverSidePlayer, Player player){
 		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
-		if((serverSidePlayer.getHand().size() - player.getHand().size()) == (player.getDiscardPile().size() - serverSidePlayer.getDiscardPile().size())) {
+		if((serverSidePlayer.getHand().size() - player.getHand().size()) == (player.getDiscardPile().size() -
+																			 serverSidePlayer.getDiscardPile().size())){
 			List<Card> discardedCards = new ArrayList<>(player.getDiscardPile());
 			discardedCards.removeAll(serverSidePlayer.getDiscardPile());
 			if(discardedCards.size() != 0) {
@@ -612,31 +846,38 @@ public class GameService {
 		return null;
 	}
 
-	//Helper method to remove a grey blockade. Moves the played cards from the server side players hand to his played cards list.
-	private void moveCardsFromHandToPlayedList(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Blockade removedBlockade, int amountOfDiscardedCards){
+	//Helper method to remove a grey blockade.
+	//Moves the played cards from the server side players hand to his played cards list.
+	private void moveCardsFromHandToPlayedList(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer,
+											   Player player, Blockade removedBlockade, int amountOfDiscardedCards) {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
 		if(discardedCards != null && discardedCards.size() == amountOfDiscardedCards){
 			for (Card c : discardedCards){
 				serverSidePlayer.get().getHand().remove(c);
 				serverSidePlayer.get().getPlayedList().add(c);
 			}
-			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get().getPlayedList().containsAll(discardedCards))) {
+			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
+														   .getPlayedList().containsAll(discardedCards))) {
 				serverSidePlayer.get().getBlockades().add(removedBlockade);
 				removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 			}
 		}
 	}
 
-	//Helper method to move to grey spaces. Moves the played cards from the server side players hand to his played cards list.
-	private void moveCardsFromHandToPlayedList(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace, int amountOfDiscardedCards){
+	//Helper method to move to grey spaces.
+	//Moves the played cards from the server side players hand to his played cards list.
+	private void moveCardsFromHandToPlayedList(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer,
+											   Player player, Space toBeMovedSpace, int amountOfDiscardedCards) {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player, toBeMovedSpace);
 		if(discardedCards != null && discardedCards.size() == amountOfDiscardedCards){
 			for (Card c : discardedCards){
 				serverSidePlayer.get().getHand().remove(c);
 				serverSidePlayer.get().getPlayedList().add(c);
 			}
-			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get().getPlayedList().containsAll(discardedCards))) {
-				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
+													 .getPlayedList().containsAll(discardedCards))) {
+				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
+							  .switchOccupied();
 				serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
 				toBeMovedSpace.switchOccupied();
 			}
@@ -644,14 +885,16 @@ public class GameService {
 	}
 
 	//Helper method to move to red spaces.
-	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace, int amountOfRemovedCards){
+	private void removeHandCardsFromGame(Optional<Game> serverSideGame, Optional<Player> serverSidePlayer,
+										 Player player, Space toBeMovedSpace, int amountOfRemovedCards) {
 		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
 		if(removedCards != null && removedCards.size() == amountOfRemovedCards) {
 			for (Card c : removedCards) {
 				serverSidePlayer.get().getHand().remove(c);
 			}
 			if(Collections.disjoint(serverSidePlayer.get().getHand(), removedCards)) {
-				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition()).switchOccupied();
+				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
+							  .switchOccupied();
 				serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
 				toBeMovedSpace.switchOccupied();
 			}
@@ -678,7 +921,8 @@ public class GameService {
 		return serverSideGame.get().getCurrentPlayer() == positionOfPlayerInPlayers;
 	}
 
-	//The boolean of all neighbours of the current space of the playing piece that hinder passing due to boolean = true is set to false.
+	//The boolean of all neighbours of the current space of the playing piece that hinder passing
+	//due to boolean = true is set to false.
 	private void removeBlockadeOnMap(Game serverSideGame, long playingPiecePosition){
 		ArrayList<Space> toBeUpdatedSpaces = new ArrayList<>();
 		toBeUpdatedSpaces.add(serverSideGame.getMap().getSpace(playingPiecePosition));
@@ -744,7 +988,8 @@ public class GameService {
 						blockadeMaxValues[i] = 0;
 					}
 					for(int i = 0; i < indexOfPlayersWithLargestAmountOfBlockades.size(); i++){
-						for(Blockade b : serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(i)).getBlockades()){
+						for(Blockade b : serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades
+													   .get(i)).getBlockades()){
 							if(b.getPowerValue() > blockadeMaxValues[i]){
 								blockadeMaxValues[i] = b.getPowerValue();
 							}
@@ -756,7 +1001,8 @@ public class GameService {
 							indexOfWinner = i;
 						}
 					}
-					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner)).setWinner();
+					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner))
+								  .setWinner();
 				}
 			}
 		}

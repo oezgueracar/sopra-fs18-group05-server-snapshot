@@ -165,7 +165,7 @@ public class Tile extends MapElement {
             if (i == this.row5.size()-1)    {this.row5.get(i).getNeighbours()[2] = 0;}
             else                            {this.row5.get(i).getNeighbours()[2] = this.row6.get(i).getId();}
             if(i == 0)  {this.row5.get(i).getNeighbours()[3] = 0;}
-            else        {this.row5.get(i).getNeighbours()[3] = this.row4.get(i-1).getId();}
+            else        {this.row5.get(i).getNeighbours()[3] = this.row6.get(i-1).getId();}
             if(i == 0)  {this.row5.get(i).getNeighbours()[4] = 0;}
             else        {this.row5.get(i).getNeighbours()[4] = this.row5.get(i-1).getId();}
             this.row5.get(i).getNeighbours()[5] = this.row4.get(i).getId();
@@ -178,7 +178,7 @@ public class Tile extends MapElement {
             if (i == this.row6.size()-1)    {this.row6.get(i).getNeighbours()[2] = 0;}
             else                            {this.row6.get(i).getNeighbours()[2] = this.row7.get(i).getId();}
             if(i == 0)  {this.row6.get(i).getNeighbours()[3] = 0;}
-            else        {this.row6.get(i).getNeighbours()[3] = this.row5.get(i-1).getId();}
+            else        {this.row6.get(i).getNeighbours()[3] = this.row7.get(i-1).getId();}
             if(i == 0)  {this.row6.get(i).getNeighbours()[4] = 0;}
             else        {this.row6.get(i).getNeighbours()[4] = this.row6.get(i-1).getId();}
             this.row6.get(i).getNeighbours()[5] = this.row5.get(i).getId();

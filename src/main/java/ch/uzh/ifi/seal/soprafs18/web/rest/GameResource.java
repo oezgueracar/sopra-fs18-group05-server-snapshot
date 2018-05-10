@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.web.rest;
 
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
-import ch.uzh.ifi.seal.soprafs18.entity.Market;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 
@@ -38,13 +35,8 @@ public class GameResource
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Game addGame(@RequestBody Game game) {
-        if(game != null && game.getPlayers() != null) {
-            logger.debug("addGame: " + game);
-            return this.gameService.addGame(game);
-        }
-        else {
-            throw new IllegalArgumentException("Bad JSON Request. You need to put the leader into the game.");
-        }
+        logger.debug("addGame: " + game);
+        return this.gameService.addGame(game);
     }
 
     @RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
@@ -67,13 +59,6 @@ public class GameResource
     public Game getGame(@PathVariable Long gameId) {
         logger.debug("getGame: " + gameId);
         return this.gameService.getGame(gameId);
-    }
-
-    @RequestMapping(value = CONTEXT + "/{gameId}/market")
-    @ResponseStatus(HttpStatus.OK)
-    public Market getMarket(@PathVariable Long gameId) {
-        logger.debug("getMarketOf: " + gameId);
-        return this.gameService.getGame(gameId).getMarket();
     }
 
     @RequestMapping(value = CONTEXT + "/{gameId}/players")
@@ -99,6 +84,14 @@ public class GameResource
     }
 
     @CrossOrigin
+    @RequestMapping(value = CONTEXT + "/{gameId}/fastForward", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public Game fastForwardGame(@PathVariable Long gameId) {
+        logger.debug("fastForwardGame: " + gameId);
+        return this.gameService.fastForwardGame(gameId);
+    }
+
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public Player updatePlayer(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player) {
@@ -119,14 +112,9 @@ public class GameResource
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}/cards/{cardId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Player playCard(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player, @PathVariable long cardId) {
+    public Player playCard(@PathVariable Long gameId, @PathVariable Long playerId, @RequestBody Player player,
+                           @PathVariable long cardId) {
         logger.debug("playCard: " + cardId);
         return this.gameService.playCard(gameId, playerId, player, cardId);
     }
-
-    @ExceptionHandler
-    private void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.BAD_REQUEST.value());
-    }
-
 }
