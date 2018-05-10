@@ -825,10 +825,16 @@ public class GameService {
     	if(player.getHand().size() == (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue())) {
 			List<Card> removedCards = new ArrayList<>(serverSidePlayer.get().getHand());
 			removedCards.removeAll(player.getHand());
+			System.out.println("Amount of cards that should be removed: " + removedCards.size());
 			if(removedCards.size() != 0) {
+				System.out.println("You were here. 3");
+				for(Card c : removedCards){
+					System.out.println("You want to remove card: " + removedCards.get(0).getCardName() );
+				}
 				return removedCards;
 			}
 		}
+		System.out.println("You should not be here. Removed cards check did not work.;");
     	return null;
 	}
 
@@ -898,12 +904,14 @@ public class GameService {
 		if(removedCards != null && removedCards.size() == amountOfRemovedCards) {
 			for (Card c : removedCards) {
 				serverSidePlayer.get().getHand().remove(c);
+				System.out.println("Updated server side player. His size should be same as frontend now. Size: " + serverSidePlayer.get().getHand().size());
 			}
 			if(Collections.disjoint(serverSidePlayer.get().getHand(), removedCards)) {
 				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
 							  .switchOccupied();
 				serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
 				toBeMovedSpace.switchOccupied();
+				System.out.println("You were here. 4");
 			}
 		}
 	}
