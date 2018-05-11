@@ -201,10 +201,17 @@ public class GameService {
 													.get(game.getCurrentPlayer()));
 						if(discardedCards != null && discardedCards.size() != 0){
 							for(Card c : discardedCards){
-								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
-													.getHand().remove(c);
-								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
-													.getDiscardPile().add(c);
+								for(int i = 0; i < serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+										.getHand().size(); i++){
+									if(c.getId() == serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+											.getHand().get(i).getId()){
+										serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+												.getHand().remove(i);
+										serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+												.getDiscardPile().add(c);
+										break;
+									}
+								}
 							}
 						}
 
@@ -522,6 +529,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 1).");
 								}
+								break;
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
 									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
@@ -531,7 +539,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 2).");
 								}
-
+								break;
 							case 3:
 								if (serverSidePlayer.get().getHand().size() >= 3) {
 									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
@@ -541,6 +549,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 3).");
 								}
+								break;
 						}
 
 					} else if (toBeMovedSpace.getColor().equals("red")) {
@@ -554,7 +563,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 1).");
 								}
-
+								break;
 							case 2:
 								if (serverSidePlayer.get().getHand().size() >= 2) {
 									removeHandCardsFromGame(serverSideGame, serverSidePlayer, player, toBeMovedSpace,
@@ -564,6 +573,7 @@ public class GameService {
 									throw new IllegalArgumentException("Request contains invalid information. " +
 																	   "Not enough cards in hand (Need 2).");
 								}
+								break;
 						}
 					}
 					// else it's black or a starting space; Don't do anything.
@@ -650,9 +660,11 @@ public class GameService {
 								case 1:
 									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
 																  removedBlockade, removedBlockade.getValue());
+									break;
 								case 2:
 									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
 																  removedBlockade, removedBlockade.getValue());
+									break;
 							}
 						}
 					}
@@ -772,8 +784,23 @@ public class GameService {
 				== (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue()))
 				&& (player.getPlayedList().size()
 				== (serverSidePlayer.get().getPlayedList().size() + toBeMovedSpace.getValue()))) {
-			List<Card> discardedCards = new ArrayList<>(player.getPlayedList());
-			discardedCards.removeAll(serverSidePlayer.get().getPlayedList());
+
+			List<Card> discardedCards = new ArrayList<>();
+			List<Card> serverSidePlayedList = new ArrayList<>();
+			for (Card c : player.getPlayedList()){
+				discardedCards.add(c);
+			}
+			for (Card c : serverSidePlayer.get().getPlayedList()){
+				serverSidePlayedList.add(c);
+			}
+			for(Card c : serverSidePlayedList){
+				for(int i = 0; i < discardedCards.size(); i++){
+					if(c.getId() == discardedCards.get(i).getId()){
+						discardedCards.remove(i);
+						break;
+					}
+				}
+			}
 			if(discardedCards.size() != 0) {
 				return discardedCards;
 			}
@@ -786,8 +813,23 @@ public class GameService {
 		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
 		if((serverSidePlayer.get().getHand().size() - player.getHand().size()) ==
 				(player.getPlayedList().size() - serverSidePlayer.get().getPlayedList().size())) {
-			List<Card> tradedInCards = new ArrayList<>(player.getPlayedList());
-			tradedInCards.removeAll(serverSidePlayer.get().getPlayedList());
+
+			List<Card> tradedInCards = new ArrayList<>();
+			List<Card> serverSidePlayedList = new ArrayList<>();
+			for (Card c : player.getPlayedList()){
+				tradedInCards.add(c);
+			}
+			for (Card c : serverSidePlayer.get().getPlayedList()){
+				serverSidePlayedList.add(c);
+			}
+			for(Card c : serverSidePlayedList){
+				for(int i = 0; i < tradedInCards.size(); i++){
+					if(c.getId() == tradedInCards.get(i).getId()){
+						tradedInCards.remove(i);
+						break;
+					}
+				}
+			}
 			if(tradedInCards.size() != 0) {
 				return tradedInCards;
 			}
@@ -800,8 +842,23 @@ public class GameService {
 		//First check if the size of the client side players hand has been lowered by the amount of the discarded cards.
 		if((serverSidePlayer.getHand().size() - player.getHand().size()) == (player.getDiscardPile().size() -
 																			 serverSidePlayer.getDiscardPile().size())){
-			List<Card> discardedCards = new ArrayList<>(player.getDiscardPile());
-			discardedCards.removeAll(serverSidePlayer.getDiscardPile());
+
+			List<Card> discardedCards = new ArrayList<>();
+			List<Card> serverSideDiscardPile = new ArrayList<>();
+			for (Card c : player.getDiscardPile()){
+				discardedCards.add(c);
+			}
+			for (Card c : serverSidePlayer.getDiscardPile()){
+				serverSideDiscardPile.add(c);
+			}
+			for(Card c : serverSideDiscardPile){
+				for(int i = 0; i < discardedCards.size(); i++){
+					if(c.getId() == discardedCards.get(i).getId()){
+						discardedCards.remove(i);
+						break;
+					}
+				}
+			}
 			if(discardedCards.size() != 0) {
 				return discardedCards;
 			}
@@ -816,8 +873,22 @@ public class GameService {
 	*/
 	private List<Card> getRemovedCards(Optional<Player> serverSidePlayer, Player player, Space toBeMovedSpace){
     	if(player.getHand().size() == (serverSidePlayer.get().getHand().size() - toBeMovedSpace.getValue())) {
-			List<Card> removedCards = new ArrayList<>(serverSidePlayer.get().getHand());
-			removedCards.removeAll(player.getHand());
+			List<Card> removedCards = new ArrayList<>();
+			List<Card> clientSideHand = new ArrayList<>();
+			for (Card c : serverSidePlayer.get().getHand()){
+				removedCards.add(c);
+			}
+			for (Card c : player.getHand()){
+				clientSideHand.add(c);
+			}
+			for(Card c : clientSideHand){
+				for(int i = 0; i < removedCards.size(); i++){
+					if(c.getId() == removedCards.get(i).getId()){
+						removedCards.remove(i);
+						break;
+					}
+				}
+			}
 			if(removedCards.size() != 0) {
 				return removedCards;
 			}
@@ -827,8 +898,22 @@ public class GameService {
 
 	//Helper method of a helper method to remove cards from the game after playing Scientist or TravelLog
 	private List<Card> getRemovedCardsScientistTravelLog(Optional<Player> serverSidePlayer, Player player){
-		List<Card> removedCards = new ArrayList<>(serverSidePlayer.get().getHand());
-		removedCards.removeAll(player.getHand());
+		List<Card> removedCards = new ArrayList<>();
+		List<Card> clientSideHand = new ArrayList<>();
+		for (Card c : serverSidePlayer.get().getHand()){
+			removedCards.add(c);
+		}
+		for (Card c : player.getHand()){
+			clientSideHand.add(c);
+		}
+		for(Card c : clientSideHand){
+			for(int i = 0; i < removedCards.size(); i++){
+				if(c.getId() == removedCards.get(i).getId()){
+					removedCards.remove(i);
+					break;
+				}
+			}
+		}
 		if(removedCards.size() != 0) {
 			return removedCards;
 		}
@@ -836,9 +921,23 @@ public class GameService {
 	}
 
 	private Blockade getDifferenceOfBlockades(Optional<Player> serverSidePlayer, Player player){
-		ArrayList<Blockade> removedBlockades = new ArrayList<>(player.getBlockades());
-		removedBlockades.removeAll(serverSidePlayer.get().getBlockades());
-		removedBlockades.trimToSize();
+		List<Blockade> removedBlockades = new ArrayList<>();
+		List<Blockade> serverSideBlockades = new ArrayList<>();
+		for (Blockade b : player.getBlockades()){
+			removedBlockades.add(b);
+		}
+		for (Blockade b : serverSidePlayer.get().getBlockades()){
+			serverSideBlockades.add(b);
+		}
+		for(Blockade b : serverSideBlockades){
+			for(int i = 0; i < removedBlockades.size(); i++){
+				if(b.getPowerValue() == removedBlockades.get(i).getPowerValue()){
+					removedBlockades.remove(i);
+					break;
+				}
+			}
+		}
+
 		Blockade removedBlockade = removedBlockades.get(0);
 		if(removedBlockade != null){
 			return removedBlockade;
@@ -852,9 +951,14 @@ public class GameService {
 											   Player player, Blockade removedBlockade, int amountOfDiscardedCards) {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
 		if(discardedCards != null && discardedCards.size() == amountOfDiscardedCards){
-			for (Card c : discardedCards){
-				serverSidePlayer.get().getHand().remove(c);
-				serverSidePlayer.get().getPlayedList().add(c);
+			for(Card c : discardedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						serverSidePlayer.get().getPlayedList().add(c);
+						break;
+					}
+				}
 			}
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
 														   .getPlayedList().containsAll(discardedCards))) {
@@ -870,9 +974,14 @@ public class GameService {
 											   Player player, Space toBeMovedSpace, int amountOfDiscardedCards) {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player, toBeMovedSpace);
 		if(discardedCards != null && discardedCards.size() == amountOfDiscardedCards){
-			for (Card c : discardedCards){
-				serverSidePlayer.get().getHand().remove(c);
-				serverSidePlayer.get().getPlayedList().add(c);
+			for(Card c : discardedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						serverSidePlayer.get().getPlayedList().add(c);
+						break;
+					}
+				}
 			}
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
 													 .getPlayedList().containsAll(discardedCards))) {
@@ -889,8 +998,13 @@ public class GameService {
 										 Player player, Space toBeMovedSpace, int amountOfRemovedCards) {
 		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
 		if(removedCards != null && removedCards.size() == amountOfRemovedCards) {
-			for (Card c : removedCards) {
-				serverSidePlayer.get().getHand().remove(c);
+			for(Card c : removedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						break;
+					}
+				}
 			}
 			if(Collections.disjoint(serverSidePlayer.get().getHand(), removedCards)) {
 				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
@@ -905,8 +1019,13 @@ public class GameService {
 	private void removeHandCardsFromGameScientistTravelLog(Optional<Player> serverSidePlayer, Player player){
 		List<Card> removedCards = getRemovedCardsScientistTravelLog(serverSidePlayer, player);
 		if(removedCards != null && removedCards.size() != 0) {
-			for (Card c : removedCards) {
-				serverSidePlayer.get().getHand().remove(c);
+			for(Card c : removedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -928,16 +1047,16 @@ public class GameService {
 		toBeUpdatedSpaces.add(serverSideGame.getMap().getSpace(playingPiecePosition));
 		while(toBeUpdatedSpaces.size() != 0){
 			ArrayList<Space> tempToBeUpdatedSpaces = new ArrayList<>();
-			for (Space s : toBeUpdatedSpaces){
-				s.removeBlockadeStatus();
-				long[] neighbourIds = s.getNeighbours();
+			for (int i = 0; i < toBeUpdatedSpaces.size();i++){
+				toBeUpdatedSpaces.get(i).removeBlockadeStatus();
+				long[] neighbourIds = toBeUpdatedSpaces.get(i).getNeighbours();
 				for(long l : neighbourIds){
 					Space tempSpace = serverSideGame.getMap().getSpace(l);
 					if(tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile()){
 						tempToBeUpdatedSpaces.add(tempSpace);
 					}
 				}
-				toBeUpdatedSpaces.remove(s);
+				toBeUpdatedSpaces.remove(i);
 			}
 			toBeUpdatedSpaces = tempToBeUpdatedSpaces;
 		}
