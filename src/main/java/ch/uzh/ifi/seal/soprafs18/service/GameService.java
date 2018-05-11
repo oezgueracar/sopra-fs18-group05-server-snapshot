@@ -1451,7 +1451,9 @@ public class GameService {
 				long[] neighbourIds = toBeUpdatedSpaces.get(i).getNeighbours();
 				for(long l : neighbourIds){
 					Space tempSpace = serverSideGame.getMap().getSpace(l);
-					if(tempSpace != null && (tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile())){
+					if(tempSpace != null && !(toBeUpdatedSpaces.contains(tempSpace))
+							&& !(tempToBeUpdatedSpaces.contains(tempSpace))
+							&& (tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile())){
 						tempToBeUpdatedSpaces.add(tempSpace);
 					}
 				}
