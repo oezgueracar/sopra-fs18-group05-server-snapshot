@@ -369,12 +369,12 @@ public class GameService {
 		Optional<Player> serverSidePlayer = playerRepository.findById(playerId);
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
 
-		if (serverSidePlayer.isPresent() && serverSideGame.isPresent()
+        if (serverSidePlayer.isPresent() && serverSideGame.isPresent()
 										&& serverSideGame.get().getStatus() == GameStatus.RUNNING) {
 			if (isPlayersTurn(serverSideGame, serverSidePlayer)) {
 				Card toBePlayedCard = serverSidePlayer.get().getCardFromHandById(cardId);
 				if (toBePlayedCard != null) {
-					if (toBePlayedCard instanceof Native){
+                    if (toBePlayedCard instanceof Native){
 						toBePlayedCard.play(serverSidePlayer.get());
 						movePlayingPieceNative(serverSideGame, serverSidePlayer, player);
 					}
@@ -383,9 +383,8 @@ public class GameService {
 						serverSidePlayer.get().getDiscardPile().add(serverSideGame.get().getMarket()
 											  .removeTransmitter(player.getBoughtCardId()));
 					}
-					else if ((toBePlayedCard instanceof MulticolorCard)
-							  && player.getCardFromHandById(cardId) instanceof MulticolorCard) {
-						if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null) {
+					else if (toBePlayedCard instanceof MulticolorCard) {
+                        if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null) {
 							((MulticolorCard) toBePlayedCard).setChosenColor(((MulticolorCard) player
 															 .getCardFromHandById(cardId)).getChosenColor());
 							toBePlayedCard.play(serverSidePlayer.get());
