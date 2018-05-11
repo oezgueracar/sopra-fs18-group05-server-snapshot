@@ -23,7 +23,7 @@ public class Cartographer extends ActionCard {
 	public void play(Player player){
 		player.drawCard();
 		player.drawCard();
-		player.getHand().remove(this);
 		player.getPlayedList().add(this);
+		player.getHand().remove(this);
 	}
 }
