@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
-import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
-import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
+import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -396,15 +395,14 @@ public class Player implements Serializable {
 	 * Three explorers, one sailor and four travelers are given to each player at the start of the game.
 	 */
 	private void setupCards(){
-		for(int i = 0; i < 3; i++){
-			this.deck.add(new ExpeditionCard(1, 0.5f, "Explorer", "green", 1, false));
-		}
-
-		this.deck.add(new ExpeditionCard(1, 0.5f, "Sailor", "blue", 1, false));
-
-		for(int i = 0; i < 4; i++){
-			this.deck.add(new ExpeditionCard(1, 1.0f, "Traveler", "yellow", 1, false));
-		}
+		this.deck.add(new MulticolorCard(4, 0.5f, "Adventurer", "green", 2, false));
+		this.deck.add(new MulticolorCard(4, 0.5f, "Prop Plane", "multicolor", 4, true));
+		this.deck.add(new Cartographer());
+		this.deck.add(new Compass());
+		this.deck.add(new Native());
+		this.deck.add(new Scientist());
+		this.deck.add(new TravelLog());
+		this.deck.add(new TravelLog());
 	}
 
 	/**
@@ -421,6 +419,10 @@ public class Player implements Serializable {
 
 		this.setupCards();
 
+		this.drawCard();
+		this.drawCard();
+		this.drawCard();
+		this.drawCard();
 		this.drawCard();
 		this.drawCard();
 		this.drawCard();
