@@ -1,5 +1,7 @@
 package ch.uzh.ifi.seal.soprafs18.entity.map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class Blockade extends MapElement {
@@ -15,11 +17,16 @@ public class Blockade extends MapElement {
     private List<Space> row6;
     private List<Space> row7;
 
+    //Needed for Serializing.
+    public Blockade(){
+
+    }
     /**
      * Constructor
      * @param col the color of the blockade
      * @param val the value of the blockade
      */
+    @JsonIgnore
     public Blockade(String col, int val, int powVal){
         color = col;
         value = val;
