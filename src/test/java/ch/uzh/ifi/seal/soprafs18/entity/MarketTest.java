@@ -43,16 +43,10 @@ public class MarketTest {
 
         }
         for(int i=0; i<m.getClosedSlots().size();i++){
-            System.out.println("newOArray+"+i+" has"+m.getOpenSlots().get(0));
+            System.out.println("Carray+"+i+" has"+m.getOpenSlots().get(0));
             assertEquals(3,m.getClosedSlots().get(i).length);
             m.removeCard(m.getClosedSlots().get(i)[0].getId());
             System.out.println("Oarray+"+i+" has"+m.getOpenSlots().get(0).length);
-
-
-            /*assertEquals(2,m.getClosedSlots().get(i).length);
-            m.removeCard(m.getClosedSlots().get(i)[0].getId());
-            assertEquals(1,m.getClosedSlots().get(i).length);
-            System.out.println("Carray+"+i+" has"+m.getClosedSlots().get(i).length);*/
         }
     }
 
@@ -79,12 +73,12 @@ public class MarketTest {
             assertEquals(3,m.getClosedSlots().get(i).length);
             m.removeTransmitter(m.getClosedSlots().get(i)[0].getId());
             System.out.println("Carray+"+i+" has"+m.getClosedSlots().get(i).length);
-
-
-            /*assertEquals(2,m.getClosedSlots().get(i).length);
+            assertEquals(2,m.getClosedSlots().get(i).length);
             m.removeTransmitter(m.getClosedSlots().get(i)[0].getId());
+            System.out.println("Carray+"+i+" has"+m.getClosedSlots().get(i).length);
             assertEquals(1,m.getClosedSlots().get(i).length);
-            System.out.println("Carray+"+i+" has"+m.getClosedSlots().get(i).length);*/
+            m.removeTransmitter(m.getClosedSlots().get(i)[0].getId());
+            assertNull(m.getClosedSlots().get(i));
         }
     }
 
