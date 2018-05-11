@@ -448,7 +448,8 @@ public class GameService {
 						serverSidePlayer.get().getDiscardPile().add(serverSideGame.get().getMarket()
 											  .removeTransmitter(player.getBoughtCardId()));
 					}
-					else if (toBePlayedCard instanceof MulticolorCard) {
+					else if ((toBePlayedCard instanceof MulticolorCard)
+                            && player.getCardFromHandById(cardId) instanceof MulticolorCard) {
 						if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null) {
 							((MulticolorCard) toBePlayedCard).setChosenColor(((MulticolorCard) player
 															 .getCardFromHandById(cardId)).getChosenColor());
