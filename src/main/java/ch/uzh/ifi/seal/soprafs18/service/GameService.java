@@ -233,19 +233,26 @@ public class GameService {
 					}
 					return gameRepository.save(serverSideGame.get());
 				case RUNNING:
-					//End Turn of Player.
-					if(serverSideGame.get().getCurrentPlayer() == game.getCurrentPlayer()) {
-						List<Card> discardedCards = getDifferenceOfHand(serverSideGame.get().getPlayers()
-													.get(serverSideGame.get().getCurrentPlayer()), game.getPlayers()
-													.get(game.getCurrentPlayer()));
-						if(discardedCards != null && discardedCards.size() != 0){
-							for(Card c : discardedCards){
-								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
-													.getHand().remove(c);
-								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
-													.getDiscardPile().add(c);
-							}
-						}
+                    //End Turn of Player.
+                    if(serverSideGame.get().getCurrentPlayer() == game.getCurrentPlayer()) {
+                        List<Card> discardedCards = getDifferenceOfHand(serverSideGame.get().getPlayers()
+                                .get(serverSideGame.get().getCurrentPlayer()), game.getPlayers()
+                                .get(game.getCurrentPlayer()));
+                        if(discardedCards != null && discardedCards.size() != 0){
+                            for(Card c : discardedCards){
+                                for(int i = 0; i < serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+                                        .getHand().size(); i++){
+                                    if(c.getId() == serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+                                            .getHand().get(i).getId()){
+                                        serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+                                                .getHand().remove(i);
+                                        serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+                                                .getDiscardPile().add(c);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
 
 						serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
 									  .setBoughtCardId(0);
