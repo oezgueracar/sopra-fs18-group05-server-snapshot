@@ -201,10 +201,17 @@ public class GameService {
 													.get(game.getCurrentPlayer()));
 						if(discardedCards != null && discardedCards.size() != 0){
 							for(Card c : discardedCards){
-								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
-													.getHand().remove(c);
-								serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
-													.getDiscardPile().add(c);
+								for(int i = 0; i < serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+										.getHand().size(); i++){
+									if(c.getId() == serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+											.getHand().get(i).getId()){
+										serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+												.getHand().remove(i);
+										serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+												.getDiscardPile().add(c);
+										break;
+									}
+								}
 							}
 						}
 
