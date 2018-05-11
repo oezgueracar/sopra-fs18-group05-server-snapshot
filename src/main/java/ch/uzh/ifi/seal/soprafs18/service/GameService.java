@@ -1226,10 +1226,15 @@ public class GameService {
                                                Player player, Blockade removedBlockade) {
         List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
         if(discardedCards != null && discardedCards.size() == removedBlockade.getValue()){
-            for (Card c : discardedCards){
-                serverSidePlayer.get().getHand().remove(c);
-                serverSidePlayer.get().getPlayedList().add(c);
-            }
+			for(Card c : discardedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						serverSidePlayer.get().getPlayedList().add(c);
+						break;
+					}
+				}
+			}
             if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
                     .getPlayedList().containsAll(discardedCards))) {
                 serverSidePlayer.get().getBlockades().add(removedBlockade);
@@ -1244,9 +1249,14 @@ public class GameService {
 											   Player player, Space toBeMovedSpace) {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player, toBeMovedSpace);
 		if(discardedCards != null && discardedCards.size() == toBeMovedSpace.getValue()){
-			for (Card c : discardedCards){
-				serverSidePlayer.get().getHand().remove(c);
-				serverSidePlayer.get().getPlayedList().add(c);
+			for(Card c : discardedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						serverSidePlayer.get().getPlayedList().add(c);
+						break;
+					}
+				}
 			}
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
 													 .getPlayedList().containsAll(discardedCards))) {
@@ -1264,9 +1274,14 @@ public class GameService {
 											   Player player, Space toBeMovedSpace) {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player, toBeMovedSpace);
 		if(discardedCards != null && discardedCards.size() == toBeMovedSpace.getValue()){
-			for (Card c : discardedCards){
-				serverSidePlayer.get().getHand().remove(c);
-				serverSidePlayer.get().getPlayedList().add(c);
+			for(Card c : discardedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						serverSidePlayer.get().getPlayedList().add(c);
+						break;
+					}
+				}
 			}
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
 					.getPlayedList().containsAll(discardedCards))) {
@@ -1284,8 +1299,13 @@ public class GameService {
 										 Player player, Space toBeMovedSpace) {
 		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
 		if(removedCards != null && removedCards.size() == toBeMovedSpace.getValue()) {
-			for (Card c : removedCards) {
-				serverSidePlayer.get().getHand().remove(c);
+			for(Card c : removedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						break;
+					}
+				}
 			}
 			if(Collections.disjoint(serverSidePlayer.get().getHand(), removedCards)) {
 				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
@@ -1301,8 +1321,13 @@ public class GameService {
 										 Player player, Space toBeMovedSpace) {
 		List<Card> removedCards = getRemovedCards(serverSidePlayer, player, toBeMovedSpace);
 		if(removedCards != null && removedCards.size() == toBeMovedSpace.getValue()) {
-			for (Card c : removedCards) {
-				serverSidePlayer.get().getHand().remove(c);
+			for(Card c : removedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						break;
+					}
+				}
 			}
 			if(Collections.disjoint(serverSidePlayer.get().getHand(), removedCards)) {
 				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2().getPosition())
@@ -1317,8 +1342,13 @@ public class GameService {
 	private void removeHandCardsFromGameScientistTravelLog(Optional<Player> serverSidePlayer, Player player){
 		List<Card> removedCards = getRemovedCardsScientistTravelLog(serverSidePlayer, player);
 		if(removedCards != null && removedCards.size() != 0) {
-			for (Card c : removedCards) {
-				serverSidePlayer.get().getHand().remove(c);
+			for(Card c : removedCards){
+				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getHand().remove(i);
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -1340,16 +1370,16 @@ public class GameService {
 		toBeUpdatedSpaces.add(serverSideGame.getMap().getSpace(playingPiecePosition));
 		while(toBeUpdatedSpaces.size() != 0){
 			ArrayList<Space> tempToBeUpdatedSpaces = new ArrayList<>();
-			for (Space s : toBeUpdatedSpaces){
-				s.removeBlockadeStatus();
-				long[] neighbourIds = s.getNeighbours();
+			for (int i = 0; i < toBeUpdatedSpaces.size();i++){
+				toBeUpdatedSpaces.get(i).removeBlockadeStatus();
+				long[] neighbourIds = toBeUpdatedSpaces.get(i).getNeighbours();
 				for(long l : neighbourIds){
 					Space tempSpace = serverSideGame.getMap().getSpace(l);
 					if(tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile()){
 						tempToBeUpdatedSpaces.add(tempSpace);
 					}
 				}
-				toBeUpdatedSpaces.remove(s);
+				toBeUpdatedSpaces.remove(i);
 			}
 			toBeUpdatedSpaces = tempToBeUpdatedSpaces;
 		}
