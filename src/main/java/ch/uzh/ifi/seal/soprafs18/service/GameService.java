@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.ROOM;
@@ -297,7 +298,34 @@ public class GameService {
 
 	public Game fastForwardGame(Long gameId){
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
-		if (serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
+		if (serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING) {
+		    switch(serverSideGame.get().getMapName()) {
+                case "HillsOfGold":
+                    long[] newPositions = {510, 511, 512, 516};
+                    int counter = 0;
+                    if (serverSideGame.get().getPlayers().get(0) instanceof PlayerMode2) {
+                        for (Player p : serverSideGame.get().getPlayers()) {
+                            serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition()).switchOccupied();
+                            serverSideGame.get().getMap().getSpace(p.getPlayingPiece2().getPosition()).switchOccupied();
+                            p.getPlayingPiece().setPosition(newPositions[counter++]);
+                            p.getPlayingPiece2().setPosition(newPositions[counter++]);
+                            serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition()).switchOccupied();
+                            serverSideGame.get().getMap().getSpace(p.getPlayingPiece2().getPosition()).switchOccupied();
+                        }
+                    }
+                    else {
+                        for (Player p : serverSideGame.get().getPlayers()) {
+                            serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition()).switchOccupied();
+                            p.getPlayingPiece().setPosition(newPositions[counter++]);
+                            serverSideGame.get().getMap().getSpace(p.getPlayingPiece().getPosition()).switchOccupied();
+                        }
+                    }
+                    for (Player p : serverSideGame.get().getPlayers()) {
+                        p.setupFastForward(serverSideGame.get().getMapName());
+                        playerRepository.save(p);
+                    }
+                    break;
+            }
 			return gameRepository.save(serverSideGame.get());
 		}
 		else {

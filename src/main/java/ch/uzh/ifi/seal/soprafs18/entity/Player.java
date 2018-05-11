@@ -448,6 +448,24 @@ public class Player implements Serializable {
 		this.drawCard();
 	}
 
+	public void setupFastForward(String mapName){
+		switch(mapName){
+			case "HillsOfGold":
+				this.getDiscardPile().clear();
+				this.getPlayedList().clear();
+				this.getHand().clear();
+				this.getDeck().clear();
+				for(int i = 0; i < 4; i++){
+					this.getHand().add(new ExpeditionCard(1, 0.5f, "Explorer",
+							"green", 1, false));
+				}
+				for(int i = 0; i < 4; i++){
+					this.getDeck().add(new ExpeditionCard(1, 0.5f, "Explorer",
+							"green", 1, false));
+				}
+		}
+	}
+
 	// TODO: Organized structure: setup - play/buy/tradein - move from arrays to arrays - increase/decrease counters - resetter - getters - setters
 
 	// TODO: setups here
