@@ -3,8 +3,7 @@ package ch.uzh.ifi.seal.soprafs18.entity;
 import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
@@ -16,6 +15,8 @@ import java.util.UUID;
 import javax.persistence.*;
 
 @Entity
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
+@JsonSubTypes({ @JsonSubTypes.Type(value = PlayerMode2.class, name = "PlayerMode2")})
 public class Player implements Serializable {
 
 
@@ -25,6 +26,8 @@ public class Player implements Serializable {
 	@GeneratedValue
 	@Column(name = "playerId")
 	protected Long id;
+
+    protected String type;
 
 	@Column(nullable = false)
 	protected String name;
@@ -117,6 +120,18 @@ public class Player implements Serializable {
 		return id;
 	}
 
+	protected void setId(Long id){
+	    this.id = id;
+    }
+
+    public String getType(){
+	    return type;
+    }
+
+    public void setType(String type){
+	    this.type = type;
+    }
+
 	public String getToken(){
 		return token;
 	}
@@ -197,7 +212,13 @@ public class Player implements Serializable {
 		return assignedPiece;
 	}
 
-	public long getBoughtCardId(){
+	@JsonIgnore
+    public PlayingPiece getPlayingPiece2(){
+	    return null;
+    }
+
+
+    public long getBoughtCardId(){
 		return boughtCardId;
 	}
 
@@ -315,7 +336,7 @@ public class Player implements Serializable {
 	 */
 	public void drawCardOnEndTurn(){
 		if(hand != null && deck != null) {
-			while ((hand.size() < 4) && !(deck.isEmpty())) {
+			while (hand.size() < 4) {
 				drawCard();
 			}
 		}
