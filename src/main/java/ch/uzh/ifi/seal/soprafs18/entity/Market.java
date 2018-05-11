@@ -248,6 +248,16 @@ public class Market implements Serializable {
             if (openSlots.get(i) == null){
                 openSlots.set(i, closedSlots.get(chosenCardsIndex));
                 closedSlots.set(chosenCardsIndex, null);
+                System.out.println("The " + i + "th open slot should now contain an array with the cards:");
+                for(Card c : openSlots.get(i)){
+                    System.out.println(c.getId());
+                }
+                System.out.println("The " + chosenCardsIndex + "th closed slot should now be null:");
+                try {
+                    closedSlots.get(i);
+                } catch ( NullPointerException e ) {
+                    System.out.println("True. It is null.");
+                }
                 return;
             }
         }
