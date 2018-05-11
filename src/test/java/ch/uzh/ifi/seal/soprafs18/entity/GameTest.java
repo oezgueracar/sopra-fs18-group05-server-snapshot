@@ -127,14 +127,6 @@ public class GameTest {
     }
 
     @Test
-    public void setup() {
-        game.setup();
-
-        assertEquals("HillsOfGold", game.getMapName());
-        assertTrue(game.getStatus() == GameStatus.ROOM);
-    }
-
-    @Test
     public void getPlayers() {
         p1.setName("TestPlayer1");
         p2.setName("TestPlayer2");

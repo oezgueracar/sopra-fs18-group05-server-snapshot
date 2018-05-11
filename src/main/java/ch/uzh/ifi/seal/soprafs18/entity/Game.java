@@ -23,7 +23,8 @@ public class Game implements Serializable {
 	public Game(){
 		setTurnTime(60);
 		players = new ArrayList<>();
-		setup();
+		setMapName("HillsOfGold");
+		setStatus(ROOM);
 
 		//assert((name != null) && (status == ROOM) && (turnTime == 60) && (mapName.equals("HillsOfGold")));
     }
@@ -130,14 +131,6 @@ public class Game implements Serializable {
 		catch (InstantiationException e3){
 			System.out.println("Instantiation Exception");
 		}
-	}
-
-	/**
-	 * Sets the game information about the map and the status.
-	 */
-	public void setup(){
-		setMapName("HillsOfGold");
-		setStatus(ROOM);
 	}
 
 	/**
