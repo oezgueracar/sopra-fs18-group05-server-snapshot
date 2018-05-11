@@ -854,7 +854,7 @@ public class GameService {
 								if (playerMoveCounterValue >= removedBlockade.getValue()) {
 									serverSidePlayer.get().getBlockades().add(removedBlockade);
 									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
-													.getMoveCounter()[0] - removedBlockade.getValue()),
+													.getMoveCounter()[1] - removedBlockade.getValue()),
 											"blue");
                                     if (((serverSidePlayer.get() instanceof PlayerMode2)
                                             && serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
@@ -876,7 +876,7 @@ public class GameService {
 								if (playerMoveCounterValue >= removedBlockade.getValue()) {
 									serverSidePlayer.get().getBlockades().add(removedBlockade);
 									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
-													.getMoveCounter()[0] - removedBlockade.getValue()),
+													.getMoveCounter()[2] - removedBlockade.getValue()),
 											"yellow");
                                     if (((serverSidePlayer.get() instanceof PlayerMode2)
                                             && serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
