@@ -1203,10 +1203,15 @@ public class GameService {
 											   Player player, Blockade removedBlockade) {
 		List<Card> discardedCards = getDifferenceOfPlayedPiles(serverSidePlayer, player);
 		if(discardedCards != null && discardedCards.size() == removedBlockade.getValue()){
-			for (Card c : discardedCards){
-				serverSidePlayer.get().getHand().remove(c);
-				serverSidePlayer.get().getPlayedList().add(c);
-			}
+            for(Card c : discardedCards){
+                for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
+                    if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+                        serverSidePlayer.get().getHand().remove(i);
+                        serverSidePlayer.get().getPlayedList().add(c);
+                        break;
+                    }
+                }
+            }
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
 														   .getPlayedList().containsAll(discardedCards))) {
 				serverSidePlayer.get().getBlockades().add(removedBlockade);
