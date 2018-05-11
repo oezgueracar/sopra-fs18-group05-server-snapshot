@@ -297,7 +297,7 @@ public class GameService {
 
 	public Game fastForwardGame(Long gameId){
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
-		if (serverSideGame.isPresent()){
+		if (serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING){
 			return gameRepository.save(serverSideGame.get());
 		}
 		else {
