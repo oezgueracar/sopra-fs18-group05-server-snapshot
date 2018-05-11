@@ -153,7 +153,7 @@ public class Market implements Serializable {
         if(openSpaceIsFree) {
             for (int i = 0; i < closedSlots.size(); i++) {
                 if (closedSlots.get(i) != null) {
-                    for (int j = 0; j < closedSlots.size(); j++) {
+                    for (int j = 0; j < closedSlots.get(i).length; j++) {
                         if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
                             return closedSlots.get(i)[j];
                         }
@@ -192,7 +192,7 @@ public class Market implements Serializable {
         if(openSpaceIsFree) {
             for (int i = 0; i < closedSlots.size(); i++) {
                 if (closedSlots.get(i) != null) {
-                    for (int j = 0; j < closedSlots.size(); j++) {
+                    for (int j = 0; j < closedSlots.get(i).length; j++) {
                         if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
                             Card toBeRemoved = closedSlots.get(i)[j];
                             closedSlots.get(i)[j] = null;
@@ -222,7 +222,7 @@ public class Market implements Serializable {
         }
         for(int i = 0; i < closedSlots.size(); i++){
             if(closedSlots.get(i) != null) {
-                for (int j = 0; j < closedSlots.size(); j++) {
+                for (int j = 0; j < closedSlots.get(i).length; j++) {
                     if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
                         Card toBeRemoved = closedSlots.get(i)[j];
                         closedSlots.get(i)[j] = null;
