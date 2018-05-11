@@ -630,10 +630,7 @@ public class GameService {
 				&& serverSidePlayer.get().getPlayingPiece2().getPosition() != player.getPlayingPiece2()
 				.getPosition()) {
 			Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece2().getPosition());
-			//Then check if the Space exists & if it exists if it's already occupied by another playing piece &
-			//if it's a place that a piece can move to...
 			if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
-				//... check if the Space is the neighbour of the selected space...
 				boolean isNeighbour = false;
 				long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 						.getPlayingPiece2().getPosition()).getNeighbours();
@@ -644,18 +641,11 @@ public class GameService {
 					}
 				}
 				if (isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
-					//... check the color of the Space...
 					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue")
 							|| toBeMovedSpace.getColor().equals("yellow")) {
-						//... and if its yellow/blue/green then check if the player has enough value to move
-						//to that space and to which colour the value belongs to.
 						String playerMoveCounterColour = serverSidePlayer.get().getMoveCounterColor();
 
-						//If the player has got enough value for a specific colour
-						//and if the colour is the same as the space he wants to move to...
 						if (toBeMovedSpace.getColor().equals(playerMoveCounterColour)) {
-							//... it'll continue to check if the moveCounter value is sufficiently high
-							//after getting the right moveCounter value:
 							int playerMoveCounterValue;
 							if (toBeMovedSpace.getColor().equals("green")) {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
@@ -920,7 +910,7 @@ public class GameService {
 			}
 		}
 		//Reset Move Counter
-		else {
+		else if (serverSidePlayer.get() instanceof PlayerMode2) {
 			serverSidePlayer.get().resetMoveCounter();
 		}
 
@@ -984,10 +974,55 @@ public class GameService {
 												   "is occupied or cannot be moved to.");
 			}
 		}
+		else if((serverSidePlayer.get() instanceof PlayerMode2)
+				&& serverSidePlayer.get().getPlayingPiece2().getPosition() != player.getPlayingPiece2()
+				.getPosition()) {
+			Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece2().getPosition());
+			if (toBeMovedSpace != null && !(toBeMovedSpace.getOccupied()) && toBeMovedSpace.getValue() != 0) {
+				boolean isNeighbour = false;
+				long[] currentSpaceNeighbourIds = serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
+						.getPlayingPiece2().getPosition()).getNeighbours();
+				for (long neighbourSpaceId : currentSpaceNeighbourIds){
+					if (toBeMovedSpace.getId() == neighbourSpaceId){
+						isNeighbour = true;
+						break;
+					}
+				}
+				if (isNeighbour && !(toBeMovedSpace.isFirstOnNewTile())) {
+					if (toBeMovedSpace.getColor().equals("green") || toBeMovedSpace.getColor().equals("blue")
+							|| toBeMovedSpace.getColor().equals("yellow")
+							|| toBeMovedSpace.getColor().equals("grey")
+							|| toBeMovedSpace.getColor().equals("red")) {
+						if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+							serverSidePlayer.get().getPlayingPiece2().setPosition(player.getPlayingPiece2()
+									.getPosition());
+						}
+						else {
+							serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2()
+									.getPosition()).switchOccupied();
+							serverSidePlayer.get().getPlayingPiece2().setPosition(player.getPlayingPiece2()
+									.getPosition());
+							toBeMovedSpace.switchOccupied();
+						}
+					}
+					// else it's black or a starting space; Don't do anything.
+				}
+				else {
+					throw new IllegalArgumentException("Request contains invalid information. New Space is " +
+							"not a neighbour or blockade is hindering movement.");
+				}
+			}
+			else {
+				throw new IllegalArgumentException("Request contains invalid information. New Space does not exist, " +
+						"is occupied or cannot be moved to.");
+			}
+		}
 		else {
 			//If Blockade exists and player is next to the blockade
-			if(serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
-								   .isLastSpace()) {
+			if((serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
+					.isLastSpace()) || ((serverSidePlayer.get() instanceof PlayerMode2)
+					&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2().getPosition())
+					.isLastSpace() )) {
 				if(serverSidePlayer.get().getBlockades() != null && player.getBlockades() != null
 																 && serverSidePlayer.get().getBlockades().size() <
 																	player.getBlockades().size()){
@@ -998,8 +1033,17 @@ public class GameService {
 																	   || removedBlockade.getColor().equals("yellow")
 																	   || removedBlockade.getColor().equals("grey")) {
 							serverSidePlayer.get().getBlockades().add(removedBlockade);
-							removeBlockadeOnMap(serverSideGame.get(),
-												serverSidePlayer.get().getPlayingPiece().getPosition());
+							if (((serverSidePlayer.get() instanceof PlayerMode2)
+									&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
+									.getPlayingPiece2().getPosition()).isLastSpace() )) {
+								removeBlockadeOnMap(serverSideGame.get(),
+										serverSidePlayer.get().getPlayingPiece2().getPosition());
+							}
+							else if (serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
+									.getPlayingPiece().getPosition()).isLastSpace()){
+								removeBlockadeOnMap(serverSideGame.get(),
+										serverSidePlayer.get().getPlayingPiece().getPosition());
+							}
 						}
 					}
 					else {
@@ -1014,9 +1058,15 @@ public class GameService {
 			}
 		}
 
-		//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
-		serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
-						.getPlayingPiece().getPosition()));
+		if (serverSidePlayer.get() instanceof PlayerMode2) {
+			serverSidePlayer.get().setIsInGoal((serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
+					.getPlayingPiece().getPosition())) && (serverSideGame.get()
+					.endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece2().getPosition())));
+		}
+		else {
+			serverSidePlayer.get().setIsInGoal(serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
+					.getPlayingPiece().getPosition()));
+		}
 	}
 
 	/*
