@@ -153,7 +153,7 @@ public class Market implements Serializable {
         if(openSpaceIsFree) {
             for (int i = 0; i < closedSlots.size(); i++) {
                 if (closedSlots.get(i) != null) {
-                    for (int j = 0; j < closedSlots.size(); j++) {
+                    for (int j = 0; j < closedSlots.get(i).length; j++) {
                         if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
                             return closedSlots.get(i)[j];
                         }
@@ -192,7 +192,7 @@ public class Market implements Serializable {
         if(openSpaceIsFree) {
             for (int i = 0; i < closedSlots.size(); i++) {
                 if (closedSlots.get(i) != null) {
-                    for (int j = 0; j < closedSlots.size(); j++) {
+                    for (int j = 0; j < closedSlots.get(i).length; j++) {
                         if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
                             Card toBeRemoved = closedSlots.get(i)[j];
                             closedSlots.get(i)[j] = null;
@@ -222,7 +222,7 @@ public class Market implements Serializable {
         }
         for(int i = 0; i < closedSlots.size(); i++){
             if(closedSlots.get(i) != null) {
-                for (int j = 0; j < closedSlots.size(); j++) {
+                for (int j = 0; j < closedSlots.get(i).length; j++) {
                     if (closedSlots.get(i)[j] != null && closedSlots.get(i)[j].getId() == cardId) {
                         Card toBeRemoved = closedSlots.get(i)[j];
                         closedSlots.get(i)[j] = null;
@@ -248,6 +248,16 @@ public class Market implements Serializable {
             if (openSlots.get(i) == null){
                 openSlots.set(i, closedSlots.get(chosenCardsIndex));
                 closedSlots.set(chosenCardsIndex, null);
+                System.out.println("The " + i + "th open slot should now contain an array with the cards:");
+                for(Card c : openSlots.get(i)){
+                    System.out.println(c.getId());
+                }
+                System.out.println("The " + chosenCardsIndex + "th closed slot should now be null:");
+                try {
+                    closedSlots.get(i);
+                } catch ( NullPointerException e ) {
+                    System.out.println("True. It is null.");
+                }
                 return;
             }
         }
