@@ -192,8 +192,6 @@ public class GameService {
                                 }
                                 gameRepository.saveAndFlush(serverSideGame.get());
 
-                                System.out.println(serverSideGame.get().getPlayers().size());
-
                                 int startingPositionArrayCounter = 0;
                                 for (Player p : serverSideGame.get().getPlayers()) {
                                     p.setup();
@@ -205,7 +203,6 @@ public class GameService {
                                 }
                             }
                             else if (serverSideGame.get().getPlayers().size() == 2) {
-                                System.out.println(serverSideGame.get().getPlayers().get(0).getClass().getName());
                                 serverSideGame.get().getPlayers().get(0).setup();
                                 serverSideGame.get().getPlayers().get(1).setup();
 
@@ -298,6 +295,7 @@ public class GameService {
 
 	public Game fastForwardGame(Long gameId){
 		Optional<Game> serverSideGame = gameRepository.findById(gameId);
+
 		if (serverSideGame.isPresent() && serverSideGame.get().getStatus() == GameStatus.RUNNING) {
 		    switch(serverSideGame.get().getMapName()) {
                 case "HillsOfGold":

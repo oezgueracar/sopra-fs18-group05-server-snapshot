@@ -48,13 +48,22 @@ public abstract class Map implements Serializable {
         for(MapElement mapElement : mapTiles){
             if(!(mapElement instanceof Blockade)){
                 if(mapElement instanceof Tile){
-                    return ((Tile) mapElement).getSpace(spaceId);
+                    Space toBeReturnedSpace = ((Tile) mapElement).getSpace(spaceId);
+                    if(toBeReturnedSpace != null){
+                        return toBeReturnedSpace;
+                    }
                 }
                 if(mapElement instanceof TerrainStrip){
-                    return ((TerrainStrip) mapElement).getSpace(spaceId);
+                    Space toBeReturnedSpace = ((TerrainStrip) mapElement).getSpace(spaceId);
+                    if(toBeReturnedSpace != null){
+                        return toBeReturnedSpace;
+                    }
                 }
                 if(mapElement instanceof EndTile){
-                    return ((EndTile) mapElement).getSpace(spaceId);
+                    Space toBeReturnedSpace = ((EndTile) mapElement).getSpace(spaceId);
+                    if(toBeReturnedSpace != null){
+                        return toBeReturnedSpace;
+                    }
                 }
             }
         }
