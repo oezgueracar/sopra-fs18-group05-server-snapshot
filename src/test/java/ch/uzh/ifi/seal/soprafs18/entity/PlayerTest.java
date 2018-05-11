@@ -221,6 +221,9 @@ public class PlayerTest {
         p.setMoveCounter(c.getValue(), c.getColor());
         p.resetMoveCounter();
         assertEquals(0, p.getMoveCounter()[0]);
+        assertEquals(0, p.getMoveCounter()[1]);
+        assertEquals(0, p.getMoveCounter()[2]);
+
     }
 
    /* @Test
@@ -242,35 +245,30 @@ public class PlayerTest {
 
     @Test
     public void setPlayerLeft() {
-        p.setup();
         p.setPlayerLeft(true);
         assertTrue(p.getPlayerLeft());
     }
 
     @Test
     public void setIsInGoal() {
-        p.setup();
         p.setIsInGoal(true);
         assertTrue(p.getIsInGoal());
     }
 
     @Test
     public void setColor() {
-        p.setup();
         p.setColor("green");
         assertEquals("green", p.getColor());
     }
 
     @Test
     public void setupCards(){
-        p.setColor("blue");
-        p.setup();
-        assertEquals("blue", p.getPlayingPiece().getColor());
         assertEquals(4,p.getHand().size());
         assertEquals(0, p.getPlayedList().size());
         assertEquals(4,p.getDeck().size());
-
+        assertEquals(0, p.getDiscardPile().size());
     }
+
     @Test
     public void setup() {
         p.setColor("green");
@@ -279,6 +277,6 @@ public class PlayerTest {
         assertEquals(4,p.getHand().size());
         assertEquals(0, p.getPlayedList().size());
         assertEquals(4,p.getDeck().size());
-
+        assertEquals(0, p.getDiscardPile().size());
     }
 }

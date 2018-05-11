@@ -30,10 +30,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = Application.class)
+//@ContextConfiguration(classes = Application.class)
 @WebAppConfiguration
-@WebMvcTest(GameResource.class)
-
+//@WebMvcTest(GameResource.class)
+@SpringBootTest(classes = Application.class)
 
 public class GameResourceTest {
 
@@ -56,6 +56,7 @@ public class GameResourceTest {
 
     @Before
     public void setUp() throws Exception {
+        System.out.println("-------------------------------------------------------------------------------------------");
         ObjectMapper om = new ObjectMapper();
         om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mockMvc = MockMvcBuilders
@@ -93,7 +94,6 @@ public class GameResourceTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(gameJson))
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
-
         String userTokenString = gameAsJson.substring(199, 235);
 
         //try to add player with same id to the game
