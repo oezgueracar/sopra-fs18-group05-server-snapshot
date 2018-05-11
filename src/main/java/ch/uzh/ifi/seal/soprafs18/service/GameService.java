@@ -1451,11 +1451,10 @@ public class GameService {
 				long[] neighbourIds = toBeUpdatedSpaces.get(i).getNeighbours();
 				for(long l : neighbourIds){
 					Space tempSpace = serverSideGame.getMap().getSpace(l);
-					if(tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile()){
+					if(tempSpace != null && (tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile())){
 						tempToBeUpdatedSpaces.add(tempSpace);
 					}
 				}
-				toBeUpdatedSpaces.remove(i);
 			}
 			toBeUpdatedSpaces = tempToBeUpdatedSpaces;
 		}
