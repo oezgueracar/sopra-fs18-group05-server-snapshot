@@ -55,7 +55,6 @@ public class GameService {
 				&& game.getPlayers().get(0).getName().length() < 9) {
 			game.getPlayers().get(0).setColor("red");
 			game.getPlayers().get(0).setReady(true);
-			game.getPlayers().get(0).setToken(UUID.randomUUID().toString());
 			Game serverSideGame = gameRepository.save(game);
 			serverSideGame.getPlayers().get(0).setGameId(serverSideGame.getId());
 			serverSideGame.setName(serverSideGame.getPlayers().get(0).getName() + "'s Game");

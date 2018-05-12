@@ -32,10 +32,6 @@ public class Player implements Serializable {
 	@Column(nullable = false)
 	protected String name;
 
-	// A unique token for a player - Is generated in Service
-	@Column(nullable = false, unique = true)
-	protected String token;
-
 	/*@Column(nullable = false)
 	private PlayerStatus status;*/
 
@@ -115,7 +111,6 @@ public class Player implements Serializable {
 		ready = false;
 		isInGoal = false;
 		winner = false;
-		setToken(UUID.randomUUID().toString());
 		boughtCardId = 0;
 		chosenColor = null;
 	}
@@ -135,14 +130,6 @@ public class Player implements Serializable {
     public void setType(String type){
 	    this.type = type;
     }
-
-	public String getToken(){
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	public String getName() {
 		return name;
