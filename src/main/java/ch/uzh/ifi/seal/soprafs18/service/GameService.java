@@ -448,11 +448,9 @@ public class GameService {
 						serverSidePlayer.get().getDiscardPile().add(serverSideGame.get().getMarket()
 								.removeTransmitter(player.getBoughtCardId()));
 					}
-					else if ((toBePlayedCard instanceof MulticolorCard)
-							&& player.getCardFromHandById(cardId) instanceof MulticolorCard) {
-						if (((MulticolorCard) player.getCardFromHandById(cardId)).getChosenColor() != null) {
-							((MulticolorCard) toBePlayedCard).setChosenColor(((MulticolorCard) player
-									.getCardFromHandById(cardId)).getChosenColor());
+					else if (toBePlayedCard instanceof MulticolorCard) {
+						if (player.getChosenColor() != null) {
+							((MulticolorCard) toBePlayedCard).setChosenColor(player.getChosenColor());
 							toBePlayedCard.play(serverSidePlayer.get());
 						}
 					}
@@ -831,6 +829,7 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 								if (playerMoveCounterValue >= removedBlockade.getValue()) {
 									serverSidePlayer.get().getBlockades().add(removedBlockade);
+									serverSideGame.get().getMap().getBlockades().add(removedBlockade);
 									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
 													.getMoveCounter()[0] - removedBlockade.getValue()),
 											"green");
@@ -853,8 +852,9 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 								if (playerMoveCounterValue >= removedBlockade.getValue()) {
 									serverSidePlayer.get().getBlockades().add(removedBlockade);
+									serverSideGame.get().getMap().getBlockades().add(removedBlockade);
 									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
-													.getMoveCounter()[0] - removedBlockade.getValue()),
+													.getMoveCounter()[1] - removedBlockade.getValue()),
 											"blue");
 									if (((serverSidePlayer.get() instanceof PlayerMode2)
 											&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
@@ -875,8 +875,9 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[2];
 								if (playerMoveCounterValue >= removedBlockade.getValue()) {
 									serverSidePlayer.get().getBlockades().add(removedBlockade);
+									serverSideGame.get().getMap().getBlockades().add(removedBlockade);
 									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
-													.getMoveCounter()[0] - removedBlockade.getValue()),
+													.getMoveCounter()[2] - removedBlockade.getValue()),
 											"yellow");
 									if (((serverSidePlayer.get() instanceof PlayerMode2)
 											&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
@@ -1059,6 +1060,7 @@ public class GameService {
 								|| removedBlockade.getColor().equals("yellow")
 								|| removedBlockade.getColor().equals("grey")) {
 							serverSidePlayer.get().getBlockades().add(removedBlockade);
+							serverSideGame.get().getMap().getBlockades().add(removedBlockade);
 							if (((serverSidePlayer.get() instanceof PlayerMode2)
 									&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 									.getPlayingPiece2().getPosition()).isLastSpace() )) {
@@ -1291,6 +1293,7 @@ public class GameService {
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
 					.getPlayedList().containsAll(discardedCards))) {
 				serverSidePlayer.get().getBlockades().add(removedBlockade);
+				serverSideGame.get().getMap().getBlockades().add(removedBlockade);
 				removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
 			}
 		}
@@ -1314,6 +1317,7 @@ public class GameService {
 			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
 					.getPlayedList().containsAll(discardedCards))) {
 				serverSidePlayer.get().getBlockades().add(removedBlockade);
+				serverSideGame.get().getMap().getBlockades().add(removedBlockade);
 				removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece2().getPosition());
 			}
 		}
@@ -1451,11 +1455,12 @@ public class GameService {
 				long[] neighbourIds = toBeUpdatedSpaces.get(i).getNeighbours();
 				for(long l : neighbourIds){
 					Space tempSpace = serverSideGame.getMap().getSpace(l);
-					if(tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile()){
+					if(tempSpace != null && !(toBeUpdatedSpaces.contains(tempSpace))
+							&& !(tempToBeUpdatedSpaces.contains(tempSpace))
+							&& (tempSpace.isLastSpace() || tempSpace.isFirstOnNewTile())){
 						tempToBeUpdatedSpaces.add(tempSpace);
 					}
 				}
-				toBeUpdatedSpaces.remove(i);
 			}
 			toBeUpdatedSpaces = tempToBeUpdatedSpaces;
 		}

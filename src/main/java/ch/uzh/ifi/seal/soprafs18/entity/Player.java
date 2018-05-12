@@ -65,6 +65,9 @@ public class Player implements Serializable {
 	@Column()
 	protected long boughtCardId;
 
+	@Column()
+	protected String chosenColor;
+
     // Contains the cards that are in the hand
 	@Type(type = "serializable")
 	@Column(name = "hand", length = Integer.MAX_VALUE - 1)
@@ -114,6 +117,7 @@ public class Player implements Serializable {
 		winner = false;
 		setToken(UUID.randomUUID().toString());
 		boughtCardId = 0;
+		chosenColor = null;
 	}
 
 	public Long getId() {
@@ -220,6 +224,10 @@ public class Player implements Serializable {
 
     public long getBoughtCardId(){
 		return boughtCardId;
+	}
+
+	public String getChosenColor(){
+		return chosenColor;
 	}
 
 	@JsonIgnore
@@ -410,6 +418,10 @@ public class Player implements Serializable {
 
 	public void setColor(String newColor){
 		this.color = newColor;
+	}
+
+	public void setChosenColor(String chosenColor){
+		this.chosenColor = chosenColor;
 	}
 
 	/**

@@ -5,8 +5,7 @@ import ch.uzh.ifi.seal.soprafs18.entity.Player;
 public class ExpeditionCard extends Card {
 
 	protected int value;
-	private String color;
-	protected boolean itemCard;
+	protected String color;
 
 	/**
 	 * Constructor for class ExpeditionCard
