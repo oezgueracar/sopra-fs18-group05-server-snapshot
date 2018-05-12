@@ -37,7 +37,12 @@ public class ExpeditionCard extends Card {
 		if(!itemCard){
 			player.getPlayedList().add(this);
 		}
-		player.getHand().remove(this);
+		for(int i = 0; i < player.getHand().size(); i++){
+			if(this.id == player.getHand().get(i).getId()){
+				player.getHand().remove(i);
+				break;
+			}
+		}
 	}
 
 	public int getValue(){
