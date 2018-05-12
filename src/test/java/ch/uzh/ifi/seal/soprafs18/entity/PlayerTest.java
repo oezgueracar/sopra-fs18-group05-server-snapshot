@@ -23,7 +23,7 @@ public class PlayerTest {
         m = new Market();
     }
 
-    @Test
+  /*  @Test
     public void getToken() {
         p.setToken("p1");
         assertEquals("p1", p.getToken());
@@ -34,7 +34,7 @@ public class PlayerTest {
         String t = "p1";
         p.setToken("p1");
         assertEquals(t, p.getToken());
-    }
+    }*/
 
     @Test
     public void getName() {

@@ -38,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class GameResourceTest {
 
     String gameJson;
+    String gameJson2;
     Player p1;
     String player2Json;
     Player p2;
@@ -78,6 +79,8 @@ public class GameResourceTest {
 
         //A string of a POST request that should be sent to /games
         gameJson = om.writeValueAsString(game1);
+        gameJson2 = om.writeValueAsString(game2);
+
         player2Json = om.writeValueAsString(player2);
 
         p1 = new Player();
@@ -103,7 +106,7 @@ public class GameResourceTest {
 
         //Get request to the game created above. It must contain only 1 player.
         mockMvc.perform(get("/games/1"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"p1's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"p1\",\"token\":\"c700d404-9bab-42ce-8688-872ddedc9020\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"p1's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"p1\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
         System.out.println("-----------------------------------Get request to the game created above. It must contain only 1 player.--------------------------------------------------------");
 
         //try to add player with same id to the game
@@ -115,12 +118,18 @@ public class GameResourceTest {
 
         //Get request to the game created above. It must contain 2 players.
         mockMvc.perform(get("/games/1"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"p1's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"p1\",\"token\":\"c700d404-9bab-42ce-8688-872ddedc9020\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"p2\",\"token\":\"76812fb1-f55e-4ddf-9bf8-963b4b83d52f\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"p1's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"p1\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"p2\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
         System.out.println("-----------------------------------Get request to the game created above. It must contain 2 players.--------------------------------------------------------");
    }
 
     @Test
     public void listGames() throws Exception {
+
+        //Get request without any games
+        mockMvc.perform(get("/games"))
+                .andExpect(status().isOk()).andExpect(content().string("[]"));
+        System.out.println("-----------------------------------get games with 0 games--------------------------------------------------------");
+
 
         //create Game1 with a player
         String game1AsJson = mockMvc.perform(post("/games")
@@ -129,17 +138,17 @@ public class GameResourceTest {
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
         System.out.println("-----------------------------------create Game1 with a player\n--------------------------------------------------------");
 
-        //create Game with a player
+        //create Game2 with a player
         String game2AsJson = mockMvc.perform(post("/games")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(gameJson))
+                .content(gameJson2))
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
-        System.out.println("-----------------------------------create Game with a player\n--------------------------------------------------------");
+        System.out.println("-----------------------------------create Game2 with a player\n--------------------------------------------------------");
 
 
         //Get request to the games created above. Both must contain only 1 player.
-        mockMvc.perform(get("/games/1"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"p1's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"p1\",\"token\":\"c700d404-9bab-42ce-8688-872ddedc9020\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
+        mockMvc.perform(get("/games"))
+                .andExpect(status().isOk()).andExpect(content().string("[{\"id\":1,\"name\":\"p1's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"p1\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]},{\"id\":3,\"name\":\"p2's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":4,\"type\":\"PlayerMode2\",\"name\":\"p2\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":3,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}]"));
         System.out.println("-----------------------------------Get requests to the game created above. Both must contain only 1 player.--------------------------------------------------------");
 
 
