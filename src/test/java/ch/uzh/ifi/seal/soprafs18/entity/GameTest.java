@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.validation.constraints.AssertFalse;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -186,5 +187,28 @@ public class GameTest {
 
         assertTrue(game.getCurrentPlayer() == 2);
 
+    }
+
+    @Test
+    public void startGame(){
+        game.startGame();
+        assertNotNull(game.getMap());
+        assertEquals("HillsOfGold",game.getMapName());
+        assertNotNull(game.getMarket());
+        assertEquals(12, game.getMarket().getClosedSlots().size());
+        assertEquals(6, game.getMarket().getOpenSlots().size());
+    }
+
+    @Test
+    public void getMap(){
+        assertNull(game.getMap());
+        game.startGame();
+        assertNotNull(game.getMap());
+    }
+
+    @Test
+    public void endTileIdArrayCheck(){
+        startGame();
+        assertFalse(game.endTileIdArrayCheck(1));
     }
 }
