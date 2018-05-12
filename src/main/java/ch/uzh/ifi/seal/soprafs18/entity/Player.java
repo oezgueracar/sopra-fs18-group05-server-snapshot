@@ -32,10 +32,6 @@ public class Player implements Serializable {
 	@Column(nullable = false)
 	protected String name;
 
-	// A unique token for a player - Is generated in Service
-	@Column(nullable = false, unique = true)
-	protected String token;
-
 	/*@Column(nullable = false)
 	private PlayerStatus status;*/
 
@@ -115,7 +111,6 @@ public class Player implements Serializable {
 		ready = false;
 		isInGoal = false;
 		winner = false;
-		setToken(UUID.randomUUID().toString());
 		boughtCardId = 0;
 		chosenColor = null;
 	}
@@ -135,14 +130,6 @@ public class Player implements Serializable {
     public void setType(String type){
 	    this.type = type;
     }
-
-	public String getToken(){
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	public String getName() {
 		return name;
@@ -311,8 +298,14 @@ public class Player implements Serializable {
 		}
 		else{
 			increaseCoins(tradedInCard.getGoldValue());
-			hand.remove(tradedInCard);
+
 			playedList.add(tradedInCard);
+
+			for(int i = 0; i < this.getHand().size(); i++){
+				if(tradedInCard.getId() == this.getHand().get(i).getId()){
+					this.getHand().remove(i);
+				}
+			}
 		}
 	}
 
@@ -335,8 +328,14 @@ public class Player implements Serializable {
 		Random randomGenerator = new Random();
 		int index = randomGenerator.nextInt(deck.size());
 		Card card = deck.get(index);
+
 		hand.add(card);
-		deck.remove(card);
+
+		for(int i = 0; i < this.getDeck().size(); i++){
+			if(card.getId() == this.getDeck().get(i).getId()){
+				this.getDeck().remove(i);
+			}
+		}
 	}
 
 	/**
@@ -354,16 +353,30 @@ public class Player implements Serializable {
 	 * Moves all entries in playedList to the discardPile.
 	 */
 	public void flushPlayedList(){
-		discardPile.addAll(playedList);
-		playedList.clear();
+		for(Card c : playedList) {
+			if (c != null) {
+				discardPile.add(c);
+			}
+		}
+
+		for(int i = 0; i < playedList.size(); i++){
+			playedList.remove(i);
+		}
 	}
 
 	/**
 	 * Moves all entries in discardPile to the deck.
 	 */
 	private void flushDiscardPile(){
-		deck.addAll(discardPile);
-		discardPile.clear();
+		for(Card c : discardPile) {
+			if (c != null) {
+				deck.add(c);
+			}
+		}
+
+		for(int i = 0; i < discardPile.size(); i++){
+			discardPile.remove(i);
+		}
 	}
 
 	/**
