@@ -4,7 +4,7 @@ import ch.uzh.ifi.seal.soprafs18.entity.Player;
 
 public class MulticolorCard extends ExpeditionCard {
 
-    private String chosenColor;
+    protected String chosenColor;
     /**
      * Constructor for class ExpeditionCard
      * @param buyingCost the amount of gold a card costs to buy
@@ -33,6 +33,7 @@ public class MulticolorCard extends ExpeditionCard {
             player.getPlayedList().add(this);
             player.getHand().remove(this);
         }
+        player.setChosenColor(null);
     }
 
     public void setChosenColor(String newChosenColor) {
