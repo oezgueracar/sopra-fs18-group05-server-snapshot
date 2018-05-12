@@ -91,4 +91,27 @@ public class MarketTest {
             assertEquals(3, m.getOpenSlots().get(i).length);
         }
     }
+
+    @Test
+    public void getCardById(){
+        System.out.println(m.getOpenSlots().get(5)[0].getId());
+        assertEquals(16, m.getCardByCardId(16).getId());
+
+        m.removeCard(16);
+        m.removeCard(17);
+        m.removeCard(18);
+
+        System.out.println(m.getOpenSlots().get(5));
+
+        System.out.println(m.getClosedSlots().get(0)[0].getId());
+        System.out.println(m.getCardByCardId(19).getId());
+
+    }
+
+    @Test
+    public void getCardById2(){
+        System.out.println(m.getCardByCardId(53));
+        assertNull(m.getCardByCardId(52));
+        assertNull(m.getCardByCardId(1234));
+    }
 }
