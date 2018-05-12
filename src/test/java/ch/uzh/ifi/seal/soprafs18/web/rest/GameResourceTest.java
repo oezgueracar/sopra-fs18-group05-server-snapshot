@@ -87,7 +87,7 @@ public class GameResourceTest {
     //If you add a player, then addPlayer() is invoked. This method should not put a player into a game if a player with the same id is already in the game.
     //This test creates a game with a player and tries to add a player with the same id into the created game.
     //Expected result: The player should not be added into the game.
-    @Test
+  /*  @Test
     public void addPlayerNoPlayerAllowedTwice() throws Exception {
         System.out.println("-----------------------------------addplayernop--------------------------------------------------------");
 
@@ -108,7 +108,7 @@ public class GameResourceTest {
         mockMvc.perform(get("/games/1"))
                 .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"TestLeader's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"id\":2,\"name\":\"TestLeaderCopy\",\"token\":\"" + userTokenString + "\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"isInGoal\":false,\"gameId\":1,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"moveCounter\":[0,0,0],\"playingPiece\":null}]}"));
 
-        //assertTrue(serverSideGame.getPlayers().size() == 1);
+        //assertTrue(serverSideGame.getPlayers().size() == 1);*/
     }
 
     @Test
