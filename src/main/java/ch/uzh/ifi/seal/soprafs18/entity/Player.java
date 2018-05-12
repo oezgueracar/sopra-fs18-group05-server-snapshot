@@ -311,8 +311,14 @@ public class Player implements Serializable {
 		}
 		else{
 			increaseCoins(tradedInCard.getGoldValue());
-			hand.remove(tradedInCard);
+
 			playedList.add(tradedInCard);
+
+			for(int i = 0; i < this.getHand().size(); i++){
+				if(tradedInCard.getId() == this.getHand().get(i).getId()){
+					this.getHand().remove(i);
+				}
+			}
 		}
 	}
 
@@ -335,8 +341,14 @@ public class Player implements Serializable {
 		Random randomGenerator = new Random();
 		int index = randomGenerator.nextInt(deck.size());
 		Card card = deck.get(index);
+
 		hand.add(card);
-		deck.remove(card);
+
+		for(int i = 0; i < this.getDeck().size(); i++){
+			if(card.getId() == this.getDeck().get(i).getId()){
+				this.getDeck().remove(i);
+			}
+		}
 	}
 
 	/**
