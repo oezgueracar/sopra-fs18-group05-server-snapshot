@@ -28,10 +28,21 @@ public class MulticolorCard extends ExpeditionCard {
         player.resetMoveCounter();
         player.setMoveCounter(this.value, chosenColor);
         if(itemCard){
-            player.getHand().remove(this);
-        }else{
+            for(int i = 0; i < player.getHand().size(); i++){
+                if(this.id == player.getHand().get(i).getId()){
+                    player.getHand().remove(i);
+                    break;
+                }
+            }
+        }
+        else {
             player.getPlayedList().add(this);
-            player.getHand().remove(this);
+            for(int i = 0; i < player.getHand().size(); i++){
+                if(this.id == player.getHand().get(i).getId()){
+                    player.getHand().remove(i);
+                    break;
+                }
+            }
         }
         player.setChosenColor(null);
     }
