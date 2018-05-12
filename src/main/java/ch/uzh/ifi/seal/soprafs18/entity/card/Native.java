@@ -19,7 +19,12 @@ public class Native extends ActionCard {
 	 * @param player the player who plays the card
 	 */
 	public void play(Player player){
-		player.getHand().remove(this);
 		player.getPlayedList().add(this);
+		for(int i = 0; i < player.getHand().size(); i++){
+			if(this.id == player.getHand().get(i).getId()){
+				player.getHand().remove(i);
+				break;
+			}
+		}
 	}
 }
