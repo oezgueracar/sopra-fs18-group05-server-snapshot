@@ -354,16 +354,30 @@ public class Player implements Serializable {
 	 * Moves all entries in playedList to the discardPile.
 	 */
 	public void flushPlayedList(){
-		discardPile.addAll(playedList);
-		playedList.clear();
+		for(Card c : playedList) {
+			if (c != null) {
+				discardPile.add(c);
+			}
+		}
+
+		for(int i = 0; i < playedList.size(); i++){
+			playedList.remove(i);
+		}
 	}
 
 	/**
 	 * Moves all entries in discardPile to the deck.
 	 */
 	private void flushDiscardPile(){
-		deck.addAll(discardPile);
-		discardPile.clear();
+		for(Card c : discardPile) {
+			if (c != null) {
+				deck.add(c);
+			}
+		}
+
+		for(int i = 0; i < discardPile.size(); i++){
+			discardPile.remove(i);
+		}
 	}
 
 	/**
