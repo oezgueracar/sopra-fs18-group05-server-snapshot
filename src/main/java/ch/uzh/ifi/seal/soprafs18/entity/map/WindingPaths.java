@@ -366,7 +366,7 @@ public class WindingPaths extends Map {
             tile5.getRow2().get(4).getNeighbours()[5] = tile6.getRow1().get(2).getId();
             tile5.getRow2().get(4).getNeighbours()[4] = tile6.getRow1().get(1).getId();
             tile5.getRow3().get(5).getNeighbours()[5] = tile6.getRow1().get(1).getId();
-            tile5.getRow3().get(6).getNeighbours()[4] = tile6.getRow1().get(0).getId();
+            tile5.getRow3().get(5).getNeighbours()[4] = tile6.getRow1().get(0).getId();
             tile5.getRow4().get(6).getNeighbours()[5] = tile6.getRow1().get(0).getId();
 
             tile6.getRow1().get(3).getNeighbours()[5] = tile5.getRow1().get(3).getId();

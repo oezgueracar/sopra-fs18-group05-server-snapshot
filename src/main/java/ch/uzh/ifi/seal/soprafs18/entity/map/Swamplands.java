@@ -376,7 +376,7 @@ public class Swamplands extends Map {
         tile5.getRow7().get(2).getNeighbours()[3] = tile6.getRow3().get(3).getId();
         tile5.getRow7().get(2).getNeighbours()[2] = tile6.getRow3().get(2).getId();
         tile5.getRow7().get(3).getNeighbours()[3] = tile6.getRow3().get(2).getId();
-        tile5.getRow7().get(4).getNeighbours()[2] = tile6.getRow3().get(1).getId();
+        tile5.getRow7().get(3).getNeighbours()[2] = tile6.getRow3().get(1).getId();
 
         tile6.getRow3().get(4).getNeighbours()[2] = tile5.getRow7().get(0).getId();
         tile6.getRow3().get(4).getNeighbours()[3] = tile5.getRow7().get(1).getId();
@@ -401,7 +401,7 @@ public class Swamplands extends Map {
         tile7.getRow2().get(4).getNeighbours()[1] = tile6.getRow1().get(2).getId();
         tile7.getRow3().get(5).getNeighbours()[0] = tile6.getRow1().get(2).getId();
         tile7.getRow3().get(5).getNeighbours()[1] = tile6.getRow1().get(1).getId();
-        tile7.getRow1().get(6).getNeighbours()[0] = tile6.getRow1().get(1).getId();
+        tile7.getRow4().get(6).getNeighbours()[0] = tile6.getRow1().get(1).getId();
         tile7.getRow4().get(6).getNeighbours()[1] = tile6.getRow1().get(0).getId();
 
         tile7.getRow6().get(0).getNeighbours()[2] = tile8.getRow1().get(2).getId();
