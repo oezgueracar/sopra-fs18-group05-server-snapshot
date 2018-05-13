@@ -478,6 +478,7 @@ public class Player implements Serializable {
 				this.getPlayedList().clear();
 				this.getHand().clear();
 				this.getDeck().clear();
+				this.blockades.clear();
 				for(int i = 0; i < 4; i++){
 					this.getHand().add(new ExpeditionCard(1, 0.5f, "Explorer",
 							"green", 1, false));

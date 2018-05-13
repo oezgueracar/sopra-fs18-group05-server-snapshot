@@ -319,6 +319,11 @@ public class GameService {
 					}
 					for (Player p : serverSideGame.get().getPlayers()) {
 						p.setupFastForward(serverSideGame.get().getMapName());
+					}
+
+
+
+					for (Player p : serverSideGame.get().getPlayers()) {
 						playerRepository.save(p);
 					}
 					break;
