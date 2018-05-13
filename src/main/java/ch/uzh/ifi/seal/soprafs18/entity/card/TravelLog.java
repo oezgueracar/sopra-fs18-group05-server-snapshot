@@ -13,9 +13,15 @@ public class TravelLog extends ActionCard {
 		this.cardName = "Travel Log";
 		this.id = getNewId();
 	}
+
 	public void play(Player player){
 		player.drawCard();
 		player.drawCard();
-		player.getHand().remove(this);
+		for(int i = 0; i < player.getHand().size(); i++){
+			if(this.id == player.getHand().get(i).getId()){
+				player.getHand().remove(i);
+				break;
+			}
+		}
 	}
 }

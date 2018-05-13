@@ -304,6 +304,7 @@ public class Player implements Serializable {
 			for(int i = 0; i < this.getHand().size(); i++){
 				if(tradedInCard.getId() == this.getHand().get(i).getId()){
 					this.getHand().remove(i);
+					break;
 				}
 			}
 		}
@@ -334,6 +335,7 @@ public class Player implements Serializable {
 		for(int i = 0; i < this.getDeck().size(); i++){
 			if(card.getId() == this.getDeck().get(i).getId()){
 				this.getDeck().remove(i);
+				break;
 			}
 		}
 	}
@@ -359,9 +361,7 @@ public class Player implements Serializable {
 			}
 		}
 
-		for(int i = 0; i < playedList.size(); i++){
-			playedList.remove(i);
-		}
+		playedList.clear();
 	}
 
 	/**
@@ -374,9 +374,7 @@ public class Player implements Serializable {
 			}
 		}
 
-		for(int i = 0; i < discardPile.size(); i++){
-			discardPile.remove(i);
-		}
+		discardPile.clear();
 	}
 
 	/**
