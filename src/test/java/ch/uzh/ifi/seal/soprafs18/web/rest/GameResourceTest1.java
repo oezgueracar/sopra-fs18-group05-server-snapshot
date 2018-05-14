@@ -194,5 +194,26 @@ public class GameResourceTest1 {
         mockMvc.perform(get("/games/1"))
                 .andExpect(status().isOk()).andExpect(content().string(gameJson));
         System.out.println("got running game1");
+
+
+        gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+
+        System.out.println(gameJson);
+
+        //put req on game1 to start
+        mockMvc.perform(put("/games/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gameJson));
+        //               .andExpect(status().isOk());
+        System.out.println("end turn of player 1");
+
+        gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(gameJson);
+
+        //put req to fast forward
+        mockMvc.perform(put("games/1/fastForward")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gameJson));
+        System.out.println("fast forward game 1");
     }
 }
