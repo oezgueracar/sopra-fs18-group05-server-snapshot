@@ -23,11 +23,11 @@ public class GameTest {
     @Before
     public void setUp() throws Exception {
         game = new Game();
-        p1 = new Player();
-        p2 = new Player();
-        p3 = new Player();
-        p4 = new Player();
-        p5 = new Player();
+        p1 = new PlayerMode2();
+        p2 = new PlayerMode2();
+        p3 = new PlayerMode2();
+        p4 = new PlayerMode2();
+        p5 = new PlayerMode2();
     }
 
     @After
@@ -58,6 +58,11 @@ public class GameTest {
         p3.setName("TestPlayer3");
         p4.setName("TestPlayer4");
         p5.setName("TestPlayer5");
+        p1.setId(new Long(2));
+        p2.setId(new Long(3));
+        p3.setId(new Long(4));
+        p4.setId(new Long(5));
+        p5.setId(new Long(6));
         game.addPlayer(p1);
         game.addPlayer(p2);
         game.addPlayer(p3);
@@ -99,6 +104,8 @@ public class GameTest {
     public void changeCurrentPlayer() {
         p1.setName("TestPlayer1");
         p2.setName("TestPlayer2");
+        p1.setId(new Long(2));
+        p2.setId(new Long(3));
         game.addPlayer(p1);
         game.addPlayer(p2);
 
@@ -112,6 +119,8 @@ public class GameTest {
 
         p3.setName("TestPlayer3");
         p4.setName("TestPlayer4");
+        p3.setId(new Long(4));
+        p4.setId(new Long(5));
 
         game.addPlayer(p3);
         game.addPlayer(p4);
@@ -178,6 +187,9 @@ public class GameTest {
         p1.setName("TestPlayer1");
         p2.setName("TestPlayer2");
         p3.setName("TestPlayer3");
+        p1.setId(new Long(2));
+        p2.setId(new Long(3));
+        p3.setId(new Long(4));
         game.addPlayer(p1);
         game.addPlayer(p2);
         game.addPlayer(p3);

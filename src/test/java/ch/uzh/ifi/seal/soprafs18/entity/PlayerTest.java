@@ -24,19 +24,6 @@ public class PlayerTest {
     }
 
     @Test
-    public void getToken() {
-        p.setToken("p1");
-        assertEquals("p1", p.getToken());
-    }
-
-    @Test
-    public void setToken() {
-        String t = "p1";
-        p.setToken("p1");
-        assertEquals(t, p.getToken());
-    }
-
-    @Test
     public void getName() {
         p.setName("p1");
         assertEquals("p1", p.getName());
