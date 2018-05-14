@@ -7,6 +7,7 @@ import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.PlayerMode2;
 import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
+import ch.uzh.ifi.seal.soprafs18.entity.map.MapElement;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
@@ -319,6 +320,25 @@ public class GameService {
 					}
 					for (Player p : serverSideGame.get().getPlayers()) {
 						p.setupFastForward(serverSideGame.get().getMapName());
+					}
+
+					boolean isPlayer1 = true;
+					for(MapElement m : serverSideGame.get().getMap().getMapTiles()){
+						if(m instanceof Blockade){
+							if(isPlayer1){
+								serverSideGame.get().getPlayers().get(0).getBlockades().add((Blockade)m);
+								serverSideGame.get().getMap().getBlockades().add((Blockade)m);
+								isPlayer1 = false;
+							}
+							else {
+								serverSideGame.get().getPlayers().get(1).getBlockades().add((Blockade)m);
+								serverSideGame.get().getMap().getBlockades().add((Blockade)m);
+								isPlayer1 = true;
+							}
+						}
+					}
+
+					for (Player p : serverSideGame.get().getPlayers()) {
 						playerRepository.save(p);
 					}
 					break;
