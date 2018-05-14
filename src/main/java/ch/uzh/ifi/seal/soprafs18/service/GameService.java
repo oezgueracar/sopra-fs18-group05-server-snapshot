@@ -931,12 +931,12 @@ public class GameService {
 										&& (serverSidePlayer.get() instanceof PlayerMode2)
 										&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 										.getPlayingPiece2().getPosition()).isLastSpace() ) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+									moveCardsFromHandToPlayedList2(serverSideGame, serverSidePlayer, player,
 											removedBlockade);
 								}
 								else if (serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 										.getPlayingPiece().getPosition()).isLastSpace()){
-									moveCardsFromHandToPlayedList2(serverSideGame, serverSidePlayer, player,
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
 											removedBlockade);
 								}
 								break;
@@ -945,12 +945,12 @@ public class GameService {
 										&& (serverSidePlayer.get() instanceof PlayerMode2)
 										&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 										.getPlayingPiece2().getPosition()).isLastSpace() ) {
-									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
+									moveCardsFromHandToPlayedList2(serverSideGame, serverSidePlayer, player,
 											removedBlockade);
 								}
 								else if (serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 										.getPlayingPiece().getPosition()).isLastSpace()){
-									moveCardsFromHandToPlayedList2(serverSideGame, serverSidePlayer, player,
+									moveCardsFromHandToPlayedList(serverSideGame, serverSidePlayer, player,
 											removedBlockade);
 								}
 								break;
