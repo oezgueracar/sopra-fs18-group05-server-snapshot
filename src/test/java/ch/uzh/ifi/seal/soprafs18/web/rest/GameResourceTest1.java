@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@WebMvcTest(GameResource.class)
 @SpringBootTest(classes = Application.class)
 
-public class GameResourceTest {
+public class GameResourceTest1 {
 
     ObjectMapper om;
     String gameJson;
@@ -161,15 +161,12 @@ public class GameResourceTest {
         System.out.println("game after start");
 
         //Get request for players of a specific game
-
-      /*  gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON));
+        gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(gameJson);
-        System.out.println("");
 
-
-        //Get started game
-        mockMvc.perform(get("/games/1/players/2"))
-                .andExpect(status().isOk()).andExpect(content().string(gameJson.toString()));*/
+        //Get for the started game
+        mockMvc.perform(get("/games/1"))
+                .andExpect(status().isOk()).andExpect(content().string(gameJson));
+        System.out.println("got running game1");
     }
-
 }
