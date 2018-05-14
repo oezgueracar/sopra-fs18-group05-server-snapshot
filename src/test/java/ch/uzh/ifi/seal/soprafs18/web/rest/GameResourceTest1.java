@@ -42,6 +42,7 @@ public class GameResourceTest1 {
 
     ObjectMapper om;
     String gameJson;
+    String playersJson;
     String gameJson2;
     String gameJsonPutSettings;
     Player p1;
@@ -103,7 +104,7 @@ public class GameResourceTest1 {
     //This test creates a game with a player and tries to add a player with the same id into the created game.
     //Expected result: The player should not be added into the game.
     @Test
-    public void integrationTest() throws Exception {
+    public void integrationTestSetupAndStartGame() throws Exception {
 
         //Get request without any games
         mockMvc.perform(get("/games"))
@@ -122,16 +123,34 @@ public class GameResourceTest1 {
                 .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"Michinat's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
         System.out.println("got game1 with leader");
 
-        //try to add a player
+        // add player 2 3 and 4
         mockMvc.perform(post("/games/1/players")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"type\": \"PlayerMode2\", \"name\": \"Mikinat\" }"))
                 .andExpect(status().isCreated());
         System.out.println("added a second player");
 
+        mockMvc.perform(post("/games/1/players")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"type\": \"PlayerMode2\", \"name\": \"Mikinat\" }"))
+                .andExpect(status().isCreated());
+        System.out.println("added a third player");
+
+        mockMvc.perform(post("/games/1/players")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"type\": \"PlayerMode2\", \"name\": \"Mikinat\" }"))
+                .andExpect(status().isCreated());
+        System.out.println("added a fourth player");
+
+        //Get request for players of a specific game
+        gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+
+        //Get request for players
+        playersJson = mockMvc.perform(get("/games/1/players").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+
         //Get request for players of a specific game
         mockMvc.perform(get("/games/1/players"))
-                .andExpect(status().isOk()).andExpect(content().string("[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]"));
+                .andExpect(status().isOk()).andExpect(content().string(playersJson));
         System.out.println("got players of game1");
 
         //Get request for one player
@@ -143,15 +162,23 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"free exp for everyone - enter now\", \"status\": \"ROOM\", \"turnTime\": 300, \"mapName\": \"HillsOfGold\" }"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"free exp for everyone - enter now\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":300,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"free exp for everyone - enter now\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":300,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":4,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"yellow\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":5,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"white\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
         System.out.println("put on game with id 1 to change settings");
 
-        //put on player with id 3 to set himself ready
+        //put on player with id 3-5 to set himself ready
         mockMvc.perform(put("/games/1/players/3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
                 .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
-        System.out.println("put on player to set ready");
+        mockMvc.perform(put("/games/1/players/4")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
+                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":4,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"yellow\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
+        mockMvc.perform(put("/games/1/players/5")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
+                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":5,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"white\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
+        System.out.println("put on players 3-5 to set ready");
 
         //put req on game1 to start
         mockMvc.perform(put("/games/1")
@@ -162,7 +189,6 @@ public class GameResourceTest1 {
 
         //Get request for players of a specific game
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-        System.out.println(gameJson);
 
         //Get for the started game
         mockMvc.perform(get("/games/1"))
