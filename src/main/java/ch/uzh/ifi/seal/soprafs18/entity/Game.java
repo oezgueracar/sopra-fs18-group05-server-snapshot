@@ -83,7 +83,7 @@ public class Game implements Serializable {
     	boolean playerAlreadyInRoom = false;
     	if(this.getPlayers() != null) {
 			for (Player p : this.getPlayers()) {
-				if (p.getId() == player.getId()) {
+				if (p.getId() != null && player.getId() != null && (p.getId().equals(player.getId()))) {
 					playerAlreadyInRoom = true;
 				}
 			}

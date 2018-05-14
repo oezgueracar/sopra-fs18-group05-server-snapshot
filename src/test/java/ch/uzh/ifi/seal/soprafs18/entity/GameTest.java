@@ -23,11 +23,11 @@ public class GameTest {
     @Before
     public void setUp() throws Exception {
         game = new Game();
-        p1 = new Player();
-        p2 = new Player();
-        p3 = new Player();
-        p4 = new Player();
-        p5 = new Player();
+        p1 = new PlayerMode2();
+        p2 = new PlayerMode2();
+        p3 = new PlayerMode2();
+        p4 = new PlayerMode2();
+        p5 = new PlayerMode2();
     }
 
     @After
