@@ -670,7 +670,8 @@ public class GameService {
 						"is occupied or cannot be moved to.");
 			}
 		}
-		else if (serverSidePlayer.get().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)
+		else if (serverSidePlayer.get().getType().equals("PlayerMode2")
+				&& (serverSidePlayer.get() instanceof PlayerMode2)
 				&& serverSidePlayer.get().getPlayingPiece2().getPosition() != player.getPlayingPiece2()
 				.getPosition()) {
 			Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece2().getPosition());
@@ -828,7 +829,7 @@ public class GameService {
 		}
 		//If Blockade exists and player is next to the blockade
 		else if ((serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
-				.isLastSpace()) || (serverSidePlayer.get().equals("PlayerMode2")
+				.isLastSpace()) || (serverSidePlayer.get().getType().equals("PlayerMode2")
 				&& (serverSidePlayer.get() instanceof PlayerMode2)
 				&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2().getPosition())
 				.isLastSpace() )) {
@@ -854,7 +855,7 @@ public class GameService {
 									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
 													.getMoveCounter()[0] - removedBlockade.getValue()),
 											"green");
-									if (serverSidePlayer.get().equals("PlayerMode2")
+									if (serverSidePlayer.get().getType().equals("PlayerMode2")
 											&& (serverSidePlayer.get() instanceof PlayerMode2)
 											&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 											.getPlayingPiece2().getPosition()).isLastSpace() ) {
@@ -878,7 +879,7 @@ public class GameService {
 									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
 													.getMoveCounter()[1] - removedBlockade.getValue()),
 											"blue");
-									if (serverSidePlayer.get().equals("PlayerMode2")
+									if (serverSidePlayer.get().getType().equals("PlayerMode2")
 											&& (serverSidePlayer.get() instanceof PlayerMode2)
 											&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 											.getPlayingPiece2().getPosition()).isLastSpace() ) {
@@ -902,7 +903,7 @@ public class GameService {
 									serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
 													.getMoveCounter()[2] - removedBlockade.getValue()),
 											"yellow");
-									if (serverSidePlayer.get().equals("PlayerMode2")
+									if (serverSidePlayer.get().getType().equals("PlayerMode2")
 											&& (serverSidePlayer.get() instanceof PlayerMode2)
 											&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 											.getPlayingPiece2().getPosition()).isLastSpace() ) {
@@ -927,7 +928,7 @@ public class GameService {
 					} else { //grey
 						switch (removedBlockade.getValue()) {
 							case 1:
-								if (serverSidePlayer.get().equals("PlayerMode2")
+								if (serverSidePlayer.get().getType().equals("PlayerMode2")
 										&& (serverSidePlayer.get() instanceof PlayerMode2)
 										&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 										.getPlayingPiece2().getPosition()).isLastSpace() ) {
@@ -941,7 +942,7 @@ public class GameService {
 								}
 								break;
 							case 2:
-								if (serverSidePlayer.get().equals("PlayerMode2")
+								if (serverSidePlayer.get().getType().equals("PlayerMode2")
 										&& (serverSidePlayer.get() instanceof PlayerMode2)
 										&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 										.getPlayingPiece2().getPosition()).isLastSpace() ) {
@@ -963,12 +964,12 @@ public class GameService {
 			}
 		}
 		//Reset Move Counter
-		else if (serverSidePlayer.get().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)) {
+		else if (serverSidePlayer.get().getType().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)) {
 			serverSidePlayer.get().resetMoveCounter();
 		}
 
 		//Check if player is in El Dorado and set player.isInGoal to true if that's the case.
-		if (serverSidePlayer.get().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)) {
+		if (serverSidePlayer.get().getType().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)) {
 			serverSidePlayer.get().setIsInGoal((serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
 					.getPlayingPiece().getPosition())) && (serverSideGame.get()
 					.endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece2().getPosition())));
@@ -1027,7 +1028,7 @@ public class GameService {
 						"is occupied or cannot be moved to.");
 			}
 		}
-		else if(serverSidePlayer.get().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)
+		else if(serverSidePlayer.get().getType().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)
 				&& serverSidePlayer.get().getPlayingPiece2().getPosition() != player.getPlayingPiece2()
 				.getPosition()) {
 			Space toBeMovedSpace = serverSideGame.get().getMap().getSpace(player.getPlayingPiece2().getPosition());
@@ -1073,7 +1074,7 @@ public class GameService {
 		else {
 			//If Blockade exists and player is next to the blockade
 			if((serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
-					.isLastSpace()) || (serverSidePlayer.get().equals("PlayerMode2")
+					.isLastSpace()) || (serverSidePlayer.get().getType().equals("PlayerMode2")
 					&& (serverSidePlayer.get() instanceof PlayerMode2)
 					&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2().getPosition())
 					.isLastSpace() )) {
@@ -1088,7 +1089,7 @@ public class GameService {
 								|| removedBlockade.getColor().equals("grey")) {
 							serverSidePlayer.get().getBlockades().add(removedBlockade);
 							serverSideGame.get().getMap().getBlockades().add(removedBlockade);
-							if (serverSidePlayer.get().equals("PlayerMode2")
+							if (serverSidePlayer.get().getType().equals("PlayerMode2")
 									&& (serverSidePlayer.get() instanceof PlayerMode2)
 									&& serverSideGame.get().getMap().getSpace(serverSidePlayer.get()
 									.getPlayingPiece2().getPosition()).isLastSpace() ) {
@@ -1114,7 +1115,7 @@ public class GameService {
 			}
 		}
 
-		if (serverSidePlayer.get().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)) {
+		if (serverSidePlayer.get().getType().equals("PlayerMode2") && (serverSidePlayer.get() instanceof PlayerMode2)) {
 			serverSidePlayer.get().setIsInGoal((serverSideGame.get().endTileIdArrayCheck(serverSidePlayer.get()
 					.getPlayingPiece().getPosition())) && (serverSideGame.get()
 					.endTileIdArrayCheck(serverSidePlayer.get().getPlayingPiece2().getPosition())));
