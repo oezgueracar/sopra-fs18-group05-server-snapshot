@@ -344,6 +344,7 @@ public class GameService {
 					}
 					break;
 			}
+			serverSideGame.get().switchFastForward();
 			return gameRepository.save(serverSideGame.get());
 		}
 		else {

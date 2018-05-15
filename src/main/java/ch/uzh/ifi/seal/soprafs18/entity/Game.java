@@ -25,6 +25,7 @@ public class Game implements Serializable {
 		players = new ArrayList<>();
 		setMapName("HillsOfGold");
 		setStatus(ROOM);
+		fastForward = false;
 
 		//assert((name != null) && (status == ROOM) && (turnTime == 60) && (mapName.equals("HillsOfGold")));
     }
@@ -65,6 +66,9 @@ public class Game implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="playersGameId", referencedColumnName="gameId")
 	private List<Player> players;
+
+	@Column
+	private boolean fastForward;
 
     /* Should check if players exist already in db as precondition; should check if players are assigned to correct game id in DB as post
        The added players index should not be able to be 0 or bigger than 4 while adding.
@@ -156,6 +160,10 @@ public class Game implements Serializable {
     public void setMapName(String mapName){
         this.mapName = mapName;
     }
+
+    public void switchFastForward(){
+		this.fastForward = true;
+	}
     
 	public Long getId(){
 		return id;
