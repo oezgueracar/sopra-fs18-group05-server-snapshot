@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 public class HillsOfGoldTest {
     HillsOfGold m;
+    HillsOfGold m2;
 
     @Before
     public void setUp(){
@@ -53,6 +54,33 @@ public class HillsOfGoldTest {
             }
             if(m.getMapTiles().get(i) instanceof EndTile){
                 assertEquals(3, m.getMapTiles().get(i).getRow1().size());
+            }
+        }
+    }
+
+    @Test
+    public void testSetup() {
+
+        m2 = new HillsOfGold(1);
+
+        //Testing rows of tiles
+        for(int i=0;i<m2.getMapTiles().size();i++){
+            if(m2.getMapTiles().get(i) instanceof Tile){
+                assertEquals(4,m2.getMapTiles().get(i).getRow1().size());
+                assertEquals(5,m2.getMapTiles().get(i).getRow2().size());
+                assertEquals(6,m2.getMapTiles().get(i).getRow3().size());
+                assertEquals(7,m2.getMapTiles().get(i).getRow4().size());
+                assertEquals(6,m2.getMapTiles().get(i).getRow5().size());
+                assertEquals(5,m2.getMapTiles().get(i).getRow6().size());
+                assertEquals(4,m2.getMapTiles().get(i).getRow7().size());
+            }
+            if(m2.getMapTiles().get(i) instanceof TerrainStrip){
+                assertEquals(5,m2.getMapTiles().get(i).getRow1().size());
+                assertEquals(6,m2.getMapTiles().get(i).getRow2().size());
+                assertEquals(5,m2.getMapTiles().get(i).getRow3().size());
+            }
+            if(m2.getMapTiles().get(i) instanceof EndTile){
+                assertEquals(3, m2.getMapTiles().get(i).getRow1().size());
             }
         }
     }
