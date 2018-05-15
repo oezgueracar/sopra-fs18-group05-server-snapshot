@@ -103,6 +103,9 @@ public class GameService {
 			}
 		}
 		else if (serverSideGame.get().getPlayers().size() == 2) {
+			serverSideGame.get().getPlayers().get(0).setupTest();
+			serverSideGame.get().getPlayers().get(1).setupTest();
+
 			serverSideGame.get().getPlayers().get(0).getPlayingPiece()
 					.setPosition(53);
 			serverSideGame.get().getPlayers().get(0).getPlayingPiece2()
