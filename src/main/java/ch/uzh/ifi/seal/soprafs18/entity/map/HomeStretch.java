@@ -204,10 +204,10 @@ public class HomeStretch extends Map {
         tile5	.addRow4(	new Space(	"green"	,	455	,	1	,	false,	false));
         tile5	.addRow4(	new Space(	"green"	,	456	,	1	,	false,	false));
         tile5	.addRow4(	new Space(	"black"	,	457	,	0	,	false,	false));
-        tile5	.addRow5(	new Space(	"green"	,	458	,	0	,	false,	false));
-        tile5	.addRow5(	new Space(	"green"	,	459	,	0	,	false,	false));
-        tile5	.addRow5(	new Space(	"green"	,	460	,	0	,	false,	false));
-        tile5	.addRow5(	new Space(	"green"	,	461	,	0	,	false,	false));
+        tile5	.addRow5(	new Space(	"black"	,	458	,	0	,	false,	false));
+        tile5	.addRow5(	new Space(	"black"	,	459	,	0	,	false,	false));
+        tile5	.addRow5(	new Space(	"black"	,	460	,	0	,	false,	false));
+        tile5	.addRow5(	new Space(	"black"	,	461	,	0	,	false,	false));
         tile5	.addRow5(	new Space(	"grey"	,	462	,	2	,	false,	false));
         tile5	.addRow5(	new Space(	"green"	,	463	,	1	,	false,	false));
         tile5	.addRow6(	new Space(	"green"	,	464	,	1	,	false,	false));

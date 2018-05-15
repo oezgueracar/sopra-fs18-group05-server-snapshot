@@ -104,7 +104,7 @@ public class GameResourceTest1 {
     //This test creates a game with a player and tries to add a player with the same id into the created game.
     //Expected result: The player should not be added into the game.
     @Test
-    public void integrationTestSetupAndStartGame() throws Exception {
+        public void integrationTestSetupAndStartGame() throws Exception {
 
         //Get request without any games
         mockMvc.perform(get("/games"))
@@ -126,24 +126,26 @@ public class GameResourceTest1 {
         // add player 2 3 and 4
         mockMvc.perform(post("/games/1/players")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"type\": \"PlayerMode2\", \"name\": \"Mikinat\" }"))
+                .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
                 .andExpect(status().isCreated());
         System.out.println("added a second player");
 
         mockMvc.perform(post("/games/1/players")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"type\": \"PlayerMode2\", \"name\": \"Mikinat\" }"))
+                .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
                 .andExpect(status().isCreated());
         System.out.println("added a third player");
 
         mockMvc.perform(post("/games/1/players")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"type\": \"PlayerMode2\", \"name\": \"Mikinat\" }"))
+                .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
                 .andExpect(status().isCreated());
         System.out.println("added a fourth player");
 
         //Get request for players of a specific game
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+
+        System.out.println(gameJson);
 
         //Get request for players
         playersJson = mockMvc.perform(get("/games/1/players").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -198,22 +200,90 @@ public class GameResourceTest1 {
 
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
 
+        String newGameJson = gameJson.replace("\"type\":\"PlayerMode2\",","");
+
         System.out.println(gameJson);
 
-        //put req on game1 to start
+        String c1 =gameJson.substring(8,51);
+
+        int i1 = gameJson.indexOf("\"assignedMap\":");
+        int i2 = gameJson.indexOf("\"players");
+
+        String c2 =gameJson.substring(i1,i2);
+
+        String endTurn = gameJson.replace(c1,"").replace(c2,"");
+
+        //put req to end turn
         mockMvc.perform(put("/games/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(gameJson));
-        //               .andExpect(status().isOk());
+                .content(endTurn))
+                .andExpect(status().isOk());
         System.out.println("end turn of player 1");
 
+
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println("---------------------------sopidsfoisdhfpsda------------------------------------------------------------------------------------------------------------");
+
         System.out.println(gameJson);
+
+
+
+
+
+
+
+      /*  gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+       // System.out.println(gameJson);
 
         //put req to fast forward
         mockMvc.perform(put("games/1/fastForward")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(gameJson));
         System.out.println("fast forward game 1");
+
+        gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(gameJson);*/
+
+    }
+
+    @Test
+    public void buyCard() throws Exception{
+
+
+        String p1Json = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(p1Json);
+
+        int h1 = p1Json.indexOf("boughtCardId\":")+14;
+        String help1 = p1Json.substring(0,h1);
+
+        int end = p1Json.length();
+        int h2 = h1+1;
+        int h21 = p1Json.indexOf("\"hand\":[")+8;
+        String help2 = p1Json.substring(h2,h21);
+
+        int h3 = p1Json.indexOf("],\"deck\"")+10;
+        int h31 = p1Json.indexOf("\"playedList\":[")+14;
+        String help3 = p1Json.substring(h3,h31);
+
+        int endhand = h3-10;
+        String hand = p1Json.substring(h21,endhand);
+
+        int h4 = h31;
+        String help4 = p1Json.substring(h31,end);
+
+        String newPlayer = help1+1+help2+hand+help3+hand+help4;
+
+
+        mockMvc.perform(put("games/1/players/2/cards")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newPlayer));
+               // .andExpect(status().isOk());
+
+
+        String p1Json2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(p1Json2);
+
+        System.out.println("fast forward game 1");
+
     }
 }

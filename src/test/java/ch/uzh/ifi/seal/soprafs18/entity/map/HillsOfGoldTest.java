@@ -29,6 +29,11 @@ public class HillsOfGoldTest {
     }
 
     @Test
+    public void getSpace(){
+        m.getSpace(12341);
+    }
+
+    @Test
     public void setup() {
         //Testing rows of tiles
         for(int i=0;i<m.getMapTiles().size();i++){

@@ -116,6 +116,7 @@ public class PlayerTest {
         p.setColor("green");
         p.setup();
         assertEquals("green",p.getPlayingPiece().getColor());
+        assertNull(p.getPlayingPiece2());
     }
 
     @Test
@@ -125,6 +126,7 @@ public class PlayerTest {
         assertEquals(5,p.getHand().size());
         p.playCard(c);
         assertEquals(4, p.getHand().size());
+        p.playCard(null);
     }
 
     @Test
@@ -146,9 +148,15 @@ public class PlayerTest {
         float l = p.getHand().get(0).getGoldValue();
         p.tradeinCard(p.getHand().get(0).getId());
         assertEquals(l,p.getCoins(),0);
-
-
     }
+
+    @Test
+    public void getCardFromHandById(){
+        p.hand.add(c);
+        p.getCardFromHandById(c.getId());
+        p.getCardFromHandById(12223);
+    }
+
 
  /*   @Test
     public void sellCard() {
@@ -165,6 +173,23 @@ public class PlayerTest {
         p.drawCard();
         int testInt2 = p.getHand().size();
         assertEquals(testInt+1, testInt2);
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+
+
     }
 
     @Test
@@ -213,22 +238,33 @@ public class PlayerTest {
 
     }
 
-   /* @Test
-    public void setCoins() {
-        p.setup();
-        float testFloat = p.getCoins();
-        p.getHand().add(c);
-        p.sellCard(c);
-        assertEquals(testFloat, p.getCoins()-1f,0);
-    }*/
+    @Test
+    public void getMoveCounterColor(){
+        p.setMoveCounter(1,"green");
+        assertEquals("green", p.getMoveCounterColor());
+        p.resetMoveCounter();
+        p.setMoveCounter(1,"blue");
+        assertEquals("blue", p.getMoveCounterColor());
+        p.resetMoveCounter();
+        p.setMoveCounter(1, "yellow");
+        assertEquals("yellow", p.getMoveCounterColor());
+        p.resetMoveCounter();
+    }
 
-   /* @Test
+    @Test
+    public void setBoughtCardId(){
+        p.setBoughtCardId(14);
+        assertEquals(14,p.getBoughtCardId());
+    }
+
+
+    @Test
     public void resetCoins() {
         p.setup();
-        p.sellCard(c);
         p.resetCoins();
         assertEquals(0, p.getCoins(),0);
-    }*/
+    }
+
 
     @Test
     public void setPlayerLeft() {
@@ -240,6 +276,13 @@ public class PlayerTest {
     public void setIsInGoal() {
         p.setIsInGoal(true);
         assertTrue(p.getIsInGoal());
+    }
+
+    @Test
+    public void setWinner(){
+        p.setWinner();
+        assertTrue(p.getWinner());
+
     }
 
     @Test
@@ -265,5 +308,11 @@ public class PlayerTest {
         assertEquals(0, p.getPlayedList().size());
         assertEquals(4,p.getDeck().size());
         assertEquals(0, p.getDiscardPile().size());
+    }
+
+    @Test
+    public void setupFastForward(){
+        p.setupFastForward("HillsOfGold");
+
     }
 }

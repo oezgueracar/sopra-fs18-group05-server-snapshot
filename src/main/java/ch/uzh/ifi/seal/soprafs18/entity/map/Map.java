@@ -26,6 +26,13 @@ public abstract class Map implements Serializable {
         return blockade;
     }
 
+    protected Blockade getBlockade(){
+        Blockade blockade = blockades.get(0);
+        blockades.remove(0);
+
+        return blockade;
+    }
+
     public List<MapElement> getMapTiles() {
         return mapTiles;
     }

@@ -145,4 +145,9 @@ public class TileTest {
         t1.setRotation(60);
         assertEquals(60,t1.getRotation());
     }
+
+    @Test
+    public void getSpace(){
+        t1.getSpace(12341);
+    }
 }

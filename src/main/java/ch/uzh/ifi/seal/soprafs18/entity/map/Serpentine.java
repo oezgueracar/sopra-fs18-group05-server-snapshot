@@ -264,10 +264,10 @@ public class Serpentine extends Map {
         tile6	.addRow4(	new Space(	"green"	,	464	,	1	,	false,	false));
         tile6	.addRow4(	new Space(	"green"	,	465	,	1	,	false,	false));
         tile6	.addRow4(	new Space(	"black"	,	466	,	0	,	false,	false));
-        tile6	.addRow5(	new Space(	"green"	,	467	,	0	,	false,	false));
-        tile6	.addRow5(	new Space(	"green"	,	468	,	0	,	false,	false));
-        tile6	.addRow5(	new Space(	"green"	,	469	,	0	,	false,	false));
-        tile6	.addRow5(	new Space(	"green"	,	470	,	0	,	false,	false));
+        tile6	.addRow5(	new Space(	"black"	,	467	,	0	,	false,	false));
+        tile6	.addRow5(	new Space(	"black"	,	468	,	0	,	false,	false));
+        tile6	.addRow5(	new Space(	"black"	,	469	,	0	,	false,	false));
+        tile6	.addRow5(	new Space(	"black"	,	470	,	0	,	false,	false));
         tile6	.addRow5(	new Space(	"grey"	,	471	,	2	,	false,	false));
         tile6	.addRow5(	new Space(	"green"	,	472	,	1	,	false,	false));
         tile6	.addRow6(	new Space(	"green"	,	473	,	1	,	false,	false));

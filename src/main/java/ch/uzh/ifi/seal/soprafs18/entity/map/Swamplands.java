@@ -221,7 +221,7 @@ public class Swamplands extends Map {
 
         tile6	.addRow1(	new Space(	"yellow"	,	519	,	2	,	false,	true));
         tile6	.addRow1(	new Space(	"yellow"	,	520	,	1	,	false,	true));
-        tile6	.addRow1(	new Space(	"grey"	,	521	,	0	,	false,	true));
+        tile6	.addRow1(	new Space(	"grey"	,	521	,	1	,	false,	true));
         tile6	.addRow1(	new Space(	"green"	,	522	,	2	,	false,	true));
         tile6	.addRow1(	new Space(	"grey"	,	523	,	2	,	false,	true));
         tile6	.addRow2(	new Space(	"yellow"	,	524	,	1	,	false,	false));

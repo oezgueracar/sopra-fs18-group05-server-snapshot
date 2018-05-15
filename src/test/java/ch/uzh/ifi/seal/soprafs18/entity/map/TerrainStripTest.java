@@ -67,6 +67,14 @@ public class TerrainStripTest {
     }
 
     @Test
+    public void getRow4to7(){
+        assertNull(t1.getRow4());
+        assertNull(t1.getRow5());
+        assertNull(t1.getRow6());
+        assertNull(t1.getRow7());
+    }
+
+    @Test
     public void setNextTilePos() {
         int testPos = 1;
         t1.setNextTilePos(1);
@@ -90,5 +98,10 @@ public class TerrainStripTest {
     public void getRotation() {
         t1.setRotation(60);
         assertEquals(60,t1.getRotation());
+    }
+
+    @Test
+    public void getSpace(){
+        t1.getSpace(12341);
     }
 }
