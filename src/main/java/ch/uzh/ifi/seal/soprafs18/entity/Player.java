@@ -32,9 +32,6 @@ public class Player implements Serializable {
 	@Column(nullable = false)
 	protected String name;
 
-	/*@Column(nullable = false)
-	private PlayerStatus status;*/
-
 	@Column(nullable = false)
 	protected String color;
 
