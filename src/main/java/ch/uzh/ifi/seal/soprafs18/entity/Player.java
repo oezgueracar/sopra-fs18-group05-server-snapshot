@@ -485,12 +485,10 @@ public class Player implements Serializable {
 				}
 				this.getHand().add(new ExpeditionCard(1, 0.5f, "Sailor",
 						"blue", 1, false));
-				for(int i = 0; i < 3; i++){
+				for(int i = 0; i < 4; i++){
 					this.getDeck().add(new ExpeditionCard(1, 0.5f, "Explorer",
 							"green", 1, false));
 				}
-				this.getDeck().add(new ExpeditionCard(1, 0.5f, "Sailor",
-						"blue", 1, false));
 		}
 	}
 
