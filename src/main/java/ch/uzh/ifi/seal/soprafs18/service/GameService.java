@@ -595,6 +595,8 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+												.getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
 												.getPosition());
 										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
@@ -620,6 +622,8 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+												.getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
 												.getPosition());
 										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
@@ -756,6 +760,8 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2()
+												.getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece2()
 												.setPosition(player.getPlayingPiece2().getPosition());
 										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
@@ -781,6 +787,8 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2()
+												.getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece2()
 												.setPosition(player.getPlayingPiece2().getPosition());
 										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
@@ -1065,6 +1073,8 @@ public class GameService {
 							|| toBeMovedSpace.getColor().equals("grey")
 							|| toBeMovedSpace.getColor().equals("red")) {
 						if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+							serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+									.getPosition()).switchOccupied();
 							serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
 									.getPosition());
 						}
@@ -1108,6 +1118,8 @@ public class GameService {
 							|| toBeMovedSpace.getColor().equals("grey")
 							|| toBeMovedSpace.getColor().equals("red")) {
 						if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+							serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+									.getPosition()).switchOccupied();
 							serverSidePlayer.get().getPlayingPiece2().setPosition(player.getPlayingPiece2()
 									.getPosition());
 						}
