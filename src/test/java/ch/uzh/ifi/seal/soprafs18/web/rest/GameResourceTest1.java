@@ -120,7 +120,7 @@ public class GameResourceTest1 {
 
         //Get request to the game created above. It must contain only 1 player.
         mockMvc.perform(get("/games/1"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"Michinat's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"Michinat's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}],\"fastForward\":false}"));
         System.out.println("got game1 with leader");
 
         // add player 2 3 and 4
@@ -157,29 +157,29 @@ public class GameResourceTest1 {
 
         //Get request for one player
         mockMvc.perform(get("/games/1/players/2"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
         System.out.println("got player with id 2");
 
         //put req on game1
         mockMvc.perform(put("/games/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"free exp for everyone - enter now\", \"status\": \"ROOM\", \"turnTime\": 300, \"mapName\": \"HillsOfGold\" }"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"free exp for everyone - enter now\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":300,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":4,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"yellow\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":5,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"white\",\"playerLeft\":false,\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}]}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"free exp for everyone - enter now\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":300,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":4,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"yellow\",\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":5,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"white\",\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}],\"fastForward\":false}"));
         System.out.println("put on game with id 1 to change settings");
 
         //put on player with id 3-5 to set himself ready
         mockMvc.perform(put("/games/1/players/3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
         mockMvc.perform(put("/games/1/players/4")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":4,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"yellow\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":4,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"yellow\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
         mockMvc.perform(put("/games/1/players/5")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
-                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":5,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"white\",\"playerLeft\":false,\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
+                .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":5,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"white\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
         System.out.println("put on players 3-5 to set ready");
 
         //put req on game1 to start
@@ -256,10 +256,15 @@ public class GameResourceTest1 {
         int h1 = p1Json.indexOf("boughtCardId\":")+14;
         String help1 = p1Json.substring(0,h1);
 
+        System.out.println(help1);
+
         int end = p1Json.length();
         int h2 = h1+1;
         int h21 = p1Json.indexOf("\"hand\":[")+8;
         String help2 = p1Json.substring(h2,h21);
+
+        System.out.println(help2);
+
 
         int h3 = p1Json.indexOf("],\"deck\"")+10;
         int h31 = p1Json.indexOf("\"playedList\":[")+14;

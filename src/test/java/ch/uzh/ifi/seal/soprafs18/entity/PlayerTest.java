@@ -82,10 +82,10 @@ public class PlayerTest {
 /*    @Test
     public void getCoins(){}*/
 
-    @Test
+/*    @Test
     public void getPlayerLeft() {
         assertEquals(false, p.getPlayerLeft());
-    }
+    }*/
 
     @Test
     public void getIsInGoal() {
@@ -266,11 +266,11 @@ public class PlayerTest {
     }
 
 
-    @Test
+ /*   @Test
     public void setPlayerLeft() {
         p.setPlayerLeft(true);
         assertTrue(p.getPlayerLeft());
-    }
+    }*/
 
     @Test
     public void setIsInGoal() {
