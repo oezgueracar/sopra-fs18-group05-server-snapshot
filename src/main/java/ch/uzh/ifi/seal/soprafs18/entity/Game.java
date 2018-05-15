@@ -208,4 +208,9 @@ public class Game implements Serializable {
 	public List<Player> getPlayers(){
 		return players;
 	}
+
+	//Needed for Serializing.
+	public boolean getFastForward(){
+		return fastForward;
+	}
 }
