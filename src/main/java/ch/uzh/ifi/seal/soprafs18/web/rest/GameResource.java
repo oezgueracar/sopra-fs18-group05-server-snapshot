@@ -61,6 +61,13 @@ public class GameResource
         return this.gameService.getGame(gameId);
     }
 
+    @RequestMapping(value = CONTEXT + "/{gameId}/testSetup")
+    @ResponseStatus(HttpStatus.OK)
+    public Game getGameForTesting(@PathVariable Long gameId) {
+        logger.debug("getGame: " + gameId);
+        return this.gameService.getGameForTesting(gameId);
+    }
+
     @RequestMapping(value = CONTEXT + "/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
     public List<Player> listPlayers(@PathVariable Long gameId) {

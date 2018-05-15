@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import ch.uzh.ifi.seal.soprafs18.constant.GameConstants;
 import ch.uzh.ifi.seal.soprafs18.constant.GameStatus;
+import ch.uzh.ifi.seal.soprafs18.entity.map.HillsOfGold;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -135,6 +136,10 @@ public class Game implements Serializable {
 		catch (InstantiationException e3){
 			System.out.println("Instantiation Exception");
 		}
+	}
+
+	public void initializeMapForTesting(){
+    	this.assignedMap = new HillsOfGold(1);
 	}
 
 	/**

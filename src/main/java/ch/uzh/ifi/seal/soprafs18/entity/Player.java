@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
-import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
-import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
+import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
 import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.Type;
@@ -34,10 +33,6 @@ public class Player implements Serializable {
 
 	@Column(nullable = false)
 	protected String color;
-
-	// Is set to false in Service when creating player
-	@Column(nullable = false)
-	protected boolean playerLeft;
 
 	@Column(nullable = false)
 	protected boolean ready;
@@ -104,7 +99,6 @@ public class Player implements Serializable {
 	 * The Array moveCounter is initialized
 	 */
 	public Player() {
-		playerLeft = false;
 		ready = false;
 		isInGoal = false;
 		winner = false;
@@ -164,10 +158,6 @@ public class Player implements Serializable {
 
 	public int[] getMoveCounter() {
 		return moveCounter;
-	}
-
-	public boolean getPlayerLeft() {
-		return playerLeft;
 	}
 
 	public boolean getIsInGoal(){
@@ -412,10 +402,6 @@ public class Player implements Serializable {
 
 	public void resetCoins(){coins=0f;}
 
-	public void setPlayerLeft(boolean b){
-		playerLeft = b;
-	}
-
 	public void setIsInGoal(boolean b){
 		isInGoal = b;
 	}
@@ -487,6 +473,34 @@ public class Player implements Serializable {
 							"green", 1, false));
 				}
 		}
+	}
+
+	public void setupTest(){
+		this.setReady(true);
+		this.resetCoins();
+		this.resetMoveCounter();
+		this.setIsInGoal(false);
+		if(this.winner){
+			this.setWinner();
+		}
+		this.setBoughtCardId(0);
+		this.setChosenColor(null);
+		if(this.blockades != null && this.blockades.size() != 0){
+			this.blockades.clear();
+		}
+		this.hand.clear();
+		this.deck.clear();
+		this.playedList.clear();
+		this.discardPile.clear();
+		this.hand.add(new ExpeditionCard(5, 0.5f, "Pioneer", "green", 5, false));
+		this.hand.add(new ExpeditionCard(3, 0.5f, "Journalist", "yellow", 3, false));
+		this.hand.add(new ExpeditionCard(2, 0.5f, "Captain", "blue", 3, false));
+		this.hand.add(new MulticolorCard(2, 0.5f, "Jack-of-all-Trades", "multicolor", 1, false));
+		this.hand.add(new Cartographer());
+		this.hand.add(new Compass());
+		this.hand.add(new Native());
+		this.hand.add(new Scientist());
+		this.hand.add(new Transmitter());
 	}
 
 	// TODO: Organized structure: setup - play/buy/tradein - move from arrays to arrays - increase/decrease counters - resetter - getters - setters

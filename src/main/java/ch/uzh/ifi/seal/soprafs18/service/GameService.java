@@ -7,6 +7,7 @@ import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.PlayerMode2;
 import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
+import ch.uzh.ifi.seal.soprafs18.entity.map.HillsOfGold;
 import ch.uzh.ifi.seal.soprafs18.entity.map.MapElement;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
@@ -22,6 +23,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.ROOM;
+import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.RUNNING;
 
 /**
  * Created by Lucas Pelloni on 26.01.18.
@@ -69,6 +71,27 @@ public class GameService {
 	public Game getGame(Long gameId) {
 		Optional<Game> game = gameRepository.findById(gameId);
 		return game.orElse(null);
+	}
+
+	public Game getGameForTesting(Long gameId){
+		Optional<Game> serverSideGame = gameRepository.findById(gameId);
+		serverSideGame.get().setStatus(RUNNING);
+		while(serverSideGame.get().getCurrentPlayer() != 0){
+			serverSideGame.get().changeCurrentPlayer();
+		}
+		serverSideGame.get().initializeMapForTesting();
+		//Setup position of the pieces here, depending on 2playermode or normal player
+		for(Player p : serverSideGame.get().getPlayers()){
+			p.setupTest();
+			if((p.getType().equals("PlayerMode2")) && (p instanceof PlayerMode2)){
+
+			}
+			else {
+
+			}
+			playerRepository.save(p);
+		}
+		return gameRepository.save(serverSideGame.get());
 	}
 
 	// return a list of players in a game
