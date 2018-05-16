@@ -146,11 +146,6 @@ public class GameTest {
     }
 
     @Test
-    public void getMarket(){
-        game.mar
-    }
-
-    @Test
     public void getStatus() {
         game.setStatus(GameStatus.RUNNING);
 

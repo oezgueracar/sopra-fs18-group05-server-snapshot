@@ -102,6 +102,9 @@ public class TerrainStripTest {
 
     @Test
     public void getSpace(){
-        t1.getSpace(12341);
+        assertNull(t1.getSpace(12341));
+        t1.addRow3(s1);
+        t1.getSpace(1);
+
     }
 }
