@@ -1392,8 +1392,23 @@ public class GameService {
 					}
 				}
 			}
-			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
-					.getPlayedList().containsAll(discardedCards))) {
+
+			boolean cardsPlayedCorrectly = true;
+			for(Card c1 : discardedCards){
+				boolean isInPlayedList = false;
+				for(Card c2 : serverSidePlayer.get().getPlayedList()){
+					if(c1.getId() == c2.getId()){
+						isInPlayedList = true;
+						break;
+					}
+				}
+				if(!isInPlayedList){
+					cardsPlayedCorrectly = false;
+					break;
+				}
+			}
+
+			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && cardsPlayedCorrectly) {
 				serverSidePlayer.get().getBlockades().add(removedBlockade);
 				serverSideGame.get().getMap().getBlockades().add(removedBlockade);
 				removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece().getPosition());
@@ -1416,8 +1431,23 @@ public class GameService {
 					}
 				}
 			}
-			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
-					.getPlayedList().containsAll(discardedCards))) {
+
+			boolean cardsPlayedCorrectly = true;
+			for(Card c1 : discardedCards){
+				boolean isInPlayedList = false;
+				for(Card c2 : serverSidePlayer.get().getPlayedList()){
+					if(c1.getId() == c2.getId()){
+						isInPlayedList = true;
+						break;
+					}
+				}
+				if(!isInPlayedList){
+					cardsPlayedCorrectly = false;
+					break;
+				}
+			}
+
+			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && cardsPlayedCorrectly) {
 				serverSidePlayer.get().getBlockades().add(removedBlockade);
 				serverSideGame.get().getMap().getBlockades().add(removedBlockade);
 				removeBlockadeOnMap(serverSideGame.get(), serverSidePlayer.get().getPlayingPiece2().getPosition());
@@ -1440,8 +1470,23 @@ public class GameService {
 					}
 				}
 			}
-			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
-					.getPlayedList().containsAll(discardedCards))) {
+
+			boolean cardsPlayedCorrectly = true;
+			for(Card c1 : discardedCards){
+				boolean isInPlayedList = false;
+				for(Card c2 : serverSidePlayer.get().getPlayedList()){
+					if(c1.getId() == c2.getId()){
+						isInPlayedList = true;
+						break;
+					}
+				}
+				if(!isInPlayedList){
+					cardsPlayedCorrectly = false;
+					break;
+				}
+			}
+
+			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && cardsPlayedCorrectly) {
 				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece().getPosition())
 						.switchOccupied();
 				serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece().getPosition());
@@ -1465,8 +1510,23 @@ public class GameService {
 					}
 				}
 			}
-			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && (serverSidePlayer.get()
-					.getPlayedList().containsAll(discardedCards))) {
+
+			boolean cardsPlayedCorrectly = true;
+			for(Card c1 : discardedCards){
+				boolean isInPlayedList = false;
+				for(Card c2 : serverSidePlayer.get().getPlayedList()){
+					if(c1.getId() == c2.getId()){
+						isInPlayedList = true;
+						break;
+					}
+				}
+				if(!isInPlayedList){
+					cardsPlayedCorrectly = false;
+					break;
+				}
+			}
+
+			if((Collections.disjoint(serverSidePlayer.get().getHand(), discardedCards)) && cardsPlayedCorrectly) {
 				serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2().getPosition())
 						.switchOccupied();
 				serverSidePlayer.get().getPlayingPiece2().setPosition(player.getPlayingPiece2().getPosition());
