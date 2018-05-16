@@ -94,16 +94,16 @@ public class MarketTest {
 
     @Test
     public void getCardById(){
-        System.out.println(m.getOpenSlots().get(5)[0].getId());
+        //System.out.println(m.getOpenSlots().get(5)[0].getId());
         assertEquals(m.getOpenSlots().get(5)[0].getId(), m.getCardByCardId(m.getOpenSlots().get(5)[0].getId()).getId());
 
-        m.removeCard(16);
+       /* m.removeCard(16);
         m.removeCard(17);
         m.removeCard(18);
 
         System.out.println(m.getOpenSlots().get(5));
 
-        System.out.println(m.getClosedSlots().get(0)[0].getId());
+        System.out.println(m.getClosedSlots().get(0)[0].getId());*/
 
     }
 
