@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Example;
@@ -50,10 +51,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @WebAppConfiguration
-@ActiveProfiles({"dev", "integration"})
+@SpringBootTest
+//@ActiveProfiles("integration")
 //@WebAppConfiguration
 //@WebMvcTest(GameResource.class)
-@SpringBootTest
 
 public class GameResourceTest1 {
 
@@ -281,8 +282,8 @@ public class GameResourceTest1 {
         // play Pioneer
         mockMvc.perform(put("/games/1/players/2/cards/87")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(p2));
-               // .andExpect(status().isOk());
+                .content(p2))
+                .andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
         // move piece
@@ -290,38 +291,38 @@ public class GameResourceTest1 {
         String movedPlayer = p2.replace("\"position\":53","\"position\":54");
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(movedPlayer));
-        //.andExpect(status().isOk());
+                .content(movedPlayer))
+                .andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Journalist
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/88")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(p2));
-        //.andExpect(status().isOk());
+                .content(p2))
+                .andExpect(status().isOk());
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         movedPlayer = p2.replace("\"position\":54","\"position\":55");
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(movedPlayer));
-        //.andExpect(status().isOk());
+                .content(movedPlayer))
+                .andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Capitain
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/89")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(p2));
-        //.andExpect(status().isOk());
+                .content(p2))
+                .andExpect(status().isOk());
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         movedPlayer = p2.replace("\"position\":55","\"position\":62");
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(movedPlayer));
-        //.andExpect(status().isOk());
+                .content(movedPlayer))
+                .andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println("movedPlayer----"+p2);
 
