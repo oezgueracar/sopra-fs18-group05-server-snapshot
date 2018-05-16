@@ -32,6 +32,7 @@ public class GameResource
     @Autowired
     private GameService gameService;
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Game addGame(@RequestBody Game game) {
@@ -39,6 +40,7 @@ public class GameResource
         return this.gameService.addGame(game);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/players", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -47,6 +49,7 @@ public class GameResource
         return this.gameService.addPlayer(gameId, player);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT)
     @ResponseStatus(HttpStatus.OK)
     public List<Game> listGames() {
@@ -54,6 +57,7 @@ public class GameResource
         return this.gameService.listGames();
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public Game getGame(@PathVariable Long gameId) {
@@ -61,6 +65,7 @@ public class GameResource
         return this.gameService.getGame(gameId);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/testSetup")
     @ResponseStatus(HttpStatus.OK)
     public Game getGameForTesting(@PathVariable Long gameId) {
@@ -68,6 +73,7 @@ public class GameResource
         return this.gameService.getGameForTesting(gameId);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
     public List<Player> listPlayers(@PathVariable Long gameId) {
@@ -75,6 +81,7 @@ public class GameResource
         return this.gameService.listPlayers(gameId);
     }
 
+    @CrossOrigin
     @RequestMapping(value = CONTEXT + "/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.OK)
     public Player getPlayer(@PathVariable Long gameId, @PathVariable Long playerId) {
