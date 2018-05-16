@@ -16,7 +16,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -51,12 +53,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @WebAppConfiguration
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 //@ActiveProfiles("integration")
 //@WebAppConfiguration
 //@WebMvcTest(GameResource.class)
 
 public class GameResourceTest1 {
+
+    @Mock
+    PlayerRepository playerRepository;
+
+    @Mock
+    GameRepository gameRepository;
 
     ObjectMapper om;
     String gameJson;
