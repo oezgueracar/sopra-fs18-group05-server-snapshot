@@ -146,6 +146,11 @@ public class GameTest {
     }
 
     @Test
+    public void getMarket(){
+        game.mar
+    }
+
+    @Test
     public void getStatus() {
         game.setStatus(GameStatus.RUNNING);
 
@@ -200,6 +205,13 @@ public class GameTest {
     }
 
     @Test
+    public void startGame2(){
+        game.setMapName("WrongMap");
+        game.startGame();
+
+    }
+
+    @Test
     public void getMap(){
         assertNull(game.getMap());
         game.startGame();
@@ -210,5 +222,11 @@ public class GameTest {
     public void endTileIdArrayCheck(){
         startGame();
         assertFalse(game.endTileIdArrayCheck(1));
+    }
+
+    @Test
+    public void switchFastForward(){
+        game.switchFastForward();
+        assertTrue(game.getFastForward());
     }
 }
