@@ -283,7 +283,7 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2/cards/87")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isOk()); //expected 200, is 400
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
         // move piece
@@ -292,14 +292,14 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isOk()); //expected 200, is 400
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Journalist
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/88")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isOk()); // expected 200, is 400
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -307,14 +307,14 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()); // is Ok
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Capitain
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/89")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isOk()); //expected 200, is 400
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -322,7 +322,7 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()); // is Ok
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println("movedPlayer----"+p2);
 
