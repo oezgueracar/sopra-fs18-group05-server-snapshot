@@ -211,6 +211,31 @@ public class PlayerTest {
         assertEquals(1,p.getDiscardPile().size());
     }
 
+    @Test
+    public void flushDiscardPile(){
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+        p.drawCard();
+    }
+
 
     @Test
     public void setMoveCounter() {
