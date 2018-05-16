@@ -50,11 +50,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @WebAppConfiguration
-//@ActiveProfiles("integration")
-@Transactional
+@ActiveProfiles({"dev", "integration"})
 //@WebAppConfiguration
 //@WebMvcTest(GameResource.class)
-//@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 
 public class GameResourceTest1 {
 
