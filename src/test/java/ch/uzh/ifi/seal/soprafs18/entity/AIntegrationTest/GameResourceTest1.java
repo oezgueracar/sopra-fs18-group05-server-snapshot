@@ -64,7 +64,7 @@ public class GameResourceTest1 {
     Player p1;
     String player1Json;
     String player2Json;
-    Player p2;
+    Player pla2;
     Player p3;
     Player p4;
     Player p5;
@@ -101,7 +101,7 @@ public class GameResourceTest1 {
         player2Json = om.writeValueAsString(player2);
 
         p1 = new Player();
-        p2 = new Player();
+        pla2 = new Player();
         p3 = new Player();
         p4 = new Player();
         p5 = new Player();
