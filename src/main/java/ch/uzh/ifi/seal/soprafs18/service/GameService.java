@@ -300,7 +300,8 @@ public class GameService {
 									if(c.getId() == serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
 											.getHand().get(i).getId()){
 										serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
-												.getDiscardPile().add(c);
+												.getDiscardPile().add(serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+												.getHand().get(i));
 										serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
 												.getHand().remove(i);
 										break;
