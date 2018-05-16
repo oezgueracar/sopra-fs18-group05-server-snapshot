@@ -169,8 +169,8 @@ public class HillsOfGold extends Map {
         tile4	.addRow3(	new Space(	"green"	,	383	,	3	,	false,	false));
         tile4	.addRow3(	new Space(	"green"	,	384	,	1	,	false,	false));
         tile4	.addRow3(	new Space(	"green"	,	385	,	2	,	false,	true));
-        tile4	.addRow4(	new Space(	"green"	,	386	,	2	,	false,	false));
-        tile4	.addRow4(	new Space(	"green"	,	387	,	1	,	true,	false));
+        tile4	.addRow4(	new Space(	"green"	,	386	,	2	,	true,	false));
+        tile4	.addRow4(	new Space(	"green"	,	387	,	1	,	false,	false));
         tile4	.addRow4(	new Space(	"green"	,	388	,	3	,	false,	false));
         tile4	.addRow4(	new Space(	"green"	,	389	,	1	,	false,	false));
         tile4	.addRow4(	new Space(	"green"	,	390	,	3	,	false,	false));
