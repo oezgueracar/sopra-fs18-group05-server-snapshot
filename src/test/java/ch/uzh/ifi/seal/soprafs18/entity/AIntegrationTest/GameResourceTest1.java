@@ -97,47 +97,38 @@ public class GameResourceTest1 {
     @Test
         public void integrationTestSetupAndStartGame() throws Exception {
 
-
         //Get request without any games
         mockMvc.perform(get("/games"))
                 .andExpect(status().isOk()).andExpect(content().string("[]"));
-        System.out.println("got 0 games");
 
         //create Game with a leader
         String gameAsJson = mockMvc.perform(post("/games")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"players\": [ { \"name\": \"Michinat\", \"type\": \"PlayerMode2\" } ] }"))
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
-        System.out.println("created game with leader");
 
         //Get request to the game created above. It must contain only 1 player.
         mockMvc.perform(get("/games/1"))
                 .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"Michinat's Game\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":60,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}],\"fastForward\":false}"));
-        System.out.println("got game1 with leader");
 
         // add player 2 3 and 4
         mockMvc.perform(post("/games/1/players")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
                 .andExpect(status().isCreated());
-        System.out.println("added a second player");
 
         mockMvc.perform(post("/games/1/players")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
                 .andExpect(status().isCreated());
-        System.out.println("added a third player");
 
         mockMvc.perform(post("/games/1/players")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
                 .andExpect(status().isCreated());
-        System.out.println("added a fourth player");
 
         //Get request for players of a specific game
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-
-        System.out.println(gameJson);
 
         //Get request for players
         playersJson = mockMvc.perform(get("/games/1/players").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -145,19 +136,16 @@ public class GameResourceTest1 {
         //Get request for players of a specific game
         mockMvc.perform(get("/games/1/players"))
                 .andExpect(status().isOk()).andExpect(content().string(playersJson));
-        System.out.println("got players of game1");
 
         //Get request for one player
         mockMvc.perform(get("/games/1/players/2"))
                 .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
-        System.out.println("got player with id 2");
 
         //put req on game1
         mockMvc.perform(put("/games/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"free exp for everyone - enter now\", \"status\": \"ROOM\", \"turnTime\": 300, \"mapName\": \"HillsOfGold\" }"))
                 .andExpect(status().isOk()).andExpect(content().string("{\"id\":1,\"name\":\"free exp for everyone - enter now\",\"status\":\"ROOM\",\"currentPlayer\":0,\"turnTime\":300,\"mapName\":\"HillsOfGold\",\"assignedMap\":null,\"assignedMarket\":null,\"players\":[{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"PlayerMode2\",\"name\":\"Michinat\",\"color\":\"red\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":3,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"blue\",\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":4,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"yellow\",\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null},{\"type\":\"PlayerMode2\",\"id\":5,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"white\",\"ready\":false,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}],\"fastForward\":false}"));
-        System.out.println("put on game with id 1 to change settings");
 
         //put on player with id 3-5 to set himself ready
         mockMvc.perform(put("/games/1/players/3")
@@ -172,14 +160,12 @@ public class GameResourceTest1 {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
                 .andExpect(status().isOk()).andExpect(content().string("{\"type\":\"PlayerMode2\",\"id\":5,\"type\":\"PlayerMode2\",\"name\":\"Mikinat\",\"color\":\"white\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":null,\"deck\":null,\"discardPile\":null,\"playedList\":null,\"blockades\":null,\"moveCounter\":[0,0,0],\"assignedPiece\":null,\"assignedPiece2\":null}"));
-        System.out.println("put on players 3-5 to set ready");
 
         //put req on game1 to start
         mockMvc.perform(put("/games/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"free exp for everyone - enter now\", \"status\": \"PENDING\", \"turnTime\": 120, \"mapName\": \"HillsOfGold\" }"))
                 .andExpect(status().isOk());
-        System.out.println("game after start");
 
         //Get request for players of a specific game
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -187,14 +173,10 @@ public class GameResourceTest1 {
         //Get for the started game
         mockMvc.perform(get("/games/1"))
                 .andExpect(status().isOk()).andExpect(content().string(gameJson));
-        System.out.println("got running game1");
-
 
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
 
         String newGameJson = gameJson.replace("\"type\":\"PlayerMode2\",","");
-
-        System.out.println(gameJson);
 
         String c1 =gameJson.substring(8,51);
 
@@ -210,14 +192,10 @@ public class GameResourceTest1 {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(endTurn))
                 .andExpect(status().isOk());
-        System.out.println("end turn of player 1");
-
 
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-        System.out.println("---------------------------sopidsfoisdhfpsda------------------------------------------------------------------------------------------------------------");
 
-        System.out.println(gameJson);
-
+/*System.out.println("-------------------------------------buy card---------------------------");
 
         // buycard ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         String p1Json = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -233,15 +211,17 @@ public class GameResourceTest1 {
         int h21 = p1Json.indexOf("\"hand\":[")+8;
         String help2 = p1Json.substring(h2,h21);
 
-        System.out.println(help2);
+        System.out.println("help2"+help2);
 
 
-        int h3 = p1Json.indexOf("],\"deck\"")+10;
+        int h3 = p1Json.indexOf("],\"deck\"");
         int h31 = p1Json.indexOf("\"playedList\":[")+14;
         String help3 = p1Json.substring(h3,h31);
 
+        System.out.println("help3"+help3);
 
-        int endhand = h3-10;
+
+        int endhand = h3;
         String hand = p1Json.substring(h21,endhand);
 
         System.out.println(hand);
@@ -249,21 +229,20 @@ public class GameResourceTest1 {
         int h4 = h31;
         String help4 = p1Json.substring(h31,end);
 
-        String newPlayerx = help1+1+help2+help3+hand+help4;
-        String newPlayer = newPlayerx.replace("\"type\":\"PlayerMode2\",","");
+        String newPlayer = help1+1+help2+help3+hand+help4;
 
         System.out.println("new player");
         System.out.println(newPlayer);
-
+        gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
 
         mockMvc.perform(put("/games/1/players/2/cards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(newPlayer));
-//                .andExpect(status().isOk());
+                //.andExpect(status().isOk());
 
 
         String p1Json2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-        System.out.println(p1Json2);
+        System.out.println(p1Json2);*/
 
 
 
@@ -285,8 +264,8 @@ public class GameResourceTest1 {
         // play Pioneer
         mockMvc.perform(put("/games/1/players/2/cards/87")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(p2));
-                //.andExpect(status().isOk());
+                .content(p2))
+                .andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
         // move piece
@@ -355,7 +334,48 @@ public class GameResourceTest1 {
         //Get request for one player
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
+
+
+
+
+        //create Game with a leader
+        String gameAsJson2 = mockMvc.perform(post("/games")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"players\": [ { \"name\": \"Michinat\", \"type\": \"PlayerMode2\" } ] }"))
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
+        System.out.println("created game with leader");
+
+        mockMvc.perform(post("/games/6/players")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
+                .andExpect(status().isCreated());
+        System.out.println("added a second player");
+
+        mockMvc.perform((get("/games/6")));
+
+        //put on player with id 3-5 to set himself ready
+        mockMvc.perform(put("/games/6/players/3")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"));
+
+        //put req on game1 to start
+        mockMvc.perform(put("/games/6")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"name\": \"free exp for everyone - enter now\", \"status\": \"PENDING\", \"turnTime\": 120, \"mapName\": \"HillsOfGold\" }"))
+                .andExpect(status().isOk());
+
+
+        String ff =  mockMvc.perform(get("/games/6").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        //put req on game1 to start
+        mockMvc.perform(put("/games/6/fastForward")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(ff));
+
+
     }
+
+
+
 
 /*    @Test
     public void buyCard() throws Exception{
