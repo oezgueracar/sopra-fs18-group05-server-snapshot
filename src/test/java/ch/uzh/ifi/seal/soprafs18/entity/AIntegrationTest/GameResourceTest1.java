@@ -26,6 +26,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -45,11 +46,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //@RunWith(SpringRunner.class)
-//@ContextConfiguration(classes = Application.class)
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Application.class)
 @WebAppConfiguration
+@ActiveProfiles("integration")
+//@WebAppConfiguration
 //@WebMvcTest(GameResource.class)
-@SpringBootTest(classes = Application.class)
+//@SpringBootTest(classes = Application.class)
 
 public class GameResourceTest1 {
 
