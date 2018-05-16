@@ -808,7 +808,7 @@ public class HillsOfGold extends Map {
         tile7.getRow1().get(0).getNeighbours()[2] = tile6.getRow7().get(0).getId();
         tile7.getRow1().get(1).getNeighbours()[3] = tile6.getRow7().get(0).getId();
         tile7.getRow1().get(2).getNeighbours()[3] = tile6.getRow7().get(0).getId();
-        tile7.getRow1().get(2).getNeighbours()[2] = tile6.getRow6().get(1).getId();
+        tile7.getRow1().get(2).getNeighbours()[2] = tile6.getRow6().get(0).getId();
 
         //EndTile
         endTile = new long[3];
