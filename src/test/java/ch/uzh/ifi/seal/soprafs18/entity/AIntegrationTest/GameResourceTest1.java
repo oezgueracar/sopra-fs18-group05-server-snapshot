@@ -108,7 +108,7 @@ public class GameResourceTest1 {
     //This test creates a game with a player and tries to add a player with the same id into the created game.
     //Expected result: The player should not be added into the game.
     @Test
-        public void integrationTestSetupAndStartGame() throws Exception {
+    public void integrationTestSetupAndStartGame() throws Exception {
 
         //Get request without any games
         mockMvc.perform(get("/games"))
@@ -287,14 +287,14 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Journalist
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/88")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -302,14 +302,14 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Capitain
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/89")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -317,7 +317,7 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println("movedPlayer----"+p2);
 
