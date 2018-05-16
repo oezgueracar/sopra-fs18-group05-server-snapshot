@@ -27,6 +27,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,274 +44,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 //@ContextConfiguration(classes = Application.class)
-//@WebAppConfiguration
-@Configuration
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 //@WebMvcTest(GameResource.class)
 @SpringBootTest(classes = Application.class)
 
 public class GameResourceTest1 {
-
-    @Bean
-    PlayerRepository playerRepository(){
-        return new PlayerRepository() {
-            @Override
-            public Optional<Player> findByName(String playerName) {
-                return Optional.empty();
-            }
-
-            @Override
-            public List<Player> findAll() {
-                return null;
-            }
-
-            @Override
-            public List<Player> findAll(Sort sort) {
-                return null;
-            }
-
-            @Override
-            public List<Player> findAllById(Iterable<Long> longs) {
-                return null;
-            }
-
-            @Override
-            public <S extends Player> List<S> saveAll(Iterable<S> entities) {
-                return null;
-            }
-
-            @Override
-            public void flush() {
-
-            }
-
-            @Override
-            public <S extends Player> S saveAndFlush(S entity) {
-                return null;
-            }
-
-            @Override
-            public void deleteInBatch(Iterable<Player> entities) {
-
-            }
-
-            @Override
-            public void deleteAllInBatch() {
-
-            }
-
-            @Override
-            public Player getOne(Long aLong) {
-                return null;
-            }
-
-            @Override
-            public <S extends Player> List<S> findAll(Example<S> example) {
-                return null;
-            }
-
-            @Override
-            public <S extends Player> List<S> findAll(Example<S> example, Sort sort) {
-                return null;
-            }
-
-            @Override
-            public Page<Player> findAll(Pageable pageable) {
-                return null;
-            }
-
-            @Override
-            public <S extends Player> S save(S entity) {
-                return null;
-            }
-
-            @Override
-            public Optional<Player> findById(Long aLong) {
-                return Optional.empty();
-            }
-
-            @Override
-            public boolean existsById(Long aLong) {
-                return false;
-            }
-
-            @Override
-            public long count() {
-                return 0;
-            }
-
-            @Override
-            public void deleteById(Long aLong) {
-
-            }
-
-            @Override
-            public void delete(Player entity) {
-
-            }
-
-            @Override
-            public void deleteAll(Iterable<? extends Player> entities) {
-
-            }
-
-            @Override
-            public void deleteAll() {
-
-            }
-
-            @Override
-            public <S extends Player> Optional<S> findOne(Example<S> example) {
-                return Optional.empty();
-            }
-
-            @Override
-            public <S extends Player> Page<S> findAll(Example<S> example, Pageable pageable) {
-                return null;
-            }
-
-            @Override
-            public <S extends Player> long count(Example<S> example) {
-                return 0;
-            }
-
-            @Override
-            public <S extends Player> boolean exists(Example<S> example) {
-                return false;
-            }
-        };
-    }
-
-    @Bean
-    GameRepository gameRepository(){
-        return new GameRepository() {
-            @Override
-            public Game findByName(String name) {
-                return null;
-            }
-
-            @Override
-            public List<Game> findAll() {
-                return null;
-            }
-
-            @Override
-            public List<Game> findAll(Sort sort) {
-                return null;
-            }
-
-            @Override
-            public List<Game> findAllById(Iterable<Long> longs) {
-                return null;
-            }
-
-            @Override
-            public <S extends Game> List<S> saveAll(Iterable<S> entities) {
-                return null;
-            }
-
-            @Override
-            public void flush() {
-
-            }
-
-            @Override
-            public <S extends Game> S saveAndFlush(S entity) {
-                return null;
-            }
-
-            @Override
-            public void deleteInBatch(Iterable<Game> entities) {
-
-            }
-
-            @Override
-            public void deleteAllInBatch() {
-
-            }
-
-            @Override
-            public Game getOne(Long aLong) {
-                return null;
-            }
-
-            @Override
-            public <S extends Game> List<S> findAll(Example<S> example) {
-                return null;
-            }
-
-            @Override
-            public <S extends Game> List<S> findAll(Example<S> example, Sort sort) {
-                return null;
-            }
-
-            @Override
-            public Page<Game> findAll(Pageable pageable) {
-                return null;
-            }
-
-            @Override
-            public <S extends Game> S save(S entity) {
-                return null;
-            }
-
-            @Override
-            public Optional<Game> findById(Long aLong) {
-                return Optional.empty();
-            }
-
-            @Override
-            public boolean existsById(Long aLong) {
-                return false;
-            }
-
-            @Override
-            public long count() {
-                return 0;
-            }
-
-            @Override
-            public void deleteById(Long aLong) {
-
-            }
-
-            @Override
-            public void delete(Game entity) {
-
-            }
-
-            @Override
-            public void deleteAll(Iterable<? extends Game> entities) {
-
-            }
-
-            @Override
-            public void deleteAll() {
-
-            }
-
-            @Override
-            public <S extends Game> Optional<S> findOne(Example<S> example) {
-                return Optional.empty();
-            }
-
-            @Override
-            public <S extends Game> Page<S> findAll(Example<S> example, Pageable pageable) {
-                return null;
-            }
-
-            @Override
-            public <S extends Game> long count(Example<S> example) {
-                return 0;
-            }
-
-            @Override
-            public <S extends Game> boolean exists(Example<S> example) {
-                return false;
-            }
-        };
-    }
 
     ObjectMapper om;
     String gameJson;
@@ -367,7 +108,7 @@ public class GameResourceTest1 {
     //This test creates a game with a player and tries to add a player with the same id into the created game.
     //Expected result: The player should not be added into the game.
     @Test
-        public void integrationTestSetupAndStartGame() throws Exception {
+    public void integrationTestSetupAndStartGame() throws Exception {
 
         //Get request without any games
         mockMvc.perform(get("/games"))
@@ -546,14 +287,14 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Journalist
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/88")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -561,14 +302,14 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Capitain
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/89")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -576,7 +317,7 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer));
-                //.andExpect(status().isOk());
+        //.andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println("movedPlayer----"+p2);
 
