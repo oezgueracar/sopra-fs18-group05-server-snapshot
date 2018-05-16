@@ -97,7 +97,6 @@ public class GameResourceTest1 {
     @Test
         public void integrationTestSetupAndStartGame() throws Exception {
 
-
         //Get request without any games
         mockMvc.perform(get("/games"))
                 .andExpect(status().isOk()).andExpect(content().string("[]"));
@@ -355,7 +354,48 @@ public class GameResourceTest1 {
         //Get request for one player
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
+
+
+
+
+        //create Game with a leader
+        String gameAsJson2 = mockMvc.perform(post("/games")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"players\": [ { \"name\": \"Michinat\", \"type\": \"PlayerMode2\" } ] }"))
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
+        System.out.println("created game with leader");
+
+        mockMvc.perform(post("/games/6/players")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
+                .andExpect(status().isCreated());
+        System.out.println("added a second player");
+
+        mockMvc.perform((get("/games/6")));
+
+        //put on player with id 3-5 to set himself ready
+        mockMvc.perform(put("/games/6/players/3")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"));
+
+        //put req on game1 to start
+        mockMvc.perform(put("/games/6")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"name\": \"free exp for everyone - enter now\", \"status\": \"PENDING\", \"turnTime\": 120, \"mapName\": \"HillsOfGold\" }"))
+                .andExpect(status().isOk());
+
+
+        String ff =  mockMvc.perform(get("/games/6").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        //put req on game1 to start
+        mockMvc.perform(put("/games/6/fastForward")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(ff));
+
+
     }
+
+
+
 
 /*    @Test
     public void buyCard() throws Exception{
