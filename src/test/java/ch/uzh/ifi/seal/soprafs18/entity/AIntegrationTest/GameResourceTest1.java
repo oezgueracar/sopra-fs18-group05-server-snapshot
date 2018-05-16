@@ -56,6 +56,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = Application.class)
 @WebAppConfiguration
 @SpringBootTest
+@Transactional
 //@ActiveProfiles("integration")
 //@WebAppConfiguration
 //@WebMvcTest(GameResource.class)
