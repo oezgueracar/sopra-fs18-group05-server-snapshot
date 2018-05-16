@@ -3,6 +3,8 @@ package ch.uzh.ifi.seal.soprafs18.entity.AIntegrationTest;
 import ch.uzh.ifi.seal.soprafs18.Application;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
+import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
+import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import ch.uzh.ifi.seal.soprafs18.service.GameService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -17,6 +19,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,6 +32,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -34,11 +45,272 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 //@ContextConfiguration(classes = Application.class)
-@WebAppConfiguration
+//@WebAppConfiguration
+@Configuration
 //@WebMvcTest(GameResource.class)
 @SpringBootTest(classes = Application.class)
 
 public class GameResourceTest1 {
+
+    @Bean
+    PlayerRepository playerRepository(){
+        return new PlayerRepository() {
+            @Override
+            public Optional<Player> findByName(String playerName) {
+                return Optional.empty();
+            }
+
+            @Override
+            public List<Player> findAll() {
+                return null;
+            }
+
+            @Override
+            public List<Player> findAll(Sort sort) {
+                return null;
+            }
+
+            @Override
+            public List<Player> findAllById(Iterable<Long> longs) {
+                return null;
+            }
+
+            @Override
+            public <S extends Player> List<S> saveAll(Iterable<S> entities) {
+                return null;
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public <S extends Player> S saveAndFlush(S entity) {
+                return null;
+            }
+
+            @Override
+            public void deleteInBatch(Iterable<Player> entities) {
+
+            }
+
+            @Override
+            public void deleteAllInBatch() {
+
+            }
+
+            @Override
+            public Player getOne(Long aLong) {
+                return null;
+            }
+
+            @Override
+            public <S extends Player> List<S> findAll(Example<S> example) {
+                return null;
+            }
+
+            @Override
+            public <S extends Player> List<S> findAll(Example<S> example, Sort sort) {
+                return null;
+            }
+
+            @Override
+            public Page<Player> findAll(Pageable pageable) {
+                return null;
+            }
+
+            @Override
+            public <S extends Player> S save(S entity) {
+                return null;
+            }
+
+            @Override
+            public Optional<Player> findById(Long aLong) {
+                return Optional.empty();
+            }
+
+            @Override
+            public boolean existsById(Long aLong) {
+                return false;
+            }
+
+            @Override
+            public long count() {
+                return 0;
+            }
+
+            @Override
+            public void deleteById(Long aLong) {
+
+            }
+
+            @Override
+            public void delete(Player entity) {
+
+            }
+
+            @Override
+            public void deleteAll(Iterable<? extends Player> entities) {
+
+            }
+
+            @Override
+            public void deleteAll() {
+
+            }
+
+            @Override
+            public <S extends Player> Optional<S> findOne(Example<S> example) {
+                return Optional.empty();
+            }
+
+            @Override
+            public <S extends Player> Page<S> findAll(Example<S> example, Pageable pageable) {
+                return null;
+            }
+
+            @Override
+            public <S extends Player> long count(Example<S> example) {
+                return 0;
+            }
+
+            @Override
+            public <S extends Player> boolean exists(Example<S> example) {
+                return false;
+            }
+        };
+    }
+
+    @Bean
+    GameRepository gameRepository(){
+        return new GameRepository() {
+            @Override
+            public Game findByName(String name) {
+                return null;
+            }
+
+            @Override
+            public List<Game> findAll() {
+                return null;
+            }
+
+            @Override
+            public List<Game> findAll(Sort sort) {
+                return null;
+            }
+
+            @Override
+            public List<Game> findAllById(Iterable<Long> longs) {
+                return null;
+            }
+
+            @Override
+            public <S extends Game> List<S> saveAll(Iterable<S> entities) {
+                return null;
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public <S extends Game> S saveAndFlush(S entity) {
+                return null;
+            }
+
+            @Override
+            public void deleteInBatch(Iterable<Game> entities) {
+
+            }
+
+            @Override
+            public void deleteAllInBatch() {
+
+            }
+
+            @Override
+            public Game getOne(Long aLong) {
+                return null;
+            }
+
+            @Override
+            public <S extends Game> List<S> findAll(Example<S> example) {
+                return null;
+            }
+
+            @Override
+            public <S extends Game> List<S> findAll(Example<S> example, Sort sort) {
+                return null;
+            }
+
+            @Override
+            public Page<Game> findAll(Pageable pageable) {
+                return null;
+            }
+
+            @Override
+            public <S extends Game> S save(S entity) {
+                return null;
+            }
+
+            @Override
+            public Optional<Game> findById(Long aLong) {
+                return Optional.empty();
+            }
+
+            @Override
+            public boolean existsById(Long aLong) {
+                return false;
+            }
+
+            @Override
+            public long count() {
+                return 0;
+            }
+
+            @Override
+            public void deleteById(Long aLong) {
+
+            }
+
+            @Override
+            public void delete(Game entity) {
+
+            }
+
+            @Override
+            public void deleteAll(Iterable<? extends Game> entities) {
+
+            }
+
+            @Override
+            public void deleteAll() {
+
+            }
+
+            @Override
+            public <S extends Game> Optional<S> findOne(Example<S> example) {
+                return Optional.empty();
+            }
+
+            @Override
+            public <S extends Game> Page<S> findAll(Example<S> example, Pageable pageable) {
+                return null;
+            }
+
+            @Override
+            public <S extends Game> long count(Example<S> example) {
+                return 0;
+            }
+
+            @Override
+            public <S extends Game> boolean exists(Example<S> example) {
+                return false;
+            }
+        };
+    }
 
     ObjectMapper om;
     String gameJson;
