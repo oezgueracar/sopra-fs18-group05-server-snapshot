@@ -280,7 +280,7 @@ public class PlayerTest {
 
     @Test
     public void setWinner(){
-        p.setWinner();
+        p.setWinner(true);
         assertTrue(p.getWinner());
 
     }

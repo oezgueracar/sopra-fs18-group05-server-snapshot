@@ -328,7 +328,7 @@ public class GameService {
 							}
 						}
 						//Change game to finished if a player is in El Dorado
-						if (aPlayerIsOnEndTile && game.getCurrentPlayer() + 1 == 0) {
+						if (aPlayerIsOnEndTile && game.getCurrentPlayer() == game.getPlayers().size() - 1) {
 							determineWinner(serverSideGame.get());
 							serverSideGame.get().setStatus(GameStatus.FINISHED);
 						}
@@ -1577,7 +1577,8 @@ public class GameService {
 		if(counter == 1){
 			for (Player p : serverSideGame.getPlayers()){
 				if(p.getIsInGoal()){
-					p.setWinner();
+					p.setWinner(true);
+					playerRepository.save(p);
 				}
 			}
 		}
@@ -1603,7 +1604,9 @@ public class GameService {
 					}
 				}
 				if(indexOfPlayersWithLargestAmountOfBlockades.size() == 1){
-					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(0)).setWinner();
+					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(0)).setWinner(true);
+					playerRepository.save(serverSideGame.getPlayers()
+								    .get(indexOfPlayersWithLargestAmountOfBlockades.get(0)));
 				}
 				//Find the Player with the blockade that has the largest power value and declare him as winner
 				else if (indexOfPlayersWithLargestAmountOfBlockades.size() >= 2){
@@ -1626,7 +1629,9 @@ public class GameService {
 						}
 					}
 					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner))
-							.setWinner();
+							.setWinner(true);
+					playerRepository.save(serverSideGame.getPlayers()
+									.get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner)));
 				}
 			}
 		}

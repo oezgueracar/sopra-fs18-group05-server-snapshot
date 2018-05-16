@@ -406,8 +406,8 @@ public class Player implements Serializable {
 		isInGoal = b;
 	}
 
-	public void setWinner(){
-		winner = !winner;
+	public void setWinner(boolean winner){
+		this.winner = winner;
 	}
 
 	public void setColor(String newColor){
@@ -481,7 +481,7 @@ public class Player implements Serializable {
 		this.resetMoveCounter();
 		this.setIsInGoal(false);
 		if(this.winner){
-			this.setWinner();
+			this.setWinner(false);
 		}
 		this.setBoughtCardId(0);
 		this.setChosenColor(null);
