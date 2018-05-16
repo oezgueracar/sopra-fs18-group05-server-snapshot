@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.soprafs18.web.rest;
+package ch.uzh.ifi.seal.soprafs18.entity.AIntegrationTest;
 
 import ch.uzh.ifi.seal.soprafs18.Application;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
@@ -348,12 +348,6 @@ public class GameResourceTest1 {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p22))
                 .andExpect(status().isOk());*/
-
-
-
-
-
-
 
 
         //Get request for one player
