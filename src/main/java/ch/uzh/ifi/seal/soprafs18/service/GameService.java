@@ -1386,8 +1386,8 @@ public class GameService {
 			for(Card c : discardedCards){
 				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
 					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getPlayedList().add(serverSidePlayer.get().getHand().get(i));
 						serverSidePlayer.get().getHand().remove(i);
-						serverSidePlayer.get().getPlayedList().add(c);
 						break;
 					}
 				}
@@ -1410,8 +1410,8 @@ public class GameService {
 			for(Card c : discardedCards){
 				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
 					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getPlayedList().add(serverSidePlayer.get().getHand().get(i));
 						serverSidePlayer.get().getHand().remove(i);
-						serverSidePlayer.get().getPlayedList().add(c);
 						break;
 					}
 				}
@@ -1434,8 +1434,8 @@ public class GameService {
 			for(Card c : discardedCards){
 				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
 					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getPlayedList().add(serverSidePlayer.get().getHand().get(i));
 						serverSidePlayer.get().getHand().remove(i);
-						serverSidePlayer.get().getPlayedList().add(c);
 						break;
 					}
 				}
@@ -1459,8 +1459,8 @@ public class GameService {
 			for(Card c : discardedCards){
 				for(int i = 0; i < serverSidePlayer.get().getHand().size(); i++){
 					if(c.getId() == serverSidePlayer.get().getHand().get(i).getId()){
+						serverSidePlayer.get().getPlayedList().add(serverSidePlayer.get().getHand().get(i));
 						serverSidePlayer.get().getHand().remove(i);
-						serverSidePlayer.get().getPlayedList().add(c);
 						break;
 					}
 				}
