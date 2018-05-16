@@ -53,7 +53,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles({"dev", "integration"})
 //@WebAppConfiguration
 //@WebMvcTest(GameResource.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@SpringBootTest
 
 public class GameResourceTest1 {
 
