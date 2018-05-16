@@ -212,7 +212,7 @@ public class GameResourceTest1 {
 
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
 
-/*System.out.println("-------------------------------------buy card---------------------------");
+System.out.println("-------------------------------------buy card---------------------------");
 
         // buycard ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         String p1Json = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -259,7 +259,7 @@ public class GameResourceTest1 {
 
 
         String p1Json2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-        System.out.println(p1Json2);*/
+        System.out.println(p1Json2);
 
 
 
