@@ -7,7 +7,6 @@ import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.PlayerMode2;
 import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
-import ch.uzh.ifi.seal.soprafs18.entity.map.HillsOfGold;
 import ch.uzh.ifi.seal.soprafs18.entity.map.MapElement;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.ROOM;
@@ -322,13 +320,15 @@ public class GameService {
 
 						//Check if a player is in El Dorado.
 						boolean aPlayerIsOnEndTile = false;
-						for (Player p : game.getPlayers()) {
+						for (Player p : serverSideGame.get().getPlayers()) {
 							if (p.getIsInGoal()) {
 								aPlayerIsOnEndTile = true;
 							}
 						}
 						//Change game to finished if a player is in El Dorado
-						if (aPlayerIsOnEndTile && game.getCurrentPlayer() == game.getPlayers().size() - 1) {
+						if (aPlayerIsOnEndTile
+								&& serverSideGame.get().getCurrentPlayer()
+								== serverSideGame.get().getPlayers().size() - 1) {
 							determineWinner(serverSideGame.get());
 							serverSideGame.get().setStatus(GameStatus.FINISHED);
 						}
@@ -1577,7 +1577,7 @@ public class GameService {
 		if(counter == 1){
 			for (Player p : serverSideGame.getPlayers()){
 				if(p.getIsInGoal()){
-					p.setWinner(true);
+					p.switchWinner();
 					playerRepository.save(p);
 				}
 			}
@@ -1604,7 +1604,7 @@ public class GameService {
 					}
 				}
 				if(indexOfPlayersWithLargestAmountOfBlockades.size() == 1){
-					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(0)).setWinner(true);
+					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(0)).switchWinner();
 					playerRepository.save(serverSideGame.getPlayers()
 								    .get(indexOfPlayersWithLargestAmountOfBlockades.get(0)));
 				}
@@ -1629,7 +1629,7 @@ public class GameService {
 						}
 					}
 					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner))
-							.setWinner(true);
+							.switchWinner();
 					playerRepository.save(serverSideGame.getPlayers()
 									.get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner)));
 				}

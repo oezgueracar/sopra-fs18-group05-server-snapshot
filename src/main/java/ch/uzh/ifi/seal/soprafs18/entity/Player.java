@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -406,8 +405,8 @@ public class Player implements Serializable {
 		isInGoal = b;
 	}
 
-	public void setWinner(boolean winner){
-		this.winner = winner;
+	public void switchWinner(){
+		this.winner = !winner;
 	}
 
 	public void setColor(String newColor){
@@ -481,7 +480,7 @@ public class Player implements Serializable {
 		this.resetMoveCounter();
 		this.setIsInGoal(false);
 		if(this.winner){
-			this.setWinner(false);
+			this.switchWinner();
 		}
 		this.setBoughtCardId(0);
 		this.setChosenColor(null);
@@ -502,24 +501,6 @@ public class Player implements Serializable {
 		this.hand.add(new Scientist());
 		this.hand.add(new Transmitter());
 	}
-
-	// TODO: Organized structure: setup - play/buy/tradein - move from arrays to arrays - increase/decrease counters - resetter - getters - setters
-
-	// TODO: setups here
-
-	// TODO: play/buy/tradein
-
-	// TODO: Moving cards
-
-	// TODO: counters
-
-	// TODO: resetters
-
-	// TODO: getters here
-
-	// TODO: setters here
-
-
 
 	@Override
 	public boolean equals(Object o) {

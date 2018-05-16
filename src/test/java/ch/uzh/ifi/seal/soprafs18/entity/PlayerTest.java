@@ -1,11 +1,8 @@
 package ch.uzh.ifi.seal.soprafs18.entity;
 
-import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.entity.card.ExpeditionCard;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -280,7 +277,7 @@ public class PlayerTest {
 
     @Test
     public void setWinner(){
-        p.setWinner(true);
+        p.switchWinner();
         assertTrue(p.getWinner());
 
     }
