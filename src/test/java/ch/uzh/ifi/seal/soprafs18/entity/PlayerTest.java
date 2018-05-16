@@ -311,6 +311,17 @@ public class PlayerTest {
     }
 
     @Test
+    public void setupTest(){
+        p.setColor("green");
+        p.setup();
+        assertEquals("green", p.getPlayingPiece().getColor());
+        assertEquals(4,p.getHand().size());
+        assertEquals(0, p.getPlayedList().size());
+        assertEquals(0, p.getDiscardPile().size());
+
+    }
+
+    @Test
     public void setupFastForward(){
         p.setupFastForward("HillsOfGold");
 

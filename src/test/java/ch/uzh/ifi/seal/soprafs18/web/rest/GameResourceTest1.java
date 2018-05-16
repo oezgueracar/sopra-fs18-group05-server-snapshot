@@ -78,15 +78,6 @@ public class GameResourceTest1 {
         JsonNode player1 = om.createObjectNode();
         JsonNode player2 = om.createObjectNode();
 
-
-        /*((ArrayNode) playersNode1).add(player1);
-        ((ArrayNode) playersNode2).add(player2);
-        ((ObjectNode) game1).set("players", playersNode1);
-        ((ObjectNode) game2).set("players", playersNode2);
-        ((ObjectNode) gamePutSettings).put("name", "free exp for everyone - enter now").put("status", "ROOM").put("turnTime", 300).put("mapName", "HillsOfGold");
-*/
-        //A string of a POST request that should be sent to /games
-
         gameJson2 = om.writeValueAsString(game2);
         gameJsonPutSettings = om.writeValueAsString(gamePutSettings);
 
@@ -105,6 +96,7 @@ public class GameResourceTest1 {
     //Expected result: The player should not be added into the game.
     @Test
         public void integrationTestSetupAndStartGame() throws Exception {
+
 
         //Get request without any games
         mockMvc.perform(get("/games"))
@@ -227,29 +219,7 @@ public class GameResourceTest1 {
         System.out.println(gameJson);
 
 
-
-
-
-
-
-      /*  gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-       // System.out.println(gameJson);
-
-        //put req to fast forward
-        mockMvc.perform(put("games/1/fastForward")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(gameJson));
-        System.out.println("fast forward game 1");
-
-        gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-        System.out.println(gameJson);*/
-
-    }
-
-    @Test
-    public void buyCard() throws Exception{
-
-
+        // buycard ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         String p1Json = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p1Json);
 
@@ -270,25 +240,85 @@ public class GameResourceTest1 {
         int h31 = p1Json.indexOf("\"playedList\":[")+14;
         String help3 = p1Json.substring(h3,h31);
 
+
         int endhand = h3-10;
         String hand = p1Json.substring(h21,endhand);
+
+        System.out.println(hand);
 
         int h4 = h31;
         String help4 = p1Json.substring(h31,end);
 
-        String newPlayer = help1+1+help2+hand+help3+hand+help4;
+        String newPlayerx = help1+1+help2+help3+hand+help4;
+        String newPlayer = newPlayerx.replace("\"type\":\"PlayerMode2\",","");
+
+        System.out.println("new player");
+        System.out.println(newPlayer);
 
 
-        mockMvc.perform(put("games/1/players/2/cards")
+        mockMvc.perform(put("/games/1/players/2/cards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(newPlayer));
-               // .andExpect(status().isOk());
+//                .andExpect(status().isOk());
 
 
         String p1Json2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p1Json2);
 
-        System.out.println("fast forward game 1");
+
+
+        //Play cards--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        String testGame = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println("testGame");
+        System.out.println(testGame);
+
+        //get for test game status--------------------------------------------------------------------------------------------------------------
+        mockMvc.perform(get("/games/1/testSetup"))
+                .andExpect(status().isOk());
+
+        gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println("-------------------test game----"+gameJson);
+        String p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(p2);
+
+        // play pinoneer
+        mockMvc.perform(put("/games/1/players/2/cards/87")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(p2))
+                .andExpect(status().isOk());
+
+        //reste game
+        mockMvc.perform(get("/games/1/testSetup"))
+                .andExpect(status().isOk());
+        System.out.println("test game setup----------------------------------------------------------");
+
+        // play pinoneer
+            //set color to green
+        String p22 = p2.replace("\"chosenColor\": null,","\"chosenColor\": \"green\",");
+        mockMvc.perform(put("/games/1/players/2/cards/90")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(p2))
+                .andExpect(status().isOk());
+
+
+
+
+
+
+        //Get request for one player
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(p2);
+    }
+
+/*    @Test
+    public void buyCard() throws Exception{
+
 
     }
+
+    @Test
+    public void playExpeditionCard() throws Exception{
+
+    }*/
 }
