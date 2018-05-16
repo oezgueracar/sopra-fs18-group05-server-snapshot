@@ -7,7 +7,6 @@ import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.PlayerMode2;
 import ch.uzh.ifi.seal.soprafs18.entity.card.*;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Blockade;
-import ch.uzh.ifi.seal.soprafs18.entity.map.HillsOfGold;
 import ch.uzh.ifi.seal.soprafs18.entity.map.MapElement;
 import ch.uzh.ifi.seal.soprafs18.entity.map.Space;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static ch.uzh.ifi.seal.soprafs18.constant.GameStatus.ROOM;
@@ -103,6 +101,9 @@ public class GameService {
 			}
 		}
 		else if (serverSideGame.get().getPlayers().size() == 2) {
+			serverSideGame.get().getPlayers().get(0).setupTest();
+			serverSideGame.get().getPlayers().get(1).setupTest();
+
 			serverSideGame.get().getPlayers().get(0).getPlayingPiece()
 					.setPosition(53);
 			serverSideGame.get().getPlayers().get(0).getPlayingPiece2()
@@ -299,7 +300,8 @@ public class GameService {
 									if(c.getId() == serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
 											.getHand().get(i).getId()){
 										serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
-												.getDiscardPile().add(c);
+												.getDiscardPile().add(serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
+												.getHand().get(i));
 										serverSideGame.get().getPlayers().get(serverSideGame.get().getCurrentPlayer())
 												.getHand().remove(i);
 										break;
@@ -319,13 +321,15 @@ public class GameService {
 
 						//Check if a player is in El Dorado.
 						boolean aPlayerIsOnEndTile = false;
-						for (Player p : game.getPlayers()) {
+						for (Player p : serverSideGame.get().getPlayers()) {
 							if (p.getIsInGoal()) {
 								aPlayerIsOnEndTile = true;
 							}
 						}
 						//Change game to finished if a player is in El Dorado
-						if (aPlayerIsOnEndTile && game.getCurrentPlayer() + 1 == 0) {
+						if (aPlayerIsOnEndTile
+								&& serverSideGame.get().getCurrentPlayer()
+								== serverSideGame.get().getPlayers().size() - 1) {
 							determineWinner(serverSideGame.get());
 							serverSideGame.get().setStatus(GameStatus.FINISHED);
 						}
@@ -592,6 +596,8 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+												.getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
 												.getPosition());
 										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
@@ -617,6 +623,8 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+												.getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
 												.getPosition());
 										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
@@ -753,6 +761,8 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[0];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2()
+												.getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece2()
 												.setPosition(player.getPlayingPiece2().getPosition());
 										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
@@ -778,6 +788,8 @@ public class GameService {
 								playerMoveCounterValue = serverSidePlayer.get().getMoveCounter()[1];
 								if (playerMoveCounterValue >= toBeMovedSpace.getValue()) {
 									if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+										serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece2()
+												.getPosition()).switchOccupied();
 										serverSidePlayer.get().getPlayingPiece2()
 												.setPosition(player.getPlayingPiece2().getPosition());
 										serverSidePlayer.get().setMoveCounter((serverSidePlayer.get()
@@ -1062,6 +1074,8 @@ public class GameService {
 							|| toBeMovedSpace.getColor().equals("grey")
 							|| toBeMovedSpace.getColor().equals("red")) {
 						if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+							serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+									.getPosition()).switchOccupied();
 							serverSidePlayer.get().getPlayingPiece().setPosition(player.getPlayingPiece()
 									.getPosition());
 						}
@@ -1105,6 +1119,8 @@ public class GameService {
 							|| toBeMovedSpace.getColor().equals("grey")
 							|| toBeMovedSpace.getColor().equals("red")) {
 						if (serverSideGame.get().endTileIdArrayCheck(toBeMovedSpace.getId())) {
+							serverSideGame.get().getMap().getSpace(serverSidePlayer.get().getPlayingPiece()
+									.getPosition()).switchOccupied();
 							serverSidePlayer.get().getPlayingPiece2().setPosition(player.getPlayingPiece2()
 									.getPosition());
 						}
@@ -1562,7 +1578,8 @@ public class GameService {
 		if(counter == 1){
 			for (Player p : serverSideGame.getPlayers()){
 				if(p.getIsInGoal()){
-					p.setWinner();
+					p.switchWinner();
+					playerRepository.save(p);
 				}
 			}
 		}
@@ -1588,7 +1605,9 @@ public class GameService {
 					}
 				}
 				if(indexOfPlayersWithLargestAmountOfBlockades.size() == 1){
-					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(0)).setWinner();
+					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(0)).switchWinner();
+					playerRepository.save(serverSideGame.getPlayers()
+								    .get(indexOfPlayersWithLargestAmountOfBlockades.get(0)));
 				}
 				//Find the Player with the blockade that has the largest power value and declare him as winner
 				else if (indexOfPlayersWithLargestAmountOfBlockades.size() >= 2){
@@ -1611,7 +1630,9 @@ public class GameService {
 						}
 					}
 					serverSideGame.getPlayers().get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner))
-							.setWinner();
+							.switchWinner();
+					playerRepository.save(serverSideGame.getPlayers()
+									.get(indexOfPlayersWithLargestAmountOfBlockades.get(indexOfWinner)));
 				}
 			}
 		}
