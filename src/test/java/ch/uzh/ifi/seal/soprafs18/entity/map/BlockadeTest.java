@@ -28,4 +28,13 @@ public class BlockadeTest {
     public void getPowerValue(){
         assertEquals(1, b1.getPowerValue());
     }
+
+    @Test
+    public void equals(){
+        Blockade b2 = new Blockade("blue",1,1);
+
+        b1.equals(b1);
+        b1.equals(b2);
+        b1.equals(null);
+    }
 }
