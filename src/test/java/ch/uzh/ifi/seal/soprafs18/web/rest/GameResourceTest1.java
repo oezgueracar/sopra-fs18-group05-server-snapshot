@@ -282,24 +282,74 @@ public class GameResourceTest1 {
         String p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
 
-        // play pinoneer
+        // play Pioneer
         mockMvc.perform(put("/games/1/players/2/cards/87")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2))
                 .andExpect(status().isOk());
+        // move piece
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        String movedPlayer = p2.replace("\"position\":53","\"position\":54");
+        mockMvc.perform(put("/games/1/players/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(movedPlayer))
+                .andExpect(status().isOk());
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        // play Journalist
+        p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        mockMvc.perform(put("/games/1/players/2/cards/88")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(p2))
+                .andExpect(status().isOk());
+        System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
+        // move piece
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        movedPlayer = p2.replace("\"position\":54","\"position\":55");
+        mockMvc.perform(put("/games/1/players/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(movedPlayer))
+                .andExpect(status().isOk());
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        // play Capitain
+        p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        mockMvc.perform(put("/games/1/players/2/cards/89")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(p2))
+                .andExpect(status().isOk());
+        System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
+        // move piece
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        movedPlayer = p2.replace("\"position\":55","\"position\":62");
+        mockMvc.perform(put("/games/1/players/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(movedPlayer))
+                .andExpect(status().isOk());
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println("movedPlayer----"+p2);
 
-        //reste game
+
+
+
+        //reset game
         mockMvc.perform(get("/games/1/testSetup"))
                 .andExpect(status().isOk());
         System.out.println("test game setup----------------------------------------------------------");
 
-        // play pinoneer
+/*        // play multicolor
             //set color to green
-        String p22 = p2.replace("\"chosenColor\": null,","\"chosenColor\": \"green\",");
+        int place = p2.indexOf("\"chosenColor\":null,");
+
+        String p22 = p2.replace("\"chosenColor\":null,","\"chosenColor\":\"blue\",");
+
+        System.out.println(p2);
+        System.out.println(p22);
+
         mockMvc.perform(put("/games/1/players/2/cards/90")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(p2))
-                .andExpect(status().isOk());
+                .content(p22))
+                .andExpect(status().isOk());*/
+
+
 
 
 
