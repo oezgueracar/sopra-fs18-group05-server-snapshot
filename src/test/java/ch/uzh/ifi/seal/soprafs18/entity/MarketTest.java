@@ -52,7 +52,7 @@ public class MarketTest {
         }
     }
 
-/*    @Test
+    @Test
     public void removeTransmitter() {
         for (int i = 0; i < n.getOpenSlots().size(); i++) {
 
@@ -82,7 +82,7 @@ public class MarketTest {
             n.removeTransmitter(n.getClosedSlots().get(i)[0].getId());
             assertNull(n.getClosedSlots().get(i));
         }
-    }*/
+    }
 
     @Test
     public void setup(){
