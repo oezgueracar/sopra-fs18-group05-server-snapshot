@@ -208,7 +208,7 @@ public class Swamplands extends Map {
         tile5	.addRow6(	new Space(	"green"	,	179	,	2	,	false,	false));
         tile5	.addRow6(	new Space(	"blue"	,	180	,	2	,	false,	false));
         tile5	.addRow6(	new Space(	"green"	,	181	,	1	,	false,	false));
-        tile5	.addRow7(	new Space(	"black"	,	182	,	0	,	true,	true));
+        tile5	.addRow7(	new Space(	"black"	,	182	,	0	,	false,	false));
         tile5	.addRow7(	new Space(	"grey"	,	183	,	1	,	false,	true));
         tile5	.addRow7(	new Space(	"grey"	,	184	,	1	,	false,	true));
         tile5	.addRow7(	new Space(	"green"	,	185	,	1	,	false,	true));

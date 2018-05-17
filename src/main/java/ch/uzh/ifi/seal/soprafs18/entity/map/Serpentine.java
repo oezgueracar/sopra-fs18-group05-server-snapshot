@@ -141,7 +141,7 @@ public class Serpentine extends Map {
         tile3	.addRow6(	new Space(	"green"	,	179	,	2	,	false,	false));
         tile3	.addRow6(	new Space(	"blue"	,	180	,	2	,	false,	false));
         tile3	.addRow6(	new Space(	"green"	,	181	,	1	,	false,	false));
-        tile3	.addRow7(	new Space(	"black"	,	182	,	0	,	true,	true));
+        tile3	.addRow7(	new Space(	"black"	,	182	,	0	,	false,	false));
         tile3	.addRow7(	new Space(	"grey"	,	183	,	1	,	true,	false));
         tile3	.addRow7(	new Space(	"grey"	,	184	,	1	,	true,	false));
         tile3	.addRow7(	new Space(	"green"	,	185	,	1	,	true,	false));
@@ -167,7 +167,7 @@ public class Serpentine extends Map {
         tile4	.addRow3(	new Space(	"grey"	,	235	,	1	,	false,	false));
         tile4	.addRow3(	new Space(	"yellow",	236	,	1	,	false,	false));
         tile4	.addRow3(	new Space(	"green"	,	237	,	1	,	false,	false));
-        tile4	.addRow4(	new Space(	"black"	,	238	,	0	,	true,	true));
+        tile4	.addRow4(	new Space(	"black"	,	238	,	0	,	false,	false));
         tile4	.addRow4(	new Space(	"black"	,	239	,	0	,	false,	false));
         tile4	.addRow4(	new Space(	"yellow",	240	,	4	,	false,	false));
         tile4	.addRow4(	new Space(	"yellow",	241	,	3	,	false,	false));
