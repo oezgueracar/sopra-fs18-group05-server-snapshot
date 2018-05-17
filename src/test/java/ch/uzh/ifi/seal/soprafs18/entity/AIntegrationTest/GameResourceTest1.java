@@ -313,7 +313,7 @@ public class GameResourceTest1 {
                 .andExpect(status().isOk()); //expected 200, is 400
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
-        /*// move piece
+        // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         String movedPlayer = p2.replace("\"position\":53","\"position\":54");
         mockMvc.perform(put("/games/1/players/2")
@@ -376,7 +376,7 @@ public class GameResourceTest1 {
                 .andExpect(status().isOk());*/
 
 
-        /*//Get request for one player
+        //Get request for one player
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
 
@@ -414,7 +414,7 @@ public class GameResourceTest1 {
         //put req on game1 to start
         mockMvc.perform(put("/games/6/fastForward")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(ff));*/
+                .content(ff));
 
 
     }
