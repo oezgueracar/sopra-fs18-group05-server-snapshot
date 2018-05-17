@@ -537,6 +537,7 @@ public class GameService {
 					}
 					else {
 						toBePlayedCard.play(serverSidePlayer.get());
+						System.out.println("Test");
 					}
 				}
 				else if (cardId == -1) { //If the player has discarded cards from his hand with Scientist or TravelLog,

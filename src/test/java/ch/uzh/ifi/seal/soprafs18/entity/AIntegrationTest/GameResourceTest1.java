@@ -3,10 +3,12 @@ package ch.uzh.ifi.seal.soprafs18.entity.AIntegrationTest;
 import ch.uzh.ifi.seal.soprafs18.Application;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
+import ch.uzh.ifi.seal.soprafs18.entity.PlayerMode2;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import ch.uzh.ifi.seal.soprafs18.service.GameService;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -283,7 +285,21 @@ public class GameResourceTest1 {
         String p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
 
-        // play Pioneer
+        //Create a player from a String
+        p5 = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).readValue(p2, PlayerMode2.class);
+
+        System.out.println("-----------------------------------------------------------------------------------------");
+
+        Player p6 = gameService.playCard(new Long(1),new Long(2),p5,87);
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+
+        assertEquals(new ObjectMapper().writeValueAsString(p6),p2);
+
+        System.out.println("-------------------test game2----"+gameJson);
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(p2);
+
+        /*// play Pioneer
         mockMvc.perform(put("/games/1/players/2/cards/87")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(p2))
@@ -336,7 +352,7 @@ public class GameResourceTest1 {
         //reset game
         mockMvc.perform(get("/games/1/testSetup"))
                 .andExpect(status().isOk());
-        System.out.println("test game setup----------------------------------------------------------");
+        System.out.println("test game setup----------------------------------------------------------");*/
 
 /*        // play multicolor
             //set color to green
