@@ -54,7 +54,7 @@ public class Market implements Serializable {
             JackOfAllTrades[i] = new MulticolorCard(2, 0.5f, "Jack-of-all-Trades", "multicolor", 1, false);
         }
         for(int i = 0; i<3; i++){
-            photographer[i] = new ExpeditionCard(2, 2f, "Photographer", "yellow", 3, false);
+            photographer[i] = new ExpeditionCard(2, 2f, "Photographer", "yellow", 2, false);
         }
         for(int i = 0; i<3; i++){
             treasureChest[i] = new ExpeditionCard(3, 4f, "Treasure Chest", "yellow", 4, true);
