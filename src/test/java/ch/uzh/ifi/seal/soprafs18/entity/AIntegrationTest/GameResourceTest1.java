@@ -388,7 +388,7 @@ public class GameResourceTest1 {
 
 
 
-
+        // 2Player mode start -----------------------------------------------------------------------------------------
         //create Game with a leader
         String gameAsJson2 = mockMvc.perform(post("/games")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -407,7 +407,8 @@ public class GameResourceTest1 {
         //put on player with id 3-5 to set himself ready
         mockMvc.perform(put("/games/6/players/8")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"));
+                .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
+            .andExpect(status().isOk());
 
         //put req on game1 to start
         mockMvc.perform(put("/games/6")

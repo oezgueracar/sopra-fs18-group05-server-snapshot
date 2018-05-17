@@ -285,7 +285,7 @@ public class Swamplands extends Map {
 
         //Tile T
         MapElement tile8 = new EndTile();
-        tile7.setRotation(135);
+        tile8.setRotation(135);
 
         tile8	.addRow1(	new Space(	"blue"	,	583	,	1	,false,	false));
         tile8	.addRow1(	new Space(	"blue"	,	584	,	1	,false,	false));
