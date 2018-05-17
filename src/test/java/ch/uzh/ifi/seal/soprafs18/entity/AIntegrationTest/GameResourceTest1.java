@@ -351,13 +351,22 @@ public class GameResourceTest1 {
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-        movedPlayer = p2.replace("\"position\":55","\"position\":62");
+        movedPlayer = p2.replace("\"position\":104","\"position\":99");
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer))
                 .andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println("movedPlayer----"+p2);
+        //play native
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        movedPlayer = p2.replace("\"position\":99","\"position\":105");
+        mockMvc.perform(put("/games/1/players/2/cards/93")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(movedPlayer))
+                .andExpect(status().isOk());
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(p2);
 
 
 
@@ -392,28 +401,26 @@ public class GameResourceTest1 {
         //create Game with a leader
         String gameAsJson2 = mockMvc.perform(post("/games")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"players\": [ { \"name\": \"Michinat\", \"type\": \"PlayerMode2\" } ] }"))
+                .content("{ \"players\":[{\"name\":\"Michinat\",\"type\":\"PlayerMode2\"}]}"))
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
-        System.out.println("created game with leader");
+        System.out.println("created game with leader" + gameAsJson2);
 
         mockMvc.perform(post("/games/6/players")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"name\": \"Mikinat\" , \"type\": \"PlayerMode2\"}"))
+                .content("{\"name\":\"Mikinat\",\"type\":\"PlayerMode2\"}"))
                 .andExpect(status().isCreated());
         System.out.println("added a second player");
 
-        mockMvc.perform((get("/games/6")));
-
-        //put on player with id 3-5 to set himself ready
+        //put on player with id 8 to set himself ready
         mockMvc.perform(put("/games/6/players/8")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"))
+                .content("{\"type\":\"PlayerMode2\",\"ready\":true,\"color\":\"blue\"}"))
             .andExpect(status().isOk());
 
         //put req on game1 to start
         mockMvc.perform(put("/games/6")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"name\": \"free exp for everyone - enter now\", \"status\": \"PENDING\", \"turnTime\": 120, \"mapName\": \"HillsOfGold\" }"))
+                .content("{\"name\":\"free exp for everyone - enter now\",\"status\":\"PENDING\",\"turnTime\":120,\"mapName\":\"HillsOfGold\"}"))
                 .andExpect(status().isOk());
 
 
@@ -422,7 +429,8 @@ public class GameResourceTest1 {
         mockMvc.perform(put("/games/6/fastForward")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(ff));
-
+        ff = mockMvc.perform(get("/games/6").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        System.out.println(ff);
 
     }
 
