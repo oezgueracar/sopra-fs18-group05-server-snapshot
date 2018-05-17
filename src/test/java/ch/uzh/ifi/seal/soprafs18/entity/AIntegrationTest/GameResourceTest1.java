@@ -334,8 +334,8 @@ public class GameResourceTest1 {
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         movedPlayer = p2.replace("\"position\":109","\"position\":104");
         movedPlayer = movedPlayer.replace(",{\"id\":90,\"buyingCost\":2.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Jack-of-all-Trades\",\"value\":1,\"color\":\"multicolor\",\"chosenColor\":null}","");
-        movedPlayer = movedPlayer.replace("\"playedList\":[{\"id\":87,\"buyingCost\":5.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Pioneer\",\"value\":5,\"color\":\"green\"},{\"id\":88,\"buyingCost\":3.0,\"goldValue\":0.5,\"itemCard\":false,\"card" +
-                "Name\":\"Journalist\",\"value\":3,\"color\":\"yellow\"}]","\"playedList\":[{\"id\":87,\"buyingCost\":5.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Pioneer\",\"value\":5,\"color\":\"green\"},{\"id\":88,\"buyingCost\":3.0,\"goldValue\":0.5,\"itemCard\":false,\"card" +
+        movedPlayer = movedPlayer.replace("\"playedList\":[{\"id\":87,\"buyingCost\":5.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Pioneer\",\"value\":5,\"color\":\"green\"},{\"id\":88,\"buyingCost\":3.0,\"goldValue\":3.0,\"itemCard\":false,\"card" +
+                "Name\":\"Journalist\",\"value\":3,\"color\":\"yellow\"}]","\"playedList\":[{\"id\":87,\"buyingCost\":5.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Pioneer\",\"value\":5,\"color\":\"green\"},{\"id\":88,\"buyingCost\":3.0,\"goldValue\":3.0,\"itemCard\":false,\"card" +
                 "Name\":\"Journalist\",\"value\":3,\"color\":\"yellow\"},{\"id\":90,\"buyingCost\":2.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Jack-of-all-Trades\",\"value\":1,\"color\":\"multicolor\",\"chosenColor\":null}]");
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)

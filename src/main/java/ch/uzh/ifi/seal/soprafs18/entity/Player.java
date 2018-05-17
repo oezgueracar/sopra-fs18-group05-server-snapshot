@@ -461,16 +461,19 @@ public class Player implements Serializable {
 				this.getHand().clear();
 				this.getDeck().clear();
 				this.blockades.clear();
-				for(int i = 0; i < 3; i++){
+				for(int i = 0; i < 2; i++){
 					this.getHand().add(new ExpeditionCard(1, 0.5f, "Explorer",
 							"green", 1, false));
 				}
 				this.getHand().add(new ExpeditionCard(1, 0.5f, "Sailor",
 						"blue", 1, false));
-				for(int i = 0; i < 4; i++){
-					this.getDeck().add(new ExpeditionCard(1, 0.5f, "Explorer",
-							"green", 1, false));
-				}
+				this.getHand().add(new Compass());
+				this.getDeck().add(new MulticolorCard(2, 0.5f,
+						"Jack-of-all-Trades", "multicolor", 1, false));
+				this.getDeck().add(new Native());
+				this.getDeck().add(new ExpeditionCard(5, 0.5f, "Pioneer", "green", 5, false));
+				this.getDeck().add(new ExpeditionCard(1, 0.5f, "Explorer",
+						"green", 1, false));
 		}
 	}
 
@@ -492,7 +495,7 @@ public class Player implements Serializable {
 		this.playedList.clear();
 		this.discardPile.clear();
 		this.hand.add(new ExpeditionCard(5, 0.5f, "Pioneer", "green", 5, false));
-		this.hand.add(new ExpeditionCard(3, 0.5f, "Journalist", "yellow", 3, false));
+		this.hand.add(new ExpeditionCard(3, 3f, "Journalist", "yellow", 3, false));
 		this.hand.add(new ExpeditionCard(2, 0.5f, "Captain", "blue", 3, false));
 		this.hand.add(new MulticolorCard(2, 0.5f, "Jack-of-all-Trades", "multicolor", 1, false));
 		this.hand.add(new Cartographer());
