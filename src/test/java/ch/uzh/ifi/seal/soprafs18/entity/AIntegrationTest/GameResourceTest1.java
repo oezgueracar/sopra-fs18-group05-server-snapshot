@@ -291,9 +291,12 @@ public class GameResourceTest1 {
         System.out.println("-----------------------------------------------------------------------------------------");
 
         Player p6 = gameService.playCard(new Long(1),new Long(2),p5,87);
-        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
 
-        assertEquals(new ObjectMapper().writeValueAsString(p6),p2);
+        assertEquals(new ObjectMapper().writeValueAsString(p6),"{\"type\":\"PlayerMode2\",\"id\":2,\"type\":\"Player\",\"name\":\"Michinat\",\"color\":\"red\",\"ready\":true,\"coins\":0.0,\"isInGoal\":false,\"winner\":false,\"gameId\":1,\"boughtCardId\":0,\"chosenColor\":null,\"hand\":[{\"id\":88,\"buyingCost\":3.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Jou" +
+                "rnalist\",\"value\":3,\"color\":\"yellow\"},{\"id\":89,\"buyingCost\":2.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Captain\",\"value\":3,\"color\":\"blue\"},{\"id\":90,\"buyingCost\":2.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Jack-of-all-Trades\",\"value\":1,\"color\":\"multicolor\",\"c" +
+                "hosenColor\":null},{\"id\":91,\"buyingCost\":4.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Cartographer\"},{\"id\":92,\"buyingCost\":2.0,\"goldValue\":0.5,\"itemCard\":true,\"cardName\":\"Compass\"},{\"id\":93,\"buyingCost\":5.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Native\"},{\"i" +
+                "d\":94,\"buyingCost\":4.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Scientist\"},{\"id\":95,\"buyingCost\":4.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Transmitter\"}],\"deck\":[],\"discardPile\":[],\"playedList\":[{\"id\":87,\"buyingCost\":5.0,\"goldValue\":0.5,\"itemCard\":false,\"" +
+                "cardName\":\"Pioneer\",\"value\":5,\"color\":\"green\"}],\"blockades\":[],\"moveCounter\":[5,0,0],\"assignedPiece\":{\"color\":\"red\",\"position\":53},\"assignedPiece2\":{\"color\":\"red\",\"position\":0}}");
 
         System.out.println("-------------------test game2----"+gameJson);
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
