@@ -405,7 +405,7 @@ public class GameResourceTest1 {
         mockMvc.perform((get("/games/6")));
 
         //put on player with id 3-5 to set himself ready
-        mockMvc.perform(put("/games/6/players/3")
+        mockMvc.perform(put("/games/6/players/8")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"type\": \"PlayerMode2\", \"ready\": true, \"color\": \"blue\" }"));
 
