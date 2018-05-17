@@ -15,6 +15,10 @@ public class Card implements Serializable {
 
 	public void play(Player player){}
 
+	public static void resetStatic(){
+		count = 0;
+	}
+
 	protected long getNewId(){
 		count++;
 		return count;

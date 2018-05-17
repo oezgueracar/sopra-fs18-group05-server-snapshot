@@ -4,6 +4,7 @@ import ch.uzh.ifi.seal.soprafs18.Application;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
 import ch.uzh.ifi.seal.soprafs18.entity.PlayerMode2;
+import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import ch.uzh.ifi.seal.soprafs18.service.GameService;
@@ -114,6 +115,8 @@ public class GameResourceTest1 {
         p3 = new Player();
         p4 = new Player();
         p5 = new Player();
+
+        Card.resetStatic();
     }
 
     //If you add a player, then addPlayer() is invoked. This method should not put a player into a game if a player with the same id is already in the game.
@@ -304,10 +307,10 @@ public class GameResourceTest1 {
         System.out.println(p2);*/
 
         // play Pioneer
-        System.out.println(mockMvc.perform(put("/games/1/players/2/cards/87")
+        mockMvc.perform(put("/games/1/players/2/cards/87")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(p2)).andReturn().getResponse().getErrorMessage());
-                //.andExpect(status().isOk()); //expected 200, is 400
+                .content(p2))
+                .andExpect(status().isOk()); //expected 200, is 400
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
         /*// move piece
