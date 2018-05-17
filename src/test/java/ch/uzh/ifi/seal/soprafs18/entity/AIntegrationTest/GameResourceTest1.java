@@ -3,10 +3,13 @@ package ch.uzh.ifi.seal.soprafs18.entity.AIntegrationTest;
 import ch.uzh.ifi.seal.soprafs18.Application;
 import ch.uzh.ifi.seal.soprafs18.entity.Game;
 import ch.uzh.ifi.seal.soprafs18.entity.Player;
+import ch.uzh.ifi.seal.soprafs18.entity.PlayerMode2;
+import ch.uzh.ifi.seal.soprafs18.entity.card.Card;
 import ch.uzh.ifi.seal.soprafs18.repository.GameRepository;
 import ch.uzh.ifi.seal.soprafs18.repository.PlayerRepository;
 import ch.uzh.ifi.seal.soprafs18.service.GameService;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -16,9 +19,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +33,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -66,7 +74,7 @@ public class GameResourceTest1 {
     Player p1;
     String player1Json;
     String player2Json;
-    Player p2;
+    Player pla2;
     Player p3;
     Player p4;
     Player p5;
@@ -103,10 +111,12 @@ public class GameResourceTest1 {
         player2Json = om.writeValueAsString(player2);
 
         p1 = new Player();
-        p2 = new Player();
+        pla2 = new Player();
         p3 = new Player();
         p4 = new Player();
         p5 = new Player();
+
+        Card.resetStatic();
     }
 
     //If you add a player, then addPlayer() is invoked. This method should not put a player into a game if a player with the same id is already in the game.
@@ -213,7 +223,7 @@ public class GameResourceTest1 {
 
         gameJson = mockMvc.perform(get("/games/1").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
 
-System.out.println("-------------------------------------buy card---------------------------");
+/*System.out.println("-------------------------------------buy card---------------------------");
 
         // buycard ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         String p1Json = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
@@ -260,7 +270,7 @@ System.out.println("-------------------------------------buy card---------------
 
 
         String p1Json2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-        System.out.println(p1Json2);
+        System.out.println(p1Json2);*/
 
 
 
@@ -286,7 +296,7 @@ System.out.println("-------------------------------------buy card---------------
                 .andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         System.out.println(p2);
-        // move piece
+        // move piece twice
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         String movedPlayer = p2.replace("\"position\":53","\"position\":54");
         mockMvc.perform(put("/games/1/players/2")
@@ -294,6 +304,18 @@ System.out.println("-------------------------------------buy card---------------
                 .content(movedPlayer))
                 .andExpect(status().isOk());
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        movedPlayer = p2.replace("\"position\":54","\"position\":47");
+        mockMvc.perform(put("/games/1/players/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(movedPlayer))
+                .andExpect(status().isOk());
+        //remove first blockade
+        p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        movedPlayer = p2.replace("\"blockades\":[]", "\"blockades\":[{\"color\":\"green\",\"value\":1,\"powerValue\":1,\"row1\":null,\"row2\":null,\"row3\":null,\"row4\":null,\"row5\":null,\"row6\":null,\"row7\":null}]");
+        mockMvc.perform(put("/games/1/players/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(movedPlayer))
+                .andExpect(status().isOk());
         // play Journalist
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/88")
@@ -303,12 +325,23 @@ System.out.println("-------------------------------------buy card---------------
         System.out.println(mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString());
         // move piece
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-        movedPlayer = p2.replace("\"position\":54","\"position\":55");
+        movedPlayer = p2.replace("\"position\":47","\"position\":109");
         mockMvc.perform(put("/games/1/players/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(movedPlayer))
                 .andExpect(status().isOk());
+        //move piece to grey space
         p2 = mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+        movedPlayer = p2.replace("\"position\":109","\"position\":104");
+        movedPlayer = movedPlayer.replace(",{\"id\":90,\"buyingCost\":2.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Jack-of-all-Trades\",\"value\":1,\"color\":\"multicolor\",\"chosenColor\":null}","");
+        movedPlayer = movedPlayer.replace("\"playedList\":[{\"id\":87,\"buyingCost\":5.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Pioneer\",\"value\":5,\"color\":\"green\"},{\"id\":88,\"buyingCost\":3.0,\"goldValue\":0.5,\"itemCard\":false,\"card" +
+                "Name\":\"Journalist\",\"value\":3,\"color\":\"yellow\"}]","\"playedList\":[{\"id\":87,\"buyingCost\":5.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Pioneer\",\"value\":5,\"color\":\"green\"},{\"id\":88,\"buyingCost\":3.0,\"goldValue\":0.5,\"itemCard\":false,\"card" +
+                "Name\":\"Journalist\",\"value\":3,\"color\":\"yellow\"},{\"id\":90,\"buyingCost\":2.0,\"goldValue\":0.5,\"itemCard\":false,\"cardName\":\"Jack-of-all-Trades\",\"value\":1,\"color\":\"multicolor\",\"chosenColor\":null}]");
+        mockMvc.perform(put("/games/1/players/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(movedPlayer))
+                .andExpect(status().isOk());
+        p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         // play Capitain
         p2= mockMvc.perform(get("/games/1/players/2").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
         mockMvc.perform(put("/games/1/players/2/cards/89")
