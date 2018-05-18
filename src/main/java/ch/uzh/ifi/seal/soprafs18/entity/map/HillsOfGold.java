@@ -356,6 +356,8 @@ public class HillsOfGold extends Map {
         tile4.getRow3().get(5).getNeighbours()[0] = tile5.getRow5().get(0).getId();
         tile4.getRow3().get(5).getNeighbours()[1] = tile5.getRow6().get(0).getId();
         tile4.getRow4().get(6).getNeighbours()[0] = tile5.getRow6().get(0).getId();
+        tile4.getRow4().get(6).getNeighbours()[1] = tile5.getRow7().get(0).getId();
+
 
         tile5.getRow4().get(0).getNeighbours()[4] = tile4.getRow1().get(3).getId();
         tile5.getRow4().get(0).getNeighbours()[3] = tile4.getRow2().get(4).getId();
@@ -773,6 +775,7 @@ public class HillsOfGold extends Map {
         tile4.getRow3().get(5).getNeighbours()[0] = tile5.getRow5().get(0).getId();
         tile4.getRow3().get(5).getNeighbours()[1] = tile5.getRow6().get(0).getId();
         tile4.getRow4().get(6).getNeighbours()[0] = tile5.getRow6().get(0).getId();
+        tile4.getRow4().get(6).getNeighbours()[1] = tile5.getRow7().get(0).getId();
 
         tile5.getRow4().get(0).getNeighbours()[4] = tile4.getRow1().get(3).getId();
         tile5.getRow4().get(0).getNeighbours()[3] = tile4.getRow2().get(4).getId();
